@@ -1,22 +1,11 @@
 import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-
-const DATA = [
-  {
-    name: 'Aguardiente',
-    state: true
-  },
-  {
-    name: 'Tequila',
-    state: true
-  },
-  {
-    name: 'Ron',
-    state: false
-  }
-];
+import { CreateCategoryDialogComponent } from '../../components/create-category-dialog/create-category-dialog.component';
+import { Category } from '../../interfaces/category.interfaces';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-list-all',
@@ -26,24 +15,38 @@ const DATA = [
 export class ListAllComponent implements AfterViewInit, OnInit 
 {
   displayedColumns = ['name', 'state', 'actions'];
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<Category>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() 
+  constructor(
+    private categoryService: CategoryService,
+    public dialog: MatDialog
+  ) 
   { 
     this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void 
-  {
-    this.dataSource.data = DATA;
+  {    
+    this.loadData();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  loadData()
+  {
+    this.categoryService.getAllCategories()
+    .subscribe(res => {
+      this.dataSource.data = res.categories;
+    },
+    error => {
+      console.log(error);
+    });
   }
 
   applyFilter(event: Event) 
@@ -54,6 +57,11 @@ export class ListAllComponent implements AfterViewInit, OnInit
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openCreateDialog()
+  {
+    this.dialog.open(CreateCategoryDialogComponent);
   }
 
 }
