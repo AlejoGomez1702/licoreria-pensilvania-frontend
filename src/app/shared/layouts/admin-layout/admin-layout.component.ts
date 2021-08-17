@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 })
 export class AdminLayoutComponent implements OnInit 
 {
+  panelOpenState = false;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),

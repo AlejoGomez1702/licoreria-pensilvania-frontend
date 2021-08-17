@@ -1,17 +1,54 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport 
+  <mat-sidenav #drawer class="sidenav" fixedInViewport color="primary"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Dashboard</mat-toolbar>
+    <!-- <mat-toolbar color="primary">Dashboard</mat-toolbar> -->
+    <div class="example-button-container text-center mt-3">
+        <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+          <mat-icon>person</mat-icon>
+        </button>
+    </div>
     <mat-nav-list>
       <a mat-list-item [routerLink]="['/dashboard']">
         <mat-icon mat-list-icon>dashboard</mat-icon>
         Panel Principal
       </a>
       <mat-divider></mat-divider>
-      <div mat-subheader>Personas</div>
-      <a mat-list-item [routerLink]="['/dashboard/users']">
+      <div mat-subheader>Opciones</div>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon mat-list-icon>local_drink</mat-icon>
+                <span class="mt-1">Productos</span>                
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+      <mat-divider></mat-divider>
+      <div mat-subheader>General</div>
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon mat-list-icon>settings</mat-icon>
+                <span class="mt-1">Configuraciones</span>                
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+      <!-- <a mat-list-item [routerLink]="['/dashboard/users']">
         <mat-icon mat-list-icon>remove_red_eye</mat-icon>
         Ver Todas
       </a>
@@ -22,7 +59,7 @@
       <a mat-list-item [routerLink]="['/dashboard/users/create']">
         <mat-icon mat-list-icon>add</mat-icon>
         Agregar
-      </a>
+      </a> -->
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -34,7 +71,7 @@
         (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Corporación Pensilvania Primero</span>
+      <span class="ml-4">Licorería Pensilvania</span>
     </mat-toolbar>
     
     <!-- Main Content -->

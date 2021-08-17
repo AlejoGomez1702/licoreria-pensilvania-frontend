@@ -14,7 +14,7 @@
             <h1 class="text-center"><strong>Iniciar Sesión</strong></h1>
             <!-- <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> -->
           </div>
-          <form action="#" method="post">
+          <div action="#" method="post">
             <div class="form-group first">
               <label for="username">Email</label>
               <input type="text" class="form-control" id="username">
@@ -35,7 +35,7 @@
             </div>
 
             <!-- <input type="submit" value="Log In" class="btn text-white btn-block btn-primary"> -->
-            <a type="submit" [routerLink]="['/dashboard']" mat-raised-button color="primary" class="btn-block">Login</a>
+            <button (click)="goToDashboard()" mat-raised-button color="primary" class="btn-block">Login</button>
 
             <span class="d-block text-center my-4 text-muted"> o inicia sesión con:</span>
             
@@ -52,7 +52,7 @@
                 Aún no tienes una cuenta?
                 <a href="">Registrate</a>
             </div>
-          </form>
+          </div>
           </div>
         </div>
         
