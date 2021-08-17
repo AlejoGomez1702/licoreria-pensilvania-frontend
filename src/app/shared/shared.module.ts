@@ -11,9 +11,12 @@ import { ProductsSectionComponent } from './index/products-section/products-sect
 import { AlcoholBannerComponent } from './index/alcohol-banner/alcohol-banner.component';
 import { FooterComponent } from './index/footer/footer.component';
 import { LoaderComponent } from './index/loader/loader.component';
+import { MaterialModule } from './material/material.module';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
+    // Components
     IndexComponent,
     SmallHeaderComponent,
     MainHeaderComponent,
@@ -23,11 +26,15 @@ import { LoaderComponent } from './index/loader/loader.component';
     ProductsSectionComponent,
     AlcoholBannerComponent,
     FooterComponent,
-    LoaderComponent
-    // StylesComponent,
+    LoaderComponent,
+    ErrorPageComponent,
+
+    // Modules
+    // MaterialModule
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     FormsModule,
     ReactiveFormsModule
   ],
