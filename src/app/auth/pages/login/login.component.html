@@ -1,63 +1,63 @@
 <div class="content">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 order-md-2">
-          <img src="assets/login/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
-          <div class="text-center">
-            <button mat-raised-button color="accent" (click)="goToHome()">Volver Al Inicio</button>
-          </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 order-md-2">
+        <img src="assets/login/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
+        <div class="text-center">
+          <button mat-raised-button color="accent" (click)="goToHome()">Volver Al Inicio</button>
         </div>
-        <div class="col-md-6 contents">
-          <div class="row justify-content-center">
-            <div class="col-md-8">
-              <div class="mb-4">
-              <h1 class="text-center"><strong>Iniciar Sesión</strong></h1>
-              <!-- <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> -->
-            </div>
-            <form action="#" method="post">
-              <div class="form-group first">
-                <label for="username">Email</label>
-                <input type="text" class="form-control" id="username">
-
-              </div>
-              <div class="form-group last mb-4">
-                <label for="password">Contraseña</label>
-                <input type="password" class="form-control" id="password">
-                
-              </div>
-              
-              <div class="d-flex mb-5 align-items-center">
-                <label class="control control--checkbox mb-0"><span class="caption">Recordar</span>
-                  <input type="checkbox" checked="checked"/>
-                  <div class="control__indicator"></div>
-                </label>
-                <span class="ml-auto"><a href="#" class="forgot-pass">Olvide mi contraseña</a></span> 
-              </div>
-
-              <!-- <input type="submit" value="Log In" class="btn text-white btn-block btn-primary"> -->
-              <button type="submit" mat-raised-button color="primary" class="btn-block">Login</button>
-
-              <span class="d-block text-center my-4 text-muted"> o inicia sesión con:</span>
-              
-              <div class="social-login text-center">
-                <a href="#" class="facebook">
-                  <span class="icon-facebook mr-3"></span> 
-                </a>
-                <a href="#" class="google">
-                  <span class="icon-google mr-3"></span> 
-                </a>
-              </div>
-
-              <div class="text-center">
-                  Aún no tienes una cuenta?
-                  <a href="">Registrate</a>
-              </div>
-            </form>
-            </div>
+      </div>
+      <div class="col-md-6 contents">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="mb-4">
+            <h1 class="text-center"><strong>Iniciar Sesión</strong></h1>
+            <!-- <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p> -->
           </div>
-          
+          <form action="#" method="post">
+            <div class="form-group first">
+              <label for="username">Email</label>
+              <input type="text" class="form-control" id="username">
+
+            </div>
+            <div class="form-group last mb-4">
+              <label for="password">Contraseña</label>
+              <input type="password" class="form-control" id="password">
+              
+            </div>
+            
+            <div class="d-flex mb-5 align-items-center">
+              <label class="control control--checkbox mb-0"><span class="caption">Recordar</span>
+                <input type="checkbox" checked="checked"/>
+                <div class="control__indicator"></div>
+              </label>
+              <span class="ml-auto"><a href="#" class="forgot-pass">Olvide mi contraseña</a></span> 
+            </div>
+
+            <!-- <input type="submit" value="Log In" class="btn text-white btn-block btn-primary"> -->
+            <a type="submit" [routerLink]="['/dashboard']" mat-raised-button color="primary" class="btn-block">Login</a>
+
+            <span class="d-block text-center my-4 text-muted"> o inicia sesión con:</span>
+            
+            <div class="social-login text-center">
+              <a href="#" class="facebook">
+                <span class="icon-facebook mr-3"></span> 
+              </a>
+              <a href="#" class="google">
+                <span class="icon-google mr-3"></span> 
+              </a>
+            </div>
+
+            <div class="text-center">
+                Aún no tienes una cuenta?
+                <a href="">Registrate</a>
+            </div>
+          </form>
+          </div>
         </div>
         
       </div>
+      
     </div>
+  </div>
 </div>

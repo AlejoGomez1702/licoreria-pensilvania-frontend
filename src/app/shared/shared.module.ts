@@ -13,6 +13,8 @@ import { FooterComponent } from './index/components/footer/footer.component';
 import { LoaderComponent } from './index/components/loader/loader.component';
 import { MaterialModule } from './material/material.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -28,12 +30,14 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     FooterComponent,
     LoaderComponent,
     ErrorPageComponent,
+    AdminLayoutComponent,
 
     // Modules
     // MaterialModule
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule
@@ -50,7 +54,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     ProductsSectionComponent,
     AlcoholBannerComponent,
     FooterComponent,
-    LoaderComponent
+    LoaderComponent,
+    AdminLayoutComponent
   ]
 })
 export class SharedModule { }

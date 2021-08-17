@@ -1,0 +1,44 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport 
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Dashboard</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/dashboard']">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        Panel Principal
+      </a>
+      <mat-divider></mat-divider>
+      <div mat-subheader>Personas</div>
+      <a mat-list-item [routerLink]="['/dashboard/users']">
+        <mat-icon mat-list-icon>remove_red_eye</mat-icon>
+        Ver Todas
+      </a>
+      <a mat-list-item [routerLink]="['/dashboard/users/blacklist']">
+        <mat-icon mat-list-icon>format_list_bulleted</mat-icon>
+        Lista Negra
+      </a>
+      <a mat-list-item [routerLink]="['/dashboard/users/create']">
+        <mat-icon mat-list-icon>add</mat-icon>
+        Agregar
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Corporación Pensilvania Primero</span>
+    </mat-toolbar>
+    
+    <!-- Main Content -->
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
