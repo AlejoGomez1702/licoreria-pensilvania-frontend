@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+export interface DialogData {
+  name: string;
+}
 
 @Component({
   selector: 'app-create-category-dialog',
@@ -7,14 +12,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateCategoryDialogComponent implements OnInit 
 {
-  /**
-   * Nombre de la categoría a crear.
-   */
-  public name: string = '';
-
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<CreateCategoryDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  onNoClick(): void 
+  {
+    this.dialogRef.close();
   }
 
 }

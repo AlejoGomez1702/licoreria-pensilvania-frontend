@@ -61,7 +61,17 @@ export class ListAllComponent implements AfterViewInit, OnInit
 
   openCreateDialog()
   {
-    this.dialog.open(CreateCategoryDialogComponent);
+    const dialogCreateRef = this.dialog.open(CreateCategoryDialogComponent, { data:{name:''} });
+
+    dialogCreateRef.afterClosed().subscribe(
+      res => {
+        if(res === '')
+          console.log("cadena vacia");
+
+        if(res)
+        console.log(res);
+      }
+    );
   }
 
 }
