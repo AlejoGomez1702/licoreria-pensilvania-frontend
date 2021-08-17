@@ -37,21 +37,26 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
                 <td mat-cell *matCellDef="let row">
-                <button [routerLink]="['/dashboard/users/', row.id]" title="Ver Detalle" class="btn">
-                    <span class="show-color">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                    </span>                    
-                </button>
-                <button [routerLink]="['/dashboard/users/edit/', row.id]" title="Editar" class="btn">
-                    <span class="edit-color">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </span>                    
-                </button>
-                <button title="Eliminar" class="btn">
-                    <span class="delete-color">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </span>                    
-                </button>
+                    <!-- <button [routerLink]="['/dashboard/users/', row.id]" title="Ver Detalle" class="btn">
+                        <span class="show-color">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </span>                    
+                    </button> -->
+                    <button [routerLink]="['/dashboard/users/', row.id]" title="Cambiar Estado" class="btn">
+                        <span class="show-color">
+                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                        </span>                    
+                    </button>
+                    <button (click)="openCreateDialog(row)" title="Editar" class="btn">
+                        <span class="edit-color">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </span>                    
+                    </button>
+                    <button title="Eliminar" class="btn">
+                        <span class="delete-color">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>                    
+                    </button>
                 </td>
             </ng-container>
 

@@ -7,8 +7,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -28,6 +29,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatExpansionModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatInputModule,
     MatFormFieldModule,
     MatDialogModule
@@ -42,6 +44,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatExpansionModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatInputModule,
     MatFormFieldModule,
     MatDialogModule

@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { CreateCategoryDialogComponent } from '../../components/create-category-dialog/create-category-dialog.component';
 import { Category } from '../../interfaces/category.interfaces';
 import { CategoryService } from '../../services/category.service';
@@ -22,7 +23,8 @@ export class ListAllComponent implements AfterViewInit, OnInit
 
   constructor(
     private categoryService: CategoryService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private sweetAlert: SweetAlertService
   ) 
   { 
     this.dataSource = new MatTableDataSource();
@@ -59,17 +61,79 @@ export class ListAllComponent implements AfterViewInit, OnInit
     }
   }
 
-  openCreateDialog()
+  openCreateDialog(category?: Category)
   {
-    const dialogCreateRef = this.dialog.open(CreateCategoryDialogComponent, { data:{name:''} });
+    let data;
+    // Quiero crear una nueva categoría
+    if( !category )
+    {
+      data = {name: '',id: '',state: false};
+    }
+    else
+    {
+      data = category;
+    }
+
+    const dialogCreateRef = this.dialog.open(CreateCategoryDialogComponent, { data });
 
     dialogCreateRef.afterClosed().subscribe(
-      res => {
-        if(res === '')
-          console.log("cadena vacia");
-
+      res => {     
         if(res)
-        console.log(res);
+        {
+          if(res.name === '')
+          {
+            this.sweetAlert.presentError('Ingrese un nombre para la categoría');
+            this.openCreateDialog();
+          }
+
+          // Quiero crear una nueva categoría
+          if( !category )
+          {
+            this.createCategory(res.name);
+          }
+          else
+          {
+            this.updateCategory(res);
+          }
+        }        
+      }
+    );
+  }
+
+  /**
+   * Crea una nueva categoría de productos en la base de datos.
+   * @param name Nombre de la categoría a crear.
+   */
+  createCategory(name: string)
+  {
+    this.categoryService.createCategory( name ).subscribe(
+      category => {
+        this.sweetAlert.presentSuccess(`Categoría ${category.name} Creada Correctamente!`);
+        // Refrescando la tabla
+        this.loadData();
+      },
+      error => {
+        const { msg } = error.error;
+        this.sweetAlert.presentError( msg );
+      }
+    );
+  }
+
+  /**
+   * Actualiza los datos de una categoria en la base de datos.
+   * @param id Identificador de la categoria por actualizar.
+   */
+  updateCategory( category: Category )
+  {
+    this.categoryService.updateCategory( category.id, category ).subscribe(
+      category => {
+        this.sweetAlert.presentSuccess(`Categoría ${category.name} Actualizada Correctamente!`);
+        // Refrescando la tabla
+        this.loadData();
+      },
+      error => {
+        const { msg } = error.error;
+        this.sweetAlert.presentError( msg );
       }
     );
   }
