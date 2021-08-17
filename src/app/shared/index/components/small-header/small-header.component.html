@@ -22,7 +22,12 @@
                     </p>
                 </div>
                 <div class="reg">
-                    <p class="mb-0"><a href="#" class="mr-2">Registrarse</a> <a href="#">Iniciar Sesión</a></p>
+                    <p class="mb-0">
+                        <!-- <a href="#" class="mr-2">Registrarse</a>
+                        <a href="#" class="mr-2">Iniciar Sesión</a> -->
+                        <button mat-button class="mr-2 color-w">Registrarse</button>
+                        <button mat-button class="mr-2 color-w" (click)="goToLogin()">Login</button>
+                    </p>
                 </div>
             </div>
         </div>

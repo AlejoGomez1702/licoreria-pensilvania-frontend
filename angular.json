@@ -38,7 +38,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/index/js/main.js"
+              "src/assets/index/js/main.js",
+              "src/assets/login/js/loginScript.js"
             ]
           },
           "configurations": {

@@ -8,10 +8,10 @@ const routes: Routes = [
     path: '',
     component: IndexComponent
   },
-  // {
-  //   path: 'auth',
-  //   loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule )
-  // },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule )
+  },
   // {
   //   path: 'heroes',
   //   loadChildren: () => import('./heroes/heroes.module').then( m => m.HeroesModule )
