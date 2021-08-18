@@ -1,12 +1,6 @@
 <div class="content">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 order-md-2">
-        <img src="assets/login/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
-        <div class="text-center">
-          <button mat-raised-button color="accent" (click)="goToHome()">Volver Al Inicio</button>
-        </div>
-      </div>
+    <div class="row">      
       <div class="col-md-6 contents">
         <div class="row justify-content-center">
           <div class="col-md-8">
@@ -16,26 +10,24 @@
           </div>
           <div action="#" method="post">
             <div class="form-group first">
-              <label for="username">Email</label>
-              <input type="text" class="form-control" id="username">
-
+              <label for="username">Correo / Nombre de Usuario</label>
+              <input type="email" class="form-control" id="username" [(ngModel)]="loginData.email">
             </div>
             <div class="form-group last mb-4">
               <label for="password">Contraseña</label>
-              <input type="password" class="form-control" id="password">
-              
+              <input type="password" class="form-control" id="password" [(ngModel)]="loginData.password">              
             </div>
             
             <div class="d-flex mb-5 align-items-center">
               <label class="control control--checkbox mb-0"><span class="caption">Recordar</span>
-                <input type="checkbox" checked="checked"/>
+                <input type="checkbox" [(ngModel)]="loginData.remember" />
                 <div class="control__indicator"></div>
               </label>
               <span class="ml-auto"><a href="#" class="forgot-pass">Olvide mi contraseña</a></span> 
             </div>
 
             <!-- <input type="submit" value="Log In" class="btn text-white btn-block btn-primary"> -->
-            <button (click)="goToDashboard()" mat-raised-button color="primary" class="btn-block">Login</button>
+            <button (click)="login()" mat-raised-button color="primary" class="btn-block">Ingresar</button>
 
             <span class="d-block text-center my-4 text-muted"> o inicia sesión con:</span>
             
@@ -57,7 +49,12 @@
         </div>
         
       </div>
-      
+      <div class="col-md-6 order-md-2">
+        <img src="assets/login/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
+        <div class="text-center">
+          <button mat-raised-button color="accent" (click)="goToHome()">Volver Al Inicio</button>
+        </div>
+      </div>      
     </div>
   </div>
 </div>

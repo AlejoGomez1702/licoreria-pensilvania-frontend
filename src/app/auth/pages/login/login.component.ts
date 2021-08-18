@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { LoginData } from '../../interfaces/LoginData';
+import { AuthService } from '../../services/auth.service';
 declare const loginScript: any;
 
 @Component({
@@ -9,8 +12,16 @@ declare const loginScript: any;
 })
 export class LoginComponent implements OnInit 
 {
+  public loginData: LoginData = {
+    email: '',
+    password: '',
+    remember: false
+  };
+
   constructor(
-    private router: Router
+    private authService: AuthService,
+    private router: Router,
+    private sweetAlert: SweetAlertService
   ) {}
 
   ngOnInit(): void 
@@ -23,9 +34,25 @@ export class LoginComponent implements OnInit
     this.router.navigate(['/']);
   }
 
-  goToDashboard()
+  login()
   {
-    this.router.navigate(['/dashboard']);
+    // console.log(this.loginData);
+
+    this.authService.login(this.loginData).subscribe(
+      res => {
+        // Guardar en el localstorage
+        localStorage.setItem('x-token', res.token);
+        this.router.navigate(['/dashboard']);
+        // console.log(res);
+      },
+      error => {
+        console.log(error);
+        this.sweetAlert.presentError( error.error.error );
+      }
+    );
+
+    // console.log(this.loginData);
+    // this.router.navigate(['/dashboard']);
   }
 
 }
