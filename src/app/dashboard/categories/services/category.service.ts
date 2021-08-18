@@ -4,17 +4,23 @@ import { Observable } from 'rxjs';
 import { Category, ResponseGetAllCategories } from '../interfaces/category.interfaces';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { TokenService } from 'src/app/core/services/token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService 
 {
-  // apiUrl = 'http://localhost:9000/api/categories';
   apiUrl = environment.API_URL;
+
+  headers = new HttpHeaders({
+    'Content-Type':  'application/json',
+    'x-token': this.tokenService.getToken()
+  })
   
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private tokenService: TokenService
   ) { }
 
   /**
@@ -24,8 +30,10 @@ export class CategoryService
   getAllCategories(): Observable<ResponseGetAllCategories>
   {
     const httpOptions = {
-      params: new HttpParams().set('limit', 10)
+      params: new HttpParams().set('limit', 10),
+      headers: this.headers
     };
+
     return this.http.get<ResponseGetAllCategories>(`${this.apiUrl}/categories`, httpOptions);
   }
 
@@ -37,11 +45,9 @@ export class CategoryService
   {
     const data = { name };
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MTFhODFjNmRjMjllNjM0MTQzYzljNzkiLCJpYXQiOjE2MjkyMzk2NjgsImV4cCI6MTYyOTI1NDA2OH0.za00ogAcAJ7s_zxAYyZ_izJrSv5kHbawO1uyL5bO19k'
-      })
+      headers: this.headers
     };
+
     return this.http.post<Category>(`${this.apiUrl}/categories`, data, httpOptions);
   }
 
@@ -53,11 +59,9 @@ export class CategoryService
    {
      const { id, state, ...data } = category;
      const httpOptions = {
-       headers: new HttpHeaders({
-         'Content-Type':  'application/json',
-         'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MTFhODFjNmRjMjllNjM0MTQzYzljNzkiLCJpYXQiOjE2MjkyMzk2NjgsImV4cCI6MTYyOTI1NDA2OH0.za00ogAcAJ7s_zxAYyZ_izJrSv5kHbawO1uyL5bO19k'
-       })
+       headers: this.headers
      };
+
      return this.http.put<Category>(`${this.apiUrl}/categories/${uid}`, data, httpOptions);
    }
 
@@ -68,11 +72,9 @@ export class CategoryService
    deleteCategory( id: string )
    {
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MTFhODFjNmRjMjllNjM0MTQzYzljNzkiLCJpYXQiOjE2MjkyMzk2NjgsImV4cCI6MTYyOTI1NDA2OH0.za00ogAcAJ7s_zxAYyZ_izJrSv5kHbawO1uyL5bO19k'
-      })
+      headers: this.headers
     };
+
     return this.http.delete<Category>(`${this.apiUrl}/categories/${id}`, httpOptions);
    }
 }

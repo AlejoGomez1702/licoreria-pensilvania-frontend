@@ -15,7 +15,7 @@ import { CategoryService } from '../../services/category.service';
 })
 export class ListAllComponent implements AfterViewInit, OnInit 
 {
-  displayedColumns = ['name', 'state', 'actions'];
+  displayedColumns = ['name', 'actions'];
   dataSource: MatTableDataSource<Category>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -44,10 +44,11 @@ export class ListAllComponent implements AfterViewInit, OnInit
   {
     this.categoryService.getAllCategories()
     .subscribe(res => {
+      console.log(res);
       this.dataSource.data = res.categories;
     },
     error => {
-      console.log(error);
+      this.sweetAlert.presentError(error.error.error);
     });
   }
 
@@ -113,8 +114,7 @@ export class ListAllComponent implements AfterViewInit, OnInit
         this.loadData();
       },
       error => {
-        const { msg } = error.error;
-        this.sweetAlert.presentError( msg );
+        this.sweetAlert.presentError( error.error.error );
       }
     );
   }
@@ -150,6 +150,7 @@ export class ListAllComponent implements AfterViewInit, OnInit
         {
           this.categoryService.deleteCategory( category.id ).subscribe(
             res => {
+              console.log(res);
               this.sweetAlert.presentSuccess(`Eliminadá categoría: ${res.name}`);
               this.loadData();
             },
