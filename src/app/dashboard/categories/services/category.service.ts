@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category, ResponseGetAllCategories } from '../interfaces/category.interfaces';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService 
 {
-  apiUrl = 'http://localhost:9000/api/categories';
-
+  // apiUrl = 'http://localhost:9000/api/categories';
+  apiUrl = environment.API_URL;
+  
   constructor(
     private http: HttpClient
   ) { }
@@ -24,7 +26,7 @@ export class CategoryService
     const httpOptions = {
       params: new HttpParams().set('limit', 10)
     };
-    return this.http.get<ResponseGetAllCategories>(this.apiUrl, httpOptions);
+    return this.http.get<ResponseGetAllCategories>(`${this.apiUrl}/categories`, httpOptions);
   }
 
   /**
@@ -40,7 +42,7 @@ export class CategoryService
         'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MTFhODFjNmRjMjllNjM0MTQzYzljNzkiLCJpYXQiOjE2MjkyMzk2NjgsImV4cCI6MTYyOTI1NDA2OH0.za00ogAcAJ7s_zxAYyZ_izJrSv5kHbawO1uyL5bO19k'
       })
     };
-    return this.http.post<Category>(this.apiUrl, data, httpOptions);
+    return this.http.post<Category>(`${this.apiUrl}/categories`, data, httpOptions);
   }
 
   /**
@@ -56,6 +58,21 @@ export class CategoryService
          'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MTFhODFjNmRjMjllNjM0MTQzYzljNzkiLCJpYXQiOjE2MjkyMzk2NjgsImV4cCI6MTYyOTI1NDA2OH0.za00ogAcAJ7s_zxAYyZ_izJrSv5kHbawO1uyL5bO19k'
        })
      };
-     return this.http.put<Category>(this.apiUrl + '/' + uid, data, httpOptions);
+     return this.http.put<Category>(`${this.apiUrl}/categories/${uid}`, data, httpOptions);
+   }
+
+   /**
+    * Elimina una categoría de la base de datos.
+    * @param id Identificado único de la categoria.
+    */
+   deleteCategory( id: string )
+   {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MTFhODFjNmRjMjllNjM0MTQzYzljNzkiLCJpYXQiOjE2MjkyMzk2NjgsImV4cCI6MTYyOTI1NDA2OH0.za00ogAcAJ7s_zxAYyZ_izJrSv5kHbawO1uyL5bO19k'
+      })
+    };
+    return this.http.delete<Category>(`${this.apiUrl}/categories/${id}`, httpOptions);
    }
 }

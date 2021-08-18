@@ -19,11 +19,11 @@ export class SweetAlertService
     );
   }
 
-  presentDelete( id: string )
+  presentDelete( name: string )
   {
     return Swal.fire({
       title: 'Estas Seguro?',
-      text: "La persona se registrará en lista negra!",
+      text: `Eliminará: ${name}`,
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',

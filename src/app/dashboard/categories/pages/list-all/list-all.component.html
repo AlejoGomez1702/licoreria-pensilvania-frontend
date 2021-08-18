@@ -30,7 +30,9 @@
             <!-- Estado -->
             <ng-container matColumnDef="state">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
-                <td mat-cell *matCellDef="let row">{{ row.state }}</td>
+                <td mat-cell *matCellDef="let row" [class]="row.state ? 'text-success' : 'text-danger'">
+                    {{ row.state ? 'Activa' : 'Inactiva' }}
+                </td>
             </ng-container>
         
             <!-- Acciones -->
@@ -52,7 +54,7 @@
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </span>                    
                     </button>
-                    <button title="Eliminar" class="btn">
+                    <button (click)="deleteCategory(row)" title="Eliminar" class="btn">
                         <span class="delete-color">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </span>                    

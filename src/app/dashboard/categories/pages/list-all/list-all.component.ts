@@ -121,7 +121,7 @@ export class ListAllComponent implements AfterViewInit, OnInit
 
   /**
    * Actualiza los datos de una categoria en la base de datos.
-   * @param id Identificador de la categoria por actualizar.
+   * @param category Categoria por actualizar.
    */
   updateCategory( category: Category )
   {
@@ -136,6 +136,29 @@ export class ListAllComponent implements AfterViewInit, OnInit
         this.sweetAlert.presentError( msg );
       }
     );
+  }
+
+  /**
+   * Elimina una categoria en la base de datos.
+   * @param category Categoría para eliminar.
+   */
+  deleteCategory( category: Category )
+  {
+    this.sweetAlert.presentDelete( category.name )
+      .then((result) => {
+        if (result.isConfirmed) 
+        {
+          this.categoryService.deleteCategory( category.id ).subscribe(
+            res => {
+              this.sweetAlert.presentSuccess(`Eliminadá categoría: ${res.name}`);
+              this.loadData();
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+      });
   }
 
 }
