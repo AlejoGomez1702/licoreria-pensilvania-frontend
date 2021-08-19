@@ -27,4 +27,9 @@ export class CreateCategoryDialogComponent implements OnInit
     this.dialogRef.close();
   }
 
+  closeWithData(): void 
+  {
+    this.dialogRef.close({ data: this.data });
+  }
+
 }

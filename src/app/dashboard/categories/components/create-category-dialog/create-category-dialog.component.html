@@ -3,10 +3,10 @@
     <p>Ingrese el nombre de la categoría:</p>
     <mat-form-field appearance="fill">
         <mat-label>Nombre</mat-label>
-        <input matInput [(ngModel)]="data.name">
+        <input matInput [(ngModel)]="data.name" (keyup.enter)="closeWithData()">
     </mat-form-field>
 </div>
 <div mat-dialog-actions align="center">
   <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Aceptar</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data">Aceptar</button>
 </div>

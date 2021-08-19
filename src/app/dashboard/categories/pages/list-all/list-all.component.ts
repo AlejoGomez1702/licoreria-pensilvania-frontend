@@ -68,7 +68,7 @@ export class ListAllComponent implements AfterViewInit, OnInit
     // Quiero crear una nueva categoría
     if( !category )
     {
-      data = {name: '',id: '',state: false};
+      data = {name: '', id: '', state: false};
     }
     else
     {
@@ -79,8 +79,16 @@ export class ListAllComponent implements AfterViewInit, OnInit
 
     dialogCreateRef.afterClosed().subscribe(
       res => {     
+        console.log("esta es la respuestaaaaaaaa");
+        console.log(res);
         if(res)
         {
+          // Esta validación se hace cuando se le da enter en vez de en el boton aceptar.
+          if(res.data)
+          {
+            res = res.data;
+          }
+
           if(res.name === '')
           {
             this.sweetAlert.presentError('Ingrese un nombre para la categoría');
@@ -161,5 +169,4 @@ export class ListAllComponent implements AfterViewInit, OnInit
         }
       });
   }
-
 }
