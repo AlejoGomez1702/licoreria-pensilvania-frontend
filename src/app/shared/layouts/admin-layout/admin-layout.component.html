@@ -2,7 +2,7 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport color="primary"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+      [opened]="(isHandset$ | async) === true">
     <!-- <mat-toolbar color="primary">Dashboard</mat-toolbar> -->
     <div class="example-button-container text-center mt-3">
         <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
