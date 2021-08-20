@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CategoriesRoutingModule } from './categories-routing.module';
+import { SettingsRoutingModule } from './settings-routing.module';
 import { ListAllComponent } from './pages/list-all/list-all.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { CreateCategoryDialogComponent } from './components/create-category-dialog/create-category-dialog.component';
@@ -15,9 +15,9 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    CategoriesRoutingModule,
+    SettingsRoutingModule,
     MaterialModule,
     FormsModule
   ]
 })
-export class CategoriesModule { }
+export class SettingsModule { }
