@@ -4,11 +4,32 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === true">
     <!-- <mat-toolbar color="primary">Dashboard</mat-toolbar> -->
-    <div class="example-button-container text-center mt-3">
-        <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
-          <mat-icon>person</mat-icon>
-        </button>
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="example-button-container mt-3 info-cont">
+          <img md-fab-image class="user-fab" src="../../../../assets/images/user-image-2.jpg">
+          <div class="name-function">
+            <h3>Julie Anderson</h3>
+            <h4>Manager</h4>
+          </div>
+      </div>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <a class="dropdown-item" href="#">Ver perfil</a>
+      <a class="dropdown-item" href="#">Cambiar contraseña</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item sign-out-text" href="#">Cerrar sesión</a>
     </div>
+    <!-- <span>
+      <a href="http://">
+        <h4>Ver perfil</h4>
+      </a>
+      <a href="http://">
+        <h4>Cambiar contraseña</h4>
+      </a>
+      <a href="http://">
+        <h4 class="sign-out-text">Cerrar sesión</h4>
+      </a>
+    </span> -->
     <mat-nav-list>
       <a mat-list-item [routerLink]="['/dashboard']">
         <mat-icon mat-list-icon>dashboard</mat-icon>
@@ -74,7 +95,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" class="large-toolbar">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -83,6 +104,21 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span class="ml-4">Licorería Pensilvania</span>
+        <div class="example-button-container mt-3 info-cont-white">
+          <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img md-fab-image class="user-fab" src="../../../../assets/images/user-image-2.jpg">
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Ver perfil</a>
+            <a class="dropdown-item" href="#">Cambiar contraseña</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item sign-out-text" href="#">Cerrar sesión</a>
+          </div>
+          <div class="name-function-white">
+            <h3>Julie Anderson</h3>
+            <h4>Manager</h4>
+          </div>
+        </div>
     </mat-toolbar>
     
     <!-- Main Content -->
