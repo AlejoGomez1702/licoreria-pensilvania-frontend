@@ -1,29 +1,13 @@
-.full-width-table {
-    width: 100%;
+mat-card {
+    width: 100% !important;
+    margin: 0px !important;
+    max-width: 100% !important;
+    z-index: 0;
+    overflow: hidden !important;
   }
-  
-  .fa{
-      
-    transition: .2s ease;
-    -moz-transition: 1.5s ease; /* Firefox */
-    -webkit-transition: .5s ease; /* Chrome - Safari */
-    -o-transition: 1.5s ease; /* Opera */
-  
+  .content{
+      border:solid blue;
   }
-  .fa:hover{
-    transform : scale(2);
-    -moz-transform : scale(2); /* Firefox */
-    -webkit-transform : scale(2); /* Chrome - Safari */
-    -o-transform : scale(2); /* Opera */
-    -ms-transform : scale(2); /* IE9 */
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .mw-80
-  {
-    max-width: 80%;
+  .mat-tab-body-content{
+    border:solid red !important;
   }

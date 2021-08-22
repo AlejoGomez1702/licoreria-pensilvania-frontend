@@ -1,0 +1,26 @@
+// @import "../../variables.scss";
+.header {
+  background: white;
+  color: blue;
+  .title {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.body {
+  padding: 15px;
+  .actions {
+    text-align: center;
+  }
+  button:last-child {
+    margin-left: 10px;
+  }
+  .content {
+    word-wrap: break-word;
+  }
+}
+

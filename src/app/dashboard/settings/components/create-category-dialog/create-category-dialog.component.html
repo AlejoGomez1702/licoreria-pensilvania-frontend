@@ -1,12 +1,20 @@
-<h1 mat-dialog-title>Crear Categoría</h1>
-<div mat-dialog-content>
-    <p>Ingrese el nombre de la categoría:</p>
-    <mat-form-field appearance="fill">
-        <mat-label>Nombre</mat-label>
-        <input matInput [(ngModel)]="data.name" (keyup.enter)="closeWithData()">
-    </mat-form-field>
-</div>
-<div mat-dialog-actions align="center">
-  <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="data">Aceptar</button>
-</div>
+<form [formGroup]="form">
+      <div class="container">
+          <div class="col">
+              <mat-form-field appearance="fill" class="formControl">
+                  <mat-label>Nombre categoria </mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    [min]="0"
+                    formControlName="name"
+                    required
+                  />
+                  <mat-error *ngIf="form.controls.name.hasError('required')">
+                      Campo requerido.
+                    </mat-error>
+                  </mat-form-field>
+          </div>
+      </div>
+</form>
+

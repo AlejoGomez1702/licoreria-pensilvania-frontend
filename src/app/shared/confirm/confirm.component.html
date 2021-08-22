@@ -1,0 +1,30 @@
+<div class="modal">
+  <div class="header">
+    <div class="title">
+      {{ data.title }}
+    </div>
+    <div class="close">
+      <button mat-icon-button mat-dialog-close (click)="cancelar()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="body">
+    <div [innerHTML]="data.content"></div>
+    <br />
+    <div class="actions">
+      <button
+        mat-raised-button
+        (click)="aceptar()"
+        mat-dialog-close
+        color="primary"
+      >
+        {{ data?.actions?.primary ? data?.actions?.primary : "Eliminar" }}
+      </button>
+      <button mat-stroked-button (click)="cancelar()" mat-dialog-close>
+        {{ data?.actions?.secondary ? data.actions?.secondary : "Cancelar" }}
+      </button>
+    </div>
+  </div>
+</div>
+

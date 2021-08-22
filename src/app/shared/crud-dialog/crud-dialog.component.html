@@ -1,0 +1,52 @@
+<div class="modal">
+    <div class="header">
+      <div class="title">
+        {{ data.title }}
+      </div>
+      <div class="close">
+        <button mat-icon-button (click)="cerrar()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="body">
+      <div class="content">
+        <ng-template adHost></ng-template>
+      </div>
+      <br />
+    </div>
+    <div class="actions mat-elevation-z2" *ngIf="!data?.dataComponent?.viewMode">
+      <button mat-raised-button (click)="aceptar()" color="primary">
+        {{ data.actions?.primary ? data.actions?.primary : "Aceptar" }}
+      </button>
+      <ng-container *ngFor="let button of otherButtons">
+        <button
+          mat-raised-button
+          (click)="button.action ? button.action() : ''"
+          color="primary"
+          *ngIf="button.type === 'primary'"
+        >
+          {{ button.nombre }}
+        </button>
+  
+        <button
+          mat-stroked-button
+          (click)="button.action ? button.action() : ''"
+          color="primary"
+          *ngIf="button.type === 'secondary'"
+        >
+          {{ button.nombre }}
+        </button>
+      </ng-container>
+  
+      <button mat-stroked-button (click)="cancelar()">
+        {{
+          data.dataComponent?.editMode || data.dataComponent?.deleteMode
+            ? "Cancelar"
+            : data.actions?.secondary
+            ? data.actions?.secondary
+            : "Limpiar formulario"
+        }}
+      </button>
+    </div>
+  </div>

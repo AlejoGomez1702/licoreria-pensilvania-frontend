@@ -1,0 +1,44 @@
+.header {
+  background: #3f51b5;
+  color: white;
+  .title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    height:20px !important;
+    color: white;
+    // border:solid red;
+  }
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0px;
+  z-index: 9999;
+}
+.body {
+  padding: 10px;
+  button:last-child {
+    margin-left: 10px;
+  }
+  .content {
+    word-wrap: break-word;
+  }
+}
+.actions {
+  position: sticky;
+  bottom: 0px;
+  padding: 10px;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+button {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+button:first-child {
+  margin-left: 0px;
+}

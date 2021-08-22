@@ -1,0 +1,40 @@
+<form [formGroup]="form">
+        <div class="container">
+            <div class="col">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Unidad de medida</mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      formControlName="unit"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.unit.invalid">
+                      Campo requerido.
+                    </mat-error>
+
+                  </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Mililitros</mat-label>
+                    <input
+                      matInput
+                      type="number"
+                      formControlName="ml"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.ml.hasError('required')">
+                      Campo requerido.
+                    </mat-error>
+                    <mat-error *ngIf="form.controls.ml.hasError('min') 
+                    || form.controls.ml.hasError('max')">
+                        Los mililitros deben estar en un rango entre 0 y 10000.
+                      </mat-error>
+                  </mat-form-field>
+            </div>
+            
+        </div>
+</form>
+
+  

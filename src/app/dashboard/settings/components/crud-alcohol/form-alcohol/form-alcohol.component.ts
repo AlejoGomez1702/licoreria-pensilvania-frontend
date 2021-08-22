@@ -1,18 +1,12 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-// export interface DialogData {
-//   id: string;
-//   name: string;
-// }
 @Component({
-  selector: 'app-create-category-dialog',
-  templateUrl: './create-category-dialog.component.html',
-  styleUrls: ['./create-category-dialog.component.scss']
+  selector: 'app-form-alcohol',
+  templateUrl: './form-alcohol.component.html',
+  styleUrls: ['./form-alcohol.component.scss']
 })
-export class CreateCategoryDialogComponent implements OnInit 
-{
+export class FormAlcoholComponent implements OnInit {
   form: FormGroup ;
   formInsertMode: boolean;
   formEditMode: boolean;
@@ -34,6 +28,7 @@ export class CreateCategoryDialogComponent implements OnInit
           Validators.min(0)]) ], //requerido, 0-10000
       });
     }
+
     ngOnInit(): void {
       this.formInsertMode = this.data?.insertMode;
       this.formViewMode = this.data?.viewMode;
@@ -45,7 +40,10 @@ export class CreateCategoryDialogComponent implements OnInit
     buildForm() {
       this.form = this.formBuilder.group({
         id:[''],
-        name: ['',[Validators.required] ], //requerido, 0-10000
+        alcohol: ['',Validators.compose(
+                    [Validators.required,
+                    Validators.max(100),
+                    Validators.min(0)]) ], //requerido, 0-10000
       });
       if(this.formDeleteMode){
         this.form.disable();
@@ -56,5 +54,6 @@ export class CreateCategoryDialogComponent implements OnInit
     }
     limpiarFormulario(){
       this.form.reset();
-    }
+    }        
+
 }

@@ -13,9 +13,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
-
-
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [],
   imports: [
@@ -32,7 +31,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSortModule,
     MatInputModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
+    MatCardModule,
   ],
   exports: [
     MatButtonModule,
@@ -47,7 +48,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSortModule,
     MatInputModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
+    MatCardModule,
   ]
 })
 export class MaterialModule { }

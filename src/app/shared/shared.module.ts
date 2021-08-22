@@ -15,6 +15,11 @@ import { MaterialModule } from './material/material.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { RouterModule } from '@angular/router';
+import { CrudDialogComponent } from './crud-dialog/crud-dialog.component';
+import { AdDirective } from './directives/ad-component.directive';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormUnidadComponent } from '../dashboard/settings/components/crud-unidades-medida/form-unidad/form-unidad.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +36,9 @@ import { RouterModule } from '@angular/router';
     LoaderComponent,
     ErrorPageComponent,
     AdminLayoutComponent,
+    CrudDialogComponent,
+    AdDirective,
+    ConfirmComponent,
 
     // Modules
     // MaterialModule
@@ -55,7 +63,14 @@ import { RouterModule } from '@angular/router';
     AlcoholBannerComponent,
     FooterComponent,
     LoaderComponent,
-    AdminLayoutComponent
-  ]
+    AdminLayoutComponent,
+    AdDirective
+  ],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} },
+  ],
+  entryComponents: [FormUnidadComponent],
+
 })
 export class SharedModule { }
