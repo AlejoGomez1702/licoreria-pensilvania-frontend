@@ -1,0 +1,76 @@
+<mat-card>
+    <mat-card-content>
+        <div class="head-cont">
+            <div class="container">
+                <div class="row">
+                    <div class="head-cont">
+                        <mat-card-title>
+                            Perfil de Usuario
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            {{ nombreUsuario | uppercase }}
+                        </mat-card-subtitle>                      
+                        <img [src]="tempImg" alt="" class="user-fab">
+                    </div>
+                </div>
+                <div class="row">
+                    <button mat-raised-button color="primary" (click)="editImage()">
+                        Cambiar imagen
+                    </button>
+                </div>
+            </div>
+            <div class="container" style="margin-top: 30px;">
+                <form [formGroup]="form">
+                    <div class="row">
+                        <mat-form-field appearance="fill" class="formControl">
+                            <mat-label>Nombres y Apellidos</mat-label>
+                            <input
+                                placeholder="Digite los nombres y apellidos"
+                                formControlName="name"
+                                matInput
+                                type="text"
+                                required
+                                onkeyup="this.value = this.value.toUpperCase();"
+                            />
+                            <mat-error *ngIf="form.controls.name.hasError('required')">
+                                El valor de este campo es requerido.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field appearance="fill" class="formControl">
+                            <mat-label>Correro electrónico</mat-label>
+                            <input
+                                placeholder="Digite el correo electrónico"
+                                formControlName="email"
+                                matInput
+                                type="text"
+                                required
+                                onkeyup="this.value = this.value.toUpperCase();"
+                            />
+                            <mat-error *ngIf="form.controls.email.hasError('required')">
+                                El valor de este campo es requerido.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field appearance="fill" class="formControl">
+                            <mat-label>Nombre de Usuario</mat-label>
+                            <input
+                                placeholder="Digite el nombre de usuario"
+                                formControlName="username"
+                                matInput
+                                type="text"
+                                required
+                                onkeyup="this.value = this.value.toUpperCase();"
+                            />
+                            <mat-error *ngIf="form.controls.username.hasError('required')">
+                                El valor de este campo es requerido.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

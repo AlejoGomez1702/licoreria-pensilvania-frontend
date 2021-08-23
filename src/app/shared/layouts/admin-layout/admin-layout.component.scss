@@ -1,3 +1,6 @@
+@import '../../../../assets/index/css/style.css';
+@import '../../../../assets/index/css/my-styles.css';
+
 .sign-out-text {
     color: rgb(226, 98, 98);
 }
@@ -54,4 +57,8 @@
         color: rgb(223, 223, 223);
         margin: 0;
     }
+}
+
+.user-rol{
+    margin-top: 10px !important;
 }

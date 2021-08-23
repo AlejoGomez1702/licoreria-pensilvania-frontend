@@ -1,0 +1,31 @@
+.head-cont {
+    margin: auto;
+    text-align: center;
+}
+
+.user-fab {
+    width: 170px; 
+    height: 170px; 
+    border-radius: 120px;
+}
+
+mat-card {
+    margin: 2% 20%;
+}
+
+mat-card-title {
+    margin-bottom: 15px;
+}
+
+mat-form-field {
+    width: 70%;
+}
+
+@media screen and (max-width: 960px) {
+    .user-fab {
+        width: 70px; 
+        height: 70px; 
+        border-radius: 70px;
+        margin-top: -7px;
+    }
+}

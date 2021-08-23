@@ -6,7 +6,6 @@ import { MainContentComponent } from './components/main-content/main-content.com
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../shared/material/material.module';
 
-
 @NgModule({
   declarations: [
     MainContentComponent
