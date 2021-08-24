@@ -1,0 +1,13 @@
+mat-card {
+    width: 100% !important;
+    margin: 0px !important;
+    max-width: 100% !important;
+    z-index: 0;
+    overflow: hidden !important;
+  }
+  .content{
+      border:solid blue;
+  }
+  .mat-tab-body-content{
+    border:solid red !important;
+  }

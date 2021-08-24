@@ -1,0 +1,72 @@
+<form [formGroup]="form">
+    <div class="container">
+        <div class="col">
+            <mat-form-field appearance="fill" class="formControl">
+                <mat-label>Nombre</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="name"
+                  required
+                />
+                <mat-error *ngIf="form.controls.name.hasError('required')">
+                    Campo requerido.
+                  </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill" class="formControl">
+                <mat-label>Identificación</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  pattern="^[0-9]+"
+                  formControlName="identification"
+                  required
+                />
+                <mat-error *ngIf="form.controls.identification.hasError('required')">
+                    Campo requerido.
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                    !form.controls.identification.hasError('pattern')
+                    "
+                >
+                    Error solo se aceptan valores numéricos.
+                </mat-error>      
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill" class="formControl">
+                <mat-label>Teléfono</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  pattern="^[0-9]+"
+                  formControlName="cellphone"
+                  required
+                />
+                <mat-error *ngIf="form.controls.cellphone.hasError('required')">
+                    Campo requerido.
+                </mat-error>
+                <mat-error
+                    *ngIf="
+                    !form.controls.cellphone.hasError('pattern')
+                    "
+                >
+                    Error solo se aceptan valores numéricos.
+                </mat-error> 
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill" class="formControl">
+                <mat-label>Correo electrónico</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="email"
+                />
+            </mat-form-field>
+        </div>
+    </div>
+</form>
