@@ -8,6 +8,12 @@ const routes: Routes = [
     component: MainContentComponent
   },
   {
+    // dashboard/products
+    path: 'products',
+    loadChildren: () => import('./products/products.module').then( m => m.ProductsModule )
+  },
+  {
+    // dashboard/settings
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsModule )
   },

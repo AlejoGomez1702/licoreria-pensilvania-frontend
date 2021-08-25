@@ -3,7 +3,7 @@
   }
   
   .fa{
-      
+    cursor: pointer;
     transition: .2s ease;
     -moz-transition: 1.5s ease; /* Firefox */
     -webkit-transition: .5s ease; /* Chrome - Safari */
@@ -28,9 +28,14 @@
     max-width: 80%;
   }
 
-  .contenedor{
-    padding: 3%;
-    padding-left: 8%;
-    padding-right: 8%;
-    overflow:hidden !important;
-  }
+  // .contenedor{
+  //   padding: 3%;
+  //   padding-left: 8%;
+  //   padding-right: 8%;
+  //   overflow:hidden !important;
+  // }
+
+.bold-text
+{
+  font-weight: bold;
+}

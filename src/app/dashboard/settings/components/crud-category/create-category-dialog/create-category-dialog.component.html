@@ -2,7 +2,7 @@
       <div class="container">
           <div class="col">
               <mat-form-field appearance="fill" class="formControl">
-                  <mat-label>Nombre categoria </mat-label>
+                  <mat-label>Nombre </mat-label>
                   <input
                     matInput
                     type="text"
@@ -11,7 +11,7 @@
                     required
                   />
                   <mat-error *ngIf="form.controls.name.hasError('required')">
-                      Campo requerido.
+                      El nombre de la categoría es requerido.
                     </mat-error>
                   </mat-form-field>
           </div>

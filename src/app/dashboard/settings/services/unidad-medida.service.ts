@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UnidadMedida } from '../interfaces/unidad-medida.interface';
+import { Unit } from '../interfaces/unidad-medida.interface';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { TokenService } from 'src/app/core/services/token.service';
@@ -31,19 +31,19 @@ export class UnidadMedidaService {
     return this.http.get<any>(`${this.apiUrl}/units`, httpOptions);
   }
   //create unidad-medida
-  createUnidad( unidad: UnidadMedida ): any
+  createUnidad( unidad: Unit ): any
   {
     const httpOptions = {
       headers: this.headers
     };
-    return this.http.post<UnidadMedida>(`${this.apiUrl}/units`, unidad, httpOptions);
+    return this.http.post<Unit>(`${this.apiUrl}/units`, unidad, httpOptions);
   }
   //edit unidad medida
-  updateUnidad(unidad: UnidadMedida) {
+  updateUnidad(unidad: Unit) {
     const httpOptions = {
       headers: this.headers
     };
-    return this.http.put<UnidadMedida>(
+    return this.http.put<Unit>(
       `${environment.API_URL}/units/${unidad.id}`,unidad, httpOptions
     );
   }
@@ -53,7 +53,7 @@ export class UnidadMedidaService {
    const httpOptions = {
      headers: this.headers
    };
-   return this.http.delete<UnidadMedida>(`${this.apiUrl}/units/${id}`, httpOptions);
+   return this.http.delete<Unit>(`${this.apiUrl}/units/${id}`, httpOptions);
   }
 
 }

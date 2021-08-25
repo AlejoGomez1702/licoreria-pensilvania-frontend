@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { FormUnidadComponent } from './form-unidad/form-unidad.component';
-import { UnidadMedida } from '../../interfaces/unidad-medida.interface';
+import { Unit } from '../../interfaces/unidad-medida.interface';
 import { UnidadMedidaService } from '../../services/unidad-medida.service';
 import { CrudService } from 'src/app/shared/services/dialog/crud.service';
 import { ChangeDetectorRef } from '@angular/core';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 })
 export class CrudUnidadesMedidaComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   displayedColumns = ['unit', 'ml','actions'];
-  dataSource: MatTableDataSource<UnidadMedida>;
+  dataSource: MatTableDataSource<Unit>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -65,7 +65,7 @@ export class CrudUnidadesMedidaComponent implements OnInit, AfterViewInit, After
 
   create(){
     this.subscription=this.crudService.show({
-      title: 'Crear unidad medida',
+      title: 'Crear unidad de medida',
       component: FormUnidadComponent,
       dataComponent: {
         insertMode: true,
@@ -76,7 +76,7 @@ export class CrudUnidadesMedidaComponent implements OnInit, AfterViewInit, After
       maxWidth: '600px',
     }).subscribe((resultado) => {
       if (resultado.estado) {
-        const unidad = resultado.data as UnidadMedida;
+        const unidad = resultado.data as Unit;
         this.unidadMedidaService.createUnidad(unidad).subscribe((res: any)=>{
           const oldData= this.dataSource.data;
           this.dataSource = new MatTableDataSource([{id:res?.id, unit:res?.unit, ml: res?.ml},...oldData] );
@@ -95,7 +95,7 @@ export class CrudUnidadesMedidaComponent implements OnInit, AfterViewInit, After
       
     });
   }
-  edit(row: UnidadMedida){
+  edit(row: Unit){
     this.subscription=this.crudService.show({
       title: 'Editar unidad de medida',
       component: FormUnidadComponent,
@@ -111,11 +111,11 @@ export class CrudUnidadesMedidaComponent implements OnInit, AfterViewInit, After
       }
     }).subscribe((resultado) => {
       if (resultado.estado) {
-        const uni = resultado.data as UnidadMedida;
+        const uni = resultado.data as Unit;
           this.unidadMedidaService.updateUnidad(uni).subscribe(
             () =>{
               this.loadData();
-              this.sweetAlert.presentSuccess(`Unidad ${uni.unit} Creada Correctamente!`);
+              this.sweetAlert.presentSuccess(`Unidad ${uni.unit} Editada Correctamente!`);
               this.crudService.close();
           },
           (error) =>   this.sweetAlert.presentError( error.error.error )
@@ -124,36 +124,61 @@ export class CrudUnidadesMedidaComponent implements OnInit, AfterViewInit, After
         }
       });
   }
-  delete(row: UnidadMedida){
-    this.subscription=this.crudService.show({
-      title: 'Eliminar unidad de medida',
-      component: FormUnidadComponent,
-      dataComponent: {
-        viewMode: false,
-        insertMode: false,
-        editMode:false,
-        deleteMode:true,
-        row
-      },
-      maxWidth: '600px',
-      actions: {
-        primary: 'Guardar'
-      }
-    }).subscribe((resultado) => {
-      if (resultado.estado) {
-        const uni = resultado.data as UnidadMedida;
-          this.unidadMedidaService.deleteUnidad(uni.id).subscribe(
-            () =>{
-              this.loadData();
-              this.sweetAlert.presentSuccess(`Unidad ${uni.unit} Eliminada Correctamente!`);
-              this.crudService.close();
-          },
-          (error) =>   this.sweetAlert.presentError( error.error.error )
-          );
 
-        }
-      });
-  }
+  // delete(row: UnidadMedida){
+  //   this.subscription=this.crudService.show({
+  //     title: 'Eliminar unidad de medida',
+  //     component: FormUnidadComponent,
+  //     dataComponent: {
+  //       viewMode: false,
+  //       insertMode: false,
+  //       editMode:false,
+  //       deleteMode:true,
+  //       row
+  //     },
+  //     maxWidth: '600px',
+  //     actions: {
+  //       primary: 'Guardar'
+  //     }
+  //   }).subscribe((resultado) => {
+  //     if (resultado.estado) {
+  //       const uni = resultado.data as UnidadMedida;
+  //         this.unidadMedidaService.deleteUnidad(uni.id).subscribe(
+  //           () =>{
+  //             this.loadData();
+  //             this.sweetAlert.presentSuccess(`Unidad ${uni.unit} Eliminada Correctamente!`);
+  //             this.crudService.close();
+  //         },
+  //         (error) =>   this.sweetAlert.presentError( error.error.error )
+  //         );
+
+  //       }
+  //     });
+  // }
+
+  /**
+   * Elimina una categoria en la base de datos.
+   * @param unit Categoría para eliminar.
+   */
+   deleteUnit( unit: Unit )
+   {
+     this.sweetAlert.presentDelete( `${ unit.unit } (${ unit.ml } ml)` )
+       .then((result) => {
+         if (result.isConfirmed) 
+         {
+           this.unidadMedidaService.deleteUnidad( unit.id ).subscribe(
+             res => {
+               console.log(res);
+               this.sweetAlert.presentSuccess(`Eliminadá unidad de medida: ${res.unit} (${res.ml} ml)`);
+               this.loadData();
+             },
+             error => {
+               console.log(error);
+             }
+           );
+         }
+       });
+   }
 
   ngOnDestroy(){
     this.subscription?.unsubscribe();

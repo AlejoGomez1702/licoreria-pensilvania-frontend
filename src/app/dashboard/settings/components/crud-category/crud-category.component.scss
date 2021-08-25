@@ -5,6 +5,7 @@
   .fa{
       
     transition: .2s ease;
+    cursor: pointer;
     -moz-transition: 1.5s ease; /* Firefox */
     -webkit-transition: .5s ease; /* Chrome - Safari */
     -o-transition: 1.5s ease; /* Opera */
@@ -28,13 +29,18 @@
     max-width: 80%;
   }
 
-  .contenedor{
-    padding: 3%;
-    padding-left: 8%;
-    padding-right: 8%;
-    overflow:hidden !important;
-  }
+  // .contenedor{
+  //   padding: 3%;
+  //   padding-left: 8%;
+  //   padding-right: 8%;
+  //   overflow:hidden !important;
+  // }
   ::ng-deep .mat-dialog-container{
     padding: 200px;
     overflow: hidden;
+}
+
+.bold-text
+{
+  font-weight: bold;
 }

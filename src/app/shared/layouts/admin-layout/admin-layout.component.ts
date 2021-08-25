@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/dashboard/users/services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-layout',
@@ -23,7 +24,8 @@ export class AdminLayoutComponent implements OnInit
 
   constructor(
     private userService: UserService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +35,21 @@ export class AdminLayoutComponent implements OnInit
         this.userName= res?.user.name;
       }
     )
+  }
+
+  goToSettings(): void
+  {
+    this.router.navigate(['/dashboard/settings']);
+  }
+
+  goToProducts(): void
+  {
+    this.router.navigate(['/dashboard/products']);
+  }
+
+  goToProviders(): void
+  {
+    this.router.navigate(['/dashboard/providers']);
   }
 
 }

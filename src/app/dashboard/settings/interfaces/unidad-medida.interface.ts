@@ -1,4 +1,4 @@
-export interface UnidadMedida
+export interface Unit
 {
     id: string;
     unit: string;

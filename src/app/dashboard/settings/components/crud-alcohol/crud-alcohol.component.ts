@@ -64,7 +64,7 @@ export class CrudAlcoholComponent implements OnInit, AfterViewInit, AfterViewChe
 
   create(){
     this.subscription=this.crudService.show({
-      title: 'Crear alcohol',
+      title: 'Crear % de alcohol',
       component: FormAlcoholComponent,
       dataComponent: {
         insertMode: true,
@@ -82,7 +82,7 @@ export class CrudAlcoholComponent implements OnInit, AfterViewInit, AfterViewChe
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           if(res){
-            this.sweetAlert.presentSuccess(`Alcohol ${alcohol.alcohol} Creado Correctamente!`);
+            this.sweetAlert.presentSuccess(`Alcohol ${alcohol.alcohol}% Creado Correctamente!`);
             this.crudService.close();
           }else{
             this.sweetAlert.presentError( "Problemas" );
@@ -94,9 +94,10 @@ export class CrudAlcoholComponent implements OnInit, AfterViewInit, AfterViewChe
       
     });
   }
+  
   edit(row: Alcohol){
     this.subscription=this.crudService.show({
-      title: 'Editar alcohol',
+      title: 'Editar % de alcohol',
       component: FormAlcoholComponent,
       dataComponent: {
         viewMode: false,
@@ -114,7 +115,7 @@ export class CrudAlcoholComponent implements OnInit, AfterViewInit, AfterViewChe
           this.alcoholService.updateAlcohol(alcoh).subscribe(
             () =>{
               this.loadData();
-              this.sweetAlert.presentSuccess(`Alcohol ${alcoh.alcohol} Editado Correctamente!`);
+              this.sweetAlert.presentSuccess(`Alcohol ${alcoh.alcohol}% Editado Correctamente!`);
               this.crudService.close();
           },
           (error) =>   this.sweetAlert.presentError( error.error.error )
@@ -123,36 +124,59 @@ export class CrudAlcoholComponent implements OnInit, AfterViewInit, AfterViewChe
         }
       });
   }
-  delete(row: Alcohol){
-    this.subscription=this.crudService.show({
-      title: 'Eliminar alcohol',
-      component: FormAlcoholComponent,
-      dataComponent: {
-        viewMode: false,
-        insertMode: false,
-        editMode:false,
-        deleteMode:true,
-        row
-      },
-      maxWidth: '500px',
-      actions: {
-        primary: 'Guardar'
-      }
-    }).subscribe((resultado) => {
-      if (resultado.estado) {
-        const alcoh = resultado.data as Alcohol;
-          this.alcoholService.deleteAlcohol(alcoh.id).subscribe(
-            () =>{
-              this.loadData();
-              this.sweetAlert.presentSuccess(`Alcohol ${row.alcohol} Eliminado Correctamente!`);
-              this.crudService.close();
-          },
-          (error) =>   this.sweetAlert.presentError( error.error.error )
-          );
+  // delete(row: Alcohol){
+  //   this.subscription=this.crudService.show({
+  //     title: 'Eliminar alcohol',
+  //     component: FormAlcoholComponent,
+  //     dataComponent: {
+  //       viewMode: false,
+  //       insertMode: false,
+  //       editMode:false,
+  //       deleteMode:true,
+  //       row
+  //     },
+  //     maxWidth: '500px',
+  //     actions: {
+  //       primary: 'Guardar'
+  //     }
+  //   }).subscribe((resultado) => {
+  //     if (resultado.estado) {
+  //       const alcoh = resultado.data as Alcohol;
+  //         this.alcoholService.deleteAlcohol(alcoh.id).subscribe(
+  //           () =>{
+  //             this.loadData();
+  //             this.sweetAlert.presentSuccess(`Alcohol ${row.alcohol} Eliminado Correctamente!`);
+  //             this.crudService.close();
+  //         },
+  //         (error) =>   this.sweetAlert.presentError( error.error.error )
+  //         );
 
-        }
-      });
-  }
+  //       }
+  //     });
+  // }
+
+  /**
+   * Elimina un % de alcohol en la base de datos.
+   * @param alcohol Alcohol para eliminar.
+   */
+   deleteAlcohol( alcohol: Alcohol )
+   {
+     this.sweetAlert.presentDelete( `${alcohol.alcohol}%` )
+       .then((result) => {
+         if (result.isConfirmed) 
+         {
+           this.alcoholService.deleteAlcohol( alcohol.id ).subscribe(
+             res => {
+               this.sweetAlert.presentSuccess(`Eliminadó volumen alcohólico: ${res.alcohol}%`);
+               this.loadData();
+             },
+             error => {
+               console.log(error);
+             }
+           );
+         }
+       });
+   }
 
   ngOnDestroy(){
     this.subscription?.unsubscribe();

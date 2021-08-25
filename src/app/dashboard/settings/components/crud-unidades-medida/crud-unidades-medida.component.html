@@ -1,7 +1,12 @@
 <div class="contenedor">
 
     <div class="row ml-1">
-        <h1 class="fw-500">Listado unidades de medida</h1>
+        <h1 class="fw-500">Unidades de medida para productos</h1>
+        <p>
+            Muestra el listado completo de las diferentes unidades de medida de productos del negocio,
+            cada producto registrado en el sistema tiene una unidad de medida establecida. <br>
+            <span class="bold-text">Ejemplo de unidades de medida:</span> Media(375ml), Botella(750ml), Litro(100ml)...
+        </p>
     </div>
 
     <div class="row mt-3">
@@ -42,7 +47,7 @@
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </span>                    
                         </button>
-                        <button (click)="delete(row)" title="Eliminar" class="btn">
+                        <button (click)="deleteUnit(row)" title="Eliminar" class="btn">
                             <span class="delete-color">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </span>                    
@@ -61,6 +66,7 @@
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </div>
     </mat-card-content>
+</div>
 
 
 

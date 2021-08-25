@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { CreateCategoryDialogComponent } from '../../components/create-category-dialog/create-category-dialog.component';
+import { CreateCategoryDialogComponent } from './create-category-dialog/create-category-dialog.component';
 import { Category } from '../../interfaces/category.interfaces';
 import { CategoryService } from '../../services/category.service';
 import { CrudService } from 'src/app/shared/services/dialog/crud.service';
@@ -68,8 +68,8 @@ export class CrudCategoryComponent implements OnInit, AfterViewInit {
   }
 
   create(){
-    this.subscription=this.crudService.show({
-      title: 'Crear Categoria',
+    this.subscription = this.crudService.show({
+      title: 'Crear Categoría',
       component: CreateCategoryDialogComponent,
       dataComponent: {
         insertMode: true,
@@ -87,10 +87,10 @@ export class CrudCategoryComponent implements OnInit, AfterViewInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           if(res){
-            this.sweetAlert.presentSuccess(`Categoria ${cat.name} Creada Correctamente!`);
+            this.sweetAlert.presentSuccess(`Categoría ${cat.name} Creada Correctamente!`);
             this.crudService.close();
           }else{
-            this.sweetAlert.presentError( "Problemas" );
+            this.sweetAlert.presentError( "No se pudo crear la categoria" );
           }
         }  ,(error: any) => {
         this.sweetAlert.presentError( error.error.error );
@@ -99,6 +99,7 @@ export class CrudCategoryComponent implements OnInit, AfterViewInit {
       
     });
   }
+
   edit(row: Category){
     this.subscription=this.crudService.show({
       title: 'Editar Categoria',
@@ -128,36 +129,38 @@ export class CrudCategoryComponent implements OnInit, AfterViewInit {
         }
       });
   }
-  delete(row: Category){
-    this.subscription=this.crudService.show({
-      title: 'Eliminar categoria',
-      component: CreateCategoryDialogComponent,
-      dataComponent: {
-        viewMode: false,
-        insertMode: false,
-        editMode:false,
-        deleteMode:true,
-        row
-      },
-      maxWidth: '500px',
-      actions: {
-        primary: 'Guardar'
-      }
-    }).subscribe((resultado) => {
-      if (resultado.estado) {
-        const cat = resultado.data as Category;
-          this.categoryService.deleteCategory(cat.id).subscribe(
-            () =>{
-              this.loadData();
-              this.sweetAlert.presentSuccess(`Categoria ${cat.name} Eliminada Correctamente!`);
-              this.crudService.close();
-          },
-          (error) =>   this.sweetAlert.presentError( error.error.error )
-          );
 
-        }
-      });
-  }
+  // delete(row: Category){
+  //   this.subscription=this.crudService.show({
+  //     title: 'Eliminar categoria',
+  //     component: CreateCategoryDialogComponent,
+  //     dataComponent: {
+  //       viewMode: false,
+  //       insertMode: false,
+  //       editMode:false,
+  //       deleteMode:true,
+  //       row
+  //     },
+  //     maxWidth: '500px',
+  //     actions: {
+  //       primary: 'Guardar'
+  //     }
+  //   }).subscribe((resultado) => {
+  //     if (resultado.estado) {
+  //       const cat = resultado.data as Category;
+  //         this.categoryService.deleteCategory(cat.id).subscribe(
+  //           () =>{
+  //             this.loadData();
+  //             this.sweetAlert.presentSuccess(`Categoria ${cat.name} Eliminada Correctamente!`);
+  //             this.crudService.close();
+  //         },
+  //         (error) =>   this.sweetAlert.presentError( error.error.error )
+  //         );
+
+  //       }
+  //     });
+  // }
+
   ngOnDestroy(){
     this.subscription?.unsubscribe();
    }
@@ -251,24 +254,24 @@ export class CrudCategoryComponent implements OnInit, AfterViewInit {
    * Elimina una categoria en la base de datos.
    * @param category Categoría para eliminar.
    */
-  // deleteCategory( category: Category )
-  // {
-  //   this.sweetAlert.presentDelete( category.name )
-  //     .then((result) => {
-  //       if (result.isConfirmed) 
-  //       {
-  //         this.categoryService.deleteCategory( category.id ).subscribe(
-  //           res => {
-  //             console.log(res);
-  //             this.sweetAlert.presentSuccess(`Eliminadá categoría: ${res.name}`);
-  //             this.loadData();
-  //           },
-  //           error => {
-  //             console.log(error);
-  //           }
-  //         );
-  //       }
-  //     });
-  // }
+  deleteCategory( category: Category )
+  {
+    this.sweetAlert.presentDelete( category.name )
+      .then((result) => {
+        if (result.isConfirmed) 
+        {
+          this.categoryService.deleteCategory( category.id ).subscribe(
+            res => {
+              console.log(res);
+              this.sweetAlert.presentSuccess(`Eliminadá categoría: ${res.name}`);
+              this.loadData();
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+      });
+  }
 
 }
