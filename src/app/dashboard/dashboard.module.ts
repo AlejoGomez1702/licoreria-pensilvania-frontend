@@ -5,11 +5,13 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MainContentComponent } from './components/main-content/main-content.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../shared/material/material.module';
+import { MainPanelComponent } from './pages/main-panel/main-panel.component';
 
 
 @NgModule({
   declarations: [
-    MainContentComponent
+    MainContentComponent,
+    MainPanelComponent
   ],
   imports: [
     CommonModule,

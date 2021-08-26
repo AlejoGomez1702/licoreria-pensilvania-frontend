@@ -31,7 +31,7 @@ export class AdminLayoutComponent implements OnInit
   ngOnInit(): void {
     this.userService.getLoggedUser().subscribe(
       (res) => {
-        this.userImg = res?.user.img;
+        this.userImg = res?.user.img || 'assets/images/user-default.svg';
         this.userName= res?.user.name;
       }
     )
