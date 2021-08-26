@@ -8,3 +8,12 @@ mat-card
 {
     cursor: pointer;
 }
+
+@media (max-width: 700px) 
+{
+    .option
+    {
+        margin-top: 5%;
+    }
+    
+}

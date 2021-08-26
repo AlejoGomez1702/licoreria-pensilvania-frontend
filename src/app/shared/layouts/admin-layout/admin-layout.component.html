@@ -1,8 +1,9 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport color="primary"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === true">
+
     <!-- <mat-toolbar color="primary">Dashboard</mat-toolbar> -->
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <div class="example-button-container mt-3 info-cont">
@@ -31,7 +32,7 @@
       </a>
     </span> -->
     <mat-nav-list>
-      <a mat-list-item [routerLink]="['/dashboard']">
+      <a mat-list-item [routerLink]="['/dashboard']" (click)="drawer.toggle()">
         <mat-icon mat-list-icon>dashboard</mat-icon>
         Panel Principal
       </a>
@@ -39,17 +40,17 @@
       <div mat-subheader>Opciones</div>
 
       <mat-selection-list [multiple]="false">
-        <mat-list-option (click)="goToProducts()">
+        <mat-list-option (click)="goToProducts(); drawer.toggle()">
           <mat-icon mat-list-icon>local_bar</mat-icon>
           Productos
         </mat-list-option>
 
-        <mat-list-option (click)="goToProviders()">
+        <mat-list-option (click)="goToProviders(); drawer.toggle()">
           <mat-icon mat-list-icon>person_pin_circle</mat-icon>
           Proveedores
         </mat-list-option>
 
-        <mat-list-option (click)="goToSettings()">
+        <mat-list-option (click)="goToSettings(); drawer.toggle()">
           <mat-icon mat-list-icon>settings</mat-icon>
           Configuración
         </mat-list-option>
