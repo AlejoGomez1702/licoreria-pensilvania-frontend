@@ -15,6 +15,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+
+
 @NgModule({
   declarations: [],
   imports: [
@@ -34,6 +40,8 @@ import { MatCardModule } from '@angular/material/card';
     MatDialogModule,
     MatTabsModule,
     MatCardModule,
+    MatSelectModule,
+    MatChipsModule, MatAutocompleteModule
   ],
   exports: [
     MatButtonModule,
@@ -51,6 +59,8 @@ import { MatCardModule } from '@angular/material/card';
     MatDialogModule,
     MatTabsModule,
     MatCardModule,
+    MatSelectModule,
+    MatChipsModule, MatAutocompleteModule
   ]
 })
 export class MaterialModule { }

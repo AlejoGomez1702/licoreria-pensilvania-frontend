@@ -35,10 +35,12 @@ export class CrudUnidadesMedidaComponent implements OnInit, AfterViewInit, After
   {    
     this.loadData();
   }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+  
   ngAfterViewChecked(): void {
     this.changeRef.detectChanges();
   }

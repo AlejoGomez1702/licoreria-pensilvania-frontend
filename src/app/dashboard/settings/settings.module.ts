@@ -14,6 +14,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CrudService } from 'src/app/shared/services/dialog/crud.service';
 import { FormAlcoholComponent } from './components/crud-alcohol/form-alcohol/form-alcohol.component';
 import { CreateCategoryDialogComponent } from './components/crud-category/create-category-dialog/create-category-dialog.component';
+import { CoreModule } from 'src/app/core/core.module';
 
 
 @NgModule({
@@ -29,8 +30,9 @@ import { CreateCategoryDialogComponent } from './components/crud-category/create
   imports: [
     CommonModule,
     SettingsRoutingModule,
-    MaterialModule,
-    FormsModule,
+    // CoreModule
+    // MaterialModule,
+    // FormsModule,
     SharedModule,
   ],
   entryComponents: [FormUnidadComponent],

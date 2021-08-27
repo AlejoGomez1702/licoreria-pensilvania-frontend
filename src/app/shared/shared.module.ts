@@ -53,6 +53,7 @@ import { FormUnidadComponent } from '../dashboard/settings/components/crud-unida
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    MaterialModule,
     // Components
     IndexComponent,
     SmallHeaderComponent,

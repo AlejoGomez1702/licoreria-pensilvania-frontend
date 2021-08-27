@@ -1,0 +1,195 @@
+<div class="container txt-center">
+  <mat-card class="example-card" style="width: 20%; height: 100px;">
+    <mat-card-header>
+      <!-- <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Shiba Inu</mat-card-title> -->
+      <mat-card-subtitle>Imagen del Producto</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" style="display: block !important;">
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <!-- <button mat-button>SHARE</button> -->
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<form [formGroup]="form">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Categoría</mat-label>
+                    <mat-select formControlName="category" required>
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+                        <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        Debe especificar la categoría a la que pertenece el producto.
+                      </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Nombre </mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      [min]="0"
+                      formControlName="name"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        El nombre de la categoría es requerido.
+                      </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label> Unidad de medida </mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      [min]="0"
+                      formControlName="name"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        El nombre de la categoría es requerido.
+                      </mat-error>
+                </mat-form-field>
+            </div>
+        </div>    
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+                <mat-form-field class="example-chip-list" appearance="fill">
+                    <mat-label>Favorite Fruits</mat-label>
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+                      <mat-chip
+                        *ngFor="let fruit of fruits"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(fruit)">
+                        {{fruit}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                      <input
+                        placeholder="New fruit..."
+                        #fruitInput
+                        [formControl]="fruitCtrl"
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                        {{fruit}}
+                      </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Código de Barras </mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      [min]="0"
+                      formControlName="name"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        El nombre de la categoría es requerido.
+                      </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Stock</mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      [min]="0"
+                      formControlName="name"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        El nombre de la categoría es requerido.
+                      </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>% Alcohol </mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      [min]="0"
+                      formControlName="name"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        El nombre de la categoría es requerido.
+                      </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Precio de Compra</mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      [min]="0"
+                      formControlName="name"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        El nombre de la categoría es requerido.
+                      </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Precio de Venta</mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      [min]="0"
+                      formControlName="name"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        El nombre de la categoría es requerido.
+                      </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Existencia Actual </mat-label>
+                    <input
+                      matInput
+                      type="text"
+                      [min]="0"
+                      formControlName="name"
+                      required
+                    />
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        El nombre de la categoría es requerido.
+                      </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        
+    </div>
+</form>
+
