@@ -18,6 +18,8 @@ import { MatCardModule } from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -41,7 +43,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatTabsModule,
     MatCardModule,
     MatSelectModule,
-    MatChipsModule, MatAutocompleteModule
+    MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule
   ],
   exports: [
     MatButtonModule,
@@ -60,7 +62,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatTabsModule,
     MatCardModule,
     MatSelectModule,
-    MatChipsModule, MatAutocompleteModule
+    MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule
   ]
 })
 export class MaterialModule { }

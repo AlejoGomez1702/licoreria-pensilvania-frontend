@@ -59,6 +59,7 @@ export class CreateProductDialogComponent implements OnInit
     this.formDeleteMode= false;          
     this.form = this.formBuilder.group({
         id: ['',[Validators.required]],//requerido
+        img: ['', Validators.required],
         alcohol: ['',Validators.compose(
           [Validators.required,
           Validators.max(100),
