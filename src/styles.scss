@@ -47,3 +47,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 {
     margin-right: 10px;
 }
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #263c5a #ededed;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 11px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ededed;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #263c5a;
+    border-radius: 5px;
+    border: 3px solid #ffffff;
+  }
+
+.mt-small
+{
+    margin-top: 2%;
+}

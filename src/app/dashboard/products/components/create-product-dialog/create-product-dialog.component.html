@@ -1,20 +1,26 @@
-<div class="container txt-center">
-  <mat-card class="example-card" style="width: 20%; height: 100px;">
-    <mat-card-header>
-      <!-- <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title> -->
-      <mat-card-subtitle>Imagen del Producto</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" style="display: block !important;">
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <!-- <button mat-button>SHARE</button> -->
-    </mat-card-actions>
-  </mat-card>
-</div>
+<form [formGroup]="form" class="mt-small">
 
-<form [formGroup]="form">
-    <div class="container">
+  <div class="container row center-card mt-small">
+    <mat-card class="example-card col-lg-4 col-md-6 col-sm-6 col-8">
+      <mat-card-header>
+        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+        <mat-card-title>Imagen</mat-card-title>
+        <mat-card-subtitle>Sube la imagen del producto</mat-card-subtitle>
+      </mat-card-header>
+      <img *ngIf="false" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" style="display: block !important;">
+      <mat-card-actions class="center-card">
+        <!-- <button mat-raised-button color="accent">Subir</button> -->
+        <!-- <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+          <mat-icon>add_a_photo</mat-icon>
+        </button> -->
+        inpt 
+        <!-- <button mat-button>SHARE</button> -->
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+
+    <div class="container mt-small">
         <div class="row">
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
