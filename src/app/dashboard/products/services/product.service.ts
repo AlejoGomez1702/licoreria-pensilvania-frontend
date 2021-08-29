@@ -37,6 +37,19 @@ export class ProductService
     return this.http.get<ResponseGetAllProducts>(`${this.apiUrl}/products`, httpOptions);
   }
 
+  /**
+   * Obtiene todas las caracteristicas registradas en los productos existentes
+   * @returns 
+   */
+  getAllFeatures(): Observable<{ features: string[]; }>
+  {
+    const httpOptions = {
+      headers: this.headers
+    };
+
+    return this.http.get<{ features: string[]; }>(`${this.apiUrl}/products/all/features`, httpOptions);
+  }
+
   // /**
   //  * Crea una categoría de productos en la base de datos.
   //  * @param name Nombre de la categoría.

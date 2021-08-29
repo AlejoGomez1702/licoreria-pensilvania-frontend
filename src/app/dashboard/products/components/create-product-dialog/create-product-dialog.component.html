@@ -1,41 +1,31 @@
+<div class="container row center-card mt-small">
+  <mat-card class="example-card col-lg-4 col-md-6 col-sm-6 col-8">
+    <mat-card-header>
+      <mat-card-title>Imagen</mat-card-title>
+      <mat-card-subtitle>Sube la imagen del producto</mat-card-subtitle>
+    </mat-card-header>
+    <img *ngIf="imgURL" mat-card-image [src]="imgURL" alt="Photo of a Shiba Inu" style="display: block !important;">
+    <mat-card-actions class="center-card">
+      <mat-form-field>
+        <ngx-mat-file-input [(ngModel)]="img" accept='image/*' (change)="preview(img.files)" placeholder="Subir imagen..."></ngx-mat-file-input>
+        <mat-icon matSuffix class="cursor-pointer">add_a_photo</mat-icon>
+      </mat-form-field>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
 <form [formGroup]="form" class="mt-small">
-
-  <div class="container row center-card mt-small">
-    <mat-card class="example-card col-lg-4 col-md-6 col-sm-6 col-8">
-      <mat-card-header>
-        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-        <mat-card-title>Imagen</mat-card-title>
-        <mat-card-subtitle>Sube la imagen del producto</mat-card-subtitle>
-      </mat-card-header>
-      <img *ngIf="true" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" style="display: block !important;">
-      <mat-card-actions class="center-card">
-        <mat-form-field>
-          <ngx-mat-file-input formControlName="img" placeholder="Subir imagen..."></ngx-mat-file-input>
-          <mat-icon matSuffix class="cursor-pointer">add_a_photo</mat-icon>
-        </mat-form-field>
-
-        <!-- <button mat-raised-button color="accent">Subir</button> -->
-        <!-- <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
-          <mat-icon>add_a_photo</mat-icon>
-        </button> -->
-        
-        <!-- <button mat-button>SHARE</button> -->
-      </mat-card-actions>
-    </mat-card>
-  </div>
-
-
     <div class="container mt-small">
         <div class="row">
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
                     <mat-label>Categoría</mat-label>
                     <mat-select formControlName="category" required>
-                        <mat-option value="option1">Option 1</mat-option>
-                        <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
-                        <mat-option value="option3">Option 3</mat-option>
+                      <mat-option *ngFor="let category of categories" [value]="category.id">
+                        {{ category.name }}
+                      </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                    <mat-error *ngIf="form.controls.category.hasError('required')">
                         Debe especificar la categoría a la que pertenece el producto.
                       </mat-error>
                 </mat-form-field>
@@ -58,47 +48,48 @@
             </div>
 
             <div class="col-lg-4 col-md-4">
-                <mat-form-field appearance="fill" class="formControl">
-                    <mat-label> Unidad de medida </mat-label>
-                    <input
-                      matInput
-                      type="text"
-                      [min]="0"
-                      formControlName="name"
-                      required
-                    />
-                    <mat-error *ngIf="form.controls.name.hasError('required')">
-                        El nombre de la categoría es requerido.
-                      </mat-error>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="formControl">
+                <mat-label>Unidad de medida</mat-label>
+                <mat-select formControlName="unit" required>
+                  <mat-option *ngFor="let unit of units" [value]="unit.id">
+                    {{ unit.unit }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls.unit.hasError('required')">
+                    Debe especificar la unidad de medida del producto.
+                  </mat-error>
+              </mat-form-field>
             </div>
         </div>    
         
+        
         <div class="row">
+          <!-- listado de caracteristícas del producto -->
             <div class="col-lg-12 col-md-12 col-12">
                 <mat-form-field class="example-chip-list" appearance="fill">
-                    <mat-label>Favorite Fruits</mat-label>
-                    <mat-chip-list #chipList aria-label="Fruit selection">
+                    <mat-label>Características</mat-label>
+                    <mat-chip-list #chipList aria-label="Seleccionar Características">
                       <mat-chip
-                        *ngFor="let fruit of fruits"
+                        *ngFor="let feature of selectedFeatures"
                         [selectable]="selectable"
                         [removable]="removable"
-                        (removed)="remove(fruit)">
-                        {{fruit}}
+                        (removed)="remove(feature)">
+                        {{feature}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                       </mat-chip>
                       <input
-                        placeholder="New fruit..."
+                        placeholder="Nueva Característica..."
                         #fruitInput
-                        [formControl]="fruitCtrl"
+                        required
+                        formControlName="features"
                         [matAutocomplete]="auto"
                         [matChipInputFor]="chipList"
                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                         (matChipInputTokenEnd)="add($event)">
                     </mat-chip-list>
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-                        {{fruit}}
+                      <mat-option *ngFor="let feature of allFeatures" [value]="feature">
+                        {{feature}}
                       </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
@@ -112,23 +103,23 @@
                     <input
                       matInput
                       type="text"
-                      [min]="0"
-                      formControlName="name"
-                      required
+                      formControlName="barcode"
                     />
-                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                    <!-- <mat-error *ngIf="form.controls.name.hasError('required')">
                         El nombre de la categoría es requerido.
-                      </mat-error>
+                      </mat-error> -->
                 </mat-form-field>
             </div>
+
+            <!-- Stock -->
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
                     <mat-label>Stock</mat-label>
                     <input
                       matInput
-                      type="text"
-                      [min]="0"
-                      formControlName="name"
+                      type="number"
+                      [min]="1"
+                      formControlName="stock"
                       required
                     />
                     <mat-error *ngIf="form.controls.name.hasError('required')">
@@ -136,20 +127,20 @@
                       </mat-error>
                 </mat-form-field>
             </div>
+
+            <!-- % de alcohol -->
             <div class="col-lg-4 col-md-4">
-                <mat-form-field appearance="fill" class="formControl">
-                    <mat-label>% Alcohol </mat-label>
-                    <input
-                      matInput
-                      type="text"
-                      [min]="0"
-                      formControlName="name"
-                      required
-                    />
-                    <mat-error *ngIf="form.controls.name.hasError('required')">
-                        El nombre de la categoría es requerido.
-                      </mat-error>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="formControl">
+                <mat-label>% Alcohol</mat-label>
+                <mat-select formControlName="alcohol" required>
+                  <mat-option *ngFor="let alcohol of alcohols" [value]="alcohol.id">
+                    {{ alcohol.alcohol }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls.alcohol.hasError('required')">
+                    Debe especificar el % de alcohol del producto.
+                  </mat-error>
+              </mat-form-field>
             </div>
         </div>
 

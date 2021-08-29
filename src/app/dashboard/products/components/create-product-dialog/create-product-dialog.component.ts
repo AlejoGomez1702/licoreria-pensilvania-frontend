@@ -11,6 +11,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
  import {MatChipInputEvent} from '@angular/material/chips';
  import {Observable} from 'rxjs';
  import {map, startWith} from 'rxjs/operators';
+import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
+import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
+import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
+import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
+import { ProductService } from '../../services/product.service';
+import { Alcohol } from 'src/app/dashboard/settings/interfaces/alcohol.interface';
+import { AlcoholService } from 'src/app/dashboard/settings/services/alcohol.service';
  // ***********************************************************************
 
 @Component({
@@ -25,69 +32,152 @@ export class CreateProductDialogComponent implements OnInit
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  filteredFeatures!: Observable<string[]>;
+  selectedFeatures: string[] = [];
+  // fruits: string[] = ['Lemon'];
+  // allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
   @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
   // ***********************************************************************
 
+  // Imagen del producto *********************************
+  public imagePath: string = '';
+  imgURL: any;
+  public message: string = '';
+  public img: any = {};
+  // *************************************************************
 
 
 
-
-  form: FormGroup ;
+  form: FormGroup = new FormGroup({});
   formInsertMode: boolean;
   formEditMode: boolean;
   formViewMode: boolean;
   formDeleteMode: boolean;
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any,
-              private cdr: ChangeDetectorRef,
-              private formBuilder: FormBuilder,
+
+  // DATA *********************************
+  public categories: Category[] = [];
+  public units: Unit[] = [];
+  public allFeatures: string[] = [];
+  public alcohols: Alcohol[] = [];
+  // *************************************************************
+
+
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private cdr: ChangeDetectorRef,
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService,
+    private unitService: UnidadMedidaService,
+    private productService: ProductService,
+    private alcoholService: AlcoholService
   ) 
   { 
-    // Seleccionar las caracteristicas**************
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
-    // ***********************************************************************
-
-
     this.formInsertMode = false;
     this.formViewMode = false;
     this.formEditMode = false;  
     this.formDeleteMode= false;          
-    this.form = this.formBuilder.group({
-        id: ['',[Validators.required]],//requerido
-        img: ['', Validators.required],
-        alcohol: ['',Validators.compose(
-          [Validators.required,
-          Validators.max(100),
-          Validators.min(0)]) ], //requerido, 0-10000
-      });
-  }
-    ngOnInit(): void {
-      this.formInsertMode = this.data?.insertMode;
-      this.formViewMode = this.data?.viewMode;
-      this.formEditMode = this.data?.editMode;
-      this.formDeleteMode = this.data?.deleteMode;
-      this.buildForm();
-      this.form.patchValue(this.data?.row);
-    }
+    // this.buildForm();
 
-    buildForm() 
+    
+  }
+
+  ngOnInit(): void 
+  {
+    this.loadData();
+    this.formInsertMode = this.data?.insertMode;
+    this.formViewMode = this.data?.viewMode;
+    this.formEditMode = this.data?.editMode;
+    this.formDeleteMode = this.data?.deleteMode;
+    this.buildForm();
+    this.form.patchValue(this.data?.row);
+
+    // Seleccionar las caracteristicas**************
+    const featuresField = this.form.get('features');
+    if( featuresField )
     {
-      this.form = this.formBuilder.group({
-                                            id:[''],
-                                            category: ['',[Validators.required] ],
-                                            name: ['',[Validators.required] ], //requerido, 0-10000
-                                            
-                                          });
-      if(this.formDeleteMode)
-      {
-        this.form.disable();
-      }
+      this.filteredFeatures = featuresField.valueChanges.pipe(
+        startWith(null),
+        map((feature: string | null) => feature ? this._filter(feature) : this.allFeatures.slice()));
     }
+    
+    // this.filteredFeatures = this.fruitCtrl.valueChanges.pipe(
+    //   startWith(null),
+    //   map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+    // ***********************************************************************
+    
+  }
+
+  buildForm() 
+  {
+    this.form = this.formBuilder.group({
+                                          id:[''],
+                                          category: ['',[Validators.required] ],
+                                          unit: ['',[Validators.required] ],
+                                          name: ['',[Validators.required] ], 
+                                          features: [[],[Validators.required] ],
+                                          barcode: ['',[] ],
+                                          stock: [1,[Validators.min(1)] ],
+                                          alcohol: ['' ,[Validators.required] ],
+                                          
+                                        });
+    if(this.formDeleteMode)
+    {
+      this.form.disable();
+    }
+  }
+
+  loadData()
+  {
+    this.loadCategories();
+    this.loadUnits();
+    this.loadFeatures();
+    this.loadAlcohols();
+  }
+
+  loadCategories()
+  {
+    this.categoryService.getAllCategories().subscribe(
+      categories => {
+        this.categories = categories.categories;
+      },
+      error => console.log("Error obteniendo categorias")
+    );
+  }
+
+  loadUnits()
+  {
+    this.unitService.getAllUnidades().subscribe(
+      units => {
+        this.units = units.units;
+      },
+      error => console.log("Error obteniendo unidades de medida")
+    );
+  }
+
+  loadFeatures()
+  {
+    this.productService.getAllFeatures().subscribe(
+      features => {
+        this.allFeatures = features.features;
+      },
+      error => console.log("Error obteniendo Caracteristicas de los productos")
+    );
+  }
+
+  loadAlcohols()
+  {
+    this.alcoholService.getAllAlcohol().subscribe(
+      alcohols => {
+        this.alcohols = alcohols.alcohols;
+      },
+      error => console.log("Error obteniendo alcoholes de los productos")
+    );
+  }
+
+
+
 
     ngAfterViewChecked(): void {
       this.cdr.detectChanges();
@@ -97,42 +187,70 @@ export class CreateProductDialogComponent implements OnInit
     }
 
 
-  // Seleccionar las caracteristicas**************
-  add(event: MatChipInputEvent): void {
+  /**
+   * Se activa cuando se agrega una nueva caracteeristica que no esta en lista.
+   * @param event 
+   */
+  add(event: MatChipInputEvent): void 
+  {
     const value = (event.value || '').trim();
 
-    // Add our fruit
     if (value) {
-      this.fruits.push(value);
+      this.selectedFeatures.push(value);
     }
 
     // Clear the input value
     event.chipInput!.clear();
 
-    this.fruitCtrl.setValue(null);
+    this.form.get('features')?.setValue(null);
+    this.selectedFeatures = [...new Set( this.selectedFeatures )];
   }
 
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+  remove(feature: string): void {
+    const index = this.selectedFeatures.indexOf(feature);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.selectedFeatures.splice(index, 1);
     }
   }
 
+  /**
+   * Se activa cuando se selecciona una nueva caracteeristica en lista.
+   * @param event 
+   */
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
+    this.selectedFeatures.push(event.option.viewValue);
     this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    this.form.get('features')?.setValue(null);
+    this.selectedFeatures = [...new Set( this.selectedFeatures )];
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
+    return this.allFeatures.filter(feature => feature.toLowerCase().includes(filterValue));
   }
 
   // ***********************************************************************
+
+  preview(files: any) 
+  {
+    if (files.length === 0)
+      return;
+ 
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Solo se pueden seleccionar imagenes.";
+      return;
+    }
+ 
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result; 
+    }
+  }
 
 
 }
