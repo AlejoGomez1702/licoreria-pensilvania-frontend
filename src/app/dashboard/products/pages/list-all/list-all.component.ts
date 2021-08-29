@@ -95,20 +95,21 @@ export class ListAllComponent implements OnInit
     }).subscribe((resultado) => {
       if (resultado.estado) 
       {
-        const productData = resultado.data as Product;
-        const { img, ...product } = productData;
+        const product = resultado.data as Product;
+        // const { img, ...product } = productData;
         // const file = productData.file?._files[0];
-        product.file = img;
+        // product.file = img;
         // product.img = file || '';
-        console.log(product);
+        // console.log(product);
         this.productService.createProduct( product ).subscribe(
           product => {
             if(product)
             {              
-              const oldData= this.dataSource.data;
-              this.dataSource = new MatTableDataSource([product,...oldData] );
+              // const oldData= this.dataSource.data;
+              this.dataSource = new MatTableDataSource();
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
+              this.loadData();
               this.sweetAlert.presentSuccess(`Producto Creado Correctamente!`);
               this.crudService.close();
             }else{

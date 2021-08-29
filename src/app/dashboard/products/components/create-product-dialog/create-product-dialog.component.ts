@@ -41,7 +41,7 @@ export class CreateProductDialogComponent implements OnInit
 
   // Imagen del producto *********************************
   // public imagePath: string = '';
-  public imgURL: string = '';
+  public imgURL: any;
   // public message: string = '';
   // public img: any = {};
   // imageSrc: string = '';
@@ -97,7 +97,7 @@ export class CreateProductDialogComponent implements OnInit
   {
     this.form = this.formBuilder.group({
                                           // file: [null,[Validators.required] ],
-                                          img: ['', [Validators.required]],
+                                          img: [null, [Validators.required]],
                                           category: ['',[Validators.required] ],
                                           unit: ['',[Validators.required] ],
                                           name: ['',[Validators.required] ], 
@@ -222,39 +222,62 @@ export class CreateProductDialogComponent implements OnInit
 
   // ***********************************************************************
 
-  onFileChange(event: any) {
-    let reader = new FileReader();
-   
-    if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-    
-      reader.onload = () => {
-        this.form.patchValue({
-          file: reader.result
-        });
-        
-        // need to run CD since file load runs outside of zone
-        this.cd.markForCheck();
-      };
+  onSelect(event: any) 
+  {
+    const element = event.target as HTMLInputElement;
+    if(element.files && element.files.length)
+    {      
+      const files = element.files;
+      if(files)
+      {
+        const file = files[0];
+        this.form.patchValue({img: file});
+        this.form.get('img')?.updateValueAndValidity();
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imgURL = reader.result?.toString() || '';
+        }    
+
+        reader.readAsDataURL(file);
+        // this.preview(); 
+        // console.log(this.imgURL);
+      }
     }
   }
 
+  // onFileChange(event: any) {
+  //   let reader = new FileReader();
+   
+  //   if(event.target.files && event.target.files.length) {
+  //     const [file] = event.target.files;
+  //     reader.readAsDataURL(file);
+    
+  //     reader.onload = () => {
+  //       this.form.patchValue({
+  //         file: reader.result
+  //       });
+        
+  //       // need to run CD since file load runs outside of zone
+  //       this.cd.markForCheck();
+  //     };
+  //   }
+  // }
+
   // preview() 
   // {
-  //   const files = this.form.get('file')?.value.files;
+  //   const files = this.form.get('img')?.value.files;
 
   //   if (!files || files.length === 0)
   //     return;
  
   //   var mimeType = files[0].type;
   //   if (mimeType.match(/image\/*/) == null) {
-  //     this.message = "Solo se pueden seleccionar imagenes.";
+  //     console.log('No se seleccionó una imagen');
   //     return;
   //   }
  
   //   var reader = new FileReader();
-  //   this.imagePath = files;
+  //   // this.imagePath = files;
   //   reader.readAsDataURL(files[0]); 
   //   reader.onload = (_event) => { 
   //     this.imgURL = reader.result; 

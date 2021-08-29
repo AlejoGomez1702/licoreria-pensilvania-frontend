@@ -17,7 +17,7 @@ export class ProductService
   headers = new HttpHeaders({
     'Content-Type':  'application/json',
     'x-token': this.tokenService.getToken()
-  })
+  });
   
   constructor(
     private http: HttpClient,
@@ -58,10 +58,29 @@ export class ProductService
   createProduct( product: Product ): Observable<Product>
   {
     const httpOptions = {
-      headers: this.headers
+      headers: new HttpHeaders({
+        'x-token': this.tokenService.getToken()
+      })
     };
 
-    return this.http.post<Product>(`${this.apiUrl}/products`, product, httpOptions);
+    // const productObj: any = { ...product };
+    const { img, ...productData } = product;
+    const productDataAny: any = { ...productData };
+    // console.log(productDataAny);
+    const formData: FormData = new FormData();
+    formData.append('img', img);
+    let data;
+    for (const key in productDataAny) 
+    {
+      data = productDataAny[key];
+      if(data === null)
+        data = 0;
+      // const data = productData.key;
+      formData.append(key, data);
+      
+    }
+
+    return this.http.post<Product>(`${this.apiUrl}/products`, formData, httpOptions);
   }
 
   // /**

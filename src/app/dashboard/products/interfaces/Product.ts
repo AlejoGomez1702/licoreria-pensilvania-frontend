@@ -7,8 +7,8 @@ import { Inventory } from "./Inventory";
 export interface Product 
 {
     features:          string[];
-    file?:             any;
-    img?:              string;
+    // file?:             any;
+    img?:              any;
     description:       string;
     sale_price:        number;
     purchase_price:    number;
