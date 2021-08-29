@@ -20,6 +20,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 
 
@@ -43,7 +44,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatTabsModule,
     MatCardModule,
     MatSelectModule,
-    MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule
+    MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule,
+    NgxCurrencyModule
   ],
   exports: [
     MatButtonModule,
@@ -62,7 +64,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatTabsModule,
     MatCardModule,
     MatSelectModule,
-    MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule
+    MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule,
+    NgxCurrencyModule
   ]
 })
 export class MaterialModule { }

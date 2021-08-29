@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // API_URL: 'http://localhost:9000/api'
-  API_URL: 'https://licoreria-pensilvania-backend.herokuapp.com/api'
+  API_URL: 'http://localhost:9000/api'
+  // API_URL: 'https://licoreria-pensilvania-backend.herokuapp.com/api'
 };
 
 /*

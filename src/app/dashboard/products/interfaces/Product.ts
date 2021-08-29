@@ -1,3 +1,4 @@
+import { FileInput } from "ngx-material-file-input";
 import { Alcohol } from "../../settings/interfaces/alcohol.interface";
 import { Category } from "../../settings/interfaces/category.interfaces";
 import { Unit } from "../../settings/interfaces/unidad-medida.interface";
@@ -6,6 +7,8 @@ import { Inventory } from "./Inventory";
 export interface Product 
 {
     features:          string[];
+    file?:             any;
+    img?:              string;
     description:       string;
     sale_price:        number;
     purchase_price:    number;

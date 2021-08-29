@@ -5,6 +5,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { TokenService } from 'src/app/core/services/token.service';
 import { ResponseGetAllProducts } from '../interfaces/ResponseGetAllProducts';
+import { Product } from '../interfaces/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -50,19 +51,18 @@ export class ProductService
     return this.http.get<{ features: string[]; }>(`${this.apiUrl}/products/all/features`, httpOptions);
   }
 
-  // /**
-  //  * Crea una categoría de productos en la base de datos.
-  //  * @param name Nombre de la categoría.
-  //  */
-  // createCategory( name: string ): Observable<Category>
-  // {
-  //   const data = { name };
-  //   const httpOptions = {
-  //     headers: this.headers
-  //   };
+  /**
+   * Crea un producto en la base de datos.
+   * @param product 
+   */
+  createProduct( product: Product ): Observable<Product>
+  {
+    const httpOptions = {
+      headers: this.headers
+    };
 
-  //   return this.http.post<Category>(`${this.apiUrl}/categories`, data, httpOptions);
-  // }
+    return this.http.post<Product>(`${this.apiUrl}/products`, product, httpOptions);
+  }
 
   // /**
   //  * Actualiza una categoría de productos en la base de datos.

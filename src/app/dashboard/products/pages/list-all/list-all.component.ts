@@ -93,24 +93,33 @@ export class ListAllComponent implements OnInit
       },
       maxWidth: '70%',
     }).subscribe((resultado) => {
-      if (resultado.estado) {
-      //   const cat = resultado.data as Category;
-      //   this.categoryService.createCategory(cat.name).subscribe((res: any)=>{
-      //     const oldData= this.dataSource.data;
-      //     this.dataSource = new MatTableDataSource([{id:res?.id, name:res?.name, state:true},...oldData] );
-      //     this.dataSource.paginator = this.paginator;
-      //     this.dataSource.sort = this.sort;
-      //     if(res){
-      //       this.sweetAlert.presentSuccess(`Categoría ${cat.name} Creada Correctamente!`);
-      //       this.crudService.close();
-      //     }else{
-      //       this.sweetAlert.presentError( "No se pudo crear la categoria" );
-      //     }
-      //   }  ,(error: any) => {
-      //   this.sweetAlert.presentError( error.error.error );
-      // });
-      }
-      
+      if (resultado.estado) 
+      {
+        const productData = resultado.data as Product;
+        const { img, ...product } = productData;
+        // const file = productData.file?._files[0];
+        product.file = img;
+        // product.img = file || '';
+        console.log(product);
+        this.productService.createProduct( product ).subscribe(
+          product => {
+            if(product)
+            {              
+              const oldData= this.dataSource.data;
+              this.dataSource = new MatTableDataSource([product,...oldData] );
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+              this.sweetAlert.presentSuccess(`Producto Creado Correctamente!`);
+              this.crudService.close();
+            }else{
+              this.sweetAlert.presentError( "No se pudo crear el producto" );
+            }            
+          },
+          error => {
+            this.sweetAlert.presentError( error.error.error );
+          }
+        );
+      }      
     });
   }
 

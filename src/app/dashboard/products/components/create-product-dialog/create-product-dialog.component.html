@@ -1,20 +1,21 @@
-<div class="container row center-card mt-small">
-  <mat-card class="example-card col-lg-4 col-md-6 col-sm-6 col-8">
-    <mat-card-header>
-      <mat-card-title>Imagen</mat-card-title>
-      <mat-card-subtitle>Sube la imagen del producto</mat-card-subtitle>
-    </mat-card-header>
-    <img *ngIf="imgURL" mat-card-image [src]="imgURL" alt="Photo of a Shiba Inu" style="display: block !important;">
-    <mat-card-actions class="center-card">
-      <mat-form-field>
-        <ngx-mat-file-input [(ngModel)]="img" accept='image/*' (change)="preview(img.files)" placeholder="Subir imagen..."></ngx-mat-file-input>
-        <mat-icon matSuffix class="cursor-pointer">add_a_photo</mat-icon>
-      </mat-form-field>
-    </mat-card-actions>
-  </mat-card>
-</div>
-
 <form [formGroup]="form" class="mt-small">
+
+  <div class="container row center-card mt-small">
+    <mat-card class="example-card col-lg-4 col-md-6 col-sm-6 col-8">
+      <mat-card-header>
+        <mat-card-title>Imagen</mat-card-title>
+        <mat-card-subtitle>Sube la imagen del producto</mat-card-subtitle>
+      </mat-card-header>
+      <img *ngIf="imgURL" mat-card-image [src]="imgURL" alt="Photo of a Shiba Inu" style="display: block !important;">
+      <mat-card-actions class="center-card">
+        <mat-form-field>
+          <ngx-mat-file-input (change)="onFileChange($event)" accept='image/*' placeholder="Subir imagen..."></ngx-mat-file-input>
+          <mat-icon matSuffix class="cursor-pointer">add_a_photo</mat-icon>
+        </mat-form-field>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
     <div class="container mt-small">
         <div class="row">
             <div class="col-lg-4 col-md-4">
@@ -80,7 +81,6 @@
                       <input
                         placeholder="Nueva Característica..."
                         #fruitInput
-                        required
                         formControlName="features"
                         [matAutocomplete]="auto"
                         [matChipInputFor]="chipList"
@@ -148,46 +148,30 @@
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
                     <mat-label>Precio de Compra</mat-label>
-                    <input
-                      matInput
-                      type="text"
-                      [min]="0"
-                      formControlName="name"
-                      required
-                    />
-                    <mat-error *ngIf="form.controls.name.hasError('required')">
-                        El nombre de la categoría es requerido.
-                      </mat-error>
+                    <input matInput currencyMask formControlName="purchase_price" 
+                    [options]="{ allowNegative: false, precision: 0, thousands: '.' }"/>
                 </mat-form-field>
             </div>
             <div class="col-lg-4 col-md-4">
-                <mat-form-field appearance="fill" class="formControl">
-                    <mat-label>Precio de Venta</mat-label>
-                    <input
-                      matInput
-                      type="text"
-                      [min]="0"
-                      formControlName="name"
-                      required
-                    />
-                    <mat-error *ngIf="form.controls.name.hasError('required')">
-                        El nombre de la categoría es requerido.
-                      </mat-error>
-                </mat-form-field>
-            </div>
+              <mat-form-field appearance="fill" class="formControl">
+                  <mat-label>Precio de Venta</mat-label>
+                  <input matInput currencyMask formControlName="sale_price" 
+                  [options]="{ allowNegative: false, precision: 0, thousands: '.' }"/>
+              </mat-form-field>
+          </div>
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
                     <mat-label>Existencia Actual </mat-label>
                     <input
                       matInput
-                      type="text"
+                      type="number"
                       [min]="0"
-                      formControlName="name"
+                      formControlName="current_existence"
                       required
                     />
-                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                    <!-- <mat-error *ngIf="form.controls.name.hasError('required')">
                         El nombre de la categoría es requerido.
-                      </mat-error>
+                      </mat-error> -->
                 </mat-form-field>
             </div>
         </div>
