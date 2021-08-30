@@ -20,6 +20,7 @@ import { AdDirective } from './directives/ad-component.directive';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormUnidadComponent } from '../dashboard/settings/components/crud-unidades-medida/form-unidad/form-unidad.component';
+import { SpinnerModule } from './spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FormUnidadComponent } from '../dashboard/settings/components/crud-unida
     RouterModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SpinnerModule
   ],
   exports: [
     FormsModule,
@@ -65,7 +67,8 @@ import { FormUnidadComponent } from '../dashboard/settings/components/crud-unida
     FooterComponent,
     LoaderComponent,
     AdminLayoutComponent,
-    AdDirective
+    AdDirective,
+    SpinnerModule
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
