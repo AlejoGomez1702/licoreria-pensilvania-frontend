@@ -239,50 +239,7 @@ export class CreateProductDialogComponent implements OnInit
         }    
 
         reader.readAsDataURL(file);
-        // this.preview(); 
-        // console.log(this.imgURL);
       }
     }
   }
-
-  // onFileChange(event: any) {
-  //   let reader = new FileReader();
-   
-  //   if(event.target.files && event.target.files.length) {
-  //     const [file] = event.target.files;
-  //     reader.readAsDataURL(file);
-    
-  //     reader.onload = () => {
-  //       this.form.patchValue({
-  //         file: reader.result
-  //       });
-        
-  //       // need to run CD since file load runs outside of zone
-  //       this.cd.markForCheck();
-  //     };
-  //   }
-  // }
-
-  // preview() 
-  // {
-  //   const files = this.form.get('img')?.value.files;
-
-  //   if (!files || files.length === 0)
-  //     return;
- 
-  //   var mimeType = files[0].type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     console.log('No se seleccionó una imagen');
-  //     return;
-  //   }
- 
-  //   var reader = new FileReader();
-  //   // this.imagePath = files;
-  //   reader.readAsDataURL(files[0]); 
-  //   reader.onload = (_event) => { 
-  //     this.imgURL = reader.result; 
-  //   }
-  // }
-
-
 }

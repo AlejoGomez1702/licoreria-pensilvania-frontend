@@ -80,6 +80,8 @@ export class ProductService
       
     }
 
+    console.log(productDataAny);
+
     return this.http.post<Product>(`${this.apiUrl}/products`, formData, httpOptions);
   }
 
