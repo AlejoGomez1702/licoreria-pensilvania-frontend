@@ -31,7 +31,7 @@ export class ProductService
   getAllProducts(): Observable<ResponseGetAllProducts>
   {
     const httpOptions = {
-      params: new HttpParams().set('limit', 10),
+      params: new HttpParams().set('limit', 1000),
       headers: this.headers
     };
 

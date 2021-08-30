@@ -10,7 +10,7 @@ import { SpinnerService } from './services/spinner.service';
 export class SpinnerComponent implements OnInit 
 {
 
-  public isLoading: Subject<boolean> = new Subject();
+  public isLoading!: Subject<boolean>;
 
   constructor(
     private spinnerService: SpinnerService
@@ -19,7 +19,9 @@ export class SpinnerComponent implements OnInit
 
   ngOnInit(): void 
   {
-    this.isLoading = this.spinnerService.isLoading;
+    setTimeout(() => {
+      this.isLoading = this.spinnerService.isLoading;
+    }, 1);    
   }
 
 }
