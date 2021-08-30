@@ -83,19 +83,19 @@ export class ProductService
     return this.http.post<Product>(`${this.apiUrl}/products`, formData, httpOptions);
   }
 
-  // /**
-  //  * Actualiza una categoría de productos en la base de datos.
-  //  * @param uid Identificador de la categoría.
-  //  */
-  //  updateCategory( uid: string, category: Category ): Observable<Category>
-  //  {
-  //    const { id, state, ...data } = category;
-  //    const httpOptions = {
-  //      headers: this.headers
-  //    };
+  /**
+   * Actualiza un producto en la base de datos.
+   * @param uid Identificador de la categoría.
+   */
+   updateProduct( product: Product ): Observable<Product>
+   {
+     const { id, state, ...data } = product;
+     const httpOptions = {
+       headers: this.headers
+     };
 
-  //    return this.http.put<Category>(`${this.apiUrl}/categories/${uid}`, data, httpOptions);
-  //  }
+     return this.http.put<Product>(`${this.apiUrl}/products/${id}`, data, httpOptions);
+   }
 
   //  /**
   //   * Elimina una categoría de la base de datos.

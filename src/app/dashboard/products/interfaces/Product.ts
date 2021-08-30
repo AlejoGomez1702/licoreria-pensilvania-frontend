@@ -8,6 +8,7 @@ export interface Product
 {
     features:          string[];
     // file?:             any;
+    state?:            boolean;
     img?:              any;
     description:       string;
     sale_price:        number;

@@ -56,7 +56,7 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
                     <td mat-cell *matCellDef="let row">
-                        <button title="Editar" class="btn">
+                        <button title="Editar" class="btn" (click)="editProduct( row )">
                             <span class="edit-color">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </span>                    

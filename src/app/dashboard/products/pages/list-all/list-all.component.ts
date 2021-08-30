@@ -81,7 +81,8 @@ export class ListAllComponent implements OnInit
     return name;
   }
 
-  createProduct(){
+  createProduct()
+  {
     this.subscription = this.crudService.show({
       title: 'Crear Producto',
       component: CreateProductDialogComponent,
@@ -121,6 +122,36 @@ export class ListAllComponent implements OnInit
           }
         );
       }      
+    });
+  }
+
+  editProduct(row: Product){
+    this.subscription=this.crudService.show({
+      title: 'Editar Producto',
+      component: CreateProductDialogComponent,
+      dataComponent: {
+        viewMode: false,
+        insertMode: false,
+        editMode:true,
+        row
+      },
+      maxWidth: '70%',
+      actions: {
+        primary: 'Guardar'
+      }
+    }).subscribe((resultado) => {
+      if (resultado.estado) 
+      {
+        const product = resultado.data as Product;
+        this.productService.updateProduct( product ).subscribe(
+          product => {
+            this.loadData();
+            this.sweetAlert.presentSuccess(`Producto Editado Correctamente!`);
+            this.crudService.close();
+          },
+          error => this.sweetAlert.presentError( error.error.error )
+        );
+      }
     });
   }
 

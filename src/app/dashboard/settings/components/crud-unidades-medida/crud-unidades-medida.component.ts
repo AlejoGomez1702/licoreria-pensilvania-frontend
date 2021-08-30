@@ -97,6 +97,8 @@ export class CrudUnidadesMedidaComponent implements OnInit, AfterViewInit, After
       
     });
   }
+
+  
   edit(row: Unit){
     this.subscription=this.crudService.show({
       title: 'Editar unidad de medida',

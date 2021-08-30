@@ -101,7 +101,7 @@ export class CreateProductDialogComponent implements OnInit
                                           category: ['',[Validators.required] ],
                                           unit: ['',[Validators.required] ],
                                           name: ['',[Validators.required] ], 
-                                          features: [[],[Validators.required] ],
+                                          features: [[]],
                                           barcode: ['',[] ],
                                           stock: [1,[Validators.min(1)] ],
                                           alcohol: ['' ,[Validators.required] ],
