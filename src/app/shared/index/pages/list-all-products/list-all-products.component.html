@@ -55,7 +55,8 @@
                                 <!-- <span class="seller">Best Seller</span> -->
                                 <!-- <span class="new">New Arrival</span> -->
                                 <span class="category">{{ product.category.name }}</span>                                
-                                <h2>{{ product.name }}</h2>
+                                <h2>{{ getFullProductName( product ) }}</h2>
+                                <span class="category">{{ product.unit.unit }}</span>
                                 <p class="mb-0">
                                     <!-- <span class="price price-sale">$69.00</span> -->
                                     <span class="price">$ {{ product.sale_price | number }}</span>

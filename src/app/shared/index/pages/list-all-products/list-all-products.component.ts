@@ -81,4 +81,15 @@ export class ListAllProductsComponent implements OnInit
       });
     }
   }
+
+  getFullProductName( product: Product ): string
+  {
+    let name = `${ product.category.name } ${ product.name }`;
+    for (const feature of product.features) 
+    {
+      name += ' ' + feature;      
+    }
+
+    return name;
+  }
 }
