@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand txt-header" href="index.html">Domicilios 24 Horas.<span style="color: #CFA701;">
+        <a class="navbar-brand txt-header" [routerLink]="['/products']">Domicilios 24 Horas.<span style="color: #CFA701;">
                 Bogotá D.C</span></a>
         <div class="order-lg-last btn-group">
             <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
@@ -47,9 +47,10 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index.html" class="nav-link">Inicio</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                <li class="nav-item {{ homeRoute ? 'active' : '' }}"><a [routerLink]="['/']" class="nav-link">Inicio</a></li>
+                <li class="nav-item {{ productsRoute ? 'active' : '' }}"><a [routerLink]="['/products']" class="nav-link">Productos</a></li>
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" [routerLink]="['/products']" id="dropdown04" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">Productos</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" href="product.html"><span class="fa fa-eye"></span>Ver Todos</a>
@@ -58,7 +59,7 @@
                         <a class="dropdown-item" href="checkout.html"><span
                                 class="fa fa-cart-arrow-down"></span>Finalizar Compra</a>
                     </div>
-                </li>
+                </li> -->
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contáctenos</a></li>
             </ul>
         </div>

@@ -3,12 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { ADMIN_LAYOUT } from './routes/admin-layout-routes';
 import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { IndexComponent } from './shared/index/index.component';
+import { ListAllProductsComponent } from './shared/index/pages/list-all-products/list-all-products.component';
 import { AdminLayoutComponent } from './shared/layouts/admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {
     path: '',
     component: IndexComponent
+  },
+  {
+    path: 'products',
+    component: ListAllProductsComponent
   },
   {
     path: 'auth',

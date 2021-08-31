@@ -21,6 +21,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormUnidadComponent } from '../dashboard/settings/components/crud-unidades-medida/form-unidad/form-unidad.component';
 import { SpinnerModule } from './spinner/spinner.module';
+import { ListAllProductsComponent } from './index/pages/list-all-products/list-all-products.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { SpinnerModule } from './spinner/spinner.module';
     CrudDialogComponent,
     AdDirective,
     ConfirmComponent,
+    ListAllProductsComponent,
 
     // Modules
     // MaterialModule

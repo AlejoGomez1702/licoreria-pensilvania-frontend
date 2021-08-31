@@ -28,12 +28,23 @@ export class ProductService
    * Obtiene todas los productos
    * @returns Todos los productos.
    */
-  getAllProducts(): Observable<ResponseGetAllProducts>
+  getAllProducts( category?: string ): Observable<ResponseGetAllProducts>
   {
-    const httpOptions = {
-      params: new HttpParams().set('limit', 1000),
+    let httpOptions = {
+      params: new HttpParams().set('limit', 1000)
+                              .set('from', 0),
       headers: this.headers
     };
+
+    if( category )
+    {
+      httpOptions = {
+        params: new HttpParams().set('limit', 1000)
+                                .set('from', 0)
+                                .set('category', category),
+        headers: this.headers
+      };
+    }
 
     return this.http.get<ResponseGetAllProducts>(`${this.apiUrl}/products`, httpOptions);
   }
