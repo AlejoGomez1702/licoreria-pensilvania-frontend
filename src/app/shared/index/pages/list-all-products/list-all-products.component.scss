@@ -1,2 +1,35 @@
 @import '../../../../../assets/index/css/style.css';
 @import '../../../../../assets/index/css/my-styles.css';
+
+@media (max-width: 768px) 
+{
+    .select-category
+    {
+        float: none !important;
+        padding-left: 30%;
+    }
+}
+
+@media (max-width: 450px) 
+{
+    .select-category
+    {
+        float: none !important;
+        padding-left: 24%;
+    }
+}
+
+@media (max-width: 330px) 
+{
+    .select-category
+    {
+        float: none !important;
+        padding-left: 16%;
+    }
+}
+
+.disabled
+{
+    background-color: darkgray;
+    color: white !important;
+}

@@ -28,23 +28,24 @@ export class ProductService
    * Obtiene todas los productos
    * @returns Todos los productos.
    */
-  getAllProducts( category?: string ): Observable<ResponseGetAllProducts>
+  getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
   {
     let httpOptions = {
-      params: new HttpParams().set('limit', 1000)
-                              .set('from', 0),
+      params: new HttpParams().set('category', category ? category : '')
+                              .set('limit', limit ? limit : 1000)
+                              .set('from', from ? from : 0),
       headers: this.headers
     };
 
-    if( category )
-    {
-      httpOptions = {
-        params: new HttpParams().set('limit', 1000)
-                                .set('from', 0)
-                                .set('category', category),
-        headers: this.headers
-      };
-    }
+    // if( category )
+    // {
+    //   httpOptions = {
+    //     params: new HttpParams().set('limit', 1000)
+    //                             .set('from', 0)
+    //                             .set('category', category),
+    //     headers: this.headers
+    //   };
+    // }
 
     return this.http.get<ResponseGetAllProducts>(`${this.apiUrl}/products`, httpOptions);
   }

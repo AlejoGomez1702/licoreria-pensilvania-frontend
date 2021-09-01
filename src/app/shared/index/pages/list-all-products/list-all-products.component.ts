@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { ProductService } from 'src/app/dashboard/products/services/product.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
@@ -14,6 +15,17 @@ declare const main: any;
 })
 export class ListAllProductsComponent implements OnInit 
 {
+  // MatPaginator Inputs
+  public from: number = 0;
+  public length: number = 0;
+  public pageSize: number = 8;
+  public pageSizeOptions: number[] = [4, 8, 16, 32];
+
+  // MatPaginator Output
+  pageEvent!: PageEvent;
+  
+  public categorySelected: string = '';
+
   public products: Product[] = [];
   public categories: Category[] = [];
 
@@ -36,14 +48,18 @@ export class ListAllProductsComponent implements OnInit
   loadData()
   {    
     this.loadCategories();
-    this.loadProducts();
+    this.loadProducts( undefined, 8, 0 );
   }
 
-  loadProducts(category?: string): void
+  loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.productService.getAllProducts(category)
+    this.productService.getAllProducts(category, limit, from)
     .subscribe(res => {
       this.products = res.products;
+      this.length = res.total;
+
+      // this.totalProducts = res.total;
+      // console.log(this.totalProducts);
       main();
     },
     error => {
@@ -61,9 +77,15 @@ export class ListAllProductsComponent implements OnInit
     );
   }
 
-  selectCategory(CategoryId: string)
+  selectCategory(categoryId: string)
   {
-    this.loadProducts( CategoryId );
+    this.categorySelected = categoryId;
+    this.loadProducts( categoryId, this.pageSize, this.from );
+  }
+
+  resetCategory()
+  {
+    this.categorySelected = '';
   }
 
   applyFilter(event: Event) 
@@ -92,4 +114,25 @@ export class ListAllProductsComponent implements OnInit
 
     return name;
   }
+
+  paginateChange( event:PageEvent ): PageEvent
+  {
+    this.length = event.length;
+    this.pageSize = event.pageSize;
+    this.from = event.pageIndex * this.pageSize;
+
+    // console.log(this.from);
+
+    this.loadProducts( this.categorySelected, this.pageSize, this.from );
+
+    return event;
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
+
+
 }
