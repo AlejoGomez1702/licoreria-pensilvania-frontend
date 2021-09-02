@@ -3,7 +3,7 @@
         <div class="row mb-5">
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2 logo"><a href="#">Licorería <span>Pensilvania</span></a></h2>
+                    <h2 class="ftco-heading-2 logo"><a [routerLink]="['/']">Licorería <span>Pensilvania</span></a></h2>
                     <p>Siguenos en nuestras redes sociales:</p>
                     <ul class="ftco-footer-social list-unstyled mt-2">
                         <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
@@ -26,24 +26,13 @@
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4 ml-md-4">
                     <h2 class="ftco-heading-2">Licores</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Aguardiente</a></li>
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Ron</a></li>
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Cerveza</a></li>
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Tequila</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <!-- <h2 class="ftco-heading-2">Quick Link</h2> -->
-                    <ul class="list-unstyled">
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Vodka</a></li>
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Bacardí</a></li>
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Whiskey</a></li>
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Jägermeister</a></li>
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Crema de Whiskey</a></li>
-                        <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Más Licores...</a></li>
+                    <ul class="list-unstyled">                        
+                        <li *ngFor="let category of categories">
+                            <a [routerLink]="['/products']">
+                                <span class="fa fa-chevron-right mr-2"></span>
+                                {{ category.name }}
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -58,7 +47,7 @@
                                     Bogotá D.C, Colombia
                                 </a>
                                 </li>
-                            <li><a href="#"><span class="icon fa fa-phone"></span><span
+                            <li><a href="tel:+573142524145"><span class="icon fa fa-phone"></span><span
                                         class="text">3142524145</span></a></li>
                             <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span
                                         class="text">contacto@licoreriapensilvania.com</span></a></li>

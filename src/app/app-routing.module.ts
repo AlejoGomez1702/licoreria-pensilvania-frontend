@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ADMIN_LAYOUT } from './routes/admin-layout-routes';
 import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { IndexComponent } from './shared/index/index.component';
+import { ContactComponent } from './shared/index/pages/contact/contact.component';
 import { ListAllProductsComponent } from './shared/index/pages/list-all-products/list-all-products.component';
 import { AdminLayoutComponent } from './shared/layouts/admin-layout/admin-layout.component';
 
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'products',
     component: ListAllProductsComponent
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
   },
   {
     path: 'auth',

@@ -39,9 +39,9 @@ export class MainHeaderComponent implements OnInit
       break;
 
       case '/contact':
-        this.homeRoute = true;
+        this.homeRoute = false;
         this.productsRoute = false;
-        this.contactRoute = false;  
+        this.contactRoute = true;  
       break;
     
       default:
