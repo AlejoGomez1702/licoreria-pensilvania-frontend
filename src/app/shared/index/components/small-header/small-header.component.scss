@@ -5,3 +5,17 @@
 {
     color: #ffffff;
 }
+
+
+@media (max-width: 388px) 
+{
+    .w-in
+    {
+        width: inherit !important;
+    }
+}
+
+// .w-in
+// {
+//     width: inherit;
+// }
