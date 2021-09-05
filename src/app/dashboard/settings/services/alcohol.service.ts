@@ -25,7 +25,7 @@ export class AlcoholService {
   getAllAlcohol()
   {
     const httpOptions = {
-      params: new HttpParams().set('limit', 10),
+      params: new HttpParams().set('limit', 100),
       headers: this.headers
     };
     return this.http.get<any>(`${this.apiUrl}/alcohols`, httpOptions);
