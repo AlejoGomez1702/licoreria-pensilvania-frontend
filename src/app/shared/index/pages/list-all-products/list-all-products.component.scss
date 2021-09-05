@@ -43,3 +43,20 @@
 {
     margin-bottom: 13% !important;
 }
+
+.mat-focused .mat-form-field-label 
+{
+    /*change color of label*/
+    color: #D13030 !important;
+}
+  
+// ::ng-deep.mat-form-field-underline 
+// {
+//     background-color: #D13030 !important;
+// } 
+  
+.mat-form-field-ripple 
+{
+    /*change color of underline when focused*/
+    background-color: #D13030 !important;
+}

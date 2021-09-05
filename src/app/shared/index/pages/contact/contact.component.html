@@ -28,7 +28,13 @@
                             <span class="fa fa-map-marker"></span>
                         </div>
                         <div class="text">
-                        <p><span>Dirección:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+                        <p>
+                            <span>Dirección:</span> 
+                            <a href="https://goo.gl/maps/3PuxqCiLMr4vgyq17" target="_blank" class="text">
+                                Carrera 68G #72-18 <br>
+                                Bogotá D.C, Colombia
+                            </a>
+                        </p>
                       </div>
                   </div>
                         </div>
@@ -38,8 +44,14 @@
                             <span class="fa fa-whatsapp"></span>
                         </div>
                         <div class="text">
-                        <p><span>Teléfono</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
-                        <p><span>WhatsApp:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+                        <p>
+                            <span>Teléfono</span>
+                            <a href="tel:+573142524145">3142524145</a>
+                        </p>
+                        <p>
+                            <span>WhatsApp:</span> 
+                            <a href="tel:+573142524145">3142524145</a>
+                        </p>
                       </div>
                   </div>
                         </div>
@@ -49,7 +61,10 @@
                             <span class="fa fa-paper-plane"></span>
                         </div>
                         <div class="text">
-                        <p><span>Correo:</span> <a href="mailto:info@yoursite.com">contacto@licorespensilvania.com</a></p>
+                        <p>
+                            <span>Correo:</span>
+                            <a href="mailto:contacto@licoreriapensilvania.com?Subject=Contactame">contacto@licoreriapensilvania.com</a>
+                        </p>
                       </div>
                   </div>
                         </div>
@@ -59,7 +74,10 @@
                             <span class="fa fa-android"></span>
                         </div>
                         <div class="text">
-                        <p><span>Play Store</span> <a href="#">Descargar Aplicación</a></p>
+                        <p>
+                            <span>Play Store</span>
+                            Proximamente...
+                        </p>
                       </div>
                   </div>
                         </div>
@@ -68,44 +86,45 @@
                         <div class="col-md-7">
                             <div class="contact-wrap w-100 p-md-5 p-4">
                                 <h3 class="mb-4">Contáctenos</h3>
-                                <form method="POST" id="contactForm" name="contactForm" class="contactForm">
+                                <div method="POST" id="contactForm" name="contactForm" class="contactForm" action="https://formspree.io/f/xyylldqo">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="label" for="name">Nombre</label>
-                                                <input type="text" class="form-control" name="name" id="name" placeholder="Ingresa nombre completo">
+                                                <input type="text" required class="form-control" name="name" id="name" placeholder="Ingresa nombre completo" [(ngModel)]="contactData.name">
                                             </div>
                                         </div>
                                         <div class="col-md-6"> 
                                             <div class="form-group">
                                                 <label class="label" for="email">Correo</label>
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="Ingresa correo eléctronico">
+                                                <input type="email" required class="form-control" name="_replyto" id="email" placeholder="Ingresa correo eléctronico" [(ngModel)]="contactData._replyto">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="label" for="subject">Asunto</label>
-                                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Estamos felices de atenderte,cuentanos ¿en que podemos ayudarte?">
+                                                <input type="text" required class="form-control" name="subject" id="subject" placeholder="Estamos felices de atenderte,cuentanos ¿en que podemos ayudarte?" [(ngModel)]="contactData.subject">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="label" for="#">Mensaje</label>
-                                                <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Dejanos mas información sobre tu inquietud y tu número teléfonico"></textarea>
+                                                <textarea required name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Dejanos mas información sobre tu inquietud y tu número teléfonico" [(ngModel)]="contactData.message"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <input type="submit" value="Enviar" class="btn btn-primary">
-                                                <div class="submitting"></div>
+                                                <!-- <input type="submit" value="Enviar" class="btn btn-primary">
+                                                <div class="submitting"></div> -->
+                                                <button type="submit" class="btn btn-primary" (click)="sendContactData()">Enviar</button>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-5 order-md-first d-flex align-items-stretch">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31813.061880401787!2d-74.12601423455696!3d4.65940491950631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9b8107fd3783%3A0xcbe30780b171ba7!2s%C3%89xito%20Modelia!5e0!3m2!1ses!2sco!4v1628742329564!5m2!1ses!2sco" width="700" height="550" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3976.5154158794435!2d-74.0875793!3d4.6800991!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9b1a661cef0b%3A0xdd2768460f5b3f32!2sCra.%2068g%20%2372-18%2C%20Bogot%C3%A1!5e0!3m2!1ses!2sco!4v1630798249644!5m2!1ses!2sco" width="700" height="550" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
