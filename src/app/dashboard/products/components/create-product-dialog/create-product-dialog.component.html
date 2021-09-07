@@ -53,7 +53,7 @@
                 <mat-label>Unidad de medida</mat-label>
                 <mat-select formControlName="unit" required>
                   <mat-option *ngFor="let unit of units" [value]="unit.id">
-                    {{ unit.unit }}
+                    {{ unit.unit + ' ' + '(' + unit.ml + ' ml)' }}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="form.controls.unit.hasError('required')">
@@ -134,7 +134,7 @@
                 <mat-label>% Alcohol</mat-label>
                 <mat-select formControlName="alcohol" required>
                   <mat-option *ngFor="let alcohol of alcohols" [value]="alcohol.id">
-                    {{ alcohol.alcohol }}
+                    {{ alcohol.alcohol + ' %' }}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="form.controls.alcohol.hasError('required')">
