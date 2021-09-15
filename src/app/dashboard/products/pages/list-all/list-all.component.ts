@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
@@ -31,6 +32,7 @@ export class ListAllComponent implements OnInit
     private sweetAlert: SweetAlertService,
     private crudService: CrudService,
     private changeRef: ChangeDetectorRef,
+    private router: Router
   ) 
   { 
     this.dataSource = new MatTableDataSource();
@@ -81,48 +83,53 @@ export class ListAllComponent implements OnInit
     return name;
   }
 
+  // createProduct()
+  // {
+  //   this.subscription = this.crudService.show({
+  //     title: 'Crear Producto',
+  //     component: CreateProductDialogComponent,
+  //     dataComponent: {
+  //       insertMode: true,
+  //     },
+  //     actions: {
+  //       primary: 'Guardar'
+  //     },
+  //     maxWidth: '70%',
+  //   }).subscribe((resultado) => {
+  //     if (resultado.estado) 
+  //     {
+  //       const product = resultado.data as Product;
+  //       // const { img, ...product } = productData;
+  //       // const file = productData.file?._files[0];
+  //       // product.file = img;
+  //       // product.img = file || '';
+  //       // console.log(product);
+  //       this.productService.createProduct( product ).subscribe(
+  //         product => {
+  //           if(product)
+  //           {              
+  //             // const oldData= this.dataSource.data;
+  //             this.dataSource = new MatTableDataSource();
+  //             this.dataSource.paginator = this.paginator;
+  //             this.dataSource.sort = this.sort;
+  //             this.loadData();
+  //             this.sweetAlert.presentSuccess(`Producto Creado Correctamente!`);
+  //             this.crudService.close();
+  //           }else{
+  //             this.sweetAlert.presentError( "No se pudo crear el producto" );
+  //           }            
+  //         },
+  //         error => {
+  //           this.sweetAlert.presentError( error.error.error );
+  //         }
+  //       );
+  //     }      
+  //   });
+  // }
+
   createProduct()
   {
-    this.subscription = this.crudService.show({
-      title: 'Crear Producto',
-      component: CreateProductDialogComponent,
-      dataComponent: {
-        insertMode: true,
-      },
-      actions: {
-        primary: 'Guardar'
-      },
-      maxWidth: '70%',
-    }).subscribe((resultado) => {
-      if (resultado.estado) 
-      {
-        const product = resultado.data as Product;
-        // const { img, ...product } = productData;
-        // const file = productData.file?._files[0];
-        // product.file = img;
-        // product.img = file || '';
-        // console.log(product);
-        this.productService.createProduct( product ).subscribe(
-          product => {
-            if(product)
-            {              
-              // const oldData= this.dataSource.data;
-              this.dataSource = new MatTableDataSource();
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-              this.loadData();
-              this.sweetAlert.presentSuccess(`Producto Creado Correctamente!`);
-              this.crudService.close();
-            }else{
-              this.sweetAlert.presentError( "No se pudo crear el producto" );
-            }            
-          },
-          error => {
-            this.sweetAlert.presentError( error.error.error );
-          }
-        );
-      }      
-    });
+    this.router.navigate(['dashboard/products/create']);
   }
 
   editProduct(row: Product){

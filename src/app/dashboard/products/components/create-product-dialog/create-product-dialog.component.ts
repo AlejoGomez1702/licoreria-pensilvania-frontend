@@ -5,7 +5,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
  // Seleccionar las caracteristicas**************
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ElementRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
@@ -28,7 +27,11 @@ import { AlcoholService } from 'src/app/dashboard/settings/services/alcohol.serv
 })
 export class CreateProductDialogComponent implements OnInit 
 {
-  form: FormGroup = new FormGroup({}); formInsertMode: boolean; formEditMode: boolean; formViewMode: boolean; formDeleteMode: boolean;
+  form: FormGroup = new FormGroup({}); 
+  // formInsertMode: boolean; 
+  // formEditMode: boolean; 
+  // formViewMode: boolean; 
+  // formDeleteMode: boolean;
   // Seleccionar las caracteristicas**************
   selectable = true;
   removable = true;
@@ -38,6 +41,8 @@ export class CreateProductDialogComponent implements OnInit
 
   @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
   // ***********************************************************************
+
+  public supercategory: string = '';
 
   // Imagen del producto *********************************
   // public imagePath: string = '';
@@ -65,19 +70,19 @@ export class CreateProductDialogComponent implements OnInit
     private cd: ChangeDetectorRef
   ) 
   { 
-    this.formInsertMode = false;
-    this.formViewMode = false;
-    this.formEditMode = false;  
-    this.formDeleteMode= false;
+    // this.formInsertMode = false;
+    // this.formViewMode = false;
+    // this.formEditMode = false;  
+    // this.formDeleteMode= false;
   }
 
   ngOnInit(): void 
   {
     this.loadData();
-    this.formInsertMode = this.data?.insertMode;
-    this.formViewMode = this.data?.viewMode;
-    this.formEditMode = this.data?.editMode;
-    this.formDeleteMode = this.data?.deleteMode;
+    // this.formInsertMode = this.data?.insertMode;
+    // this.formViewMode = this.data?.viewMode;
+    // this.formEditMode = this.data?.editMode;
+    // this.formDeleteMode = this.data?.deleteMode;
     this.buildForm();
     this.form.patchValue(this.data?.row);
 
@@ -109,10 +114,6 @@ export class CreateProductDialogComponent implements OnInit
                                           sale_price: [null],
                                           current_existence: [0, [Validators.required]]                                          
                                         });
-    if(this.formDeleteMode)
-    {
-      this.form.disable();
-    }
   }
 
   loadData()
@@ -242,4 +243,11 @@ export class CreateProductDialogComponent implements OnInit
       }
     }
   }
+
+  // Crear o editar un producto
+  onSubmit()
+  {
+
+  }
+
 }

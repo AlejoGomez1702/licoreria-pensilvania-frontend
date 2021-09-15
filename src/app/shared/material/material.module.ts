@@ -21,14 +21,14 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { NgxCurrencyModule } from 'ngx-currency';
-
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    MatButtonModule,
+    MatButtonModule, MatRadioModule,
     MatSidenavModule,
     MatIconModule,
     MatToolbarModule,
@@ -48,7 +48,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
     NgxCurrencyModule
   ],
   exports: [
-    MatButtonModule,
+    MatButtonModule, MatRadioModule,
     MatSidenavModule,
     MatIconModule,
     MatToolbarModule,
