@@ -55,7 +55,7 @@ export class ListAllProductsComponent implements OnInit
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.spiritService.getAllProducts(category, limit, from)
+    this.spiritService.getAllProducts(category, limit, from, true)
     .subscribe(res => {
       this.products = res.spirits;
       this.length = res.total;
