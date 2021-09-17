@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { ProductService } from 'src/app/dashboard/products/services/product.service';
+import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
@@ -30,7 +31,8 @@ export class ListAllProductsComponent implements OnInit
   public categories: Category[] = [];
 
   constructor(
-    private productService: ProductService,
+    // private productService: ProductService,
+    private spiritService: SpiritService,
     private categoryService: CategoryService,
     private sweetAlert: SweetAlertService,
     private filterService: FilterService
@@ -53,9 +55,9 @@ export class ListAllProductsComponent implements OnInit
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.productService.getAllProducts(category, limit, from)
+    this.spiritService.getAllProducts(category, limit, from)
     .subscribe(res => {
-      this.products = res.products;
+      this.products = res.spirits;
       this.length = res.total;
 
       // this.totalProducts = res.total;
@@ -63,6 +65,7 @@ export class ListAllProductsComponent implements OnInit
       main();
     },
     error => {
+      console.log(error);
       this.sweetAlert.presentError(error.error.error);
     });
   }

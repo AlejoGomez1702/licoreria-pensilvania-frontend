@@ -24,103 +24,103 @@ export class ProductService
     private tokenService: TokenService
   ) { }
 
-  /**
-   * Obtiene todas los productos
-   * @returns Todos los productos.
-   */
-  getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
-  {
-    let httpOptions = {
-      params: new HttpParams().set('category', category ? category : '')
-                              .set('limit', limit ? limit : 1000)
-                              .set('from', from ? from : 0),
-      headers: this.headers
-    };
+  // /**
+  //  * Obtiene todas los productos
+  //  * @returns Todos los productos.
+  //  */
+  // getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
+  // {
+  //   let httpOptions = {
+  //     params: new HttpParams().set('category', category ? category : '')
+  //                             .set('limit', limit ? limit : 1000)
+  //                             .set('from', from ? from : 0),
+  //     headers: this.headers
+  //   };
 
-    // if( category )
-    // {
-    //   httpOptions = {
-    //     params: new HttpParams().set('limit', 1000)
-    //                             .set('from', 0)
-    //                             .set('category', category),
-    //     headers: this.headers
-    //   };
-    // }
+  //   // if( category )
+  //   // {
+  //   //   httpOptions = {
+  //   //     params: new HttpParams().set('limit', 1000)
+  //   //                             .set('from', 0)
+  //   //                             .set('category', category),
+  //   //     headers: this.headers
+  //   //   };
+  //   // }
 
-    return this.http.get<ResponseGetAllProducts>(`${this.apiUrl}/products`, httpOptions);
-  }
+  //   return this.http.get<ResponseGetAllProducts>(`${this.apiUrl}/products`, httpOptions);
+  // }
 
-  /**
-   * Obtiene todas las caracteristicas registradas en los productos existentes
-   * @returns 
-   */
-  getAllFeatures(): Observable<{ features: string[]; }>
-  {
-    const httpOptions = {
-      headers: this.headers
-    };
-
-    return this.http.get<{ features: string[]; }>(`${this.apiUrl}/products/all/features`, httpOptions);
-  }
-
-  /**
-   * Crea un producto en la base de datos.
-   * @param product 
-   */
-  createProduct( product: Product ): Observable<Product>
-  {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'x-token': this.tokenService.getToken()
-      })
-    };
-
-    // const productObj: any = { ...product };
-    const { img, ...productData } = product;
-    const productDataAny: any = { ...productData };
-    // console.log(productDataAny);
-    const formData: FormData = new FormData();
-    formData.append('img', img);
-    let data;
-    for (const key in productDataAny) 
-    {
-      data = productDataAny[key];
-      if(data === null)
-        data = 0;
-      // const data = productData.key;
-      formData.append(key, data);
-      
-    }
-
-    console.log(productDataAny);
-
-    return this.http.post<Product>(`${this.apiUrl}/products`, formData, httpOptions);
-  }
-
-  /**
-   * Actualiza un producto en la base de datos.
-   * @param uid Identificador de la categoría.
-   */
-   updateProduct( product: Product ): Observable<Product>
-   {
-     const { id, state, ...data } = product;
-     const httpOptions = {
-       headers: this.headers
-     };
-
-     return this.http.put<Product>(`${this.apiUrl}/products/${id}`, data, httpOptions);
-   }
-
-  //  /**
-  //   * Elimina una categoría de la base de datos.
-  //   * @param id Identificado único de la categoria.
-  //   */
-  //  deleteCategory( id: string )
-  //  {
+  // /**
+  //  * Obtiene todas las caracteristicas registradas en los productos existentes
+  //  * @returns 
+  //  */
+  // getAllFeatures(): Observable<{ features: string[]; }>
+  // {
   //   const httpOptions = {
   //     headers: this.headers
   //   };
 
-  //   return this.http.delete<Category>(`${this.apiUrl}/categories/${id}`, httpOptions);
+  //   return this.http.get<{ features: string[]; }>(`${this.apiUrl}/products/all/features`, httpOptions);
+  // }
+
+  // /**
+  //  * Crea un producto en la base de datos.
+  //  * @param product 
+  //  */
+  // createProduct( product: Product ): Observable<Product>
+  // {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'x-token': this.tokenService.getToken()
+  //     })
+  //   };
+
+  //   // const productObj: any = { ...product };
+  //   const { img, ...productData } = product;
+  //   const productDataAny: any = { ...productData };
+  //   // console.log(productDataAny);
+  //   const formData: FormData = new FormData();
+  //   formData.append('img', img);
+  //   let data;
+  //   for (const key in productDataAny) 
+  //   {
+  //     data = productDataAny[key];
+  //     if(data === null)
+  //       data = 0;
+  //     // const data = productData.key;
+  //     formData.append(key, data);
+      
+  //   }
+
+  //   console.log(productDataAny);
+
+  //   return this.http.post<Product>(`${this.apiUrl}/products`, formData, httpOptions);
+  // }
+
+  // /**
+  //  * Actualiza un producto en la base de datos.
+  //  * @param uid Identificador de la categoría.
+  //  */
+  //  updateProduct( product: Product ): Observable<Product>
+  //  {
+  //    const { id, state, ...data } = product;
+  //    const httpOptions = {
+  //      headers: this.headers
+  //    };
+
+  //    return this.http.put<Product>(`${this.apiUrl}/products/${id}`, data, httpOptions);
   //  }
+
+  // //  /**
+  // //   * Elimina una categoría de la base de datos.
+  // //   * @param id Identificado único de la categoria.
+  // //   */
+  // //  deleteCategory( id: string )
+  // //  {
+  // //   const httpOptions = {
+  // //     headers: this.headers
+  // //   };
+
+  // //   return this.http.delete<Category>(`${this.apiUrl}/categories/${id}`, httpOptions);
+  // //  }
 }

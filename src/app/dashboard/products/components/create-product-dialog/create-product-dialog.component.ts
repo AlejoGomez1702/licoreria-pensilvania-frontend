@@ -15,9 +15,11 @@ import { CategoryService } from 'src/app/dashboard/settings/services/category.se
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
-import { ProductService } from '../../services/product.service';
 import { Alcohol } from 'src/app/dashboard/settings/interfaces/alcohol.interface';
 import { AlcoholService } from 'src/app/dashboard/settings/services/alcohol.service';
+import { SpiritService } from '../../services/spirit.service';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,11 +29,7 @@ import { AlcoholService } from 'src/app/dashboard/settings/services/alcohol.serv
 })
 export class CreateProductDialogComponent implements OnInit 
 {
-  form: FormGroup = new FormGroup({}); 
-  // formInsertMode: boolean; 
-  // formEditMode: boolean; 
-  // formViewMode: boolean; 
-  // formDeleteMode: boolean;
+  form: FormGroup = new FormGroup({});
   // Seleccionar las caracteristicas**************
   selectable = true;
   removable = true;
@@ -60,14 +58,16 @@ export class CreateProductDialogComponent implements OnInit
   // *************************************************************
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    // @Inject(MAT_DIALOG_DATA) public data: any,
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
-    private productService: ProductService,
+    // private productService: ProductService,
+    private spiritService: SpiritService,
     private alcoholService: AlcoholService,
-    private cd: ChangeDetectorRef
+    private sweetAlert: SweetAlertService,
+    private router: Router
   ) 
   { 
     // this.formInsertMode = false;
@@ -84,7 +84,7 @@ export class CreateProductDialogComponent implements OnInit
     // this.formEditMode = this.data?.editMode;
     // this.formDeleteMode = this.data?.deleteMode;
     this.buildForm();
-    this.form.patchValue(this.data?.row);
+    // this.form.patchValue(this.data?.row);
 
     // Seleccionar las caracteristicas**************
     const featuresField = this.form.get('features');
@@ -146,7 +146,7 @@ export class CreateProductDialogComponent implements OnInit
 
   loadFeatures()
   {
-    this.productService.getAllFeatures().subscribe(
+    this.spiritService.getAllFeatures().subscribe(
       features => {
         this.allFeatures = features.features;
       },
@@ -169,10 +169,10 @@ export class CreateProductDialogComponent implements OnInit
     this.cdr.detectChanges();
   }
 
-  limpiarFormulario()
-  {
-    this.form.reset();
-  }
+  // limpiarFormulario()
+  // {
+  //   this.form.reset();
+  // }
 
   /**
    * Se activa cuando se agrega una nueva caracteeristica que no esta en lista.
@@ -247,7 +247,15 @@ export class CreateProductDialogComponent implements OnInit
   // Crear o editar un producto
   onSubmit()
   {
-
+    this.spiritService.createProduct( this.form.value ).subscribe(
+      spirit => {
+        this.router.navigate(['/dashboard/products']);
+        this.sweetAlert.presentSuccess('Producto creado correctamente!');
+      },
+      error => {
+        this.sweetAlert.presentError(error.error.error);
+      }
+    );
   }
 
 }

@@ -10,7 +10,9 @@ import { CrudService } from 'src/app/shared/services/dialog/crud.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { CreateProductDialogComponent } from '../../components/create-product-dialog/create-product-dialog.component';
 import { Product } from '../../interfaces/Product';
+import { Spirit } from '../../interfaces/Spirit';
 import { ProductService } from '../../services/product.service';
+import { SpiritService } from '../../services/spirit.service';
 
 @Component({
   selector: 'app-list-all',
@@ -28,7 +30,8 @@ export class ListAllComponent implements OnInit
   subscription: Subscription = new Subscription;
 
   constructor(
-    private productService: ProductService,
+    // private productService: ProductService,
+    private spiritService: SpiritService,
     private sweetAlert: SweetAlertService,
     private crudService: CrudService,
     private changeRef: ChangeDetectorRef,
@@ -54,9 +57,9 @@ export class ListAllComponent implements OnInit
   
   loadData()
   {
-    this.productService.getAllProducts()
+    this.spiritService.getAllProducts()
     .subscribe(res => {
-      this.dataSource.data = res.products;
+      this.dataSource.data = res.spirits;
     },
     error => {
       this.sweetAlert.presentError(error.error.error);
@@ -104,7 +107,7 @@ export class ListAllComponent implements OnInit
   //       // product.file = img;
   //       // product.img = file || '';
   //       // console.log(product);
-  //       this.productService.createProduct( product ).subscribe(
+  //       this.spiritService.createProduct( product ).subscribe(
   //         product => {
   //           if(product)
   //           {              
@@ -132,34 +135,39 @@ export class ListAllComponent implements OnInit
     this.router.navigate(['dashboard/products/create']);
   }
 
-  editProduct(row: Product){
-    this.subscription=this.crudService.show({
-      title: 'Editar Producto',
-      component: CreateProductDialogComponent,
-      dataComponent: {
-        viewMode: false,
-        insertMode: false,
-        editMode:true,
-        row
-      },
-      maxWidth: '70%',
-      actions: {
-        primary: 'Guardar'
-      }
-    }).subscribe((resultado) => {
-      if (resultado.estado) 
-      {
-        const product = resultado.data as Product;
-        this.productService.updateProduct( product ).subscribe(
-          product => {
-            this.loadData();
-            this.sweetAlert.presentSuccess(`Producto Editado Correctamente!`);
-            this.crudService.close();
-          },
-          error => this.sweetAlert.presentError( error.error.error )
-        );
-      }
-    });
+  editSpirit( spirit: Spirit )
+  {
+    this.router.navigate(['/dashboard/products/spirits/edit/' + spirit.id])
   }
+
+  // editProduct(row: Product){
+  //   this.subscription=this.crudService.show({
+  //     title: 'Editar Producto',
+  //     component: CreateProductDialogComponent,
+  //     dataComponent: {
+  //       viewMode: false,
+  //       insertMode: false,
+  //       editMode:true,
+  //       row
+  //     },
+  //     maxWidth: '70%',
+  //     actions: {
+  //       primary: 'Guardar'
+  //     }
+  //   }).subscribe((resultado) => {
+  //     if (resultado.estado) 
+  //     {
+  //       const product = resultado.data as Product;
+  //       this.spiritService.updateProduct( product ).subscribe(
+  //         product => {
+  //           this.loadData();
+  //           this.sweetAlert.presentSuccess(`Producto Editado Correctamente!`);
+  //           this.crudService.close();
+  //         },
+  //         error => this.sweetAlert.presentError( error.error.error )
+  //       );
+  //     }
+  //   });
+  // }
 
 }

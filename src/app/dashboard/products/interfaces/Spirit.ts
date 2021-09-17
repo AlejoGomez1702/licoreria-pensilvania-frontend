@@ -3,7 +3,7 @@ import { Category } from "../../settings/interfaces/category.interfaces";
 import { Unit } from "../../settings/interfaces/unidad-medida.interface";
 import { Inventory } from "./Inventory";
 
-export interface Product 
+export interface Spirit
 {
     features:          string[];
     // file?:             any;

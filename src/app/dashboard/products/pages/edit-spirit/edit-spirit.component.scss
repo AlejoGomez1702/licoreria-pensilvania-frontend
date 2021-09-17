@@ -1,0 +1,31 @@
+// ::ng-deep .mat-dialog-container{
+//     padding: 0px;
+//     overflow-y: scroll;
+//     overflow-x: unset !important;
+// }
+
+.container{
+    padding-bottom: 20px;
+
+    .formControl{
+        width: 100%;
+        display: block;
+    }
+    .mat-form-field{
+        width: 100%;
+        display: block;
+    }
+}
+
+.center-card
+{
+    // height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row
+{
+    width: 100%;
+}
