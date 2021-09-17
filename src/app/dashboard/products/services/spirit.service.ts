@@ -27,13 +27,17 @@ export class SpiritService
    * Obtiene todas los productos
    * @returns Todos los productos.
    */
-   getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllSpirits>
+   getAllProducts( category?: string, limit?: number, from?: number, publicData?: boolean ): Observable<ResponseGetAllSpirits>
    {
+     const publicHeaders = new HttpHeaders({
+       'Content-Type':  'application/json'
+     });
+
      const httpOptions = {
        params: new HttpParams().set('category', category ? category : '')
                                .set('limit', limit ? limit : 1000)
                                .set('from', from ? from : 0),
-       headers: this.headers
+       headers: publicData ? publicHeaders : this.headers
      };
  
      return this.http.get<ResponseGetAllSpirits>(`${this.apiUrl}/spirits`, httpOptions);
