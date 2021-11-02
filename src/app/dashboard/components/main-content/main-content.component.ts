@@ -27,4 +27,9 @@ export class MainContentComponent implements OnInit
     this.router.navigate(['/dashboard/products']);
   }
 
+  goToSale(): void
+  {
+    this.router.navigate(['/dashboard/sales/create']);
+  }
+
 }

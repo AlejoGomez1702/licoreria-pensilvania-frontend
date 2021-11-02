@@ -23,7 +23,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { NgxCurrencyModule } from 'ngx-currency';
 import {MatRadioModule} from '@angular/material/radio';
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -45,7 +44,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatCardModule,
     MatSelectModule,
     MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule,
-    NgxCurrencyModule
+    NgxCurrencyModule, 
   ],
   exports: [
     MatButtonModule, MatRadioModule,
@@ -65,7 +64,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatCardModule,
     MatSelectModule,
     MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule,
-    NgxCurrencyModule
+    NgxCurrencyModule, 
   ]
 })
 export class MaterialModule { }
