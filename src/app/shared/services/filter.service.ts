@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TokenService } from 'src/app/core/services/token.service';
 import { ResponseGetAllProducts } from 'src/app/dashboard/products/interfaces/ResponseGetAllProducts';
+import { Spirit } from 'src/app/dashboard/products/interfaces/Spirit';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -30,6 +31,15 @@ export class FilterService
     };
 
     return this.http.get<ResponseGetAllProducts>(`${this.apiUrl}/searchs/products/${term}`, httpOptions);
+  }
+
+  searchProductByBarcode( barcode: string ): Observable<Spirit>
+  {
+    const httpOptions = {
+      headers: this.headers
+    };
+
+    return this.http.get<Spirit>( `${this.apiUrl}/searchs/products/barcode/${barcode}`, httpOptions );
   }
 
 

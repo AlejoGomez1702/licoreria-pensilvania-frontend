@@ -2,7 +2,8 @@
 @import '../../../../assets/index/css/my-styles.css';
 
 .sign-out-text {
-    color: rgb(226, 98, 98);
+    color: rgb(226, 98, 98) !important;
+    cursor: pointer;
 }
 .dropdown-toggle::after {
     display: none;

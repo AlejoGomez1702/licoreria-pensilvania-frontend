@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/guards/auth.guard';
 import { ADMIN_LAYOUT } from './routes/admin-layout-routes';
 import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { IndexComponent } from './shared/index/index.component';
@@ -26,6 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    canLoad: [ AuthGuard ],
+    canActivate: [ AuthGuard ],
     component: AdminLayoutComponent,
     children: ADMIN_LAYOUT
   },

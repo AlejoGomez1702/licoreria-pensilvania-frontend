@@ -18,7 +18,7 @@
       <a class="dropdown-item" href="#">Ver perfil</a>
       <a class="dropdown-item" href="#">Cambiar contraseña</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item sign-out-text" href="#">Cerrar sesión</a>
+      <a class="dropdown-item sign-out-text" (click)="logout()">Cerrar sesión</a>
     </div>
     <!-- <span>
       <a href="http://">
@@ -77,21 +77,22 @@
       <span class="ml-4">Licorería Pensilvania</span>
 
       <!-- Usuario logueado opciones -->
-        <!-- <div class="example-button-container mt-3 info-cont-white">
-          <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img md-fab-image class="user-fab" [src]="userImg">
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/dashboard/profile">Ver perfil</a>
-            <a class="dropdown-item" href="#">Cambiar contraseña</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item sign-out-text" href="#">Cerrar sesión</a>
-          </div>
-          <div class="name-function-white">
-            <h3>{{ userName | uppercase }}</h3>
-            <h4 class="user-rol">Manager</h4>
-          </div>
-        </div> -->
+      <div class="example-button-container mt-3 info-cont-white">
+        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img sm-fab-image class="user-fab" [src]="userImg">
+          <!-- <mat-icon>account_circle</mat-icon> -->
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/dashboard/profile">Ver perfil</a>
+          <a class="dropdown-item" href="#">Cambiar contraseña</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item sign-out-text" (click)="logout()">Cerrar sesión</a>
+        </div>
+        <div class="name-function-white">
+          <h3>{{ shortName | uppercase }}</h3>
+          <h4 class="user-rol">Manager</h4>
+        </div>
+      </div>
     </mat-toolbar>
     
     <!-- Main Content -->

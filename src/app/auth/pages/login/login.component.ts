@@ -40,9 +40,12 @@ export class LoginComponent implements OnInit
 
     this.authService.login(this.loginData).subscribe(
       res => {
-        // Guardar en el localstorage
-        localStorage.setItem('x-token', res.token);
-        this.router.navigate(['/dashboard']);
+        if(res.token)
+        {
+          // Guardar en el localstorage
+          localStorage.setItem('x-token', res.token);
+          this.router.navigate(['/dashboard']);
+        }        
       },
       error => {
         console.log(error);

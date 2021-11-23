@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FilterService } from 'src/app/shared/services/filter.service';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { SaleService } from '../../services/sale.service';
 
 export interface PeriodicElement {
   name: string;
@@ -22,13 +25,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class CreateComponent implements OnInit 
 {
+  // Lo ingresado en la barra de busqueda (Código de barras || nombre del producto)
   public search: string = '';
+  // Si el carrito de compras esta vacio o no.
   public isEmpty: boolean = false;
+
+
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
 
   constructor(
-    private _snackBar: MatSnackBar
+    private filterService: FilterService,
+    private _snackBar: MatSnackBar,    
+    private sweetAlert: SweetAlertService
   ) { }
 
   ngOnInit(): void 
@@ -45,6 +54,13 @@ export class CreateComponent implements OnInit
 
   searchProduct()
   {
+    this.filterService.searchProductByBarcode( this.search ).subscribe(
+      product => {
+        if(!product) this.sweetAlert.presentError( 'No se encontro el código de barras' );
+        console.log(product);
+      },
+      error => this.sweetAlert.presentError( error.msg )
+    );
     console.log(this.search);
   }
 

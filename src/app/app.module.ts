@@ -25,7 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     {
       provide: MatDialogRef,
       useValue: {},
-    },
+    },    
   ],
   bootstrap: [AppComponent]
 })

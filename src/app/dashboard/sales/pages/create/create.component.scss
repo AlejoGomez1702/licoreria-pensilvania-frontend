@@ -2,4 +2,10 @@
     position: fixed;
     right: 1em;
     bottom: 1em;
+    z-index: 100000;
+}
+
+table
+{
+    width: 100%;
 }

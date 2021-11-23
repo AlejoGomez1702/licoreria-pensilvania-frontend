@@ -7,12 +7,11 @@ declare const main: any;
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit 
-{
-  constructor() { }
+{  
+  constructor( ) { }
 
   ngOnInit(): void 
   {
-    main();
+    main();    
   }
-
 }

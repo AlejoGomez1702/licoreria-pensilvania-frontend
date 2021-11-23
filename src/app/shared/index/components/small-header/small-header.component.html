@@ -30,7 +30,10 @@
                         <!-- <a href="#" class="mr-2">Registrarse</a>
                         <a href="#" class="mr-2">Iniciar Sesión</a> -->
                         <button type="button" class="btn btn-primary">Registrarse</button>
-                        <button type="button" class="btn btn-primary" (click)="goToLogin()">Login</button>
+                        <button type="button" class="btn btn-primary" (click)="goToLogin()" *ngIf="!isLogued; else dashboard">Login</button>
+                        <ng-template #dashboard>
+                            <button type="button" class="btn btn-primary" (click)="goToDashboard()">Dashboard</button>
+                        </ng-template>
                         <!-- <button mat-button class="mr-2 color-w" (click)="goToLogin()">Registrarse</button>
                         <button mat-button class="mr-2 color-w" (click)="goToLogin()">Login</button> -->
                     </p>

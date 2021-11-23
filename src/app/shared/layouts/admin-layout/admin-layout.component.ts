@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 import { UserService } from 'src/app/dashboard/users/services/user/user.service';
 import { Router } from '@angular/router';
 import { SidenavService } from '../../services/sidenav.service';
-import { MatSidenav } from '@angular/material/sidenav';
-
+import { TokenService } from 'src/app/core/services/token.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -17,7 +16,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
 {
   panelOpenState = false;
   userImg = '';
-  userName = '';
+  public userName: string = '';
 
   screenWidth: number = 1000;
 
@@ -37,7 +36,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
     private userService: UserService,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private sidenavService: SidenavService
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void 
@@ -50,7 +49,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
         this.userImg = res?.user.img || 'assets/images/user-default.svg';
         this.userName= res?.user.name;
       }
-    )
+    );
   }
 
   ngAfterViewInit(): void 
@@ -60,6 +59,19 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
     // console.log(this.sidenav);
     // this.sidenavService.setSidenav(this.sidenav);
     // this.closeNavMobile();
+  }
+
+  get shortName()
+  {
+    const fullName = this.userName.split(' ');
+    const [ first, last ] = fullName;
+    return first + ' ' + last;
+  }
+
+  logout(): void
+  {
+    this.tokenService.clearToken();
+    this.router.navigate(['/']);    
   }
 
   // closeNavMobile(): void
@@ -82,8 +94,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
 
   goToSettings(): void
   {
-    this.router.navigate(['/dashboard/settings']);
-    
+    this.router.navigate(['/dashboard/settings']);    
   }
 
   goToProducts(): void

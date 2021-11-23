@@ -33,27 +33,6 @@ export class SweetAlertService
     });
   }
 
-  async presentSupport()
-  {
-    const { value: ammount } = await Swal.fire({
-      title: 'Cantidad de Apoyos',
-      input: 'number',
-      inputAttributes: {
-        min: '1'
-      },
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Aceptar',
-      width: 260,
-      inputValue: 1,
-      showCancelButton: true
-    });
-    
-    if (ammount) 
-    {
-      this.presentSuccess(`Se Agregaron ${ammount} Apoyos`);
-    }
-  }
-
   presentError(error: string)
   {
     Swal.fire({
