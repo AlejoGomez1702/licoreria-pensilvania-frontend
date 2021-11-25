@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   // /dashboard/prooducts/create
   {
-    path: 'create',
+    path: 'create/:type',
     component: CreateComponent
   }
 ]

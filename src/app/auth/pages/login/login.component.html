@@ -15,7 +15,7 @@
             </div>
             <div class="form-group last mb-4">
               <label for="password">Contraseña</label>
-              <input type="password" class="form-control" id="password" [(ngModel)]="loginData.password">              
+              <input type="password" class="form-control" id="password" [(ngModel)]="loginData.password" (keyup.enter)="login()">              
             </div>
             
             <div class="d-flex mb-5 align-items-center">
@@ -23,26 +23,15 @@
                 <input type="checkbox" [(ngModel)]="loginData.remember" />
                 <div class="control__indicator"></div>
               </label>
-              <span class="ml-auto"><a href="#" class="forgot-pass">Olvide mi contraseña</a></span> 
+              <span class="ml-auto"><a href="/auth/login" class="forgot-pass">Olvide mi contraseña</a></span> 
             </div>
 
             <!-- <input type="submit" value="Log In" class="btn text-white btn-block btn-primary"> -->
             <button (click)="login()" mat-raised-button color="primary" class="btn-block btn-size">Ingresar</button>
 
-            <span class="d-block text-center my-4 text-muted"> o inicia sesión con:</span>
-            
-            <div class="social-login text-center">
-              <a href="#" class="facebook">
-                <span class="icon-facebook mr-3"></span> 
-              </a>
-              <a href="#" class="google">
-                <span class="icon-google mr-3"></span> 
-              </a>
-            </div>
-
-            <div class="text-center">
+            <div class="text-center mt-3">
                 Aún no tienes una cuenta?
-                <a href="">Registrate</a>
+                <a href="/auth/login">Registrate</a>
             </div>
           </div>
           </div>
@@ -52,7 +41,7 @@
       <div class="col-md-6 order-md-2">
         <img src="assets/login/images/undraw_file_sync_ot38.svg" alt="Image" class="img-fluid">
         <div class="text-center">
-          <button mat-raised-button class="btn-size" color="accent" (click)="goToHome()">Volver Al Inicio</button>
+          <button mat-raised-button class="btn-size" color="accent" (click)="goToHome()">Volver a La Tienda</button>
         </div>
       </div>      
     </div>

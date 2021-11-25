@@ -24,20 +24,15 @@ export class SpiritService
   ) { }
 
   /**
-   * Obtiene todas los productos
-   * @returns Todos los productos.
+   * Obtiene todas los productos del tipo licor.
+   * @returns Todos los productos (licores).
    */
    getAllProducts( category?: string, limit?: number, from?: number, publicData?: boolean ): Observable<ResponseGetAllSpirits>
    {
-     const publicHeaders = new HttpHeaders({
-       'Content-Type':  'application/json'
-     });
-
      const httpOptions = {
        params: new HttpParams().set('category', category ? category : '')
                                .set('limit', limit ? limit : 1000)
-                               .set('from', from ? from : 0),
-       headers: publicData ? publicHeaders : this.headers
+                               .set('from', from ? from : 0)
      };
  
      return this.http.get<ResponseGetAllSpirits>(`${this.apiUrl}/spirits`, httpOptions);
@@ -69,7 +64,7 @@ export class SpiritService
    }
  
    /**
-    * Crea un producto en la base de datos.
+    * Crea un producto en la base de datos del tipo licor.
     * @param product 
     */
    createProduct( product: Spirit ): Observable<Spirit>

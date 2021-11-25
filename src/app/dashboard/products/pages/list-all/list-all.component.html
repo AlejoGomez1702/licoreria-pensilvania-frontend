@@ -1,89 +1,12 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Licores">
-        <div class="contenedor">
-            <div class="row ml-1">
-                <h1 class="fw-500 txt-center">Inventario de Licores</h1>
-            </div>
-        
-            <mat-divider></mat-divider>
-        
-            <div class="row mt-3">
-                <div class="col-3">
-                    <button mat-raised-button color="primary" (click)="createProduct()">
-                        Agregar
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </div>
-            </div>
-        
-            <mat-form-field appearance="standard">
-                <mat-label>Buscar...</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por cualquier campo..." #input>
-            </mat-form-field>
-        
-            <mat-card-content>
-                <div class="mat-elevation-z8">
-                    <table class="full-width-table" mat-table [dataSource]="dataSource" matSort>        
-                        <!-- Nombre -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
-                            <td mat-cell *matCellDef="let row">
-                                {{ getFullProductName( row ) }}
-                            </td>
-                        </ng-container>
-                        <!-- Unidad de media -->
-                        <ng-container matColumnDef="unit">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Unidad Medida</th>
-                            <td mat-cell *matCellDef="let row">{{row.unit.unit}}</td>
-                        </ng-container>
-                        <!-- Precio de venta -->
-                        <ng-container matColumnDef="sale_price">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
-                            <td mat-cell *matCellDef="let row">$ {{row.sale_price | number}}</td>
-                        </ng-container>
-                        <!-- Stock -->
-                        <ng-container matColumnDef="stock">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Stock</th>
-                            <td mat-cell *matCellDef="let row">{{row.stock}}</td>
-                        </ng-container>
-                        <!-- Existencia actual -->
-                        <ng-container matColumnDef="current_existence">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad Actual</th>
-                            <td mat-cell *matCellDef="let row">{{row.current_existence}}</td>
-                        </ng-container>
-                    
-                    
-                        <!-- Acciones -->
-                        <ng-container matColumnDef="actions">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
-                            <td mat-cell *matCellDef="let row">
-                                <button title="Editar" class="btn" (click)="editSpirit( row )">
-                                    <span class="edit-color">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </span>                    
-                                </button>
-                                <button title="Eliminar" class="btn">
-                                    <span class="delete-color">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </span>                    
-                                </button>
-                            </td>
-                        </ng-container>
-            
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            
-        
-                        <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No se encontró información: "{{input.value}}"</td>
-                        </tr>
-                    </table>
-                    <mat-paginator [pageSizeOptions]="[10, 20, 30, 40]"></mat-paginator>
-                </div>
-            </mat-card-content>
-            
-        </div>
+        <!-- Tabla para el inventario de licores -->
+        <app-spirit-inventory></app-spirit-inventory>
     </mat-tab>
-    <mat-tab label="Cigarrillos">Content 2</mat-tab>
-    <mat-tab label="Third">Content 3</mat-tab>
+    <mat-tab label="Cigarrillos">
+        Content 2
+    </mat-tab>
+    <mat-tab label="Third">
+        Content 3
+    </mat-tab>
 </mat-tab-group>
