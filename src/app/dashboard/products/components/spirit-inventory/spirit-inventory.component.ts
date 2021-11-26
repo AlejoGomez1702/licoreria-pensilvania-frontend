@@ -79,7 +79,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
     this.spiritService.getAllProducts(category, limit, from, true)
     .subscribe(
       res => {
-        console.log(res);
+        //console.log(res);
         this.products = res.spirits;        
         this.length = res.total;
         this.dataSource.data = this.products;
@@ -93,9 +93,9 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.from = event.pageIndex * this.pageSize;
-    console.log( "length: " + this.length );
-    console.log( "size: " + this.pageSize );
-    console.log( "from: " + this.from );
+    // console.log( "length: " + this.length );
+    // console.log( "size: " + this.pageSize );
+    // console.log( "from: " + this.from );
 
     this.loadProducts( undefined, this.pageSize, this.from );
 
