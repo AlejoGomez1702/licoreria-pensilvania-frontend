@@ -19,10 +19,26 @@ export class HeadersInterceptor implements HttpInterceptor
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
   {
-    const headers = new HttpHeaders({
-      'Content-Type':  'application/json',
-      'x-token': this.tokenService.getToken()
-    });
+    let headers;
+    // console.log(request);
+
+    const { method, url } = request;
+    const lastSegmet = url.split('/').slice(-1)[0];
+
+    // Si es POST y termina en spirits
+    if( method === 'POST' && lastSegmet === 'spirits' )
+    {
+      headers = new HttpHeaders({
+        'x-token': this.tokenService.getToken()
+      });
+    }
+    else
+    {
+      headers = new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-token': this.tokenService.getToken()
+      });
+    }
 
     const reqClone = request.clone({
       headers

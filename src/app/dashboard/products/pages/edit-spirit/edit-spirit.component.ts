@@ -112,24 +112,24 @@ export class EditSpiritComponent implements OnInit, AfterViewChecked
 
   buildForm() 
   {
-    this.selectedFeatures = this.spirit?.features ? this.spirit.features : [];
-    this.imgURL = this.spirit?.img;
+    // this.selectedFeatures = this.spirit?.features ? this.spirit.features : [];
+    // this.imgURL = this.spirit?.img;
 
-    this.form = this.formBuilder.group({
-                                          // file: [null,[Validators.required] ],
-                                          id: [this.spirit?.id],                                          
-                                          img: [this.spirit?.img, [Validators.required]],
-                                          category: [this.spirit?.category,[Validators.required] ],
-                                          unit: [this.spirit?.unit,[Validators.required] ],
-                                          name: [this.spirit?.name,[Validators.required] ], 
-                                          features: [this.spirit?.features],
-                                          barcode: [this.spirit?.barcode,[] ],
-                                          stock: [this.spirit?.stock,[Validators.min(1)] ],
-                                          alcohol: [this.spirit?.alcohol ,[Validators.required] ],
-                                          purchase_price: [this.spirit?.purchase_price],
-                                          sale_price: [this.spirit?.sale_price],
-                                          current_existence: [this.spirit?.current_existence, [Validators.required]]                                          
-                                        });
+    // this.form = this.formBuilder.group({
+    //                                       // file: [null,[Validators.required] ],
+    //                                       id: [this.spirit?.id],                                          
+    //                                       img: [this.spirit?.img, [Validators.required]],
+    //                                       category: [this.spirit?.category,[Validators.required] ],
+    //                                       unit: [this.spirit?.unit,[Validators.required] ],
+    //                                       name: [this.spirit?.name,[Validators.required] ], 
+    //                                       features: [this.spirit?.features],
+    //                                       barcode: [this.spirit?.barcode,[] ],
+    //                                       stock: [this.spirit?.stock,[Validators.min(1)] ],
+    //                                       alcohol: [this.spirit?.alcohol ,[Validators.required] ],
+    //                                       purchase_price: [this.spirit?.purchase_price],
+    //                                       sale_price: [this.spirit?.sale_price],
+    //                                       current_existence: [this.spirit?.current_existence, [Validators.required]]                                          
+    //                                     });
   }
 
   loadData()

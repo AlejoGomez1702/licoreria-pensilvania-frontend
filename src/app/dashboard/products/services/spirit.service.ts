@@ -68,13 +68,7 @@ export class SpiritService
     * @param product 
     */
    createProduct( product: Spirit ): Observable<Spirit>
-   {
-     const httpOptions = {
-       headers: new HttpHeaders({
-         'x-token': this.tokenService.getToken()
-       })
-     };
- 
+   { 
      const { img, ...productData } = product;
      const productDataAny: any = { ...productData };
      // console.log(productDataAny);
@@ -90,7 +84,7 @@ export class SpiritService
        formData.append(key, data);       
      }
  
-     return this.http.post<Spirit>(`${this.apiUrl}/spirits`, formData, httpOptions);
+     return this.http.post<Spirit>(`${this.apiUrl}/spirits`, formData);
    }
  
    /**

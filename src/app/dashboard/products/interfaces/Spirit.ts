@@ -5,24 +5,21 @@ import { Inventory } from "./Inventory";
 
 export interface Spirit
 {
-    features:          string[];
-    // file?:             any;
+    id?:                string;
     state?:            boolean;
     img?:              any;
-    description:       string;
+    description?:       string;
     sale_price:        number;
     purchase_price:    number;
-    barcode:           string;
+    barcode?:           string;
     stock:             number;
-    current_existence: number;
-    providers:         any[];
+    current_existence?: number;
+    providers?:         any[];
     name:              string;
     category:          Category;
-    alcohol:           Alcohol;
+    vol_alcohol:       number;
     unit:              Unit;
-    inventory:         Inventory;
-    user:              string;
-    created_at:        Date;
-    updated_at:        Date;
-    id:                string;
+    user?:              string;
+    created_at?:        Date;
+    updated_at?:        Date;    
 }

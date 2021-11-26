@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
 import { SpiritService } from '../../services/spirit.service';
@@ -21,7 +22,8 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   constructor(
     private spiritService: SpiritService,
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    private router: Router
   )
   { 
     this.dataSource = new MatTableDataSource();
@@ -60,7 +62,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   createProduct()
   {
-
+    this.router.navigate(['/dashboard/products/create/spirit']);
   }
 
   editSpirit( row: any )
