@@ -59,9 +59,6 @@ export class ListAllProductsComponent implements OnInit
     .subscribe(res => {
       this.products = res.spirits;
       this.length = res.total;
-
-      // this.totalProducts = res.total;
-      // console.log(this.totalProducts);
       main();
     },
     error => {
@@ -117,9 +114,6 @@ export class ListAllProductsComponent implements OnInit
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.from = event.pageIndex * this.pageSize;
-
-    // console.log(this.from);
-
     this.loadProducts( this.categorySelected, this.pageSize, this.from );
 
     return event;

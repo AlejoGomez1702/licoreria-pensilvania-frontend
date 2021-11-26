@@ -55,7 +55,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
   ngAfterViewInit(): void 
   {
     // this.screenWidth = window.innerWidth || 1000;
-    console.log(this.screenWidth);
+    // console.log(this.screenWidth);
     // console.log(this.sidenav);
     // this.sidenavService.setSidenav(this.sidenav);
     // this.closeNavMobile();

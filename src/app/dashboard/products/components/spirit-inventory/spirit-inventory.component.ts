@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -14,11 +14,21 @@ import { SpiritService } from '../../services/spirit.service';
 })
 export class SpiritInventoryComponent implements OnInit, AfterViewInit
 {
+  public products: Product[] = [];
+
   displayedColumns = ['name', 'unit', 'sale_price', 'stock', 'current_existence', 'actions'];
   dataSource: MatTableDataSource<Product>;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  // MatPaginator configuration  
+  public from: number = 0;
+  public length: number = 0;
+  public pageSize: number = 8;
+  public pageSizeOptions: number[] = [4, 8, 16, 32];
+  // @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // MatPaginator Output
+  pageEvent!: PageEvent;
 
   constructor(
     private spiritService: SpiritService,
@@ -31,24 +41,18 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   ngOnInit(): void 
   {
-    this.loadData();
+    this.loadProducts();
   }
 
   ngAfterViewInit(): void 
   {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  loadData()
+  getfullProductName(spirit: Product): string
   {
-    this.spiritService.getAllProducts()
-    .subscribe(res => {
-      this.dataSource.data = res.spirits;
-    },
-    error => {
-      this.sweetAlert.presentError(error.error.error);
-    });
+    return  `${spirit.category.name} ${spirit.name}`;
   }
 
   applyFilter(event: Event) 
@@ -68,6 +72,34 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
   editSpirit( row: any )
   {
 
+  }
+
+  loadProducts(category?: string, limit?: number, from?: number): void
+  {
+    this.spiritService.getAllProducts(category, limit, from, true)
+    .subscribe(
+      res => {
+        console.log(res);
+        this.products = res.spirits;        
+        this.length = res.total;
+        this.dataSource.data = this.products;
+      },
+      error => this.sweetAlert.presentError(error.error.error)
+    );
+  }
+
+  paginateChange( event:PageEvent ): PageEvent
+  {
+    this.length = event.length;
+    this.pageSize = event.pageSize;
+    this.from = event.pageIndex * this.pageSize;
+    console.log( "length: " + this.length );
+    console.log( "size: " + this.pageSize );
+    console.log( "from: " + this.from );
+
+    this.loadProducts( undefined, this.pageSize, this.from );
+
+    return event;
   }
 
 }
