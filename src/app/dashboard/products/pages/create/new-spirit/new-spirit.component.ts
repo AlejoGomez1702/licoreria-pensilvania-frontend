@@ -140,6 +140,11 @@ export class NewSpiritComponent implements OnInit
     });
   }
 
+  deleteFormData()
+  {
+    this.form.reset();
+    this.imgURL = '';
+  }
 
   showProductData( id: string )
   {

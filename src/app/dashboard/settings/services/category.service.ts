@@ -11,13 +11,7 @@ import { TokenService } from 'src/app/core/services/token.service';
 })
 export class CategoryService 
 {
-  apiUrl = environment.API_URL;
 
-  headers = new HttpHeaders({
-    'Content-Type':  'application/json',
-    'x-token': this.tokenService.getToken()
-  })
-  
   constructor(
     private http: HttpClient,
     private tokenService: TokenService
@@ -30,11 +24,10 @@ export class CategoryService
   getAllCategories(): Observable<ResponseGetAllCategories>
   {
     const httpOptions = {
-      params: new HttpParams().set('limit', 10),
-      headers: this.headers
+      params: new HttpParams().set('limit', 1000)
     };
 
-    return this.http.get<ResponseGetAllCategories>(`${this.apiUrl}/categories`, httpOptions);
+    return this.http.get<ResponseGetAllCategories>(`${environment.API_URL}/categories`, httpOptions);
   }
 
   /**
@@ -44,11 +37,8 @@ export class CategoryService
   createCategory( name: string ): Observable<Category>
   {
     const data = { name };
-    const httpOptions = {
-      headers: this.headers
-    };
 
-    return this.http.post<Category>(`${this.apiUrl}/categories`, data, httpOptions);
+    return this.http.post<Category>(`${environment.API_URL}/categories`, data);
   }
 
   /**
@@ -58,11 +48,7 @@ export class CategoryService
    updateCategory( uid: string, category: Category ): Observable<Category>
    {
      const { id, state, ...data } = category;
-     const httpOptions = {
-       headers: this.headers
-     };
-
-     return this.http.put<Category>(`${this.apiUrl}/categories/${uid}`, data, httpOptions);
+     return this.http.put<Category>(`${environment.API_URL}/categories/${uid}`, data);
    }
 
    /**
@@ -71,10 +57,6 @@ export class CategoryService
     */
    deleteCategory( id: string )
    {
-    const httpOptions = {
-      headers: this.headers
-    };
-
-    return this.http.delete<Category>(`${this.apiUrl}/categories/${id}`, httpOptions);
+    return this.http.delete<Category>(`${environment.API_URL}/categories/${id}`);
    }
 }
