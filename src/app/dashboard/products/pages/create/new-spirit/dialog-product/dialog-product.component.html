@@ -5,7 +5,8 @@
         <input matInput
                aria-label="Producto"
                [matAutocomplete]="auto"
-               [formControl]="selectedProduct">
+               [formControl]="selectedProduct"
+               (keypress)="searchProductsMatch()">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option
                     *ngFor="let product of filteredProducts | async" 

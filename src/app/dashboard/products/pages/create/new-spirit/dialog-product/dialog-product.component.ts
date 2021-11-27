@@ -47,6 +47,17 @@ export class DialogProductComponent implements OnInit
     });
   }
 
+  searchProductsMatch()
+  {
+    const filter = this.selectedProduct.value as string | '';
+
+    // ***************************************************
+    // Hacer el filtrado de los productos con el backend.
+    // Refrescar los productos con los que vienen del backend.
+
+    console.log(this.selectedProduct.value);
+  }
+
   getFullProductName( product: SelectableProduct )
   {
     return `${product.category.name} ${product.name} | ${product.unit.unit}`;
