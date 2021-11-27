@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
@@ -7,6 +8,7 @@ import { CategoryService } from 'src/app/dashboard/settings/services/category.se
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { SpiritService } from '../../../services/spirit.service';
+import { DialogProductComponent } from './dialog-product/dialog-product.component';
 
 @Component({
   selector: 'app-new-spirit',
@@ -27,6 +29,7 @@ export class NewSpiritComponent implements OnInit
     private fb: FormBuilder,
     private sweetAlert: SweetAlertService,
     private router: Router,
+    public dialog: MatDialog,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
     private spiritService: SpiritService
@@ -119,8 +122,19 @@ export class NewSpiritComponent implements OnInit
         this.sweetAlert.presentError(error.error.error)
       }
     );
+  }
 
-    // this.form.reset();
+  openProductDialog()
+  {
+    const dialogRef = this.dialog.open(DialogProductComponent, {
+      minWidth: '450px',
+      maxWidth: '650px',
+      data: '',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+    });
   }
 
 }
