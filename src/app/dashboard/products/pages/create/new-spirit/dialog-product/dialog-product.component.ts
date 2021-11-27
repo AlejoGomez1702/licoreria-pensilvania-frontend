@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SelectableProduct } from 'src/app/dashboard/products/interfaces/SelectableProduct';
 import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
+import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class DialogProductComponent implements OnInit
 
   constructor(
     private spiritService: SpiritService,
+    private filterService: FilterService,
     private sweetAlert: SweetAlertService,
     public dialogRef: MatDialogRef<DialogProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string, // ID del producto seleccionado
@@ -49,13 +51,24 @@ export class DialogProductComponent implements OnInit
 
   searchProductsMatch()
   {
-    const filter = this.selectedProduct.value as string | '';
-
-    // ***************************************************
-    // Hacer el filtrado de los productos con el backend.
-    // Refrescar los productos con los que vienen del backend.
-
-    console.log(this.selectedProduct.value);
+    const term = this.selectedProduct.value as string | '';
+    if( term )
+    {
+      this.filterService.searchSpirits( term, true ).subscribe(
+        spirits => {
+          this.products = spirits.map(product => {
+            const { id = '', category, unit, name, img } = product;
+            const shortProductData = { id , category, unit, name, img };
+    
+            return shortProductData;
+          });
+        },
+        (error) => {
+          console.log("Error buscando los productos");
+          console.log(error);
+        }
+      );
+    }
   }
 
   getFullProductName( product: SelectableProduct )
@@ -77,7 +90,7 @@ export class DialogProductComponent implements OnInit
 
   loadProducts()
   {
-    this.spiritService.getAllProducts()
+    this.spiritService.getSercheablesProducts()
     .subscribe(res => {
       this.products = res.spirits.map(product => {
         const { id = '', category, unit, name, img } = product;
@@ -85,6 +98,11 @@ export class DialogProductComponent implements OnInit
 
         return shortProductData;
       });
+
+      if(this.products.length === 0)
+      {
+        this.selectedProduct.disable();
+      }
     },
     error => {
       this.sweetAlert.presentError(error.error.error);

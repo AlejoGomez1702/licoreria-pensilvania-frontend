@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TokenService } from 'src/app/core/services/token.service';
+import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { ResponseGetAllProducts } from 'src/app/dashboard/products/interfaces/ResponseGetAllProducts';
-import { Spirit } from 'src/app/dashboard/products/interfaces/Spirit';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,35 +11,34 @@ import { environment } from 'src/environments/environment';
 })
 export class FilterService 
 {
-  apiUrl = environment.API_URL;
-
-  headers = new HttpHeaders({
-    'Content-Type':  'application/json',
-    'x-token': this.tokenService.getToken()
-  })
 
   constructor(
-    private http: HttpClient,
-    private tokenService: TokenService
+    private http: HttpClient
   ) 
   { }
 
-  getProducts( term: string ): Observable<ResponseGetAllProducts>
+  searchSpirits( term: string, other: boolean ): Observable<Product[]>
   {
-    const httpOptions = {
-      headers: this.headers
-    };
+    let httpOptions = {};
 
-    return this.http.get<ResponseGetAllProducts>(`${this.apiUrl}/searchs/products/${term}`, httpOptions);
+    if(other) // Si se desea buscar en los productos de los otros negocios
+    {
+      httpOptions = {
+        params: new HttpParams().set('other', true)
+      };
+    }    
+
+    return this.http.get<Product[]>(`${environment.API_URL}/searchs/spirits/${term}`, httpOptions);
   }
 
-  searchProductByBarcode( barcode: string ): Observable<Spirit>
+  getProducts( term: string ): Observable<ResponseGetAllProducts>
   {
-    const httpOptions = {
-      headers: this.headers
-    };
+    return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/searchs/products/${term}`);
+  }
 
-    return this.http.get<Spirit>( `${this.apiUrl}/searchs/products/barcode/${barcode}`, httpOptions );
+  searchProductByBarcode( barcode: string ): Observable<Product>
+  {
+    return this.http.get<Product>( `${environment.API_URL}/searchs/products/barcode/${barcode}`);
   }
 
 

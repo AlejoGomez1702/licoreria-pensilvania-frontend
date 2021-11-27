@@ -93,7 +93,7 @@ export class EditSpiritComponent implements OnInit, AfterViewChecked
     if( id )
     {
       // const spirit = await this.spiritService.getSpiritById( id );
-      this.spiritService.getSpiritById( id ).subscribe(
+      this.spiritService.getSpiritById( id, false ).subscribe(
         spirit => {
           this.spirit = spirit;
           this.buildForm();

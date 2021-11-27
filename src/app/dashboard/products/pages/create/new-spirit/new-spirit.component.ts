@@ -132,9 +132,30 @@ export class NewSpiritComponent implements OnInit
       data: '',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
+    dialogRef.afterClosed().subscribe(spiritID => {
+      if(spiritID)
+      {
+        this.showProductData( spiritID );
+      }
     });
+  }
+
+
+  showProductData( id: string )
+  {
+    this.spiritService.getSpiritById( id, true ).subscribe(
+      spirit => {
+        // console.log(spirit);
+        const { category, unit, ...data } = spirit;
+        this.form.reset({
+          category: category._id,
+          unit: unit._id,
+          ...data
+        });
+        this.imgURL = data.img;
+      },
+      (error) => this.sweetAlert.presentError('Error cargando el producto!')
+    );
   }
 
 }

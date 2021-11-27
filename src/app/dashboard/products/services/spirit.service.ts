@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TokenService } from 'src/app/core/services/token.service';
 import { environment } from 'src/environments/environment';
+import { Product } from '../interfaces/Product';
 import { ResponseGetAllSpirits } from '../interfaces/ResponseGetAllSpirits';
 import { Spirit } from '../interfaces/Spirit';
 
@@ -11,13 +12,6 @@ import { Spirit } from '../interfaces/Spirit';
 })
 export class SpiritService 
 {
-  apiUrl = environment.API_URL;
-
-  headers = new HttpHeaders({
-    'Content-Type':  'application/json',
-    'x-token': this.tokenService.getToken()
-  });
-
   constructor(
     private http: HttpClient,
     private tokenService: TokenService
@@ -35,19 +29,40 @@ export class SpiritService
                                .set('from', from ? from : 0)
      };
  
-     return this.http.get<ResponseGetAllSpirits>(`${this.apiUrl}/spirits`, httpOptions);
+     return this.http.get<ResponseGetAllSpirits>(`${environment.API_URL}/spirits`, httpOptions);
    }
+
+   /**
+   * Obtiene todas los productos del tipo licor.
+   * @returns Todos los productos (licores).
+   */
+    getSercheablesProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllSpirits>
+    {
+      const httpOptions = {
+        params: new HttpParams().set('category', category ? category : '')
+                                .set('limit', limit ? limit : 10)
+                                .set('from', from ? from : 0)
+                                .set('sercheable', true)
+      };
+  
+      return this.http.get<ResponseGetAllSpirits>(`${environment.API_URL}/spirits`, httpOptions);
+    }
 
    /**
    * Obtiene un licor en especifico
    */
-    getSpiritById( id: string ): Observable<Spirit>
+    getSpiritById( id: string, sercheable: boolean ): Observable<Product>
     {
-      const httpOptions = {
-        headers: this.headers
-      };
-  
-      return this.http.get<Spirit>(`${this.apiUrl}/spirits/${id}`, httpOptions);
+      let httpOptions = {};
+
+      if(sercheable)
+      {
+        httpOptions = {
+          params: new HttpParams().set('sercheable', true)
+        };
+      }
+
+      return this.http.get<Product>(`${environment.API_URL}/spirits/${id}`, httpOptions);
     }
  
    /**
@@ -56,11 +71,7 @@ export class SpiritService
     */
    getAllFeatures(): Observable<{ features: string[]; }>
    {
-     const httpOptions = {
-       headers: this.headers
-     };
- 
-     return this.http.get<{ features: string[]; }>(`${this.apiUrl}/spirits/all/features`, httpOptions);
+     return this.http.get<{ features: string[]; }>(`${environment.API_URL}/spirits/all/features`);
    }
  
    /**
@@ -84,7 +95,7 @@ export class SpiritService
        formData.append(key, data);       
      }
  
-     return this.http.post<Spirit>(`${this.apiUrl}/spirits`, formData);
+     return this.http.post<Spirit>(`${environment.API_URL}/spirits`, formData);
    }
  
    /**
@@ -97,16 +108,13 @@ export class SpiritService
       console.log(product);
 
       const { id, state, ...data } = product;
-      let httpOptions = {
-        headers: this.headers
-      };
 
       const { img } = data;
       console.log( img );
       if( typeof img === 'string' || img instanceof String ) //La imagen no se desea actualizar
       {
         console.log("se detecta de tipo stringgg");
-        return this.http.put<Spirit>(`${this.apiUrl}/spirits/${id}`, data, httpOptions);
+        return this.http.put<Spirit>(`${environment.API_URL}/spirits/${id}`, data);
       }
 
       const httpOptions2 = {
@@ -131,7 +139,7 @@ export class SpiritService
         formData.append(key, dataWithFile);       
       }
  
-      return this.http.put<Spirit>(`${this.apiUrl}/spirits/${id}`, formData, httpOptions2);
+      return this.http.put<Spirit>(`${environment.API_URL}/spirits/${id}`, formData, httpOptions2);
     }
 
 }

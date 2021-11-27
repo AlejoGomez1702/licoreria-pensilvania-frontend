@@ -18,9 +18,15 @@ export class SpinnerInterceptor implements HttpInterceptor
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
   {
-    this.spinnerService.show();
-    return next.handle(request).pipe(
-      finalize(() => this.spinnerService.hide())
-    );
+    const { url } = request;
+    if( !url.includes('searchs') )
+    {
+      this.spinnerService.show();
+      return next.handle(request).pipe(
+        finalize(() => this.spinnerService.hide())
+      );
+    }
+
+    return next.handle(request);
   }
 }

@@ -6,7 +6,7 @@
                aria-label="Producto"
                [matAutocomplete]="auto"
                [formControl]="selectedProduct"
-               (keypress)="searchProductsMatch()">
+               (keyup)="searchProductsMatch()">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option
                     *ngFor="let product of filteredProducts | async" 
@@ -20,8 +20,13 @@
             <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
+
+    <div class="alert alert-warning" role="alert" *ngIf="products.length < 1">
+      No hay productos para mostrar!
+    </div>
+
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions class="justify-content-center">
   <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Seleccionar</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data" [disabled]="!idSelectedProduct">Seleccionar</button>
 </div>
