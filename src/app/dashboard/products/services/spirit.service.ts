@@ -100,46 +100,39 @@ export class SpiritService
  
    /**
     * Actualiza un producto en la base de datos.
-    * @param uid Identificador de la categoría.
+    * @param uid Identificador del product.
     */
-    updateSpirit( product: Spirit ): Observable<Spirit>
+    updateSpirit( id: string, product: Spirit ): Observable<Spirit>
     {
-      console.log('El licor es: ');
-      console.log(product);
-
-      const { id, state, ...data } = product;
+      const { state, ...data } = product;
 
       const { img } = data;
-      console.log( img );
       if( typeof img === 'string' || img instanceof String ) //La imagen no se desea actualizar
       {
-        console.log("se detecta de tipo stringgg");
         return this.http.put<Spirit>(`${environment.API_URL}/spirits/${id}`, data);
       }
 
-      const httpOptions2 = {
-        headers: new HttpHeaders({
-          'x-token': this.tokenService.getToken()
-        })
-      };
-
-      const imgFile = data.img;
-
       const productDataAny: any = { ...data };
-      // console.log(productDataAny);
       const formData: FormData = new FormData();
-      // formData.append('img', imgFile);
       let dataWithFile;
       for (const key in productDataAny) 
       {
         dataWithFile = productDataAny[key];
         if(data === null)
           dataWithFile = 0;
-        // const data = productData.key;
         formData.append(key, dataWithFile);       
       }
  
-      return this.http.put<Spirit>(`${environment.API_URL}/spirits/${id}`, formData, httpOptions2);
+      return this.http.put<Spirit>(`${environment.API_URL}/spirits/${id}`, formData);
+    }
+
+    /**
+     * Elimina un licor del sistema.
+     * @param id 
+     */
+    deleteSpirit( id: string ): Observable<Product>
+    {
+      return this.http.delete<Product>(`${environment.API_URL}/spirits/${id}`);
     }
 
 }

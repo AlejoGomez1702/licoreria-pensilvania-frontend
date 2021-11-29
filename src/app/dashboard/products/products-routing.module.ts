@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NewSpiritComponent } from './pages/create/new-spirit/new-spirit.component';
-import { EditSpiritComponent } from './pages/edit-spirit/edit-spirit.component';
+import { SpiritComponent } from './pages/edit/spirit/spirit.component';
 import { ListAllComponent } from './pages/list-all/list-all.component';
 
 const routes: Routes = [
@@ -17,11 +17,11 @@ const routes: Routes = [
   // /dashboard/products/spirits/edit/:id
   {
     path: 'spirits/edit/:id',
-    component: EditSpiritComponent
+    component: SpiritComponent
   },
   // /dashboard/products/create
   {
-    path: 'create/spirit',
+    path: 'spirits/create',
     component: NewSpiritComponent
   }
 ]

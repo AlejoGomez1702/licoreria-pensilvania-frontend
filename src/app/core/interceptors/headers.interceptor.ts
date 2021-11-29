@@ -23,10 +23,19 @@ export class HeadersInterceptor implements HttpInterceptor
     // console.log(request);
 
     const { method, url } = request;
-    const lastSegmet = url.split('/').slice(-1)[0];
+    const [ last, secondLast ] = url.split('/').slice(-2);
 
-    // Si es POST y termina en spirits
-    if( method === 'POST' && lastSegmet === 'spirits' )
+    // const lastSegmet = url.split('/').slice(-1)[0];
+
+    // const lastSegmets = url.split('/').slice(-2);
+
+    // console.log("last segment", lastSegmets);
+
+    // Si es POST y termina en spirits -> el formulario envia una imagen por eso no se debe enviar content-type
+    if(
+      (method === 'POST' && last === 'spirits') ||
+      (method === 'PUT' && secondLast === 'spirits')
+    )
     {
       headers = new HttpHeaders({
         'x-token': this.tokenService.getToken()

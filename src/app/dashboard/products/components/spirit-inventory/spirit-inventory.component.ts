@@ -66,11 +66,36 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   createProduct()
   {
-    this.router.navigate(['/dashboard/products/create/spirit']);
+    this.router.navigate(['/dashboard/products/spirits/create']);
   }
 
-  editSpirit( row: any )
+  editSpirit( row: Product )
   {
+    this.router.navigate(['/dashboard/products/spirits/edit/' + row.id]);
+  }
+
+  async deleteSpirit( spirit: Product )
+  {
+    console.log(spirit);
+
+    const { id, category, name } = spirit;
+    if( id )
+    {
+      const { isConfirmed } = await this.sweetAlert.presentDelete(`${category.name} ${name}`);
+      if(isConfirmed)
+      {
+        this.spiritService.deleteSpirit( id ).subscribe(
+          product => {
+            if(product)
+            {
+              this.sweetAlert.presentSuccess('Licor Eliminado Correctamente!');
+              this.loadProducts();
+            }
+          },
+          () => this.sweetAlert.presentError('Eliminando Licor!')
+        );
+      }
+    }
 
   }
 
@@ -93,9 +118,6 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.from = event.pageIndex * this.pageSize;
-    // console.log( "length: " + this.length );
-    // console.log( "size: " + this.pageSize );
-    // console.log( "from: " + this.from );
 
     this.loadProducts( undefined, this.pageSize, this.from );
 

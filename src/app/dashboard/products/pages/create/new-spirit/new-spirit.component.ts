@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
@@ -28,6 +29,7 @@ export class NewSpiritComponent implements OnInit
   constructor(
     private fb: FormBuilder,
     private sweetAlert: SweetAlertService,
+    private formsValidationService: FormsValidationService,
     private router: Router,
     public dialog: MatDialog,
     private categoryService: CategoryService,
@@ -83,7 +85,7 @@ export class NewSpiritComponent implements OnInit
 
   validField( field: string )
   {
-    return this.form.controls[field].errors && this.form.controls[field].touched;
+    return this.formsValidationService.validField( this.form, field );
   }
 
   onSelectImg(event: any)
