@@ -66,7 +66,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   createProduct()
   {
-    this.router.navigate(['/dashboard/products/spirits/create']);
+    this.router.navigate(['/dashboard/products/create/spirits']);
   }
 
   editSpirit( row: Product )
@@ -76,8 +76,6 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   async deleteSpirit( spirit: Product )
   {
-    console.log(spirit);
-
     const { id, category, name } = spirit;
     if( id )
     {

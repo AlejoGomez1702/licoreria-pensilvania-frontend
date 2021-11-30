@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   // /dashboard/products/create
   {
-    path: 'spirits/create',
+    path: 'create/spirits',
     component: NewSpiritComponent
   }
 ]

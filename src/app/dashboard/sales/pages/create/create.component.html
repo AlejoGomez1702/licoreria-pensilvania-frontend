@@ -1,19 +1,45 @@
 <div class="contenedor">
     <div class="row ml-1">
-        <h1 class="fw-500 txt-center">Crear Nueva Venta</h1>        
+        <h1 class="fw-500 txt-center">CREAR NUEVA VENTA</h1>        
     </div>
 
     <mat-divider></mat-divider>
 
     <div class="row mt-3">
-        <mat-form-field class="example-form-field" appearance="fill">
-            <mat-icon matPrefix>search</mat-icon>
-            <mat-label>Escánear Código de Barras o Buscar Producto...</mat-label>
-            <input matInput type="text" [(ngModel)]="search" (keydown.enter)="searchProduct()">
-            <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
-              <mat-icon>close</mat-icon>
-            </button>
+      <div class="col-10">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-label>Escánear Código de Barras o Buscar Producto...</mat-label>
+          <input matInput type="text" autofocus
+                  [(ngModel)]="search"
+                  (keydown.enter)="searchProduct()">
+          <!-- <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+                      *ngFor="let product of filteredProducts" 
+                      [value]="product.id"                      
+                      (click)="searchById( product.id || '' )">
+              <img class="example-option-img" aria-hidden [src]="product.img" height="25">
+              <small class="ml-2 mb-2">{{ product.category.name + ' '+ product.name+ ' ' + product.unit.unit }}</small>
+            </mat-option>
+          </mat-autocomplete> -->
+
+          <mat-selection-list #shoes [multiple]="false">
+            <mat-list-item *ngFor="let product of filteredProducts" (click)="searchById( product.id || '' )">
+              <mat-icon mat-list-icon>add_shopping_cart</mat-icon>
+              <div mat-line>{{product.category.name}}</div>
+              <div mat-line> {{product.name + ' X ' + product.unit.unit}} </div>
+            </mat-list-item>
+          </mat-selection-list>
+
+          <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchData()">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
+      </div>
+
+      <div class="col-2 pt-2">
+        <button mat-raised-button (click)="searchProduct()">Buscar Producto</button>
+      </div>
     </div>
 
     <mat-tab-group>
@@ -62,7 +88,7 @@
     
 
     <!-- Boton flotante -->
-    <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="fab-main" (click)="openSnackBar()" *ngIf="!isEmpty">
+    <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="fab-main" *ngIf="!isEmptyCart">
         <mat-icon>shopping_cart</mat-icon>
     </button>
     

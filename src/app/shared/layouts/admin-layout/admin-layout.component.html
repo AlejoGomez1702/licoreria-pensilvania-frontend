@@ -40,9 +40,14 @@
       <div mat-subheader>Opciones</div>
 
       <mat-selection-list [multiple]="false">
+        <mat-list-option (click)="goToSales(); drawer.toggle()">
+          <mat-icon mat-list-icon>add_shopping_cart</mat-icon>
+          Nueva Venta
+        </mat-list-option>
+
         <mat-list-option (click)="goToProducts(); drawer.toggle()">
           <mat-icon mat-list-icon>local_bar</mat-icon>
-          Productos
+          Inventario
         </mat-list-option>
 
         <mat-list-option (click)="goToProviders(); drawer.toggle()">

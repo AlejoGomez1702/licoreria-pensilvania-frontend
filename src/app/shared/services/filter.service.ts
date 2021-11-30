@@ -31,10 +31,10 @@ export class FilterService
     return this.http.get<Product[]>(`${environment.API_URL}/searchs/spirits/${term}`, httpOptions);
   }
 
-  getProducts( term: string ): Observable<ResponseGetAllProducts>
-  {
-    return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/searchs/products/${term}`);
-  }
+  // getProducts( term: string ): Observable<ResponseGetAllProducts>
+  // {
+  //   return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/searchs/products/${term}`);
+  // }
 
   searchProductByBarcode( barcode: string ): Observable<Product>
   {

@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateComponent } from './pages/create/create.component';
 
 const routes: Routes = [
-  // /dashboard/products
+  // /dashboard/sales/create
   {
-    path: '',
+    path: 'create',
     component: CreateComponent
   }
 ];

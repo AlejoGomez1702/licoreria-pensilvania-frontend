@@ -91,17 +91,17 @@ export class ListAllProductsComponent implements OnInit
   applyFilter(event: Event) 
   {
     const filterValue = (event.target as HTMLInputElement).value;
-    if(filterValue)
-    {
-      this.filterService.getProducts( filterValue )
-      .subscribe(res => {
-        this.products = res.products;
-        main();
-      },
-      error => {
-        this.sweetAlert.presentError(error.error.error);
-      });
-    }
+    // if(filterValue)
+    // {
+    //   this.filterService.getProducts( filterValue )
+    //   .subscribe(res => {
+    //     this.products = res.products;
+    //     main();
+    //   },
+    //   error => {
+    //     this.sweetAlert.presentError(error.error.error);
+    //   });
+    // }
   }
 
   getFullProductName( product: Product ): string
