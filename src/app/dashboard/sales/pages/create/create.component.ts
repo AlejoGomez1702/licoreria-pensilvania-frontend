@@ -1,24 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { SaleService } from '../../services/sale.service';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'}
-];
 
 @Component({
   selector: 'app-create',
@@ -27,6 +14,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class CreateComponent implements OnInit 
 {
+  public countSales: number = 1;
+  public tabs: string[] = ['Venta #1'];
+  public selected: FormControl = new FormControl(0);
+
+
   // Productos agregados a la venta.
   public products: Product[] = [];
   // Poductos resultados de una busqueda.
@@ -35,10 +27,6 @@ export class CreateComponent implements OnInit
   public search: string = '';
   // Si el carrito de compras esta vacio o no.
   public isEmpty: boolean = false;
-
-
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
 
   constructor(
     private spiritService: SpiritService,
@@ -142,6 +130,42 @@ export class CreateComponent implements OnInit
     {
       this._snackBar.open("Carrito de compras vacío, AGREGUE PRODUCTOS!", "OK", {duration: 10000});
     }
+  }
+
+  async verifyControlTab()
+  {    
+    const indexSelected = this.selected.value;
+    // this.beforeSelected = indexSelected;
+    if(indexSelected === (this.tabs.length))
+    {
+      this.addTab();
+    }
+
+    if(indexSelected === (this.tabs.length + 1))
+    {
+      // Eliminar el historial de ventas (Eliminar todos los tabs, solo dejar uno).
+      const { isConfirmed } = await this.sweetAlert.presentDelete('Las pestañas de ventas creadas!');
+      if(isConfirmed)
+      {
+        this.tabs = ['Venta #1'];
+        this.selected.setValue(0);
+        this.countSales = 1;
+      }
+      else
+      {
+        this.selected.setValue(indexSelected - 2);
+      }
+    }
+  }
+
+  addTab() {
+    this.countSales ++;
+    this.tabs.push('Venta #' + this.countSales);    
+    this.selected.setValue(this.tabs.length - 1);
+  }
+
+  removeTab(index: number) {
+    this.tabs.splice(index, 1);
   }
 
 }

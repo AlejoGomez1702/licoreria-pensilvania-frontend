@@ -94,3 +94,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 {
   margin-left: 10px !important;
 }
+
+.mat-tab-body-content
+{
+    overflow-x: hidden !important;
+}
