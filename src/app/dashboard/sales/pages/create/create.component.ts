@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Action, Store } from '@ngrx/store';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { AddProductAction, ClearCartAction, RemoveProductAction } from '../../redux/shopping-cart.actions';
+import { ShoppingCartState } from '../../redux/ShoppingCartState';
 import { SaleService } from '../../services/sale.service';
 
 @Component({
@@ -18,7 +21,6 @@ export class CreateComponent implements OnInit
   public tabs: string[] = ['Venta #1'];
   public selected: FormControl = new FormControl(0);
 
-
   // Productos agregados a la venta.
   public products: Product[] = [];
   // Poductos resultados de una busqueda.
@@ -29,11 +31,18 @@ export class CreateComponent implements OnInit
   public isEmpty: boolean = false;
 
   constructor(
+    private store: Store<ShoppingCartState>, // Redux
     private spiritService: SpiritService,
     private filterService: FilterService,
     private _snackBar: MatSnackBar,    
     private sweetAlert: SweetAlertService
-  ) { }
+  ) 
+  { 
+    // Redux:
+    this.store.subscribe(
+      state => console.log(state)
+    );
+  }
 
   ngOnInit(): void 
   {
@@ -44,13 +53,6 @@ export class CreateComponent implements OnInit
   {
     return this.products.length === 0;
   }
-
-  // openSnackBar() 
-  // {
-  //   // this._snackBar.open("Hola", "Bebe");
-  //   this.isEmpty = !this.isEmpty;
-  //   this._snackBar.dismiss();
-  // }
 
   searchProduct()
   {
@@ -135,13 +137,16 @@ export class CreateComponent implements OnInit
   async verifyControlTab()
   {    
     const indexSelected = this.selected.value;
-    // this.beforeSelected = indexSelected;
-    if(indexSelected === (this.tabs.length))
+
+    if(indexSelected === (this.tabs.length)) // Si se desea agregar una nueva venta en paralelo.
     {
       this.addTab();
+
+      // REDUX:
+      this.store.dispatch( new AddProductAction() );
     }
 
-    if(indexSelected === (this.tabs.length + 1))
+    if(indexSelected === (this.tabs.length + 1)) // Si se quieren borrar las ventas en paralelo.
     {
       // Eliminar el historial de ventas (Eliminar todos los tabs, solo dejar uno).
       const { isConfirmed } = await this.sweetAlert.presentDelete('Las pestañas de ventas creadas!');
@@ -150,6 +155,9 @@ export class CreateComponent implements OnInit
         this.tabs = ['Venta #1'];
         this.selected.setValue(0);
         this.countSales = 1;
+
+        // REDUX:
+        this.store.dispatch( new ClearCartAction() );
       }
       else
       {
@@ -164,8 +172,8 @@ export class CreateComponent implements OnInit
     this.selected.setValue(this.tabs.length - 1);
   }
 
-  removeTab(index: number) {
-    this.tabs.splice(index, 1);
-  }
+  // removeTab(index: number) {
+  //   this.tabs.splice(index, 1);
+  // }
 
 }

@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { StoreModule } from '@ngrx/store';
+import { ShoppingCartReducer } from './dashboard/sales/redux/shopping-cart.reducer';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SharedModule,
     CoreModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    StoreModule.forRoot({ shoppingCart: ShoppingCartReducer })
   ],
   providers: [
     {
