@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Action, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { AddProductAction, ClearCartAction, RemoveProductAction } from '../../redux/shopping-cart.actions';
+import { CartItem } from '../../interfaces/CartItem';
 import { ShoppingCartState } from '../../redux/ShoppingCartState';
-import { SaleService } from '../../services/sale.service';
+// Redux
+import * as Actions from '../../redux/shopping-cart.actions';
 
 @Component({
   selector: 'app-create',
@@ -79,6 +80,8 @@ export class CreateComponent implements OnInit
         else
         {
           this.products.push( product );
+          const cartItem = this.addProductToCart( product );
+          this.store.dispatch( Actions.addProductAction( cartItem ) );
           this.verifySnack();
         }
       },
@@ -143,7 +146,7 @@ export class CreateComponent implements OnInit
       this.addTab();
 
       // REDUX:
-      this.store.dispatch( new AddProductAction() );
+      // this.store.dispatch( new AddProductAction() );
     }
 
     if(indexSelected === (this.tabs.length + 1)) // Si se quieren borrar las ventas en paralelo.
@@ -155,9 +158,6 @@ export class CreateComponent implements OnInit
         this.tabs = ['Venta #1'];
         this.selected.setValue(0);
         this.countSales = 1;
-
-        // REDUX:
-        this.store.dispatch( new ClearCartAction() );
       }
       else
       {
@@ -170,6 +170,11 @@ export class CreateComponent implements OnInit
     this.countSales ++;
     this.tabs.push('Venta #' + this.countSales);    
     this.selected.setValue(this.tabs.length - 1);
+  }
+
+  addProductToCart(product: Product): CartItem
+  {
+    return {product, count: 0, sale_price: 0};
   }
 
   // removeTab(index: number) {

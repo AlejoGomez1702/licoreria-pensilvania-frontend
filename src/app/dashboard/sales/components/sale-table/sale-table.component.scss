@@ -1,0 +1,55 @@
+.full-width-table {
+  width: 100%;
+}
+
+.fa{
+  font-size: large;
+  transition: .2s ease;
+  cursor: pointer;
+  -moz-transition: 1.5s ease; /* Firefox */
+  -webkit-transition: .5s ease; /* Chrome - Safari */
+  -o-transition: 1.5s ease; /* Opera */
+
+}
+.fa:hover{
+  transform : scale(2);
+  -moz-transform : scale(2); /* Firefox */
+  -webkit-transform : scale(2); /* Chrome - Safari */
+  -o-transform : scale(2); /* Opera */
+  -ms-transform : scale(2); /* IE9 */
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mw-80
+{
+  max-width: 80%;
+}
+
+.bold-text
+{
+  font-weight: bold;
+}
+
+.pr-2
+{
+    padding-right: 2%;
+}
+
+.pl-2
+{
+    padding-left: 2%;
+}
+
+.mr-2
+{
+    margin-right: 2%;
+}
+
+.ml-2
+{
+    margin-left: 2%;
+}

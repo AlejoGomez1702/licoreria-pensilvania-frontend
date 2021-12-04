@@ -17,7 +17,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
   public products: Product[] = [];
 
   displayedColumns = ['name', 'unit', 'sale_price', 'stock', 'current_existence', 'actions'];
-  dataSource: MatTableDataSource<Product>;
+  public dataSource: MatTableDataSource<Product>;
 
   @ViewChild(MatSort) sort!: MatSort;
 
