@@ -1,17 +1,27 @@
 import { Action } from "@ngrx/store";
-import { ADD_PRODUCT, CLEAR_CART, REMOVE_PRODUCT } from "./shopping-cart.actions";
+import { CartItem } from "../interfaces/CartItem";
+import { addProductAction, ShoppingAction } from "./shopping-cart.actions";
+import { initialState, ShoppingCartState } from "./ShoppingCartState";
 
-export function ShoppingCartReducer( state: number = 10, action: Action )
+export function shoppingCartReducer(
+    state: ShoppingCartState = initialState, 
+    action: ShoppingAction
+): ShoppingCartState
 {
-    switch (action.type) {
-        case ADD_PRODUCT:
-            return state + 1;
+    switch (action.type) 
+    {
+        case addProductAction.type: {
+            return {
+                ...state,
+                shoppingCart: [...state.shoppingCart, action.payload]
+            };
+        }            
 
-        case REMOVE_PRODUCT:
-            return state - 1;
+        // case REMOVE_PRODUCT:
+        //     // return state - 1;
 
-        case CLEAR_CART:
-            return 0;
+        // case CLEAR_CART:
+        //     // return 0;
     
         default:
             return state;
