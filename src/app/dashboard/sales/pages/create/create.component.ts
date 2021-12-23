@@ -1,29 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Store } from '@ngrx/store';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { SaleTableComponent } from '../../components/sale-table/sale-table.component';
 import { CartItem } from '../../interfaces/CartItem';
-import { ShoppingCartState } from '../../redux/ShoppingCartState';
-// Redux
-import * as Actions from '../../redux/shopping-cart.actions';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
-export class CreateComponent implements OnInit 
+export class CreateComponent implements OnInit
 {
   public countSales: number = 1;
   public tabs: string[] = ['Venta #1'];
   public selected: FormControl = new FormControl(0);
 
   // Productos agregados a la venta.
-  public products: Product[] = [];
+  public products: CartItem[][] = [[]];
   // Poductos resultados de una busqueda.
   public filteredProducts: Product[] = [];
   // Lo ingresado en la barra de busqueda (Código de barras || nombre del producto)
@@ -31,28 +29,61 @@ export class CreateComponent implements OnInit
   // Si el carrito de compras esta vacio o no.
   public isEmpty: boolean = false;
 
+  // *********** Permite actualizar la tabla de resumen de venta******************** ///
+  @ViewChildren(SaleTableComponent) saleResumeTable!: QueryList<SaleTableComponent>;
+
   constructor(
-    private store: Store<ShoppingCartState>, // Redux
     private spiritService: SpiritService,
+    private cartService: CartService,
     private filterService: FilterService,
     private _snackBar: MatSnackBar,    
     private sweetAlert: SweetAlertService
   ) 
-  { 
-    // Redux:
-    this.store.subscribe(
-      state => console.log(state)
-    );
-  }
+  {}
 
   ngOnInit(): void 
-  {
+  {    
     this.verifySnack();
+    setTimeout(() => {
+      this.loadPersistence();
+    }, 400);
   }
 
-  get isEmptyCart()
+  loadPersistence(): void
   {
-    return this.products.length === 0;
+    const cart = this.cartService.getCart();
+    if(cart && cart[0])
+    {
+      this.products = [cart[0]];
+      for (let index = 0; index < this.products.length; index++) 
+      {
+        this.saleResumeTable.get(index)?.refreshData( this.products[index] );
+      }
+      this.cartService.refreshCart([this.products[0]]);
+    }    
+  }
+
+  verifyAddCartProduct( product: Product )
+  {
+    const tabIndex = this.selected.value;
+
+    const cartItem = this.addProductToCart( product );
+    const indexProduct = this.products[tabIndex].findIndex( p => p.id === cartItem.id );
+    // console.log('index product: ', indexProduct);
+    if(indexProduct !== -1)
+    {
+      this.products[tabIndex][indexProduct].count ++;
+    }
+    else
+    {
+      this.products[tabIndex].push( cartItem );
+    }
+    
+    // Guardar la persistencia en el localStorage
+    this.cartService.refreshCart(this.products);
+    
+    this.saleResumeTable.get(tabIndex)?.refreshData( this.products[tabIndex] );
+    this.verifySnack();
   }
 
   searchProduct()
@@ -79,10 +110,7 @@ export class CreateComponent implements OnInit
         }
         else
         {
-          this.products.push( product );
-          const cartItem = this.addProductToCart( product );
-          this.store.dispatch( Actions.addProductAction( cartItem ) );
-          this.verifySnack();
+          this.verifyAddCartProduct( product );
         }
       },
       error => this.sweetAlert.presentError( error.msg )
@@ -111,9 +139,8 @@ export class CreateComponent implements OnInit
   {
     this.spiritService.getSpiritById( id, false ).subscribe(
       spirit => {
-        this.products.push( spirit );
+        this.verifyAddCartProduct( spirit );
         this.filteredProducts = [];
-        this.verifySnack();
       },
       error => this.sweetAlert.presentError( 'Buscando Licor Por ID' )
     );
@@ -144,37 +171,51 @@ export class CreateComponent implements OnInit
     if(indexSelected === (this.tabs.length)) // Si se desea agregar una nueva venta en paralelo.
     {
       this.addTab();
-
-      // REDUX:
-      // this.store.dispatch( new AddProductAction() );
     }
 
     if(indexSelected === (this.tabs.length + 1)) // Si se quieren borrar las ventas en paralelo.
     {
-      // Eliminar el historial de ventas (Eliminar todos los tabs, solo dejar uno).
-      const { isConfirmed } = await this.sweetAlert.presentDelete('Las pestañas de ventas creadas!');
-      if(isConfirmed)
-      {
-        this.tabs = ['Venta #1'];
-        this.selected.setValue(0);
-        this.countSales = 1;
-      }
-      else
-      {
-        this.selected.setValue(indexSelected - 2);
-      }
+      this.deleteCartData(indexSelected);
+    }
+  }
+
+  async deleteCartData(index: number)
+  {
+    // Eliminar el historial de ventas (Eliminar todos los tabs, solo dejar uno).
+    const { isConfirmed } = await this.sweetAlert.presentDelete('Las pestañas de ventas creadas!');
+    if(isConfirmed)
+    {
+      this.tabs = ['Venta #1'];
+      this.selected.setValue(0);
+      this.countSales = 1;
+      const [firstSale] = this.products;
+      this.products = [firstSale];
+      // Guardar la persistencia en el localStorage
+      this.cartService.refreshCart(this.products);
+    }
+    else
+    {
+      this.selected.setValue(index - 2);
     }
   }
 
   addTab() {
     this.countSales ++;
-    this.tabs.push('Venta #' + this.countSales);    
+    this.tabs.push('Venta #' + this.countSales);
+    this.products.push([]);
     this.selected.setValue(this.tabs.length - 1);
   }
 
-  addProductToCart(product: Product): CartItem
+  private addProductToCart(product: Product): CartItem
   {
-    return {product, count: 0, sale_price: 0};
+    const { id = '' } = product;
+    return {
+              id, 
+              product, 
+              count: 1, 
+              sale_price: product.sale_price,
+              purchase_price: product.purchase_price
+            };
   }
 
   // removeTab(index: number) {

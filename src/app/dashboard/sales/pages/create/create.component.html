@@ -43,11 +43,11 @@
               {{ tab }}
             </ng-template>
             <div class="row ml-1 mt-2" *ngIf="!isEmpty">
-              <h1 class="fw-500 txt-center" style="color: #36993f;">Resumen de la Venta</h1>
+              <h1 class="fw-500 txt-center" style="color: #36993f;">Resumen de la Venta {{ (index + 1) }}</h1>
             </div>
-            <!-- *********************** Contenido del tab ************************* -->
-            <app-sale-table></app-sale-table>
-            Contents for {{tab}} tab
+            <!-- ***************************************** Contenido del tab ************************************ -->
+            <app-sale-table [saleId]="countSales" [products]="products[index]" [index]="index"></app-sale-table>
+            <!-- ***************************************** Contenido del tab ************************************ -->
           </mat-tab>
 
           <ng-container *ngIf="index === (tabs.length - 1)">
@@ -67,8 +67,6 @@
         </ng-container>
       </mat-tab-group>
     </div>
-
-    
 
     <!-- Boton flotante -->
     <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="fab-main">

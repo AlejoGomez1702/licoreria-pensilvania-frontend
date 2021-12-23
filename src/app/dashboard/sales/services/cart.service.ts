@@ -1,29 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Spirit } from '../../products/interfaces/Spirit';
+import { CartItem } from '../interfaces/CartItem';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService 
 {
-  private items: Spirit[] = [];
 
   constructor() { }
 
-  addToCart(product: Spirit) 
+  refreshCart( cart: CartItem[][] ) 
   {
-    this.items.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-  getItems() 
+  getCart(): CartItem[][]
   {
-    return this.items;
+    const cart = localStorage.getItem('cart') || '';
+    if(cart)
+    {
+      return JSON.parse( cart );
+    }
+
+    return [[]];
   }
 
   clearCart() 
   {
-    this.items = [];
-    return this.items;
+    localStorage.removeItem('cart');
   }
 
 }
