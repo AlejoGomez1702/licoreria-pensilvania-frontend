@@ -42,8 +42,13 @@
             <ng-template mat-tab-label>              
               {{ tab }}
             </ng-template>
-            <div class="row ml-1 mt-2" *ngIf="!isEmpty">
-              <h1 class="fw-500 txt-center" style="color: #36993f;">Resumen de la Venta {{ (index + 1) }}</h1>
+            <div class="row ml-1 mt-2 justify-center">
+              <div class="col-6">
+                <h1 class="fw-500 txt-end" style="color: #36993f;">Resumen de la Venta {{ (index + 1) }}</h1>
+              </div>
+              <div class="col-4">
+                <button mat-raised-button color="primary" [disabled]="isEmpty(index)" (click)="finishSale(index)">Terminar Venta</button>
+              </div>
             </div>
             <!-- ***************************************** Contenido del tab ************************************ -->
             <app-sale-table [saleId]="countSales" [products]="products[index]" [index]="index"></app-sale-table>

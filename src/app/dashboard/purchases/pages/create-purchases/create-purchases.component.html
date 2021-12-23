@@ -1,0 +1,52 @@
+<div class="contenedor">
+    <div class="row ml-1">
+        <h1 class="fw-500 txt-center">CREAR NUEVA COMPRA</h1>        
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Buscar productos -->
+    <div class="row mt-3">
+      <div class="col-10">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-label>Escánear Código de Barras o Buscar Producto...</mat-label>
+          <input matInput type="text" autofocus
+                  [(ngModel)]="search"
+                  (keydown.enter)="searchProduct()">
+          <mat-selection-list #shoes [multiple]="false">
+            <mat-list-item *ngFor="let product of filteredProducts" (click)="searchById( product.id || '' )">
+              <mat-icon mat-list-icon>add_shopping_cart</mat-icon>
+              <div mat-line>{{product.category.name}}</div>
+              <div mat-line> {{product.name + ' X ' + product.unit.unit}} </div>
+            </mat-list-item>
+          </mat-selection-list>
+
+          <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchData()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="col-2 pt-2">
+        <button mat-raised-button (click)="searchProduct()">Buscar Producto</button>
+      </div>
+    </div>
+
+    <div class="section">
+        <div class="row ml-1 mt-2 justify-center">
+            <div class="col-6">
+              <h1 class="fw-500 txt-end" style="color: #36993f;">Resumen de la Compra</h1>
+            </div>
+            <div class="col-4">
+              <button mat-raised-button color="primary" [disabled]="isEmpty" (click)="finishPurchase()">Terminar Compra</button>
+            </div>
+        </div>
+
+        <!-- ***************************************** Contenido del tab ************************************ -->
+        <app-purchase-table [products]="products"></app-purchase-table>
+        <!-- ***************************************** Contenido del tab ************************************ -->
+
+    </div>
+    
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { appRoutes } from 'src/app/routes/app-routes';
 // import { AuthService } from 'src/app/auth/services/auth.service';
 // import { TokenService } from 'src/app/core/services/token.service';
 
@@ -55,9 +56,14 @@ export class MainContentComponent implements OnInit
     this.router.navigate(['/dashboard/products']);
   }
 
-  goToSale(): void
+  goToSales(): void
   {
-    this.router.navigate(['/dashboard/sales/create']);
+    this.router.navigate([appRoutes.listAllSales]);
+  }
+
+  goToPurchases(): void
+  {
+    this.router.navigate([appRoutes.listAllPurchases]);
   }
 
 }

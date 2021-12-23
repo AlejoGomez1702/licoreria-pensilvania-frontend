@@ -24,50 +24,28 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    MatButtonModule, MatRadioModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatListModule,
-    MatExpansionModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatDialogModule,
-    MatTabsModule,
-    MatCardModule,
-    MatSelectModule,
-    MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule,
-    NgxCurrencyModule, MatButtonToggleModule, MatBadgeModule
+    MatButtonModule, MatRadioModule, MatSidenavModule, MatIconModule, MatToolbarModule,
+    MatDividerModule, MatListModule, MatExpansionModule, MatTableModule, MatPaginatorModule,
+    MatSortModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule,
+    MatCardModule, MatSelectModule, MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, 
+    MatProgressBarModule, NgxCurrencyModule, MatButtonToggleModule, MatBadgeModule, MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
-    MatButtonModule, MatRadioModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatListModule,
-    MatExpansionModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatDialogModule,
-    MatTabsModule,
-    MatCardModule,
-    MatSelectModule,
-    MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule,
-    NgxCurrencyModule, MatButtonToggleModule, MatBadgeModule
+    MatButtonModule, MatRadioModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatDividerModule,
+    MatListModule, MatExpansionModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule,
+    MatFormFieldModule, MatDialogModule, MatTabsModule, MatCardModule, MatSelectModule, MatChipsModule, 
+    MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule, NgxCurrencyModule, MatButtonToggleModule, 
+    MatBadgeModule, MatDatepickerModule, MatNativeDateModule
   ]
 })
 export class MaterialModule { }

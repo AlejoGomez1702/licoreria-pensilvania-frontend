@@ -8,6 +8,7 @@ import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { SaleTableComponent } from '../../components/sale-table/sale-table.component';
 import { CartItem } from '../../interfaces/CartItem';
 import { CartService } from '../../services/cart.service';
+import { SaleService } from '../../services/sale.service';
 
 @Component({
   selector: 'app-create',
@@ -27,12 +28,13 @@ export class CreateComponent implements OnInit
   // Lo ingresado en la barra de busqueda (Código de barras || nombre del producto)
   public search: string = '';
   // Si el carrito de compras esta vacio o no.
-  public isEmpty: boolean = false;
+  // public isEmpty: boolean = false;
 
   // *********** Permite actualizar la tabla de resumen de venta******************** ///
   @ViewChildren(SaleTableComponent) saleResumeTable!: QueryList<SaleTableComponent>;
 
   constructor(
+    private saleService: SaleService,
     private spiritService: SpiritService,
     private cartService: CartService,
     private filterService: FilterService,
@@ -47,6 +49,16 @@ export class CreateComponent implements OnInit
     setTimeout(() => {
       this.loadPersistence();
     }, 400);
+  }
+
+  isEmpty(index: number): boolean
+  {
+    if(this.products[index] && this.products[index][0] )
+    {
+      return false; // No está vacio
+    }
+
+    return true; // Está vacio
   }
 
   loadPersistence(): void
@@ -216,6 +228,24 @@ export class CreateComponent implements OnInit
               sale_price: product.sale_price,
               purchase_price: product.purchase_price
             };
+  }
+
+  finishSale(index: number)
+  {
+    const sale: CartItem[] = this.products[index];
+    this.saleService.createSale(sale).subscribe(
+      res => {
+        this.products[index] = [];
+        this.saleResumeTable.get(index)?.refreshData( this.products[index] );
+        this.cartService.refreshCart(this.products);
+        this.sweetAlert.presentSuccess('Venta Creada Correctamente!');
+      },
+      error => {
+        console.log(error);
+        this.sweetAlert.presentError('Creando Venta!');
+      }
+    );
+    console.log("Venta: ", sale);
   }
 
   // removeTab(index: number) {

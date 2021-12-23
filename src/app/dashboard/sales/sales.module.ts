@@ -5,13 +5,15 @@ import { SalesRoutingModule } from './sales-routing.module';
 import { CreateComponent } from './pages/create/create.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SaleTableComponent } from './components/sale-table/sale-table.component';
+import { ListAllSalesComponent } from './pages/list-all-sales/list-all-sales.component';
 // import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @NgModule({
   declarations: [
     CreateComponent,
-    SaleTableComponent
+    SaleTableComponent,
+    ListAllSalesComponent
   ],
   imports: [
     CommonModule,
