@@ -6,92 +6,23 @@
 
     <mat-divider></mat-divider>
 
-    <div class="container mt-3">
+    <ng-container *ngFor="let item of menu; let i = index">
+      <div class="container mt-3">
         <div class="row">
-            <!-- Ventas -->
+          <ng-container *ngFor="let subItem of item; let j = index">
             <div class="col-12 col-lg-2 col-md-4 option">
-                <mat-card class="example-card" (click)="goToSales()">
-                  <img mat-card-image width="200" height="150" src="assets/images/sale-icon.svg" alt="Photo of a Shiba Inu">
-                  <mat-card-content class="txt-center">
-                    <div>
-                      <h3>Ventas</h3>
-                    </div>                    
-                  </mat-card-content>
-                </mat-card>
-            </div>
-
-            <!-- Compras -->
-            <div class="col-12 col-lg-2 col-md-4 option">
-              <mat-card class="example-card" (click)="goToPurchases()">
-                <img mat-card-image width="200" height="150" src="assets/images/purchase-icon.svg" alt="Photo of a Shiba Inu">
+              <mat-card class="example-card" (click)="goToRoute( i,j )">
+                <img mat-card-image width="200" height="150" [src]="subItem.img" [alt]="subItem.name">
                 <mat-card-content class="txt-center">
                   <div>
-                    <h3>Compras</h3>
+                    <h3>{{ subItem.name }}</h3>
                   </div>                    
                 </mat-card-content>
               </mat-card>
             </div>
-
-            <div class="col-12 col-lg-2 col-md-4 option">
-              <mat-card class="example-card" (click)="goToProducts()">
-                <img mat-card-image width="200" height="150" src="assets/images/liquor-icon.svg" alt="Photo of a Shiba Inu">
-                <mat-card-content class="txt-center">
-                  <div>
-                    <h3>Inventario</h3>
-                  </div>
-                </mat-card-content>
-              </mat-card>
-            </div>
-
-            <div class="col-12 col-lg-2 col-md-4 option">
-              <mat-card class="example-card">
-                <img mat-card-image width="200" height="150" src="assets/images/provider-icon.svg" alt="Photo of a Shiba Inu">
-                <mat-card-content class="txt-center">
-                  <div>
-                    <h3>Proveedores</h3>
-                  </div>
-                </mat-card-content>
-              </mat-card>
-            </div>
-
-            <div class="col-12 col-lg-2 col-md-4 option">
-              <mat-card class="example-card">
-                <img mat-card-image width="200" height="150" src="assets/images/client-icon.svg" alt="Photo of a Shiba Inu">
-                <mat-card-content class="txt-center">
-                  <div>
-                    <h3>Clientes</h3>
-                  </div>
-                </mat-card-content>
-              </mat-card>
-            </div>
-
-            <div class="col-12 col-lg-2 col-md-4 option">
-              <mat-card class="example-card">
-                <img mat-card-image width="200" height="150" src="assets/images/box-icon.svg" alt="Photo of a Shiba Inu">
-                <mat-card-content class="txt-center">
-                  <div>
-                    <h3>Caja</h3>
-                  </div>
-                </mat-card-content>
-              </mat-card>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col-12 col-lg-2 col-md-4 option">
-          <mat-card class="example-card" (click)="goToSettings()">
-            <img mat-card-image width="200" height="150" src="assets/images/setting-icon.svg" alt="Photo of a Shiba Inu">
-            <mat-card-content class="txt-center">
-              <div>
-                <h3>Ajustes</h3>
-              </div>
-            </mat-card-content>
-          </mat-card>
+          </ng-container>
         </div>
       </div>
-    </div>
-
-
+    </ng-container>
+    
 </div>
