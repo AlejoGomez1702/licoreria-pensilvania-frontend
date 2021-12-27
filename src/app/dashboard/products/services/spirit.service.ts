@@ -25,7 +25,7 @@ export class SpiritService
    {
      const httpOptions = {
        params: new HttpParams().set('category', category ? category : '')
-                               .set('limit', limit ? limit : 10)
+                               .set('limit', limit ? limit : 8)
                                .set('from', from ? from : 0)
      };
  

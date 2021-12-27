@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TokenService } from 'src/app/core/services/token.service';
 import { environment } from 'src/environments/environment';
 import { CartItem } from '../interfaces/CartItem';
+import { ResponseGetAllSales } from '../interfaces/ResponseGetAllSales';
 import { Sale } from '../interfaces/Sale';
 
 @Injectable({
@@ -14,10 +14,14 @@ export class SaleService
 
   constructor(
     private http: HttpClient,
-    private tokenService: TokenService
   ) 
   { }
 
+  /**
+   * Crear una nueva venta en la base de datos
+   * @param sale Venta a crear.
+   * @returns 
+   */
   createSale(sale: CartItem[]): Observable<Sale>
   {
     const products = sale.map(p => {
@@ -31,6 +35,20 @@ export class SaleService
     const data = { products };
 
     return this.http.post<Sale>(`${environment.API_URL}/sales`, data);
+  }
+
+  /**
+   * Obtiene todas las ventas del negocio del usuario logueado.
+   * @returns Todas las ventas.
+   */
+  getAllSales( limit?: number, from?: number ): Observable<ResponseGetAllSales>
+  {
+    const httpOptions = {
+      params: new HttpParams().set('limit', limit ? limit : 8)
+                              .set('from', from ? from : 0)
+    };
+
+    return this.http.get<ResponseGetAllSales>(`${environment.API_URL}/sales`, httpOptions);
   }
 
 
