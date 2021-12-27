@@ -6,8 +6,40 @@
                 <h2>¡Sabemos que tienes buen gusto!</h2>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-md-3 d-flex">
+            <ng-container *ngFor="let product of products">
+                <div class="col-md-3 d-flex">
+                    <div class="product ftco-animate">
+                        <div class="img d-flex align-items-center justify-content-center"
+                                                style="background-image: url({{product.img}})"    >
+                            <div class="desc">
+                                <p class="meta-prod d-flex">
+                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                            class="flaticon-shopping-bag"></span></a>
+                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                            class="flaticon-heart"></span></a>
+                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                            class="flaticon-visibility"></span></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text text-center">
+                            <span class="sale">Licoreria Pensilvania</span>
+                            <span class="category">{{ product.category.name }}</span>
+                            <h2>{{ product.name }}</h2>
+                            <span class="category">{{ product.unit.unit }} - {{ product.vol_alcohol }}</span>
+                            <p class="mb-0">
+                                <span class="price price-sale">$16.700</span> 
+                                <span class="price">$ {{ product.sale_price }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+
+            <!-- <div class="col-md-3 d-flex">
                 <div class="product ftco-animate">
                     <div class="img d-flex align-items-center justify-content-center"
                         style="background-image: url(assets/index/images/Aguardiente/Medias-375ml/1.Aguardiente-[Cristal\,XS]-Media-375ml-Vol24\ -\ 15.000.jpg);">
@@ -202,7 +234,8 @@
                         <span class="price">$24.000</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
+        
         </div>
         <div class="row justify-content-center">
             <div class="col-md-4">
