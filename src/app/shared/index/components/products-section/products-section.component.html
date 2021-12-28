@@ -12,8 +12,8 @@
                 <div class="col-md-3 d-flex">
                     <div class="product ftco-animate">
                         <div class="img d-flex align-items-center justify-content-center"
-                                                style="background-image: url({{product.img}})"    >
-                            <div class="desc">
+                                                style="background-image: url({{product.img}})">
+                            <!-- <div class="desc">
                                 <p class="meta-prod d-flex">
                                     <a href="#" class="d-flex align-items-center justify-content-center"><span
                                             class="flaticon-shopping-bag"></span></a>
@@ -22,16 +22,16 @@
                                     <a href="#" class="d-flex align-items-center justify-content-center"><span
                                             class="flaticon-visibility"></span></a>
                                 </p>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="text text-center">
-                            <span class="sale">Licoreria Pensilvania</span>
+                            <span class="sale">Licorería Pensilvania</span>
                             <span class="category">{{ product.category.name }}</span>
                             <h2>{{ product.name }}</h2>
-                            <span class="category">{{ product.unit.unit }} - {{ product.vol_alcohol }}</span>
+                            <span class="category">{{ product.unit.unit }} - {{ product.vol_alcohol }}% Vol</span>
                             <p class="mb-0">
                                 <span class="price price-sale">$16.700</span> 
-                                <span class="price">$ {{ product.sale_price }}</span>
+                                <span class="price">$ {{ product.sale_price | number }}</span>
                             </p>
                         </div>
                     </div>
