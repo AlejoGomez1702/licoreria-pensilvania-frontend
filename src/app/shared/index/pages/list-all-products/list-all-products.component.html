@@ -5,7 +5,6 @@
 <app-main-header></app-main-header>
 
 <!-- ***************************** Main Banner ************************** -->
-<!-- <app-main-banner></app-main-banner> -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('assets/index/images/bg_4.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -30,7 +29,6 @@
 </section>
 
 <!-- ***************************** Root Content ************************** -->
-<!-- <app-root-content></app-root-content> -->
 <section class="ftco-section">
     <div class="container">
 
@@ -66,32 +64,37 @@
         <div class="row">
             <div class="col-md-12">
                
+                <!-- Listado de productos de licorería pensilvania -->
                 <div class="row">
-                    <div class="col-md-3 d-flex" *ngFor="let product of products">
-                        <div class="product ftco-animate">
-                            <div class="img d-flex align-items-center justify-content-center" [ngStyle]="{'background-image': 'url(' + product.img + ')'}">
-                                <div class="desc">
-                                    <p class="meta-prod d-flex">
-                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+                    <ng-container *ngFor="let product of products">
+                        <div class="col-md-3 d-flex">
+                            <div class="product ftco-animate">
+                                <div class="img d-flex align-items-center justify-content-center"
+                                                        style="background-image: url({{product.img}})">
+                                    <!-- <div class="desc">
+                                        <p class="meta-prod d-flex">
+                                            <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                                    class="flaticon-shopping-bag"></span></a>
+                                            <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                                    class="flaticon-heart"></span></a>
+                                            <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                                    class="flaticon-visibility"></span></a>
+                                        </p>
+                                    </div> -->
+                                </div>
+                                <div class="text text-center">
+                                    <span class="sale">Licorería Pensilvania</span>
+                                    <span class="category">{{ product.category.name }}</span>
+                                    <h2>{{ product.name }}</h2>
+                                    <span class="category">{{ product.unit.unit }} - {{ product.vol_alcohol }}% Vol</span>
+                                    <p class="mb-0">
+                                        <!-- <span class="price price-sale">$16.700</span>  -->
+                                        <span class="price">$ {{ product.sale_price | number }}</span>
                                     </p>
                                 </div>
                             </div>
-                            <div class="text text-center">
-                                <span class="sale">Sale</span>
-                                <!-- <span class="seller">Best Seller</span> -->
-                                <!-- <span class="new">New Arrival</span> -->
-                                <span class="category">{{ product.category.name }}</span>                                
-                                <h2>{{ getFullProductName( product ) }}</h2>
-                                <span class="category">{{ product.unit.unit }}</span>
-                                <p class="mb-0">
-                                    <!-- <span class="price price-sale">$69.00</span> -->
-                                    <span class="price">$ {{ product.sale_price | number }}</span>
-                                </p>
-                            </div>
                         </div>
-                    </div>
+                    </ng-container>        
                 </div>
 
                 <!-- Pagination -->
@@ -111,13 +114,6 @@
         </div>
     </div>
 </section>
-
-
-<!-- ***************************** Categories Section ************************** -->
-<!-- <app-categories-section></app-categories-section> -->
-
-<!-- ***************************** Products Section ************************** -->
-<!-- <app-products-section></app-products-section> -->
 
 <!-- ***************************** Alcohol Banner ************************** -->
 <app-alcohol-banner></app-alcohol-banner>

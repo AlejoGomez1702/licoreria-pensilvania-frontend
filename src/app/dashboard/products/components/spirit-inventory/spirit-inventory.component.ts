@@ -98,7 +98,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.spiritService.getAllProducts(category, limit, from, true)
+    this.spiritService.getAllProducts(category, limit, from)
     .subscribe(
       res => {
         //console.log(res);

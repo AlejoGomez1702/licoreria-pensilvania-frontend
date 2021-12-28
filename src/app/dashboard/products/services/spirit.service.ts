@@ -21,7 +21,7 @@ export class SpiritService
    * Obtiene todas los productos del tipo licor.
    * @returns Todos los productos (licores).
    */
-   getAllProducts( category?: string, limit?: number, from?: number, publicData?: boolean ): Observable<ResponseGetAllSpirits>
+   getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllSpirits>
    {
      const httpOptions = {
        params: new HttpParams().set('category', category ? category : '')

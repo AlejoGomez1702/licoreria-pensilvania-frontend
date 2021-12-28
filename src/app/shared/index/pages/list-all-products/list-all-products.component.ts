@@ -7,6 +7,7 @@ import { Category } from 'src/app/dashboard/settings/interfaces/category.interfa
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { SpiritsLicoreriaService } from '../../services/spirits-licoreria.service';
 declare const main: any;
 
 @Component({
@@ -32,7 +33,7 @@ export class ListAllProductsComponent implements OnInit
 
   constructor(
     // private productService: ProductService,
-    private spiritService: SpiritService,
+    private spiritsLicoreriaService: SpiritsLicoreriaService,
     private categoryService: CategoryService,
     private sweetAlert: SweetAlertService,
     private filterService: FilterService
@@ -55,10 +56,10 @@ export class ListAllProductsComponent implements OnInit
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.spiritService.getAllProducts(category, limit, from, true)
+    this.spiritsLicoreriaService.getAllSpirits(category, limit, from)
     .subscribe(res => {
       this.products = res.spirits;
-      this.length = res.total;
+      this.length = res.total || 0;
       main();
     },
     error => {
