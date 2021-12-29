@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Spirit } from '../../products/interfaces/Spirit';
 import { CartItem } from '../interfaces/CartItem';
 
 @Injectable({

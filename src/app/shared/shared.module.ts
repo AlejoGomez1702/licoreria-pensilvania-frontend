@@ -23,6 +23,7 @@ import { FormUnidadComponent } from '../dashboard/settings/components/crud-unida
 import { SpinnerModule } from './spinner/spinner.module';
 import { ListAllProductsComponent } from './index/pages/list-all-products/list-all-products.component';
 import { ContactComponent } from './index/pages/contact/contact.component';
+import { FabCartComponent } from './index/components/fab-cart/fab-cart.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ContactComponent } from './index/pages/contact/contact.component';
     ConfirmComponent,
     ListAllProductsComponent,
     ContactComponent,
+    FabCartComponent,
 
     // Modules
     // MaterialModule

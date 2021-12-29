@@ -1,0 +1,59 @@
+<button mat-fab color="warn" id="fixedbutton" [matBadge]="totalItems" matBadgeColor="warn" [matMenuTriggerFor]="menu">
+    <mat-icon>shopping_cart</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu">
+    <!-- Listado de productos agregados al carrito de compras -->
+    <div class="title-cart">
+        <h2 class="txt-center pt-2">CARRITO DE COMPRAS</h2>
+    </div>
+    
+    <mat-divider></mat-divider>
+    <table class="txt-center" style="width:100%">
+        <tr>
+            <th style="width:50%">Producto</th>
+            <th>Medida</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+        </tr>
+        <mat-divider style="width:250%"></mat-divider>
+
+        <ng-container *ngFor="let product of products">
+            <tr>
+                <td>{{ getfullProductName( product ) }}</td>
+                <td>{{ product.product.unit.unit }}</td>
+                <td>${{ product.sale_price | number }}</td>
+                <td>{{ product.count }}</td>
+            </tr>
+            <mat-divider style="width:250%"></mat-divider>
+        </ng-container>
+
+        <div class="bolder txt-center mt-2">Total: ${{ getCartTotal() | number }}</div>
+
+        <!-- <div class="row ml-total">
+            <div class="col-6 justify-end bolder">Total:</div>
+            <div class="col-6 bolder">$21.000</div>
+        </div> -->
+
+        <!-- <tr>
+            <td class="justify-end bolder">Total</td>
+            <td class="txt-center bolder ml-2">$21.000</td>
+        </tr> -->
+
+    </table>
+
+    <button mat-menu-item class="txt-center mt-2">
+        <mat-icon>remove_red_eye</mat-icon>
+        <span>Ver Carrito</span>
+    </button>
+
+    <button mat-menu-item class="txt-center remove-cart mt-1">
+        <mat-icon class="c-white">remove_shopping_cart</mat-icon>
+        <span>Vaciar Carrito</span>
+    </button>
+
+    <button mat-menu-item class="txt-center finish-sale mt-1 mb-8">
+        <mat-icon class="c-white">shopping_basket</mat-icon>
+        <span>Finalizar Compra</span>
+    </button>
+</mat-menu>

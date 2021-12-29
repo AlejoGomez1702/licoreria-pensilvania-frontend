@@ -71,16 +71,20 @@
                             <div class="product ftco-animate">
                                 <div class="img d-flex align-items-center justify-content-center"
                                                         style="background-image: url({{product.img}})">
-                                    <!-- <div class="desc">
+                                    <div class="desc">
                                         <p class="meta-prod d-flex">
-                                            <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                                    class="flaticon-shopping-bag"></span></a>
-                                            <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                                    class="flaticon-heart"></span></a>
-                                            <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                                    class="flaticon-visibility"></span></a>
+                                            <!-- Agregar al carrito -->
+                                            <a class="d-flex align-items-center justify-content-center"
+                                                                [routerLink]="" title="Agregar al carrito"
+                                                                (click)="addItemToShoppingCart( product )">
+                                                <mat-icon>add_shopping_cart</mat-icon>
+                                            </a>
+                                            <!-- Comprar ahora -->
+                                            <a [routerLink]="" title="Comprar ahora" class="d-flex align-items-center justify-content-center">
+                                                <mat-icon> attach_money</mat-icon>
+                                            </a>
                                         </p>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="text text-center">
                                     <span class="sale">Licorería Pensilvania</span>
@@ -120,6 +124,9 @@
 
 <!-- ***************************** Footer ************************** -->
 <app-footer></app-footer>
+
+<!-- ***************************** Boton flotante carrito de compras ************************** -->
+<app-fab-cart *ngIf="!isEmptyCart" [totalItems]="totalItems"></app-fab-cart>
 
 <!-- ***************************** Loader ************************** -->
 <app-loader></app-loader>

@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { ProductService } from 'src/app/dashboard/products/services/product.service';
 import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
+import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { FabCartComponent } from '../../components/fab-cart/fab-cart.component';
+import { CartLicoreriaService } from '../../services/cart-licoreria.service';
 import { SpiritsLicoreriaService } from '../../services/spirits-licoreria.service';
 declare const main: any;
 
@@ -31,8 +34,13 @@ export class ListAllProductsComponent implements OnInit
   public products: Product[] = [];
   public categories: Category[] = [];
 
+  // Shopping Cart
+  public cartProducts: CartItem[] = [];
+  @ViewChild(FabCartComponent) fabCart!: FabCartComponent;
+
   constructor(
     // private productService: ProductService,
+    private cartLicoreriaService: CartLicoreriaService,
     private spiritsLicoreriaService: SpiritsLicoreriaService,
     private categoryService: CategoryService,
     private sweetAlert: SweetAlertService,
@@ -52,6 +60,7 @@ export class ListAllProductsComponent implements OnInit
   {    
     this.loadCategories();
     this.loadProducts( undefined, 8, 0 );
+    this.cartProducts = this.cartLicoreriaService.getCart();
   }
 
   loadProducts(category?: string, limit?: number, from?: number): void
@@ -126,5 +135,43 @@ export class ListAllProductsComponent implements OnInit
     }
   }
 
+  addItemToShoppingCart( product: Product )
+  {
+    const cartItem = this.productToItemCart( product );
+    const indexProduct = this.cartProducts.findIndex( p => p.id === cartItem.id );
+    if(indexProduct !== -1)
+    {
+      this.cartProducts[indexProduct].count ++;
+      this.cartLicoreriaService.refreshCart( this.cartProducts );
+    }
+    else
+    {
+      this.cartProducts = this.cartLicoreriaService.addItem(cartItem);
+    }
+
+    this.fabCart.loadData();
+  }
+
+  private productToItemCart(product: Product): CartItem
+  {
+    const { id = '' } = product;
+    return {
+              id, 
+              product, 
+              count: 1, 
+              sale_price: product.sale_price,
+              purchase_price: product.purchase_price
+            };
+  }
+
+  get isEmptyCart()
+  {
+    return this.cartProducts.length === 0;
+  }
+
+  get totalItems()
+  {
+    return this.cartProducts.length;
+  }
 
 }
