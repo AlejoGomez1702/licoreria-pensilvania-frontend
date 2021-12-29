@@ -126,7 +126,7 @@
 <app-footer></app-footer>
 
 <!-- ***************************** Boton flotante carrito de compras ************************** -->
-<app-fab-cart *ngIf="!isEmptyCart" [totalItems]="totalItems"></app-fab-cart>
+<app-fab-cart *ngIf="!isEmptyCart" [totalItems]="totalItems" (resetCart)="resetCart()"></app-fab-cart>
 
 <!-- ***************************** Loader ************************** -->
 <app-loader></app-loader>

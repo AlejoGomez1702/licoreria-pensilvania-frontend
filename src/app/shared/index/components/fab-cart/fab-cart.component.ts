@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { CartLicoreriaService } from '../../services/cart-licoreria.service';
 
 @Component({
@@ -9,11 +10,13 @@ import { CartLicoreriaService } from '../../services/cart-licoreria.service';
 })
 export class FabCartComponent implements OnInit 
 {
+  @Output() resetCart: EventEmitter<any> = new EventEmitter();
   @Input() totalItems = 0;
   public products: CartItem[] = [];
 
   constructor(
-    private cartLicoreriaService: CartLicoreriaService
+    private cartLicoreriaService: CartLicoreriaService,
+    private sweetAlert: SweetAlertService
   ) { }
 
   ngOnInit(): void 
@@ -41,6 +44,16 @@ export class FabCartComponent implements OnInit
     }
 
     return `${total}`;
+  }
+
+  async removeCart()
+  {
+    const { isConfirmed } = await this.sweetAlert.presentDelete('Su Carrito de Compras');
+    if( isConfirmed )
+    {
+      this.cartLicoreriaService.clearCart();
+      this.resetCart.emit();
+    }
   }
 
 }

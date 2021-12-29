@@ -63,6 +63,11 @@ export class ListAllProductsComponent implements OnInit
     this.cartProducts = this.cartLicoreriaService.getCart();
   }
 
+  resetCart()
+  {
+    this.cartProducts = this.cartLicoreriaService.getCart();
+  }
+
   loadProducts(category?: string, limit?: number, from?: number): void
   {
     this.spiritsLicoreriaService.getAllSpirits(category, limit, from)
