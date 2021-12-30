@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
+import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { CartLicoreriaService } from '../../services/cart-licoreria.service';
 
@@ -16,7 +18,8 @@ export class FabCartComponent implements OnInit
 
   constructor(
     private cartLicoreriaService: CartLicoreriaService,
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    private router: Router
   ) { }
 
   ngOnInit(): void 
@@ -54,6 +57,11 @@ export class FabCartComponent implements OnInit
       this.cartLicoreriaService.clearCart();
       this.resetCart.emit();
     }
+  }
+
+  goToShoppingCart()
+  {
+    this.router.navigate([appRoutes.shoppingCart]);
   }
 
 }

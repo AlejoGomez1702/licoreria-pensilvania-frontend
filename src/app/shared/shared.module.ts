@@ -24,6 +24,8 @@ import { SpinnerModule } from './spinner/spinner.module';
 import { ListAllProductsComponent } from './index/pages/list-all-products/list-all-products.component';
 import { ContactComponent } from './index/pages/contact/contact.component';
 import { FabCartComponent } from './index/components/fab-cart/fab-cart.component';
+import { ShoppingCartComponent } from './index/pages/shopping-cart/shopping-cart.component';
+import { ShoppingCartHeaderComponent } from './index/components/main-header/shopping-cart-header/shopping-cart-header.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { FabCartComponent } from './index/components/fab-cart/fab-cart.component
     ListAllProductsComponent,
     ContactComponent,
     FabCartComponent,
+    ShoppingCartComponent,
+    ShoppingCartHeaderComponent,
 
     // Modules
     // MaterialModule

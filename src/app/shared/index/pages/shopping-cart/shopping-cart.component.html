@@ -1,0 +1,66 @@
+<!-- ***************************** Small Header ************************** -->
+<app-small-header></app-small-header>
+
+<!-- ***************************** Main Header ************************** -->
+<app-shopping-cart-header></app-shopping-cart-header>
+
+<div class="row">
+    <div class="col-6">
+
+        <h2 class="title-shopping txt-center">Información de Compra</h2>
+        <h3 class="txt-center">Ya tienes una cuenta?<a href="/auth/login">Iniciar Sesión</a></h3>
+
+        <p>
+            <mat-form-field appearance="legacy">
+              <mat-label>Legacy form field</mat-label>
+              <input matInput placeholder="Placeholder">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-hint>Hint</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="standard">
+              <mat-label>Standard form field</mat-label>
+              <input matInput placeholder="Placeholder">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-hint>Hint</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Fill form field</mat-label>
+              <input matInput placeholder="Placeholder">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-hint>Hint</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Outline form field</mat-label>
+              <input matInput placeholder="Placeholder">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-hint>Hint</mat-hint>
+            </mat-form-field>
+        </p>
+    </div>
+    <div class="col-6 separator">
+        <h2 class="title-shopping txt-center">Productos Agregados al Carrito</h2>
+
+        <mat-list>
+            <div mat-subheader>Folders</div>
+            <mat-list-item *ngFor="let folder of folders">
+              <mat-icon mat-list-icon>folder</mat-icon>
+              <div mat-line>{{folder.name}}</div>
+              <div mat-line> {{folder.updated | date}} </div>
+            </mat-list-item>            
+        </mat-list>
+    
+        <mat-divider></mat-divider>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Cupón</mat-label>
+            <input matInput>
+        </mat-form-field>
+
+    </div>
+</div>

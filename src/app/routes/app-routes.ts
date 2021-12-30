@@ -1,6 +1,9 @@
 import { Routing } from "../core/interfaces/Routing";
 
 export const appRoutes: Routing = {
+    // Licorería Pensilvania
+    shoppingCart: '/shopping-cart',
+
     // Ventas
     listAllSales: '/dashboard/sales',
     createSale: '/dashboard/sales/create',

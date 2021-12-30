@@ -6,9 +6,11 @@ import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { IndexComponent } from './shared/index/index.component';
 import { ContactComponent } from './shared/index/pages/contact/contact.component';
 import { ListAllProductsComponent } from './shared/index/pages/list-all-products/list-all-products.component';
+import { ShoppingCartComponent } from './shared/index/pages/shopping-cart/shopping-cart.component';
 import { AdminLayoutComponent } from './shared/layouts/admin-layout/admin-layout.component';
 
 const routes: Routes = [
+  // Rutas de Licorería Pensilvania:
   {
     path: '',
     component: IndexComponent
@@ -22,6 +24,12 @@ const routes: Routes = [
     component: ContactComponent
   },
   {
+    path: 'shopping-cart',
+    component: ShoppingCartComponent
+  },
+
+  // Autenticación
+  {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule )
   },
@@ -32,17 +40,12 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: ADMIN_LAYOUT
   },
-  // {
-  //   path: 'heroes',
-  //   loadChildren: () => import('./heroes/heroes.module').then( m => m.HeroesModule )
-  // },
   {
     path: '404',
     component: ErrorPageComponent
   },
   {
     path: '**',
-    // component: ErrorPageComponent
     redirectTo: '404'
   }
 ]

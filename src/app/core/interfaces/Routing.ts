@@ -1,5 +1,8 @@
 export interface Routing
 {
+    // Licorería Pensilvania
+    shoppingCart: string;
+
     // Ventas
     listAllSales: string;
     createSale: string;
