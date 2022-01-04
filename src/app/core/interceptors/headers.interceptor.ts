@@ -20,23 +20,36 @@ export class HeadersInterceptor implements HttpInterceptor
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
   {
     let headers;
-    // console.log(request);
+    const body: FormData = request.body;
+    if(body && body.has('img'))
+    {
+      console.log("SIIIIIIIIIIIIII");
+    }
 
     const { method, url } = request;
     const [ last, secondLast ] = url.split('/').slice(-2);
 
-    // const lastSegmet = url.split('/').slice(-1)[0];
+    // Si se desea crear o actualizar un licor
+    const createOrUpdateSpirit: boolean = ((method === 'POST' && (last === 'spirits'  || secondLast === 'spirits')) ||
+                                          (method === 'PUT' && secondLast === 'spirits'));
 
-    // const lastSegmets = url.split('/').slice(-2);
+    const hasImage: boolean = (body && body.has('img')) === true;
 
-    // console.log("last segment", lastSegmets);
 
-    // Si es POST y termina en spirits -> el formulario envia una imagen por eso no se debe enviar content-type
-    if(
-      (method === 'POST' && last === 'spirits') ||
-      (method === 'PUT' && secondLast === 'spirits')
+    // console.log("Metodo: ", method, "  last: ", last, "  secondlast: ", secondLast);
+    // console.log("Create or update: ", createOrUpdateSpirit, "  has image: ", hasImage);
+
+    /*
+     * Si es POST y termina en spirits y tiene el campo img -> el formulario envia una imagen 
+     * por eso no se debe enviar content-type
+     */
+    if( 
+      createOrUpdateSpirit && 
+      hasImage // Tiene una imagen en la petición.
     )
     {
+      // console.log("yuuujuuuuuuuuuuuuuuuuuu")
+      // Petición cuando hay archivos(imagenes) en la request
       headers = new HttpHeaders({
         'x-token': this.tokenService.getToken()
       });

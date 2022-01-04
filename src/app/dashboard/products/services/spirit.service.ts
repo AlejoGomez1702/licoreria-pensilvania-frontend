@@ -82,6 +82,14 @@ export class SpiritService
    { 
      const { img, ...productData } = product;
      const productDataAny: any = { ...productData };
+
+    // Si no se envia la imagen se hace en formato JSON
+    // de lo contrario se crea un FormData
+    if( img )
+    {
+      return this.http.post<Spirit>(`${environment.API_URL}/spirits`, productDataAny);
+    }
+     
      // console.log(productDataAny);
      const formData: FormData = new FormData();
      formData.append('img', img);
