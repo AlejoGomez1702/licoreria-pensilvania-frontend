@@ -31,12 +31,12 @@ export class HeadersInterceptor implements HttpInterceptor
 
     // Si se desea crear o actualizar un licor
     const createOrUpdateSpirit: boolean = ((method === 'POST' && (last === 'spirits'  || secondLast === 'spirits')) ||
-                                          (method === 'PUT' && secondLast === 'spirits'));
+                                          (method === 'PUT' && (last === 'spirits'  || secondLast === 'spirits')));
 
     const hasImage: boolean = (body && body.has('img')) === true;
 
 
-    // console.log("Metodo: ", method, "  last: ", last, "  secondlast: ", secondLast);
+    console.log("Metodo: ", method, "  last: ", last, "  secondlast: ", secondLast);
     // console.log("Create or update: ", createOrUpdateSpirit, "  has image: ", hasImage);
 
     /*
