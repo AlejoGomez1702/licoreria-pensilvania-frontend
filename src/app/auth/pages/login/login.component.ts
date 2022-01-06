@@ -50,7 +50,10 @@ export class LoginComponent implements OnInit
             this.router.navigate(['/dashboard']);
           }        
         },
-        error => this.sweetAlert.presentError( error.error.error )
+        error => {
+          console.log(error);
+          this.sweetAlert.presentError( error.error.error );
+        }
       );
     }
     else

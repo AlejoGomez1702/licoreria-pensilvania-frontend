@@ -20,11 +20,11 @@ export class HeadersInterceptor implements HttpInterceptor
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
   {
     let headers;
-    const body: FormData = request.body;
-    if(body && body.has('img'))
-    {
-      console.log("SIIIIIIIIIIIIII");
-    }
+    // const body: FormData = request.body;
+    // if(body && body.has('img'))
+    // {
+    //   console.log("SIIIIIIIIIIIIII");
+    // }
 
     const { method, url } = request;
     const [ last, secondLast ] = url.split('/').slice(-2);
@@ -33,10 +33,10 @@ export class HeadersInterceptor implements HttpInterceptor
     const createOrUpdateSpirit: boolean = ((method === 'POST' && (last === 'spirits'  || secondLast === 'spirits')) ||
                                           (method === 'PUT' && (last === 'spirits'  || secondLast === 'spirits')));
 
-    const hasImage: boolean = (body && body.has('img')) === true;
+    // const hasImage: boolean = (body && body.has('img')) === true;
 
 
-    console.log("Metodo: ", method, "  last: ", last, "  secondlast: ", secondLast);
+    // console.log("Metodo: ", method, "  last: ", last, "  secondlast: ", secondLast);
     // console.log("Create or update: ", createOrUpdateSpirit, "  has image: ", hasImage);
 
     /*
@@ -44,8 +44,8 @@ export class HeadersInterceptor implements HttpInterceptor
      * por eso no se debe enviar content-type
      */
     if( 
-      createOrUpdateSpirit && 
-      hasImage // Tiene una imagen en la petición.
+      createOrUpdateSpirit
+      // hasImage // Tiene una imagen en la petición.
     )
     {
       // console.log("yuuujuuuuuuuuuuuuuuuuuu")
