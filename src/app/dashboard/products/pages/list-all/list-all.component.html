@@ -1,22 +1,25 @@
-<div>
-    <mat-tab-group mat-align-tabs="center">
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon class="example-tab-icon">local_bar</mat-icon>
-                Licores
-            </ng-template>
-            <!-- Tabla para el inventario de licores -->
-            <app-spirit-inventory></app-spirit-inventory>
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon class="example-tab-icon">smoking_rooms</mat-icon>
-                Cigarrillos
-            </ng-template>
-            Content 2
-        </mat-tab>
-        <mat-tab label="Third">
-            Content 3
-        </mat-tab>
-    </mat-tab-group>
-</div>
+<!-- <mat-tab-group mat-align-tabs="center">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>local_bar</mat-icon>
+            Licores
+        </ng-template>
+        <app-spirit-inventory></app-spirit-inventory>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>smoking_rooms</mat-icon>
+            Cigarrillos
+        </ng-template>
+        Content 2
+    </mat-tab>
+</mat-tab-group> -->
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab *ngFor="let superCategory of superCategories">
+        <ng-template mat-tab-label>
+            <mat-icon>{{ superCategory.icon }}</mat-icon>
+            {{ superCategory.name }}
+        </ng-template>
+        {{ superCategory.component }}
+    </mat-tab>
+</mat-tab-group>

@@ -1,17 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
-import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
-import { CrudService } from 'src/app/shared/services/dialog/crud.service';
-import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { Product } from '../../interfaces/Product';
-import { Spirit } from '../../interfaces/Spirit';
-import { ProductService } from '../../services/product.service';
-import { SpiritService } from '../../services/spirit.service';
+import { Component, OnInit } from '@angular/core';
+import { SuperCategory } from '../../interfaces/SuperCategory';
+import { SuperCategoryService } from '../../services/super-category.service';
 
 @Component({
   selector: 'app-list-all',
@@ -20,16 +9,32 @@ import { SpiritService } from '../../services/spirit.service';
 })
 export class ListAllComponent implements OnInit 
 {
-  constructor() 
-  { 
-    
-  }
+  public superCategories: SuperCategory[] = [{
+    name: "Licores",
+    icon: "local_bar",
+    component: "<app-spirit-inventory></app-spirit-inventory>"
+  }];
+
+  constructor(
+    private superCategoryService: SuperCategoryService
+  ) 
+  { }
 
   ngOnInit(): void 
   {
+    // this.loadData();
   }
 
-  ngAfterViewInit() {
+  loadData()
+  {
+    this.superCategoryService.getAllSuperCategories().subscribe(
+      res => {
+        this.superCategories = res.superCategories;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }
