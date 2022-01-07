@@ -8,6 +8,7 @@ import { SpiritInventoryComponent } from './components/spirit-inventory/spirit-i
 import { NewSpiritComponent } from './pages/create/new-spirit/new-spirit.component';
 import { DialogProductComponent } from './pages/create/new-spirit/dialog-product/dialog-product.component';
 import { SpiritComponent } from './pages/edit/spirit/spirit.component';
+import { CigaretteInventoryComponent } from './components/cigarette-inventory/cigarette-inventory.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SpiritComponent } from './pages/edit/spirit/spirit.component';
     SpiritInventoryComponent,
     NewSpiritComponent,
     DialogProductComponent,
-    SpiritComponent
+    SpiritComponent,
+    CigaretteInventoryComponent
   ],
   imports: [
     CommonModule,
