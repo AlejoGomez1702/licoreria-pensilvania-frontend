@@ -26,8 +26,6 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
   public length: number = 0;
   public pageSize: number = 8;
   public pageSizeOptions: number[] = [4, 8, 16, 32];
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // MatPaginator Output
   pageEvent!: PageEvent;
 
   constructor(
@@ -49,7 +47,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
     this.dataSource.sort = this.sort;
   }
 
-  getfullProductName(spirit: Product): string
+  getFullProductName(spirit: Product): string
   {
     return  `${spirit.category.name} ${spirit.name}`;
   }
@@ -93,7 +91,6 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
         );
       }
     }
-
   }
 
   loadProducts(category?: string, limit?: number, from?: number): void
