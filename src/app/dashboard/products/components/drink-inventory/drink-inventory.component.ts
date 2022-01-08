@@ -1,18 +1,18 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
-import { SpiritService } from '../../services/spirit.service';
+import { DrinkService } from '../../services/drink.service';
 
 @Component({
-  selector: 'app-spirit-inventory',
-  templateUrl: './spirit-inventory.component.html',
-  styleUrls: ['./spirit-inventory.component.scss']
+  selector: 'app-drink-inventory',
+  templateUrl: './drink-inventory.component.html',
+  styleUrls: ['./drink-inventory.component.scss']
 })
-export class SpiritInventoryComponent implements OnInit, AfterViewInit
+export class DrinkInventoryComponent implements OnInit, AfterViewInit
 {
   public products: Product[] = [];
 
@@ -29,17 +29,17 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
   pageEvent!: PageEvent;
 
   constructor(
-    private spiritService: SpiritService,
+    private drinkService: DrinkService,
     private sweetAlert: SweetAlertService,
     private router: Router
-  )
+  ) 
   { 
     this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void 
   {
-    this.loadProducts();
+    // this.loadProducts();
   }
 
   ngAfterViewInit(): void 
@@ -58,15 +58,15 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   createProduct()
   {
-    this.router.navigate(['/dashboard/products/create/spirits']);
+    // this.router.navigate(['/dashboard/products/create/spirits']);
   }
 
-  editSpirit( row: Product )
+  editCigarette( row: Product )
   {
-    this.router.navigate(['/dashboard/products/spirits/edit/' + row.id]);
+    // this.router.navigate(['/dashboard/products/spirits/edit/' + row.id]);
   }
 
-  async deleteSpirit( spirit: Product )
+  async deleteCigarette( spirit: Product )
   {
     const { id, category, name } = spirit;
     if( id )
@@ -74,31 +74,32 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
       const { isConfirmed } = await this.sweetAlert.presentDelete(`${category.name} ${name}`);
       if(isConfirmed)
       {
-        this.spiritService.deleteSpirit( id ).subscribe(
-          product => {
-            if(product)
-            {
-              this.sweetAlert.presentSuccess('Licor Eliminado Correctamente!');
-              this.loadProducts();
-            }
-          },
-          () => this.sweetAlert.presentError('Eliminando Licor!')
-        );
+        // this.spiritService.deleteSpirit( id ).subscribe(
+        //   product => {
+        //     if(product)
+        //     {
+        //       this.sweetAlert.presentSuccess('Licor Eliminado Correctamente!');
+        //       this.loadProducts();
+        //     }
+        //   },
+        //   () => this.sweetAlert.presentError('Eliminando Licor!')
+        // );
       }
     }
   }
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.spiritService.getAllProducts(category, limit, from)
-    .subscribe(
-      res => {
-        this.products = res.spirits;        
-        this.length = res.total;
-        this.dataSource.data = this.products;
-      },
-      error => this.sweetAlert.presentError(error.error.error)
-    );
+    // this.cigaretteService.getAllProducts().subscribe(
+    //   res => {
+    //     this.products = res.cigarettes;        
+    //     this.length = res.total;
+    //     this.dataSource.data = this.products;
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
   paginateChange( event:PageEvent ): PageEvent

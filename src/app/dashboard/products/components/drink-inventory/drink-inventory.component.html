@@ -1,7 +1,7 @@
 <!-- Tabla para el inventario de licores -->
 <div class="contenedor">
     <div class="row ml-1">
-        <h1 class="fw-500 txt-center">Inventario de Licores</h1>
+        <h1 class="fw-500 txt-center">Inventario de Bebidas</h1>
     </div>
 
     <mat-divider></mat-divider>
@@ -31,7 +31,7 @@
                 <!-- Unidad de media -->
                 <ng-container matColumnDef="unit">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Unidad Medida</th>
-                    <td mat-cell *matCellDef="let row">{{ row | unitDetail:'spirits' }}</td>
+                    <td mat-cell *matCellDef="let row">{{ row | unitDetail:'cigarettes' }}</td>
                 </ng-container>
                 <!-- Precio de venta -->
                 <ng-container matColumnDef="sale_price">
@@ -53,12 +53,12 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
                     <td mat-cell *matCellDef="let row">
-                        <button title="Editar" class="btn" (click)="editSpirit( row )">
+                        <button title="Editar" class="btn" (click)="editCigarette( row )">
                             <span class="edit-color">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </span>                    
                         </button>
-                        <button title="Eliminar" class="btn" (click)="deleteSpirit( row )">
+                        <button title="Eliminar" class="btn" (click)="deleteCigarette( row )">
                             <span class="delete-color">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </span>                    

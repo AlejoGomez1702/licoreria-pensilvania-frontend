@@ -47,16 +47,6 @@ export class CigaretteInventoryComponent implements OnInit, AfterViewInit
     this.dataSource.sort = this.sort;
   }
 
-  getFullProductName(cigarette: Product): string
-  {
-    return `${cigarette.category.name} ${cigarette.name}`;
-  }
-
-  getFullUnitDetail(cigarette: Product): string
-  {
-    return `${cigarette.unit.unit} X ${cigarette.unit.units}`;
-  }
-
   applyFilter(event: Event) 
   {
     const filterValue = (event.target as HTMLInputElement).value;

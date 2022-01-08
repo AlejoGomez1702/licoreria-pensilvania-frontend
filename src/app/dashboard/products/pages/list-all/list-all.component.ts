@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CigaretteInventoryComponent } from '../../components/cigarette-inventory/cigarette-inventory.component';
+import { DrinkInventoryComponent } from '../../components/drink-inventory/drink-inventory.component';
 import { SpiritInventoryComponent } from '../../components/spirit-inventory/spirit-inventory.component';
 import { SuperCategory } from '../../interfaces/SuperCategory';
 import { SuperCategoryService } from '../../services/super-category.service';
@@ -30,6 +31,7 @@ export class ListAllComponent implements OnInit
       res => {
         this.superCategories = res.superCategories;
         this.loadComponents();
+        console.log(this.superCategories);
       },
       error => {
         console.log(error);
@@ -43,12 +45,16 @@ export class ListAllComponent implements OnInit
     {
       switch (superCategory.component) 
       {
-        case 'spirit-inventory':
+        case 'spirits-inventory':
           this.components.push(SpiritInventoryComponent);
         break;
 
-        case 'cigarette-inventory':
+        case 'cigarettes-inventory':
           this.components.push(CigaretteInventoryComponent);
+        break;
+
+        case 'drinks-inventory':
+          this.components.push(DrinkInventoryComponent);
         break;
       
         default:

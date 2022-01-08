@@ -9,6 +9,9 @@ import { NewSpiritComponent } from './pages/create/new-spirit/new-spirit.compone
 import { DialogProductComponent } from './pages/create/new-spirit/dialog-product/dialog-product.component';
 import { SpiritComponent } from './pages/edit/spirit/spirit.component';
 import { CigaretteInventoryComponent } from './components/cigarette-inventory/cigarette-inventory.component';
+import { ProductNamePipe } from './pipes/product-name.pipe';
+import { UnitDetailPipe } from './pipes/unit-detail.pipe';
+import { DrinkInventoryComponent } from './components/drink-inventory/drink-inventory.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { CigaretteInventoryComponent } from './components/cigarette-inventory/ci
     NewSpiritComponent,
     DialogProductComponent,
     SpiritComponent,
-    CigaretteInventoryComponent
+    CigaretteInventoryComponent,
+    ProductNamePipe,
+    UnitDetailPipe,
+    DrinkInventoryComponent
   ],
   imports: [
     CommonModule,
