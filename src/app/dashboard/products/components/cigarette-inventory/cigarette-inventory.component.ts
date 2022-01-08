@@ -49,13 +49,12 @@ export class CigaretteInventoryComponent implements OnInit, AfterViewInit
 
   getFullProductName(cigarette: Product): string
   {
-    // return  `${spirit.category.name} ${spirit.name}`;
-    return '';
+    return `${cigarette.category.name} ${cigarette.name}`;
   }
 
   getFullUnitDetail(cigarette: Product): string
   {
-    return '';
+    return `${cigarette.unit.unit} X ${cigarette.unit.units}`;
   }
 
   applyFilter(event: Event) 
@@ -101,16 +100,16 @@ export class CigaretteInventoryComponent implements OnInit, AfterViewInit
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    // this.spiritService.getAllProducts(category, limit, from)
-    // .subscribe(
-    //   res => {
-    //     console.log(res);
-    //     this.products = res.spirits;        
-    //     this.length = res.total;
-    //     this.dataSource.data = this.products;
-    //   },
-    //   error => this.sweetAlert.presentError(error.error.error)
-    // );
+    this.cigaretteService.getAllProducts().subscribe(
+      res => {
+        this.products = res.cigarettes;        
+        this.length = res.total;
+        this.dataSource.data = this.products;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   paginateChange( event:PageEvent ): PageEvent

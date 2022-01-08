@@ -5,7 +5,6 @@ import { TokenService } from 'src/app/core/services/token.service';
 import { environment } from 'src/environments/environment';
 import { Product } from '../interfaces/Product';
 import { ResponseGetAllSpirits } from '../interfaces/ResponseGetAllSpirits';
-import { Spirit } from '../interfaces/Spirit';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +77,7 @@ export class SpiritService
     * Crea un producto en la base de datos del tipo licor.
     * @param product 
     */
-   createProduct( product: Spirit ): Observable<Spirit>
+   createProduct( product: Product ): Observable<Product>
    { 
      const { img, ...productData } = product;
      const productDataAny: any = { ...productData };
@@ -87,7 +86,7 @@ export class SpiritService
     // de lo contrario se crea un FormData
     if( img )
     {
-      return this.http.post<Spirit>(`${environment.API_URL}/spirits`, productDataAny);
+      return this.http.post<Product>(`${environment.API_URL}/Products`, productDataAny);
     }
      
      // console.log(productDataAny);
@@ -103,21 +102,21 @@ export class SpiritService
        formData.append(key, data);       
      }
  
-     return this.http.post<Spirit>(`${environment.API_URL}/spirits`, formData);
+     return this.http.post<Product>(`${environment.API_URL}/spirits`, formData);
    }
  
    /**
     * Actualiza un producto en la base de datos.
     * @param uid Identificador del product.
     */
-    updateSpirit( id: string, product: Spirit ): Observable<Spirit>
+    updateSpirit( id: string, product: Product ): Observable<Product>
     {
       const { state, ...data } = product;
 
       const { img } = data;
       if( typeof img === 'string' || img instanceof String ) //La imagen no se desea actualizar
       {
-        return this.http.put<Spirit>(`${environment.API_URL}/spirits/${id}`, data);
+        return this.http.put<Product>(`${environment.API_URL}/spirits/${id}`, data);
       }
 
       const productDataAny: any = { ...data };
@@ -131,7 +130,7 @@ export class SpiritService
         formData.append(key, dataWithFile);       
       }
  
-      return this.http.put<Spirit>(`${environment.API_URL}/spirits/${id}`, formData);
+      return this.http.put<Product>(`${environment.API_URL}/spirits/${id}`, formData);
     }
 
     /**
