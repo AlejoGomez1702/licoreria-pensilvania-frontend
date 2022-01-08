@@ -12,6 +12,7 @@ import { CigaretteInventoryComponent } from './components/cigarette-inventory/ci
 import { ProductNamePipe } from './pipes/product-name.pipe';
 import { UnitDetailPipe } from './pipes/unit-detail.pipe';
 import { DrinkInventoryComponent } from './components/drink-inventory/drink-inventory.component';
+import { GroceryInventoryComponent } from './components/grocery-inventory/grocery-inventory.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DrinkInventoryComponent } from './components/drink-inventory/drink-inve
     CigaretteInventoryComponent,
     ProductNamePipe,
     UnitDetailPipe,
-    DrinkInventoryComponent
+    DrinkInventoryComponent,
+    GroceryInventoryComponent
   ],
   imports: [
     CommonModule,

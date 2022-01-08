@@ -8,11 +8,11 @@ import { Product } from '../../interfaces/Product';
 import { DrinkService } from '../../services/drink.service';
 
 @Component({
-  selector: 'app-drink-inventory',
-  templateUrl: './drink-inventory.component.html',
-  styleUrls: ['./drink-inventory.component.scss']
+  selector: 'app-grocery-inventory',
+  templateUrl: './grocery-inventory.component.html',
+  styleUrls: ['./grocery-inventory.component.scss']
 })
-export class DrinkInventoryComponent implements OnInit, AfterViewInit
+export class GroceryInventoryComponent implements OnInit, AfterViewInit
 {
   public products: Product[] = [];
 
@@ -37,9 +37,7 @@ export class DrinkInventoryComponent implements OnInit, AfterViewInit
     this.dataSource = new MatTableDataSource();
   }
 
-  ngOnInit(): void 
-  {
-    this.loadProducts();
+  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void 
@@ -61,12 +59,12 @@ export class DrinkInventoryComponent implements OnInit, AfterViewInit
     // this.router.navigate(['/dashboard/products/create/spirits']);
   }
 
-  editDrink( row: Product )
+  editGrocery( row: Product )
   {
     // this.router.navigate(['/dashboard/products/spirits/edit/' + row.id]);
   }
 
-  async deleteDrink( spirit: Product )
+  async deleteGrocery( spirit: Product )
   {
     const { id, category, name } = spirit;
     if( id )
@@ -90,16 +88,16 @@ export class DrinkInventoryComponent implements OnInit, AfterViewInit
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.drinkService.getAllProducts().subscribe(
-      res => {
-        this.products = res.drinks;        
-        this.length = res.total;
-        this.dataSource.data = this.products;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    // this.cigaretteService.getAllProducts().subscribe(
+    //   res => {
+    //     this.products = res.cigarettes;        
+    //     this.length = res.total;
+    //     this.dataSource.data = this.products;
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
   paginateChange( event:PageEvent ): PageEvent
