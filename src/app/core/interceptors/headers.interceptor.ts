@@ -20,7 +20,7 @@ export class HeadersInterceptor implements HttpInterceptor
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
   {
     let headers;
-    // const body: FormData = request.body;
+    const body: any = request.body;
     // if(body && body.has('img'))
     // {
     //   console.log("SIIIIIIIIIIIIII");
@@ -33,8 +33,8 @@ export class HeadersInterceptor implements HttpInterceptor
     const createOrUpdateSpirit: boolean = ((method === 'POST' && (last === 'spirits'  || secondLast === 'spirits')) ||
                                           (method === 'PUT' && (last === 'spirits'  || secondLast === 'spirits')));
 
-    // const hasImage: boolean = (body && body.has('img')) === true;
 
+    const hasImage: boolean = (body && body.img && body.has('img')) === true;
 
     // console.log("Metodo: ", method, "  last: ", last, "  secondlast: ", secondLast);
     // console.log("Create or update: ", createOrUpdateSpirit, "  has image: ", hasImage);
@@ -51,8 +51,9 @@ export class HeadersInterceptor implements HttpInterceptor
       // console.log("yuuujuuuuuuuuuuuuuuuuuu")
       // Petición cuando hay archivos(imagenes) en la request
       headers = new HttpHeaders({
+        'Content-Type':  'application/json',
         'x-token': this.tokenService.getToken()
-      });
+      });     
     }
     else
     {
@@ -68,4 +69,23 @@ export class HeadersInterceptor implements HttpInterceptor
 
     return next.handle( reqClone );
   }
+
+  passHeaders(headers: any, hasImage: boolean)
+  {
+    if( false )
+    {
+      headers = new HttpHeaders({
+        'x-token': this.tokenService.getToken()
+      });
+    }
+    else
+    {
+      headers = new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-token': this.tokenService.getToken()
+      });
+    }
+  }
+
+
 }

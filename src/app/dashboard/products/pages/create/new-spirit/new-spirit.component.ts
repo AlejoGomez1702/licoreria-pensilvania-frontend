@@ -53,7 +53,7 @@ export class NewSpiritComponent implements OnInit
 
   loadCategories()
   {
-    this.categoryService.getAllCategories().subscribe(
+    this.categoryService.getAllCategories( "spirit" ).subscribe(
       categories => this.categories = categories.categories,
       () => this.sweetAlert.presentError("Error obteniendo categorias")
     );
@@ -61,7 +61,7 @@ export class NewSpiritComponent implements OnInit
 
   loadUnits()
   {
-    this.unitService.getAllUnidades().subscribe(
+    this.unitService.getAllUnidades( "spirit" ).subscribe(
       units => this.units = units.units,
       () => this.sweetAlert.presentError("Error obteniendo unidades de medida")
     );

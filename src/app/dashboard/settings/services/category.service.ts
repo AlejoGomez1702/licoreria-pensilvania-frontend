@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category, ResponseGetAllCategories } from '../interfaces/category.interfaces';
-import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { TokenService } from 'src/app/core/services/token.service';
 
@@ -19,12 +18,15 @@ export class CategoryService
 
   /**
    * Obtiene todas las categorias de productos de la base de datos.
+   * @param supercategory "spirit" | 
    * @returns Todas las categorias de productos.
    */
-  getAllCategories(): Observable<ResponseGetAllCategories>
+  getAllCategories( supercategory?: string ): Observable<ResponseGetAllCategories>
   {
     const httpOptions = {
-      params: new HttpParams().set('limit', 1000)
+      params: new HttpParams()
+                              // .set('limit', 1000)
+                              .set('supercategory', supercategory || '')
     };
 
     return this.http.get<ResponseGetAllCategories>(`${environment.API_URL}/categories`, httpOptions);

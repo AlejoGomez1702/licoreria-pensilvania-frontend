@@ -7,3 +7,9 @@ export interface Unit
     grams?: number;
     ml?: number;
 }
+
+export interface ResponseGetAllUnits
+{
+    total: number;
+    units: Unit[];
+};

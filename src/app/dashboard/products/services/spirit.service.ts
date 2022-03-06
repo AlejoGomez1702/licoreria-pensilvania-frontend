@@ -84,7 +84,7 @@ export class SpiritService
 
     // Si no se envia la imagen se hace en formato JSON
     // de lo contrario se crea un FormData
-    if( img )
+    if( img && img !== '' )
     {
       return this.http.post<Product>(`${environment.API_URL}/Products`, productDataAny);
     }
