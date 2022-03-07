@@ -79,42 +79,44 @@ export class SpiritService
     */
    createProduct( product: Product ): Observable<Product>
    { 
-     const { img, ...productData } = product;
-     const productDataAny: any = { ...productData };
+      const { img, ...productData } = product;
+      const productDataAny: any = { ...productData };
 
-    // Si no se envia la imagen se hace en formato JSON
-    // de lo contrario se crea un FormData
-    if( img && img !== '' )
-    {
-      return this.http.post<Product>(`${environment.API_URL}/Products`, productDataAny);
-    }
-     
-     // console.log(productDataAny);
-     const formData: FormData = new FormData();
-     formData.append('img', img);
-     let data;
-     for (const key in productDataAny) 
-     {
-       data = productDataAny[key];
-       if(data === null)
-         data = 0;
-       // const data = productData.key;
-       formData.append(key, data);       
-     }
- 
-     return this.http.post<Product>(`${environment.API_URL}/spirits`, formData);
+      // Si no se envia la imagen se hace en formato JSON
+      // de lo contrario se crea un FormData:
+      if( img === null )
+      {
+        return this.http.post<Product>(`${environment.API_URL}/spirits`, productDataAny);
+      }
+      
+      const formData: FormData = new FormData();
+      formData.append('img', img);
+      let data;
+      for (const key in productDataAny) 
+      {
+        data = productDataAny[key];
+        if(data === null)
+          data = 0;
+        // const data = productData.key;
+        formData.append(key, data);       
+      }
+
+      // Con esta cabecera indico al interceptor que va un archivo en la petición
+      const headers = new HttpHeaders().set('with-img', 'yes');
+  
+      return this.http.post<Product>(`${environment.API_URL}/spirits`, formData, { headers });
    }
  
    /**
     * Actualiza un producto en la base de datos.
-    * @param uid Identificador del product.
+    * @param id Identificador del product.
     */
     updateSpirit( id: string, product: Product ): Observable<Product>
     {
       const { state, ...data } = product;
 
       const { img } = data;
-      if( typeof img === 'string' || img instanceof String ) //La imagen no se desea actualizar
+      if( typeof img === 'string' || img instanceof String || img === null ) //La imagen no se desea actualizar
       {
         return this.http.put<Product>(`${environment.API_URL}/spirits/${id}`, data);
       }
@@ -129,8 +131,11 @@ export class SpiritService
           dataWithFile = 0;
         formData.append(key, dataWithFile);       
       }
+
+      // Con esta cabecera indico al interceptor que va un archivo en la petición
+      const headers = new HttpHeaders().set('with-img', 'yes');
  
-      return this.http.put<Product>(`${environment.API_URL}/spirits/${id}`, formData);
+      return this.http.put<Product>(`${environment.API_URL}/spirits/${id}`, formData, { headers });
     }
 
     /**

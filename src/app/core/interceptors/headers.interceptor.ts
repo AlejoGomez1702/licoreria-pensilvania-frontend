@@ -20,40 +20,14 @@ export class HeadersInterceptor implements HttpInterceptor
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
   {
     let headers;
-    const body: any = request.body;
-    // if(body && body.has('img'))
-    // {
-    //   console.log("SIIIIIIIIIIIIII");
-    // }
+    const hasImage: boolean = request.headers.get('with-img') === 'yes';
 
-    const { method, url } = request;
-    const [ last, secondLast ] = url.split('/').slice(-2);
-
-    // Si se desea crear o actualizar un licor
-    const createOrUpdateSpirit: boolean = ((method === 'POST' && (last === 'spirits'  || secondLast === 'spirits')) ||
-                                          (method === 'PUT' && (last === 'spirits'  || secondLast === 'spirits')));
-
-
-    const hasImage: boolean = (body && body.img && body.has('img')) === true;
-
-    // console.log("Metodo: ", method, "  last: ", last, "  secondlast: ", secondLast);
-    // console.log("Create or update: ", createOrUpdateSpirit, "  has image: ", hasImage);
-
-    /*
-     * Si es POST y termina en spirits y tiene el campo img -> el formulario envia una imagen 
-     * por eso no se debe enviar content-type
-     */
-    if( 
-      createOrUpdateSpirit
-      // hasImage // Tiene una imagen en la petición.
-    )
+    if( hasImage )
     {
-      // console.log("yuuujuuuuuuuuuuuuuuuuuu")
       // Petición cuando hay archivos(imagenes) en la request
       headers = new HttpHeaders({
-        'Content-Type':  'application/json',
         'x-token': this.tokenService.getToken()
-      });     
+      });   
     }
     else
     {
@@ -69,23 +43,4 @@ export class HeadersInterceptor implements HttpInterceptor
 
     return next.handle( reqClone );
   }
-
-  passHeaders(headers: any, hasImage: boolean)
-  {
-    if( false )
-    {
-      headers = new HttpHeaders({
-        'x-token': this.tokenService.getToken()
-      });
-    }
-    else
-    {
-      headers = new HttpHeaders({
-        'Content-Type':  'application/json',
-        'x-token': this.tokenService.getToken()
-      });
-    }
-  }
-
-
 }

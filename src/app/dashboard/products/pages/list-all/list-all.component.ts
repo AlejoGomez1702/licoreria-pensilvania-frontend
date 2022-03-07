@@ -32,7 +32,6 @@ export class ListAllComponent implements OnInit
       res => {
         this.superCategories = res.superCategories;
         this.loadComponents();
-        console.log(this.superCategories);
       },
       error => {
         console.log(error);

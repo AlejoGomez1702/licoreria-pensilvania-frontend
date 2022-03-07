@@ -115,8 +115,9 @@ export class NewSpiritComponent implements OnInit
     }
 
     this.spiritService.createProduct( this.form.value ).subscribe(
-      () => {
+      (res) => {
         this.sweetAlert.presentSuccess('Producto creado correctamente!');
+        console.log(res);
         this.router.navigate(['/dashboard/products']);
       },
       error => {
