@@ -8,15 +8,15 @@ import { CategoryService } from 'src/app/dashboard/settings/services/category.se
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
-import { SpiritService } from '../../../services/spirit.service';
+import { GroceryService } from '../../../services/grocery.service';
 
 @Component({
-  selector: 'app-spirit',
-  templateUrl: './spirit.component.html',
-  styleUrls: ['./spirit.component.scss']
+  selector: 'app-grocery',
+  templateUrl: './grocery.component.html',
+  styleUrls: ['./grocery.component.scss']
 })
-export class SpiritComponent implements OnInit 
-{
+export class GroceryComponent implements OnInit {
+
   public product!: Product;
   public form!: FormGroup;
 
@@ -28,14 +28,15 @@ export class SpiritComponent implements OnInit
 
   constructor(
     private fb: FormBuilder,
-    private spiritService: SpiritService,
+    private groceryService: GroceryService,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
     private activatedRoute: ActivatedRoute,
     private formsValidationService: FormsValidationService,
     private sweetAlert: SweetAlertService,
     private router: Router
-  ) { }
+  ) 
+  { }
 
   ngOnInit(): void 
   {
@@ -48,7 +49,7 @@ export class SpiritComponent implements OnInit
     }
     else
     {
-      this.sweetAlert.presentError('Error iniciando el licor seleccionado (NO ID)');
+      this.sweetAlert.presentError('Error iniciando el comestible seleccionado (NO ID)');
       this.router.navigate(['/dashboard/products']);
     }
   }
@@ -61,7 +62,7 @@ export class SpiritComponent implements OnInit
 
   loadCategories()
   {
-    this.categoryService.getAllCategories('spirit').subscribe(
+    this.categoryService.getAllCategories('grocery').subscribe(
       categories => this.categories = categories.categories,
       () => this.sweetAlert.presentError("Error obteniendo categorias")
     );
@@ -69,7 +70,7 @@ export class SpiritComponent implements OnInit
 
   loadUnits()
   {
-    this.unitService.getAllUnidades('spirit').subscribe(
+    this.unitService.getAllUnidades('grocery').subscribe(
       units => this.units = units.units,
       () => this.sweetAlert.presentError("Error obteniendo unidades de medida")
     );
@@ -77,9 +78,9 @@ export class SpiritComponent implements OnInit
 
   getProductSelected( id: string )
   {
-    this.spiritService.getSpiritById( id, false ).subscribe(
-      spirit => {
-        this.product = spirit;
+    this.groceryService.getGroceryById( id, false ).subscribe(
+      grocery => {
+        this.product = grocery;
         this.buildForm( false );
       },
       error => {
@@ -117,7 +118,6 @@ export class SpiritComponent implements OnInit
         unit:               [ '', [Validators.required] ],
         barcode:            [ '' ],
         stock:              [ 1, [Validators.required, Validators.min(1)] ],
-        vol_alcohol:        [ 0, [Validators.required, Validators.min(0), Validators.max(100)] ],
         purchase_price:     [ 0, [Validators.min(0)] ],
         sale_price:         [ 0, [Validators.min(0)] ],
         current_existence:  [ 0, [Validators.min(0)] ]
@@ -126,6 +126,10 @@ export class SpiritComponent implements OnInit
     else
     {
       const { category, unit, ...data } = this.product;
+      console.log(category);
+      console.log(unit);
+
+
       this.form.reset({
         category: category._id,
         unit: unit._id,
@@ -149,7 +153,7 @@ export class SpiritComponent implements OnInit
       return;
     }
 
-    this.spiritService.updateSpirit( this.product.id!, this.form.value ).subscribe(
+    this.groceryService.updateGrocery( this.product.id!, this.form.value ).subscribe(
       () => {
         this.sweetAlert.presentSuccess('Producto actualizado correctamente!');
         this.router.navigate(['/dashboard/products']);
@@ -160,5 +164,4 @@ export class SpiritComponent implements OnInit
       }
     );
   }
-
 }

@@ -13,6 +13,12 @@ import { ProductNamePipe } from './pipes/product-name.pipe';
 import { UnitDetailPipe } from './pipes/unit-detail.pipe';
 import { DrinkInventoryComponent } from './components/drink-inventory/drink-inventory.component';
 import { GroceryInventoryComponent } from './components/grocery-inventory/grocery-inventory.component';
+import { NewCigaretteComponent } from './pages/create/new-cigarette/new-cigarette.component';
+import { CigaretteComponent } from './pages/edit/cigarette/cigarette.component';
+import { NewDrinkComponent } from './pages/create/new-drink/new-drink.component';
+import { DrinkComponent } from './pages/edit/drink/drink.component';
+import { GroceryComponent } from './pages/edit/grocery/grocery.component';
+import { NewGroceryComponent } from './pages/create/new-grocery/new-grocery.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,13 @@ import { GroceryInventoryComponent } from './components/grocery-inventory/grocer
     ProductNamePipe,
     UnitDetailPipe,
     DrinkInventoryComponent,
-    GroceryInventoryComponent
+    GroceryInventoryComponent,
+    NewCigaretteComponent,
+    CigaretteComponent,
+    NewDrinkComponent,
+    DrinkComponent,
+    GroceryComponent,
+    NewGroceryComponent
   ],
   imports: [
     CommonModule,

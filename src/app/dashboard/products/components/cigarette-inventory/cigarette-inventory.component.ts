@@ -3,6 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
 import { CigaretteService } from '../../services/cigarette.service';
@@ -58,12 +59,12 @@ export class CigaretteInventoryComponent implements OnInit, AfterViewInit
 
   createProduct()
   {
-    // this.router.navigate(['/dashboard/products/create/spirits']);
+    this.router.navigate([appRoutes.createCigarette]);
   }
 
   editCigarette( row: Product )
   {
-    // this.router.navigate(['/dashboard/products/spirits/edit/' + row.id]);
+    this.router.navigate([appRoutes.editCigarette + row.id]);
   }
 
   async deleteCigarette( spirit: Product )
@@ -74,23 +75,23 @@ export class CigaretteInventoryComponent implements OnInit, AfterViewInit
       const { isConfirmed } = await this.sweetAlert.presentDelete(`${category.name} ${name}`);
       if(isConfirmed)
       {
-        // this.spiritService.deleteSpirit( id ).subscribe(
-        //   product => {
-        //     if(product)
-        //     {
-        //       this.sweetAlert.presentSuccess('Licor Eliminado Correctamente!');
-        //       this.loadProducts();
-        //     }
-        //   },
-        //   () => this.sweetAlert.presentError('Eliminando Licor!')
-        // );
+        this.cigaretteService.deleteCigarette( id ).subscribe(
+          product => {
+            if(product)
+            {
+              this.sweetAlert.presentSuccess('Producto Eliminado Correctamente!');
+              this.loadProducts();
+            }
+          },
+          () => this.sweetAlert.presentError('Eliminando Licor!')
+        );
       }
     }
   }
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.cigaretteService.getAllProducts().subscribe(
+    this.cigaretteService.getAllProducts(category, limit, from).subscribe(
       res => {
         this.products = res.cigarettes;        
         this.length = res.total;

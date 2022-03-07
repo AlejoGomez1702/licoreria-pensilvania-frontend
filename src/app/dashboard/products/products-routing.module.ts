@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NewCigaretteComponent } from './pages/create/new-cigarette/new-cigarette.component';
+import { NewDrinkComponent } from './pages/create/new-drink/new-drink.component';
+import { NewGroceryComponent } from './pages/create/new-grocery/new-grocery.component';
 import { NewSpiritComponent } from './pages/create/new-spirit/new-spirit.component';
+import { CigaretteComponent } from './pages/edit/cigarette/cigarette.component';
+import { DrinkComponent } from './pages/edit/drink/drink.component';
+import { GroceryComponent } from './pages/edit/grocery/grocery.component';
 import { SpiritComponent } from './pages/edit/spirit/spirit.component';
 import { ListAllComponent } from './pages/list-all/list-all.component';
 
@@ -19,10 +25,34 @@ const routes: Routes = [
     path: 'spirits/edit/:id',
     component: SpiritComponent
   },
-  // /dashboard/products/create
+  {
+    path: 'cigarettes/edit/:id',
+    component: CigaretteComponent
+  },
+  {
+    path: 'drinks/edit/:id',
+    component: DrinkComponent
+  },
+  {
+    path: 'groceries/edit/:id',
+    component: GroceryComponent
+  },
+  // /dashboard/products/create/spirits
   {
     path: 'create/spirits',
     component: NewSpiritComponent
+  },
+  {
+    path: 'create/cigarettes',
+    component: NewCigaretteComponent
+  },
+  {
+    path: 'create/drinks',
+    component: NewDrinkComponent
+  },
+  {
+    path: 'create/groceries',
+    component: NewGroceryComponent
   }
 ]
 

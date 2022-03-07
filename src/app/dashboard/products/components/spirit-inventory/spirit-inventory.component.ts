@@ -3,6 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
 import { SpiritService } from '../../services/spirit.service';
@@ -58,12 +59,12 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   createProduct()
   {
-    this.router.navigate(['/dashboard/products/create/spirits']);
+    this.router.navigate([appRoutes.createSpirit]);
   }
 
   editSpirit( row: Product )
   {
-    this.router.navigate(['/dashboard/products/spirits/edit/' + row.id]);
+    this.router.navigate([appRoutes.editSpirit + row.id]);
   }
 
   async deleteSpirit( spirit: Product )
@@ -78,7 +79,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
           product => {
             if(product)
             {
-              this.sweetAlert.presentSuccess('Licor Eliminado Correctamente!');
+              this.sweetAlert.presentSuccess('Producto Eliminado Correctamente!');
               this.loadProducts();
             }
           },

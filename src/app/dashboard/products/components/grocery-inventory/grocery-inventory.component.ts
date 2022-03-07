@@ -3,9 +3,10 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
-import { DrinkService } from '../../services/drink.service';
+import { GroceryService } from '../../services/grocery.service';
 
 @Component({
   selector: 'app-grocery-inventory',
@@ -29,7 +30,7 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
   pageEvent!: PageEvent;
 
   constructor(
-    private drinkService: DrinkService,
+    private groceryService: GroceryService,
     private sweetAlert: SweetAlertService,
     private router: Router
   ) 
@@ -37,7 +38,9 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
     this.dataSource = new MatTableDataSource();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
+    this.loadProducts();
   }
 
   ngAfterViewInit(): void 
@@ -56,12 +59,12 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
 
   createProduct()
   {
-    // this.router.navigate(['/dashboard/products/create/spirits']);
+    this.router.navigate([appRoutes.createGrocery]);
   }
 
   editGrocery( row: Product )
   {
-    // this.router.navigate(['/dashboard/products/spirits/edit/' + row.id]);
+    this.router.navigate([appRoutes.editGrocery + row.id]);
   }
 
   async deleteGrocery( spirit: Product )
@@ -72,32 +75,32 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
       const { isConfirmed } = await this.sweetAlert.presentDelete(`${category.name} ${name}`);
       if(isConfirmed)
       {
-        // this.spiritService.deleteSpirit( id ).subscribe(
-        //   product => {
-        //     if(product)
-        //     {
-        //       this.sweetAlert.presentSuccess('Licor Eliminado Correctamente!');
-        //       this.loadProducts();
-        //     }
-        //   },
-        //   () => this.sweetAlert.presentError('Eliminando Licor!')
-        // );
+        this.groceryService.deleteGrocery( id ).subscribe(
+          product => {
+            if(product)
+            {
+              this.sweetAlert.presentSuccess('Producto Eliminado Correctamente!');
+              this.loadProducts();
+            }
+          },
+          () => this.sweetAlert.presentError('Eliminando Producto!')
+        );
       }
     }
   }
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    // this.cigaretteService.getAllProducts().subscribe(
-    //   res => {
-    //     this.products = res.cigarettes;        
-    //     this.length = res.total;
-    //     this.dataSource.data = this.products;
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    this.groceryService.getAllProducts().subscribe(
+      res => {
+        this.products = res.groceries;        
+        this.length = res.total;
+        this.dataSource.data = this.products;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   paginateChange( event:PageEvent ): PageEvent

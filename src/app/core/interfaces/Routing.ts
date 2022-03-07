@@ -3,6 +3,24 @@ export interface Routing
     // Licorería Pensilvania
     shoppingCart: string;
 
+    // *************** INVENTARIO *************** //
+    // Cigarrillos
+    createCigarette: string;
+    editCigarette: string;
+
+    // Licores
+    createSpirit: string;
+    editSpirit: string;
+
+    // Bebidas
+    createDrink: string;
+    editDrink: string;
+
+    // Comestibles
+    createGrocery: string;
+    editGrocery: string;
+    // *************** INVENTARIO *************** //
+
     // Ventas
     listAllSales: string;
     createSale: string;

@@ -8,14 +8,14 @@ import { CategoryService } from 'src/app/dashboard/settings/services/category.se
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
-import { SpiritService } from '../../../services/spirit.service';
+import { CigaretteService } from '../../../services/cigarette.service';
 
 @Component({
-  selector: 'app-spirit',
-  templateUrl: './spirit.component.html',
-  styleUrls: ['./spirit.component.scss']
+  selector: 'app-cigarette',
+  templateUrl: './cigarette.component.html',
+  styleUrls: ['./cigarette.component.scss']
 })
-export class SpiritComponent implements OnInit 
+export class CigaretteComponent implements OnInit 
 {
   public product!: Product;
   public form!: FormGroup;
@@ -28,14 +28,15 @@ export class SpiritComponent implements OnInit
 
   constructor(
     private fb: FormBuilder,
-    private spiritService: SpiritService,
+    private cigaretteService: CigaretteService,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
     private activatedRoute: ActivatedRoute,
     private formsValidationService: FormsValidationService,
     private sweetAlert: SweetAlertService,
     private router: Router
-  ) { }
+  ) 
+  { }
 
   ngOnInit(): void 
   {
@@ -48,7 +49,7 @@ export class SpiritComponent implements OnInit
     }
     else
     {
-      this.sweetAlert.presentError('Error iniciando el licor seleccionado (NO ID)');
+      this.sweetAlert.presentError('Error iniciando el cigarrillo seleccionado (NO ID)');
       this.router.navigate(['/dashboard/products']);
     }
   }
@@ -61,7 +62,7 @@ export class SpiritComponent implements OnInit
 
   loadCategories()
   {
-    this.categoryService.getAllCategories('spirit').subscribe(
+    this.categoryService.getAllCategories('cigarette').subscribe(
       categories => this.categories = categories.categories,
       () => this.sweetAlert.presentError("Error obteniendo categorias")
     );
@@ -69,7 +70,7 @@ export class SpiritComponent implements OnInit
 
   loadUnits()
   {
-    this.unitService.getAllUnidades('spirit').subscribe(
+    this.unitService.getAllUnidades('cigarette').subscribe(
       units => this.units = units.units,
       () => this.sweetAlert.presentError("Error obteniendo unidades de medida")
     );
@@ -77,9 +78,9 @@ export class SpiritComponent implements OnInit
 
   getProductSelected( id: string )
   {
-    this.spiritService.getSpiritById( id, false ).subscribe(
-      spirit => {
-        this.product = spirit;
+    this.cigaretteService.getCigaretteById( id, false ).subscribe(
+      cigarette => {
+        this.product = cigarette;
         this.buildForm( false );
       },
       error => {
@@ -117,7 +118,6 @@ export class SpiritComponent implements OnInit
         unit:               [ '', [Validators.required] ],
         barcode:            [ '' ],
         stock:              [ 1, [Validators.required, Validators.min(1)] ],
-        vol_alcohol:        [ 0, [Validators.required, Validators.min(0), Validators.max(100)] ],
         purchase_price:     [ 0, [Validators.min(0)] ],
         sale_price:         [ 0, [Validators.min(0)] ],
         current_existence:  [ 0, [Validators.min(0)] ]
@@ -149,7 +149,7 @@ export class SpiritComponent implements OnInit
       return;
     }
 
-    this.spiritService.updateSpirit( this.product.id!, this.form.value ).subscribe(
+    this.cigaretteService.updateCigarette( this.product.id!, this.form.value ).subscribe(
       () => {
         this.sweetAlert.presentSuccess('Producto actualizado correctamente!');
         this.router.navigate(['/dashboard/products']);
