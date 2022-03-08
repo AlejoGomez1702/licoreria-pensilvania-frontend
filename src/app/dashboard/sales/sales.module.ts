@@ -6,6 +6,8 @@ import { CreateComponent } from './pages/create/create.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SaleTableComponent } from './components/sale-table/sale-table.component';
 import { ListAllSalesComponent } from './pages/list-all-sales/list-all-sales.component';
+import { BarGraphComponent } from './components/graphs/bar-graph/bar-graph.component';
+import { ChangePriceDialogComponent } from './components/sale-table/change-price-dialog/change-price-dialog.component';
 // import {MatSnackBar} from '@angular/material/snack-bar';
 
 
@@ -13,7 +15,9 @@ import { ListAllSalesComponent } from './pages/list-all-sales/list-all-sales.com
   declarations: [
     CreateComponent,
     SaleTableComponent,
-    ListAllSalesComponent
+    ListAllSalesComponent,
+    BarGraphComponent,
+    ChangePriceDialogComponent
   ],
   imports: [
     CommonModule,

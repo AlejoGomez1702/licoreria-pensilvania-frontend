@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Modificar Precio</h1>
+<div mat-dialog-content>
+  <p style="text-align: center;">
+    El precio de venta actual es de 
+    <br>
+    <span style="color: green;">$ {{ data.price | number }}</span>
+  </p>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nuevo Precio</mat-label>
+    <span matPrefix>$ &nbsp;</span>
+    <input type="number" matInput placeholder="1234" [(ngModel)]="data.otherPrice">
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data.otherPrice" cdkFocusInitial>Aceptar</button>
+</div>

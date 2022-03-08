@@ -4,4 +4,14 @@ export interface ResponseGetAllSales
 {
     total: number;
     sales: Sale[];
+    statistics: Statistic[];
+}
+
+
+export interface Statistic
+{
+    day: number;
+    year: number;
+    count: number;
+    totalAmount: number;
 }

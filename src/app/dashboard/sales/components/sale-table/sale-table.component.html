@@ -29,22 +29,22 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
             <td mat-cell *matCellDef="let row">
-                <button title="Cambiar Precio" class="btn">
+                <button title="Cambiar Precio" class="btn" (click)="openChangePriceDialog(row)">
                     <span class="edit-color">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </span>                    
                 </button>
-                <button title="Aumentar Cantidad" class="btn">
+                <button title="Aumentar Cantidad" class="btn" (click)="plusItem(row)">
                     <span class="edit-color">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </span>                    
                 </button>
-                <button title="Disminuir Cantidad" class="btn">
+                <button title="Disminuir Cantidad" class="btn" (click)="disminItem(row)">
                     <span class="edit-color">
                         <i class="fa fa-minus-circle" aria-hidden="true"></i>
                     </span>                    
                 </button>
-                <button title="Quitar de la lista" class="btn">
+                <button title="Quitar de la lista" class="btn" (click)="removeItem(row)">
                     <span class="delete-color">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </span>                    

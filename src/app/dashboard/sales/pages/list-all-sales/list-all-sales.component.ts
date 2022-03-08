@@ -48,6 +48,15 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     this.loadSales();
   }
 
+  get salesTotal()
+  {
+    return 2000;
+    // this.sales.forEach(sale => {
+      
+    // });
+    // return 2000;
+  }
+
   ngAfterViewInit(): void 
   {
     this.dataSource.sort = this.sort;
@@ -60,7 +69,7 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
         this.sales = res.sales;
         this.length = res.total;
         this.dataSource.data = this.sales;
-        console.log(this.sales);
+        console.log(res);
       },
       error => {
         console.log(error);

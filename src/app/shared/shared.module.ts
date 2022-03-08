@@ -26,6 +26,7 @@ import { ContactComponent } from './index/pages/contact/contact.component';
 import { FabCartComponent } from './index/components/fab-cart/fab-cart.component';
 import { ShoppingCartComponent } from './index/pages/shopping-cart/shopping-cart.component';
 import { ShoppingCartHeaderComponent } from './index/components/main-header/shopping-cart-header/shopping-cart-header.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ShoppingCartHeaderComponent } from './index/components/main-header/shop
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    SpinnerModule
+    SpinnerModule,
+    NgChartsModule
   ],
   exports: [
     FormsModule,
@@ -78,7 +80,8 @@ import { ShoppingCartHeaderComponent } from './index/components/main-header/shop
     LoaderComponent,
     AdminLayoutComponent,
     AdDirective,
-    SpinnerModule
+    SpinnerModule,
+    NgChartsModule
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

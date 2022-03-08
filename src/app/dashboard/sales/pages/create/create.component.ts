@@ -7,6 +7,7 @@ import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { SaleTableComponent } from '../../components/sale-table/sale-table.component';
 import { CartItem } from '../../interfaces/CartItem';
+import { SaleItemDetail } from '../../interfaces/SaleItemDetail';
 import { CartService } from '../../services/cart.service';
 import { SaleService } from '../../services/sale.service';
 
@@ -86,15 +87,93 @@ export class CreateComponent implements OnInit
     {
       this.products[tabIndex][indexProduct].count ++;
     }
-    else
+    else // findIndex retorno -1, quiere decir que no lo encontró.
     {
       this.products[tabIndex].push( cartItem );
     }
     
+    this.refreshSaleResume(tabIndex);
+    // // Guardar la persistencia en el localStorage
+    // this.cartService.refreshCart(this.products);
+    // console.log("asi va el carrito de compras:");
+    // console.log(this.products);
+    
+    // this.saleResumeTable.get(tabIndex)?.refreshData( this.products[tabIndex] );
+    // this.verifySnack();
+  }
+
+  removeCartItem(saleItemDetail: SaleItemDetail)
+  {
+    const { index, id } = saleItemDetail;
+
+    console.log(saleItemDetail);
+
+    const indexProduct = this.products[index].findIndex( p => p.id === id );
+    if(indexProduct !== -1)
+    {
+      this.products[index].splice(indexProduct);
+    }
+
+    this.refreshSaleResume(index);
+  }
+
+  plusCartItem(saleItemDetail: SaleItemDetail)
+  {
+    const { index, id } = saleItemDetail;
+
+    console.log(saleItemDetail);
+
+    const indexProduct = this.products[index].findIndex( p => p.id === id );
+    if(indexProduct !== -1)
+    {
+      this.products[index][indexProduct].count ++;
+    }
+
+    this.refreshSaleResume(index);
+  }
+
+  minusCartItem(saleItemDetail: SaleItemDetail)
+  {
+    const { index, id } = saleItemDetail;
+
+    console.log(saleItemDetail);
+
+    const indexProduct = this.products[index].findIndex( p => p.id === id );
+    if(indexProduct !== -1)
+    {
+      const count = this.products[index][indexProduct].count;
+      if(!(count < 2)) //Solo hay un item agregado
+      {
+        this.products[index][indexProduct].count --;
+      }
+    }
+
+    this.refreshSaleResume(index);
+  }
+
+  changePriceCartItem(saleItemDetail: SaleItemDetail)
+  {
+    const { index, id, otherPrice = 0 } = saleItemDetail;
+
+    console.log(saleItemDetail);
+
+    const indexProduct = this.products[index].findIndex( p => p.id === id );
+    if(indexProduct !== -1)
+    {
+      this.products[index][indexProduct].sale_price = otherPrice;
+    }
+
+    this.refreshSaleResume(index);
+  }
+
+  refreshSaleResume(index: number)
+  {
     // Guardar la persistencia en el localStorage
     this.cartService.refreshCart(this.products);
-    
-    this.saleResumeTable.get(tabIndex)?.refreshData( this.products[tabIndex] );
+    console.log("asi va el carrito de compras:");
+    console.log(this.products);
+
+    this.saleResumeTable.get(index)?.refreshData( this.products[index] );
     this.verifySnack();
   }
 

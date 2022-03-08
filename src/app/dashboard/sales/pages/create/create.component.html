@@ -51,7 +51,14 @@
               </div>
             </div>
             <!-- ***************************************** Contenido del tab ************************************ -->
-            <app-sale-table [saleId]="countSales" [products]="products[index]" [index]="index"></app-sale-table>
+            <app-sale-table [saleId]="countSales" 
+                            [products]="products[index]" 
+                            [index]="index" 
+                            (onDeleteItem)="removeCartItem( $event )"
+                            (onPlusItem)="plusCartItem( $event )"
+                            (onMinusItem)="minusCartItem( $event )"
+                            (onChangePriceItem)="changePriceCartItem( $event )">
+            </app-sale-table>
             <!-- ***************************************** Contenido del tab ************************************ -->
           </mat-tab>
 
@@ -74,8 +81,8 @@
     </div>
 
     <!-- Boton flotante -->
-    <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="fab-main">
+    <!-- <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="fab-main">
         <mat-icon>shopping_cart</mat-icon>
-    </button>
+    </button> -->
     
 </div>
