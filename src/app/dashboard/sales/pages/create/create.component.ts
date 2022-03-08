@@ -247,9 +247,4 @@ export class CreateComponent implements OnInit
     );
     console.log("Venta: ", sale);
   }
-
-  // removeTab(index: number) {
-  //   this.tabs.splice(index, 1);
-  // }
-
 }

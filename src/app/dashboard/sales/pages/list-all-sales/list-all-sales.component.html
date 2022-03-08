@@ -48,7 +48,7 @@
 
                 <!-- Valor total -->
                 <ng-container matColumnDef="total">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
                 <td mat-cell *matCellDef="let row">$ {{ getTotalValue( row ) | number }} </td>
                 </ng-container>
 
@@ -66,7 +66,7 @@
 
                 <!-- Usuario que generó la venta -->
                 <ng-container matColumnDef="user">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Creada Por </th>
                 <td mat-cell *matCellDef="let row"> {{row.user.name}} </td>
                 </ng-container>
 
