@@ -152,6 +152,22 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            <!-- Precio de venta secundario -->
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Precio de Venta Secundario</mat-label>
+                    <input matInput currencyMask formControlName="second_sale_price" 
+                    [options]="{ allowNegative: false, precision: 0, thousands: '.' }"/>
+                    <mat-error *ngIf="validField('second_sale_price')">
+                        Campo Inválido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            
+        </div>        
+
+        <div class="row">
             <!-- Cantidad actual -->
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
@@ -168,7 +184,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-        </div>        
+        </div>      
+
         </div>
     
         <div class="txt-center">

@@ -76,6 +76,7 @@ export class NewDrinkComponent implements OnInit
       stock:              [ 1, [Validators.required, Validators.min(1)] ],
       purchase_price:     [ 0, [Validators.min(0)] ],
       sale_price:         [ 0, [Validators.min(0)] ],
+      second_sale_price:  [ 0, [Validators.min(0)] ],
       current_existence:  [ 0, [Validators.min(0)] ]
     });
   }

@@ -70,16 +70,17 @@ export class NewSpiritComponent implements OnInit
   createFormBuilder(): void
   {
     this.form = this.fb.group({
-      img:                [],
-      category:           [ '', [Validators.required] ],
-      name:               [ '', [Validators.required, Validators.minLength(3)] ],
-      unit:               [ '', [Validators.required] ],
-      barcode:            [ '' ],
-      stock:              [ 1, [Validators.required, Validators.min(1)] ],
-      vol_alcohol:        [ 0, [Validators.required, Validators.min(0), Validators.max(100)] ],
-      purchase_price:     [ 0, [Validators.min(0)] ],
-      sale_price:         [ 0, [Validators.min(0)] ],
-      current_existence:  [ 0, [Validators.min(0)] ]
+      img:                       [],
+      category:                  [ '', [Validators.required] ],
+      name:                      [ '', [Validators.required, Validators.minLength(3)] ],
+      unit:                      [ '', [Validators.required] ],
+      barcode:                   [ '' ],
+      stock:                     [ 1, [Validators.required, Validators.min(1)] ],
+      vol_alcohol:               [ 0, [Validators.required, Validators.min(0), Validators.max(100)] ],
+      purchase_price:            [ 0, [Validators.min(0)] ],
+      sale_price:                [ 0, [Validators.min(0)] ],
+      second_sale_price:         [ 0, [Validators.min(0)] ],
+      current_existence:         [ 0, [Validators.min(0)] ]
     });
   }
 

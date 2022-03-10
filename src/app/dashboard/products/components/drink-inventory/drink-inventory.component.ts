@@ -18,7 +18,7 @@ export class DrinkInventoryComponent implements OnInit, AfterViewInit
 {
   public products: Product[] = [];
 
-  displayedColumns = ['name', 'unit', 'sale_price', 'stock', 'current_existence', 'actions'];
+  displayedColumns = ['name', 'unit', 'sale_price', 'second_sale_price', 'stock', 'current_existence', 'actions'];
   public dataSource: MatTableDataSource<Product>;
 
   @ViewChild(MatSort) sort!: MatSort;

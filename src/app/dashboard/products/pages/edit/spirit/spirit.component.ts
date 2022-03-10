@@ -120,6 +120,7 @@ export class SpiritComponent implements OnInit
         vol_alcohol:        [ 0, [Validators.required, Validators.min(0), Validators.max(100)] ],
         purchase_price:     [ 0, [Validators.min(0)] ],
         sale_price:         [ 0, [Validators.min(0)] ],
+        second_sale_price:  [ 0, [Validators.min(0)] ],
         current_existence:  [ 0, [Validators.min(0)] ]
       });
     }
