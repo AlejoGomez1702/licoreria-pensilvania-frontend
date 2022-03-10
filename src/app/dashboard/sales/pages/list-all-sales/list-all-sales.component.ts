@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { appRoutes } from 'src/app/routes/app-routes';
+import { Statistic } from '../../interfaces/ResponseGetAllSales';
 import { Sale } from '../../interfaces/Sale';
 import { SaleService } from '../../services/sale.service';
 
@@ -16,6 +17,7 @@ import { SaleService } from '../../services/sale.service';
 export class ListAllSalesComponent implements OnInit, AfterViewInit
 {
   public sales: Sale[] = [];
+  public statistics: Statistic[] = [];
 
   displayedColumns: string[] = ['date', 'total', 'utility', 'client', 'user', 'actions'];
   dataSource: MatTableDataSource<Sale>;
@@ -48,19 +50,10 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     this.loadSales();
   }
 
-  get salesTotal()
-  {
-    return 2000;
-    // this.sales.forEach(sale => {
-      
-    // });
-    // return 2000;
-  }
-
   ngAfterViewInit(): void 
   {
     this.dataSource.sort = this.sort;
-  }
+  }   
 
   loadSales(limit?: number, from?: number): void
   {
@@ -68,6 +61,7 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
       res => {        
         this.sales = res.sales;
         this.length = res.total;
+        this.statistics = res.statistics;
         this.dataSource.data = this.sales;
         console.log(res);
       },
@@ -75,6 +69,17 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
         console.log(error);
       }
     );
+  }
+
+  getSalesTotal(): number
+  {
+    let totalAmmount = 0;
+
+    this.statistics.forEach(statistic => {
+      totalAmmount += statistic.totalAmount;
+    });
+
+    return totalAmmount;
   }
 
   filterSales()
