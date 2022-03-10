@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Statistic } from '../../../interfaces/ResponseGetAllSales';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-bar-graph',
@@ -10,16 +11,17 @@ import { Statistic } from '../../../interfaces/ResponseGetAllSales';
 })
 export class BarGraphComponent implements OnInit 
 {
-  private statisticsData: Statistic[] = [];
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   @Input() 
   set statistics(statisticsData: Statistic[])
   {
-    this.statisticsData = statisticsData;
+    // this.statisticsData = statisticsData;
+    this.statisticsData = statisticsData.sort((a, b) => (a.day-b.day));
     this.refreshGraph();  
   }
 
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  private statisticsData: Statistic[] = [];  
 
   public barChartData: ChartData<'bar'> = {
     labels: this.getDays,
@@ -34,6 +36,36 @@ export class BarGraphComponent implements OnInit
   ngOnInit(): void 
   {
     // console.log(this.statistics);
+  }
+
+  get getTotals(): number[]
+  {    
+    const data =  this.statisticsData.map(s => {
+      return s.totalAmount;
+    });
+
+    return data;
+  }
+
+  get getDays(): string[]
+  {    
+    let initialDate;
+    let auxDate;
+    let momentDate;
+    let monthAndYear;
+    let dayAndMonth;
+
+    const data =  this.statisticsData.map(s => {
+      initialDate = new Date(s.year, 0);
+      auxDate = new Date(initialDate.setDate(s.day));
+      momentDate = moment(auxDate).locale('es');
+      monthAndYear = momentDate.format('ll');
+      dayAndMonth = monthAndYear.split('.')[0];
+
+      return dayAndMonth;
+    });
+
+    return data;
   }
 
   refreshGraph()
@@ -63,26 +95,6 @@ export class BarGraphComponent implements OnInit
     // }
   };
   public barChartType: ChartType = 'bar';
-
-  get getTotals(): number[]
-  {    
-    const data =  this.statisticsData.map(s => {
-      return s.totalAmount;
-    });
-
-    console.log("DATAAAAA: ", data);
-    return data;
-  }
-
-  get getDays(): number[]
-  {    
-    const data =  this.statisticsData.map(s => {
-      return s.day;
-    });
-
-    console.log("DATAAAAA: ", data);
-    return data;
-  }
 
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
