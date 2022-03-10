@@ -36,13 +36,19 @@
         <mat-icon mat-list-icon>dashboard</mat-icon>
         Panel Principal
       </a>
+
+      <a mat-list-item [routerLink]="['/dashboard/sales/create']" (click)="drawer.toggle()">
+        <mat-icon mat-list-icon>add_shopping_cart</mat-icon>
+        Crear Venta
+      </a>
+
       <mat-divider></mat-divider>
       <div mat-subheader>Opciones</div>
 
       <mat-selection-list [multiple]="false">
         <mat-list-option (click)="goToSales(); drawer.toggle()">
-          <mat-icon mat-list-icon>add_shopping_cart</mat-icon>
-          Nueva Venta
+          <mat-icon mat-list-icon>shop_two</mat-icon>
+          Ventas
         </mat-list-option>
 
         <mat-list-option (click)="goToProducts(); drawer.toggle()">
