@@ -8,7 +8,7 @@
     <!-- Buscar productos -->
     <div class="row mt-3">
       <div class="col-10">
-        <mat-form-field appearance="fill" class="w-100">
+        <!-- <mat-form-field appearance="fill" class="w-100">
           <mat-icon matPrefix>search</mat-icon>
           <mat-label>Escánear Código de Barras o Buscar Producto...</mat-label>
           <input matInput type="text" autofocus
@@ -25,7 +25,35 @@
           <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchData()">
             <mat-icon>close</mat-icon>
           </button>
-        </mat-form-field>
+        </mat-form-field> -->
+
+        <div mat-dialog-content>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-icon matPrefix>search</mat-icon>
+                <mat-label>Escánear Código de Barras o Buscar Producto...</mat-label>
+                <input matInput type="text" autofocus
+                      aria-label="Producto"
+                      [(ngModel)]="search"
+                      [matAutocomplete]="auto"
+                      (keydown.enter)="searchProduct()">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                            *ngFor="let product of filteredProducts | async" 
+                            [value]="getFullProductName( product )"
+                            (onSelectionChange)="selectProduct( product )">
+                    <img class="example-option-img" aria-hidden [src]="product.img" height="25">
+                    <small>{{ getFullProductName( product ) }}</small>
+                  </mat-option>
+                </mat-autocomplete>
+                <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search = ''">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        
+            <div class="alert alert-warning" role="alert" *ngIf="products.length < 1">
+              No hay productos para mostrar!
+            </div>
+        </div>
       </div>
 
       <div class="col-2 pt-2">

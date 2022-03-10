@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
+import { SearchService } from '../../services/search.service';
 import { SpiritService } from '../../services/spirit.service';
 
 @Component({
@@ -31,6 +32,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   constructor(
     private spiritService: SpiritService,
+    private searchService: SearchService,
     private sweetAlert: SweetAlertService,
     private router: Router
   )
@@ -51,10 +53,14 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
   applyFilter(event: Event) 
   {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.searchService.searchProduct(filterValue, 'spirit').subscribe(
+      res => {
+        this.products = res.results;        
+        this.length = res.total;
+        this.dataSource.data = this.products;
+      },
+      error => this.sweetAlert.presentError(error)
+    );
   }
 
   createProduct()

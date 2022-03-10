@@ -7,6 +7,7 @@ import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
 import { CigaretteService } from '../../services/cigarette.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-cigarette-inventory',
@@ -31,6 +32,7 @@ export class CigaretteInventoryComponent implements OnInit, AfterViewInit
 
   constructor(
     private cigaretteService: CigaretteService,
+    private searchService: SearchService,
     private sweetAlert: SweetAlertService,
     private router: Router
   ) 
@@ -51,10 +53,17 @@ export class CigaretteInventoryComponent implements OnInit, AfterViewInit
   applyFilter(event: Event) 
   {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    if( filterValue )
+    {
+      this.searchService.searchProduct(filterValue, 'cigarette').subscribe(
+        res => {
+          this.products = res.results;        
+          this.length = res.total;
+          this.dataSource.data = this.products;
+        },
+        error => this.sweetAlert.presentError(error)
+      );
+    }    
   }
 
   createProduct()

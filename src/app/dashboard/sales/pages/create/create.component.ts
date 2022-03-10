@@ -1,7 +1,10 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
+import { SearchService } from 'src/app/dashboard/products/services/search.service';
 import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
@@ -25,7 +28,8 @@ export class CreateComponent implements OnInit
   // Productos agregados a la venta.
   public products: CartItem[][] = [[]];
   // Poductos resultados de una busqueda.
-  public filteredProducts: Product[] = [];
+  // public filteredProducts: Product[] = [];
+  public filteredProducts!: Observable<Product[]>;
   // Lo ingresado en la barra de busqueda (Código de barras || nombre del producto)
   public search: string = '';
   // Si el carrito de compras esta vacio o no.
@@ -36,7 +40,7 @@ export class CreateComponent implements OnInit
 
   constructor(
     private saleService: SaleService,
-    private spiritService: SpiritService,
+    private searchService: SearchService,
     private cartService: CartService,
     private filterService: FilterService,
     private _snackBar: MatSnackBar,    
@@ -50,6 +54,16 @@ export class CreateComponent implements OnInit
     setTimeout(() => {
       this.loadPersistence();
     }, 400);
+  }
+
+  getFullProductName( product: Product )
+  {
+    return `${product.category.name} ${product.name} | ${product.unit.unit}`;
+  }
+
+  selectProduct( product: Product )
+  {
+    console.log(product);
   }
 
   isEmpty(index: number): boolean
@@ -187,7 +201,11 @@ export class CreateComponent implements OnInit
     } 
     else
     {
-      this.searchByName();
+      this.filteredProducts = this.searchService.searchProduct( this.search, '' ).pipe(
+        map(products => (products ? products.results : [])),
+      );
+
+      // this.searchByName();
     }
   }
 
@@ -208,40 +226,40 @@ export class CreateComponent implements OnInit
     );
   }
 
-  searchByName()
-  {
-    const term = this.search;
-    if( term )
-    {
-      this.filterService.searchSpirits( term, false ).subscribe(
-        spirits => {
-          this.filteredProducts = spirits;
-          console.log(spirits);
-        },
-        (error) => {
-          console.log("Error buscando los productos");
-          console.log(error);
-        }
-      );
-    }
-  }
+  // searchByName()
+  // {
+  //   const term = this.search;
+  //   if( term )
+  //   {
+  //     this.filterService.searchSpirits( term, false ).subscribe(
+  //       spirits => {
+  //         this.filteredProducts = spirits;
+  //         console.log(spirits);
+  //       },
+  //       (error) => {
+  //         console.log("Error buscando los productos");
+  //         console.log(error);
+  //       }
+  //     );
+  //   }
+  // }
 
-  searchById( id: string )
-  {
-    this.spiritService.getSpiritById( id, false ).subscribe(
-      spirit => {
-        this.verifyAddCartProduct( spirit );
-        this.filteredProducts = [];
-      },
-      error => this.sweetAlert.presentError( 'Buscando Licor Por ID' )
-    );
-  }
+  // searchById( id: string )
+  // {
+  //   this.spiritService.getSpiritById( id, false ).subscribe(
+  //     spirit => {
+  //       this.verifyAddCartProduct( spirit );
+  //       this.filteredProducts = [];
+  //     },
+  //     error => this.sweetAlert.presentError( 'Buscando Licor Por ID' )
+  //   );
+  // }
 
-  clearSearchData(): void
-  {
-    this.search = '';
-    this.filteredProducts = [];
-  }
+  // clearSearchData(): void
+  // {
+  //   this.search = '';
+  //   this.filteredProducts = [];
+  // }
 
   verifySnack()
   {

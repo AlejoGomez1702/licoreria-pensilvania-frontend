@@ -37,7 +37,7 @@ import { NewGroceryComponent } from './pages/create/new-grocery/new-grocery.comp
     NewDrinkComponent,
     DrinkComponent,
     GroceryComponent,
-    NewGroceryComponent
+    NewGroceryComponent,
   ],
   imports: [
     CommonModule,

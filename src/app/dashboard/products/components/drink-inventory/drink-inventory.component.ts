@@ -7,6 +7,7 @@ import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
 import { DrinkService } from '../../services/drink.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-drink-inventory',
@@ -31,6 +32,7 @@ export class DrinkInventoryComponent implements OnInit, AfterViewInit
 
   constructor(
     private drinkService: DrinkService,
+    private searchService: SearchService,
     private sweetAlert: SweetAlertService,
     private router: Router
   ) 
@@ -51,10 +53,14 @@ export class DrinkInventoryComponent implements OnInit, AfterViewInit
   applyFilter(event: Event) 
   {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.searchService.searchProduct(filterValue, 'drink').subscribe(
+      res => {
+        this.products = res.results;        
+        this.length = res.total;
+        this.dataSource.data = this.products;
+      },
+      error => this.sweetAlert.presentError(error)
+    );
   }
 
   createProduct()
