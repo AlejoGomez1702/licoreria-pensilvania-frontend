@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SearchService } from 'src/app/dashboard/products/services/search.service';
-import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { SaleTableComponent } from '../../components/sale-table/sale-table.component';
@@ -61,11 +60,6 @@ export class CreateComponent implements OnInit
     return `${product.category.name} ${product.name} | ${product.unit.unit}`;
   }
 
-  selectProduct( product: Product )
-  {
-    console.log(product);
-  }
-
   isEmpty(index: number): boolean
   {
     if(this.products[index] && this.products[index][0] )
@@ -90,6 +84,10 @@ export class CreateComponent implements OnInit
     }    
   }
 
+  /**
+   * Añade un producto buscado por nombre o código de barras.
+   * @param product 
+   */
   verifyAddCartProduct( product: Product )
   {
     const tabIndex = this.selected.value;
@@ -107,20 +105,32 @@ export class CreateComponent implements OnInit
     }
     
     this.refreshSaleResume(tabIndex);
-    // // Guardar la persistencia en el localStorage
-    // this.cartService.refreshCart(this.products);
-    // console.log("asi va el carrito de compras:");
-    // console.log(this.products);
-    
-    // this.saleResumeTable.get(tabIndex)?.refreshData( this.products[tabIndex] );
-    // this.verifySnack();
+  }
+
+  markSecondPriceProduct( saleItemDetail: SaleItemDetail )
+  {
+    const { index, id } = saleItemDetail;
+
+    const indexProduct = this.products[index].findIndex( p => p.id === id );
+    if(indexProduct !== -1)
+    {
+      if(this.products[index][indexProduct].is_second_price)
+      {
+        this.products[index][indexProduct].sale_price = this.products[index][indexProduct].product.second_sale_price;
+      }
+      else
+      {
+        this.products[index][indexProduct].sale_price = this.products[index][indexProduct].product.sale_price;
+      }
+    }
+
+    // Guardar la persistencia en el localStorage
+    this.refreshSaleResume(this.selected.value);
   }
 
   removeCartItem(saleItemDetail: SaleItemDetail)
   {
     const { index, id } = saleItemDetail;
-
-    console.log(saleItemDetail);
 
     const indexProduct = this.products[index].findIndex( p => p.id === id );
     if(indexProduct !== -1)
@@ -134,8 +144,6 @@ export class CreateComponent implements OnInit
   plusCartItem(saleItemDetail: SaleItemDetail)
   {
     const { index, id } = saleItemDetail;
-
-    console.log(saleItemDetail);
 
     const indexProduct = this.products[index].findIndex( p => p.id === id );
     if(indexProduct !== -1)
@@ -323,6 +331,7 @@ export class CreateComponent implements OnInit
               product, 
               count: 1, 
               sale_price: product.sale_price,
+              is_second_price: false,
               purchase_price: product.purchase_price
             };
   }

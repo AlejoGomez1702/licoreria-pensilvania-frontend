@@ -40,7 +40,7 @@
                   <mat-option
                             *ngFor="let product of filteredProducts | async" 
                             [value]="getFullProductName( product )"
-                            (onSelectionChange)="selectProduct( product )">
+                            (onSelectionChange)="verifyAddCartProduct( product )">
                     <img class="example-option-img" aria-hidden [src]="product.img" height="25">
                     <small>{{ getFullProductName( product ) }}</small>
                   </mat-option>
@@ -85,7 +85,8 @@
                             (onDeleteItem)="removeCartItem( $event )"
                             (onPlusItem)="plusCartItem( $event )"
                             (onMinusItem)="minusCartItem( $event )"
-                            (onChangePriceItem)="changePriceCartItem( $event )">
+                            (onChangePriceItem)="changePriceCartItem( $event )"
+                            (onMarkSecondPrice)="markSecondPriceProduct( $event )">
             </app-sale-table>
             <!-- ***************************************** Contenido del tab ************************************ -->
           </mat-tab>

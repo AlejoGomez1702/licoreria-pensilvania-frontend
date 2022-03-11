@@ -15,7 +15,22 @@
         <!-- Precio Unitario -->
         <ng-container matColumnDef="unit_price">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio Unitario</th>
-            <td mat-cell *matCellDef="let row">$ {{row.sale_price | number}}</td>
+            <td mat-cell *matCellDef="let row">
+                $ {{ getUnitPrice(row) | number }}
+            </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <!-- Precio Secundario? -->
+        <ng-container matColumnDef="second_price">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio Secundario</th>
+            <td mat-cell *matCellDef="let row">
+                <mat-slide-toggle
+                                color="primary"
+                                (click)="markSecondPrice( row )">
+                    {{ row.is_second_price ? 'SI' : 'NO' }}
+                </mat-slide-toggle>
+            </td>            
+            <!-- <td mat-cell *matCellDef="let row">$ {{row.sale_price | number}}</td> -->
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!-- Total -->

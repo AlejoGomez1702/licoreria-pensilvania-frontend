@@ -6,5 +6,6 @@ export interface CartItem
     product: Product;
     count: number;
     sale_price: number;
+    is_second_price?: boolean;
     purchase_price?: number;
 }
