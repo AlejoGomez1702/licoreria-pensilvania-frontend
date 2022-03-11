@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Product } from '../../products/interfaces/Product';
 import { CartItem } from '../interfaces/CartItem';
 import { ResponseGetAllSales } from '../interfaces/ResponseGetAllSales';
 import { Sale } from '../interfaces/Sale';
@@ -29,7 +30,8 @@ export class SaleService
         count: p.count,
         purchase_price: p.purchase_price,
         sale_price: p.sale_price,
-        product: p.product.id
+        product: p.product.id,
+        product_name: p.product_name
       };
     });
     const data = { products };
@@ -50,6 +52,23 @@ export class SaleService
 
     return this.http.get<ResponseGetAllSales>(`${environment.API_URL}/sales`, httpOptions);
   }
+
+  /**
+   * Obtiene un cigarrillo en especifico
+   */
+   getSaleById( id: string ): Observable<Sale>
+   {
+    //  let httpOptions = {};
+
+    //  if(sercheable)
+    //  {
+    //    httpOptions = {
+    //      params: new HttpParams().set('sercheable', true)
+    //    };
+    //  }
+
+     return this.http.get<Sale>(`${environment.API_URL}/sales/${id}`);
+   }
 
 
 }

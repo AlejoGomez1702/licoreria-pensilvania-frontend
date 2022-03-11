@@ -14,8 +14,6 @@ import { ChangePriceDialogComponent } from './change-price-dialog/change-price-d
 })
 export class SaleTableComponent implements OnInit, AfterViewInit
 {
-  public total: string = '';
-
   @Input() saleId: number = -1;
   @Input() products: CartItem[] = [];
   @Input() index: number = -1;

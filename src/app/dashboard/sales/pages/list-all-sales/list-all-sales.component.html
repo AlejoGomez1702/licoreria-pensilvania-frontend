@@ -1,7 +1,15 @@
 <!-- Tabla para el resumen de las ventas del negocio -->
 <div class="contenedor">
     <div class="row ml-1">
-        <h1 class="fw-500 txt-center">Resumen de Ventas</h1>
+        <div class="col-2 col-md-2 col-lg-2">
+            <a routerLink="/dashboard" mat-icon-button aria-label="Example icon-button with a heart icon">
+                <mat-icon>arrow_back</mat-icon>
+                Atras
+            </a>
+        </div>
+        <div class="col-10 col-md-10 col-lg-10" style="padding-right: 20%;">
+            <h1 class="fw-500 txt-center">Resumen de Ventas</h1>
+        </div>
     </div>
 
     <mat-divider></mat-divider>
@@ -72,10 +80,17 @@
 
                 <!-- Acciones -->
                 <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Impirmir Ticket</th>
-                    <td mat-cell *matCellDef="let row" class="d-flex flex-row bd-highlight">
-                        <button mat-mini-fab class="bd-highlight fab-icono">
-                            <mat-icon>print</mat-icon>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                    <td mat-cell *matCellDef="let row">
+                        <button title="Ver Detalles" class="btn" (click)="showSaleDetail( row )">
+                            <span class="show-color">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </span>                    
+                        </button>
+                        <button title="Imprimir" class="btn">
+                            <span class="edit-color">
+                                <i class="fa fa-print" aria-hidden="true"></i>
+                            </span>                    
                         </button>
                     </td>
                 </ng-container>

@@ -42,6 +42,11 @@
         Crear Venta
       </a>
 
+      <a mat-list-item [routerLink]="['/dashboard/purchases/create']" (click)="drawer.toggle()">
+        <mat-icon mat-list-icon>shopping_basket</mat-icon>
+        Crear Compra
+      </a>
+
       <mat-divider></mat-divider>
       <div mat-subheader>Opciones</div>
 
@@ -49,6 +54,11 @@
         <mat-list-option (click)="goToSales(); drawer.toggle()">
           <mat-icon mat-list-icon>shop_two</mat-icon>
           Ventas
+        </mat-list-option>
+
+        <mat-list-option (click)="goToPurchases(); drawer.toggle()">
+          <mat-icon mat-list-icon>library_books</mat-icon>
+          Compras
         </mat-list-option>
 
         <mat-list-option (click)="goToProducts(); drawer.toggle()">

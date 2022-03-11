@@ -151,6 +151,11 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     return (totalWithUtility - totalInversion);
   }
 
+  showSaleDetail( sale: Sale )
+  {
+    this.router.navigate(['/dashboard/sales/show/' + sale.id]);
+  }
+
   paginateChange( event:PageEvent ): PageEvent
   {
     this.length = event.length;

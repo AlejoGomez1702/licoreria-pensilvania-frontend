@@ -4,6 +4,7 @@ export interface CartItem
 {
     id: string;
     product: Product;
+    product_name?: string;
     count: number;
     sale_price: number;
     is_second_price?: boolean;

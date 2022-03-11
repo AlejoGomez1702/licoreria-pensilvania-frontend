@@ -8,6 +8,7 @@ import { SaleTableComponent } from './components/sale-table/sale-table.component
 import { ListAllSalesComponent } from './pages/list-all-sales/list-all-sales.component';
 import { BarGraphComponent } from './components/graphs/bar-graph/bar-graph.component';
 import { ChangePriceDialogComponent } from './components/sale-table/change-price-dialog/change-price-dialog.component';
+import { SaleDetailComponent } from './pages/sale-detail/sale-detail.component';
 // import {MatSnackBar} from '@angular/material/snack-bar';
 
 
@@ -17,7 +18,8 @@ import { ChangePriceDialogComponent } from './components/sale-table/change-price
     SaleTableComponent,
     ListAllSalesComponent,
     BarGraphComponent,
-    ChangePriceDialogComponent
+    ChangePriceDialogComponent,
+    SaleDetailComponent
   ],
   imports: [
     CommonModule,

@@ -57,7 +57,7 @@ export class CreateComponent implements OnInit
 
   getFullProductName( product: Product )
   {
-    return `${product.category.name} ${product.name} | ${product.unit.unit}`;
+    return `${product.category.name} ${product.name} X ${product.unit.unit}`;
   }
 
   isEmpty(index: number): boolean
@@ -329,6 +329,7 @@ export class CreateComponent implements OnInit
     return {
               id, 
               product, 
+              product_name: this.getFullProductName( product ),
               count: 1, 
               sale_price: product.sale_price,
               is_second_price: false,
@@ -345,6 +346,7 @@ export class CreateComponent implements OnInit
         this.saleResumeTable.get(index)?.refreshData( this.products[index] );
         this.cartService.refreshCart(this.products);
         this.sweetAlert.presentSuccess('Venta Creada Correctamente!');
+        console.log("venta creadaaa: ", res);
       },
       error => {
         console.log(error);

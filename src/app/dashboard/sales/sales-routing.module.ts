@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateComponent } from './pages/create/create.component';
 import { ListAllSalesComponent } from './pages/list-all-sales/list-all-sales.component';
+import { SaleDetailComponent } from './pages/sale-detail/sale-detail.component';
 
 const routes: Routes = [
   // /dashboard/sales
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'create',
     component: CreateComponent
+  },
+  {
+    path: 'show/:id',
+    component: SaleDetailComponent
   }
 ];
 
