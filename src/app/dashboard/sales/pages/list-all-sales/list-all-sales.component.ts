@@ -18,6 +18,7 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
 {
   public sales: Sale[] = [];
   public statistics: Statistic[] = [];
+  public statisticsInversion: Statistic[] = [];
 
   displayedColumns: string[] = ['date', 'total', 'utility', 'client', 'user', 'actions'];
   dataSource: MatTableDataSource<Sale>;
@@ -62,6 +63,7 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
         this.sales = res.sales;
         this.length = res.total;
         this.statistics = res.statistics;
+        this.statisticsInversion = res.statisticsInversion;
         this.dataSource.data = this.sales;
         console.log(res);
       },
@@ -80,6 +82,25 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     });
 
     return totalAmmount;
+  }
+
+  getSalesInversionTotal()
+  {
+    let totalAmmount = 0;
+
+    this.statisticsInversion.forEach(statistic => {
+      totalAmmount += statistic.totalAmount;
+    });
+
+    return totalAmmount;
+  }
+
+  getUtilityTotal()
+  {
+    const salesTotal = this.getSalesTotal();
+    const salesInversionTotal = this.getSalesInversionTotal();
+
+    return salesTotal - salesInversionTotal;
   }
 
   filterSales()

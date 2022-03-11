@@ -16,17 +16,25 @@ export class BarGraphComponent implements OnInit
   @Input() 
   set statistics(statisticsData: Statistic[])
   {
-    // this.statisticsData = statisticsData;
     this.statisticsData = statisticsData.sort((a, b) => (a.day-b.day));
     this.refreshGraph();  
   }
 
-  private statisticsData: Statistic[] = [];  
+  @Input() 
+  set statisticsInversion(statisticsData: Statistic[])
+  {
+    this.statisticsInversionData = statisticsData.sort((a, b) => (a.day-b.day));
+    this.refreshGraph();  
+  }
+
+  private statisticsData: Statistic[] = [];
+  private statisticsInversionData: Statistic[] = [];  
 
   public barChartData: ChartData<'bar'> = {
     labels: this.getDays,
     datasets: [
-      { data: this.getTotals, label: 'Ventas Por Dia' },
+      { data: this.getTotals, label: 'Total Ventas' },
+      { data: this.getTotalsInversion, label: 'Total Inversión' },
       // { data: [ 500000, 600000, 800000, 810000, 560000, 550000, 400000, 400000, 400000, 400000, 400000, 400000 ], label: 'Compras' }
     ]
   };
@@ -41,6 +49,15 @@ export class BarGraphComponent implements OnInit
   get getTotals(): number[]
   {    
     const data =  this.statisticsData.map(s => {
+      return s.totalAmount;
+    });
+
+    return data;
+  }
+
+  get getTotalsInversion(): number[]
+  {    
+    const data =  this.statisticsInversionData.map(s => {
       return s.totalAmount;
     });
 
@@ -73,7 +90,8 @@ export class BarGraphComponent implements OnInit
     this.barChartData = {
       labels: this.getDays,
       datasets: [
-        { data: this.getTotals, label: 'Ventas Por Dia' },
+        { data: this.getTotals, label: 'Total Ventas' },
+        { data: this.getTotalsInversion, label: 'Total Inversión' },
         // { data: [ 500000, 600000, 800000, 810000, 560000, 550000, 400000, 400000, 400000, 400000, 400000, 400000 ], label: 'Compras' }
       ]
     };

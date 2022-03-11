@@ -5,6 +5,7 @@ export interface ResponseGetAllSales
     total: number;
     sales: Sale[];
     statistics: Statistic[];
+    statisticsInversion: Statistic[];
 }
 
 
