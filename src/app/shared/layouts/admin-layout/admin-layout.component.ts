@@ -17,6 +17,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
   panelOpenState = false;
   userImg = '';
   public userName: string = '';
+  public establishment: string = '';
 
   screenWidth: number = 1000;
 
@@ -46,8 +47,10 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
 
     this.userService.getLoggedUser().subscribe(
       (res) => {
+        console.log("Initttttt: ", res);
         this.userImg = res?.user.img || 'assets/images/user-default.svg';
         this.userName= res?.user.name;
+        this.establishment = res.user.establishment.name;
       }
     );
   }

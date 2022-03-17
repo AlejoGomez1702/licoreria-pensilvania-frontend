@@ -7,23 +7,16 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  apiUrl = environment.API_URL;
+export class UserService 
+{
 
-  headers = new HttpHeaders({
-    'Content-Type':  'application/json',
-    'x-token': this.tokenService.getToken()
-  });
-  constructor(private http: HttpClient,
-    private tokenService: TokenService) { }
+  constructor(
+    private http: HttpClient,
+  ) 
+  { }
 
-  getLoggedUser() {
-    const httpOptions = {
-      params: new HttpParams().set('limit', 10),
-      headers: this.headers
-    };
-    return this.http.get<any>(
-      `${this.apiUrl}/auth/me`, httpOptions
-    )
+  getLoggedUser() 
+  {
+    return this.http.get<any>(`${environment.API_URL}/auth/me`)
   }
 }
