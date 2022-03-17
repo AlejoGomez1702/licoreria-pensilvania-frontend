@@ -17,7 +17,7 @@ import { PurchaseTableComponent } from './components/purchase-table/purchase-tab
   imports: [
     CommonModule,
     PurchasesRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class PurchasesModule { }

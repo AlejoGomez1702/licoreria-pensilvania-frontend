@@ -11,7 +11,8 @@ import { MainPanelComponent } from './pages/main-panel/main-panel.component';
 @NgModule({
   declarations: [
     MainContentComponent,
-    MainPanelComponent
+    MainPanelComponent,
+    
   ],
   imports: [
     CommonModule,

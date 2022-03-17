@@ -212,8 +212,6 @@ export class CreateComponent implements OnInit
       this.filteredProducts = this.searchService.searchProduct( this.search, '' ).pipe(
         map(products => (products ? products.results : [])),
       );
-
-      // this.searchByName();
     }
   }
 

@@ -27,6 +27,7 @@ import { FabCartComponent } from './index/components/fab-cart/fab-cart.component
 import { ShoppingCartComponent } from './index/pages/shopping-cart/shopping-cart.component';
 import { ShoppingCartHeaderComponent } from './index/components/main-header/shopping-cart-header/shopping-cart-header.component';
 import { NgChartsModule } from 'ng2-charts';
+import { MainToolbarComponent } from '../dashboard/components/main-toolbar/main-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { NgChartsModule } from 'ng2-charts';
     FabCartComponent,
     ShoppingCartComponent,
     ShoppingCartHeaderComponent,
+    MainToolbarComponent
 
     // Modules
     // MaterialModule
@@ -79,6 +81,7 @@ import { NgChartsModule } from 'ng2-charts';
     FooterComponent,
     LoaderComponent,
     AdminLayoutComponent,
+    MainToolbarComponent,
     AdDirective,
     SpinnerModule,
     NgChartsModule

@@ -1,31 +1,48 @@
 <div class="contenedor">
-    <div class="row ml-1">
-        <h1 class="fw-500 txt-center">CREAR NUEVA COMPRA</h1>        
+  <div class="row ml-1">
+    <div class="col-2 col-md-2 col-lg-2">
+        <a routerLink="/dashboard/purchases" mat-icon-button aria-label="Example icon-button with a heart icon">
+            <mat-icon>arrow_back</mat-icon>
+            Atras
+        </a>
     </div>
+    <div class="col-10 col-md-10 col-lg-10" style="padding-right: 20%;">
+        <h1 class="fw-500 txt-center">CREAR NUEVA COMPRA</h1>
+    </div>
+  </div>
 
     <mat-divider></mat-divider>
 
     <!-- Buscar productos -->
     <div class="row mt-3">
       <div class="col-10">
-        <mat-form-field appearance="fill" class="w-100">
-          <mat-icon matPrefix>search</mat-icon>
-          <mat-label>Escánear Código de Barras o Buscar Producto...</mat-label>
-          <input matInput type="text" autofocus
-                  [(ngModel)]="search"
-                  (keydown.enter)="searchProduct()">
-          <mat-selection-list #shoes [multiple]="false">
-            <mat-list-item *ngFor="let product of filteredProducts" (click)="searchById( product.id || '' )">
-              <mat-icon mat-list-icon>add_shopping_cart</mat-icon>
-              <div mat-line>{{product.category.name}}</div>
-              <div mat-line> {{product.name + ' X ' + product.unit.unit}} </div>
-            </mat-list-item>
-          </mat-selection-list>
-
-          <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchData()">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
+        <div mat-dialog-content>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-icon matPrefix>search</mat-icon>
+                <mat-label>Escánear Código de Barras o Buscar Producto...</mat-label>
+                <input matInput type="text" autofocus
+                      aria-label="Producto"
+                      [(ngModel)]="search"
+                      [matAutocomplete]="auto"
+                      (keydown.enter)="searchProduct()">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option
+                            *ngFor="let product of filteredProducts | async" 
+                            [value]="getFullProductName( product )"
+                            (onSelectionChange)="verifyAddCartProduct( product )">
+                    <img class="example-option-img" aria-hidden [src]="product.img" height="25">
+                    <small>{{ getFullProductName( product ) }}</small>
+                  </mat-option>
+                </mat-autocomplete>
+                <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search = ''">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        
+            <!-- <div class="alert alert-warning" role="alert" *ngIf="products.length < 1">
+              No hay productos para mostrar!
+            </div> -->
+        </div>
       </div>
 
       <div class="col-2 pt-2">
@@ -44,7 +61,14 @@
         </div>
 
         <!-- ***************************************** Contenido del tab ************************************ -->
-        <app-purchase-table [products]="products"></app-purchase-table>
+        <app-purchase-table 
+                  [products]="products"
+                  (onDeleteItem)="removeCartItem( $event )"
+                  (onPlusItem)="plusCartItem( $event )"
+                  (onMinusItem)="minusCartItem( $event )"
+                  (onChangePriceItem)="changePriceCartItem( $event )">
+
+        </app-purchase-table>
         <!-- ***************************************** Contenido del tab ************************************ -->
 
     </div>
