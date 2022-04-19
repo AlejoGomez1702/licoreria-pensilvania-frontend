@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CartItem } from '../../sales/interfaces/CartItem';
 import { Purchase } from '../interfaces/Purchase';
+import { ResponseGetAllPurchases } from '../interfaces/ResponseGetAllPurchases';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,28 @@ export class PurchaseService
      const data = { products };
  
      return this.http.post<Purchase>(`${environment.API_URL}/purchases`, data);
+   }
+
+  /**
+   * Obtiene todas las compras del negocio del usuario logueado.
+   * @returns Todas las compras.
+   */
+   getAllPurchases( limit?: number, from?: number ): Observable<ResponseGetAllPurchases>
+   {
+     const httpOptions = {
+       params: new HttpParams().set('limit', limit ? limit : 8)
+                               .set('from', from ? from : 0)
+     };
+ 
+     return this.http.get<ResponseGetAllPurchases>(`${environment.API_URL}/purchases`, httpOptions);
+   }
+
+  /**
+   * Obtiene una compra especifica
+  */
+   getPurchaseById( id: string ): Observable<Purchase>
+   {
+     return this.http.get<Purchase>(`${environment.API_URL}/purchases/${id}`);
    }
 
 }

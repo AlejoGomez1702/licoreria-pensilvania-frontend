@@ -6,13 +6,15 @@ import { ListAllPurchasesComponent } from './pages/list-all-purchases/list-all-p
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CreatePurchasesComponent } from './pages/create-purchases/create-purchases.component';
 import { PurchaseTableComponent } from './components/purchase-table/purchase-table.component';
+import { PurchaseDetailComponent } from './pages/purchase-detail/purchase-detail.component';
 
 
 @NgModule({
   declarations: [
     ListAllPurchasesComponent,
     CreatePurchasesComponent,
-    PurchaseTableComponent
+    PurchaseTableComponent,
+    PurchaseDetailComponent
   ],
   imports: [
     CommonModule,

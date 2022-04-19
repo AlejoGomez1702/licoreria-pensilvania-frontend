@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreatePurchasesComponent } from './pages/create-purchases/create-purchases.component';
 import { ListAllPurchasesComponent } from './pages/list-all-purchases/list-all-purchases.component';
+import { PurchaseDetailComponent } from './pages/purchase-detail/purchase-detail.component';
 
 const routes: Routes = [
   // /dashboard/purchases
@@ -13,6 +14,11 @@ const routes: Routes = [
   {
     path: 'create',
     component: CreatePurchasesComponent
+  },
+  // /dashboard/purchases/show/:id
+  {
+    path: 'show/:id',
+    component: PurchaseDetailComponent
   }
 ];
 

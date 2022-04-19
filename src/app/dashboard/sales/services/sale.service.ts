@@ -54,21 +54,12 @@ export class SaleService
   }
 
   /**
-   * Obtiene un cigarrillo en especifico
-   */
-   getSaleById( id: string ): Observable<Sale>
-   {
-    //  let httpOptions = {};
-
-    //  if(sercheable)
-    //  {
-    //    httpOptions = {
-    //      params: new HttpParams().set('sercheable', true)
-    //    };
-    //  }
-
-     return this.http.get<Sale>(`${environment.API_URL}/sales/${id}`);
-   }
+   * Obtiene una venta especifica
+  */
+  getSaleById( id: string ): Observable<Sale>
+  {
+    return this.http.get<Sale>(`${environment.API_URL}/sales/${id}`);
+  }
 
 
 }

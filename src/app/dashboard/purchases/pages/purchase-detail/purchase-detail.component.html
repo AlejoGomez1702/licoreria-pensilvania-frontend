@@ -1,0 +1,58 @@
+<!-- Tabla para el resumen de las compras del negocio -->
+<div class="contenedor">
+    <div class="row ml-1">
+        <div class="col-2 col-md-2 col-lg-2">
+            <a routerLink="/dashboard/purchases" mat-icon-button aria-label="Example icon-button with a heart icon">
+                <mat-icon>arrow_back</mat-icon>
+                Atras
+            </a>
+        </div>
+        <div class="col-10 col-md-10 col-lg-10" style="padding-right: 20%;">
+            <h1 class="fw-500 txt-center">Resumen de Compra: <span style="color: #36993f;">{{ purchaseId }}</span> </h1>
+            <h1 class="fw-500 txt-center">Fecha: {{ createDate | date:"dd/MM/yyyy" }}</h1>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Table Data -->
+    <div class="mat-elevation-z8 mr-2 ml-2 mb-2">
+        <table class="full-width-table" mat-table [dataSource]="dataSource" matSort>        
+            <!-- Nombre -->
+            <ng-container matColumnDef="product">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
+                <td mat-cell *matCellDef="let row">{{ row.product_name }}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <!-- Cantidad -->
+            <ng-container matColumnDef="count">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+                <td mat-cell *matCellDef="let row">{{ row.count }}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <!-- Precio Unitario -->
+            <ng-container matColumnDef="unit_price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio Unitario</th>
+                <td mat-cell *matCellDef="let row">
+                    $ {{ row.sale_price | number }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <!-- Total -->
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+                <td mat-cell *matCellDef="let row">$ {{ (row.sale_price * row.count) | number }}</td>
+                <td mat-footer-cell *matFooterCellDef> Total ${{ total | number }}</td>
+            </ng-container>                 
+                        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4" style="color: #36993f;">Esta venta no tiene productos!</td>
+            </tr>
+    
+        </table>
+    </div>
+
+</div>
