@@ -1,0 +1,31 @@
+<h1 mat-dialog-title class="txt-center">Agregar Cliente</h1>
+<div mat-dialog-content>
+  <!-- DNI -->
+  <mat-form-field appearance="fill">
+    <mat-label>Cédula o NIT</mat-label>
+    <input type="number" matInput [(ngModel)]="data.dni">
+  </mat-form-field>
+
+  <!-- Nombre Completo -->
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre Completo</mat-label>
+    <input type="text" matInput [(ngModel)]="data.name" required>
+  </mat-form-field>
+
+  <!-- Celular -->
+  <mat-form-field appearance="fill">
+    <mat-label>Celular</mat-label>
+    <input type="number" matInput [(ngModel)]="data.cellphone" required>
+  </mat-form-field>
+
+  <!-- Dirección -->
+  <mat-form-field appearance="fill">
+    <mat-label>Dirección</mat-label>
+    <input type="text" matInput [(ngModel)]="data.address">
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions class="box-center">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="saveClient()" cdkFocusInitial>Guardar</button>
+</div>

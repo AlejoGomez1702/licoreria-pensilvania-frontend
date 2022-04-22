@@ -28,7 +28,7 @@
                 <!-- Nombre -->
                 <ng-container matColumnDef="dni">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Cédula</th>
-                    <td mat-cell *matCellDef="let row">{{ row.dni }}</td>
+                    <td mat-cell *matCellDef="let row">{{ row.dni | blankSpace }}</td>
                 </ng-container>
                 <!-- Unidad de media -->
                 <ng-container matColumnDef="name">
@@ -38,24 +38,24 @@
                 <!-- Precio de venta -->
                 <ng-container matColumnDef="cellphone">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Celular</th>
-                    <td mat-cell *matCellDef="let row">$ {{ row.cellphone }}</td>
+                    <td mat-cell *matCellDef="let row">{{ row.cellphone }}</td>
                 </ng-container>
                 <!-- Precio de venta 2 -->
                 <ng-container matColumnDef="address">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</th>
-                    <td mat-cell *matCellDef="let row">$ {{ row.address }}</td>
+                    <td mat-cell *matCellDef="let row">{{ row.address | blankSpace }}</td>
                 </ng-container>              
             
                 <!-- Acciones -->
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
                     <td mat-cell *matCellDef="let row">
-                        <button title="Editar" class="btn">
+                        <button title="Editar" class="btn" (click)="editClient(row)">
                             <span class="edit-color">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </span>                    
                         </button>
-                        <button title="Eliminar" class="btn">
+                        <button title="Eliminar" class="btn" (click)="deleteClient(row)">
                             <span class="delete-color">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </span>                    
