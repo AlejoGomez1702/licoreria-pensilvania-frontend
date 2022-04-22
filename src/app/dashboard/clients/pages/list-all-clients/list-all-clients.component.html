@@ -1,7 +1,8 @@
-<!-- Tabla para el inventario de licores -->
+<!-- Tabla para el resumen de las ventas del negocio -->
 <div class="contenedor">
+
     <app-main-toolbar
-                    [title]="'INVENTARIO DE CIGARRILLOS'"
+                    [title]="'CLIENTES REGISTRADOS'"
                     [backRoute]="'/dashboard'">        
     </app-main-toolbar>
 
@@ -9,7 +10,7 @@
 
     <div class="row mt-3">
         <div class="col-3">
-            <button mat-raised-button color="primary" (click)="createProduct()">
+            <button mat-raised-button color="primary" (click)="createClient()">
                 Agregar
                 <mat-icon>add</mat-icon>
             </button>
@@ -25,46 +26,36 @@
         <div class="mat-elevation-z8">
             <table class="full-width-table" mat-table [dataSource]="dataSource" matSort>        
                 <!-- Nombre -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
-                    <td mat-cell *matCellDef="let row">{{ row | productName }}</td>
+                <ng-container matColumnDef="dni">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cédula</th>
+                    <td mat-cell *matCellDef="let row">{{ row.dni }}</td>
                 </ng-container>
                 <!-- Unidad de media -->
-                <ng-container matColumnDef="unit">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Unidad Medida</th>
-                    <td mat-cell *matCellDef="let row">{{ row | unitDetail:'cigarettes' }}</td>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                    <td mat-cell *matCellDef="let row">{{ row.name }}</td>
                 </ng-container>
                 <!-- Precio de venta -->
-                <ng-container matColumnDef="sale_price">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
-                    <td mat-cell *matCellDef="let row">$ {{row.sale_price | number}}</td>
+                <ng-container matColumnDef="cellphone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Celular</th>
+                    <td mat-cell *matCellDef="let row">$ {{ row.cellphone }}</td>
                 </ng-container>
                 <!-- Precio de venta 2 -->
-                <ng-container matColumnDef="second_sale_price">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio 2</th>
-                    <td mat-cell *matCellDef="let row">$ {{row.second_sale_price | number}}</td>
-                </ng-container>
-                <!-- Stock -->
-                <ng-container matColumnDef="stock">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Stock</th>
-                    <td mat-cell *matCellDef="let row">{{row.stock}}</td>
-                </ng-container>
-                <!-- Existencia actual -->
-                <ng-container matColumnDef="current_existence">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad Actual</th>
-                    <td mat-cell *matCellDef="let row">{{row.current_existence}}</td>
-                </ng-container>                    
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</th>
+                    <td mat-cell *matCellDef="let row">$ {{ row.address }}</td>
+                </ng-container>              
             
                 <!-- Acciones -->
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
                     <td mat-cell *matCellDef="let row">
-                        <button title="Editar" class="btn" (click)="editCigarette( row )">
+                        <button title="Editar" class="btn">
                             <span class="edit-color">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </span>                    
                         </button>
-                        <button title="Eliminar" class="btn" (click)="deleteCigarette( row )">
+                        <button title="Eliminar" class="btn">
                             <span class="delete-color">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </span>                    
@@ -89,5 +80,5 @@
             </mat-paginator>
         </div>
     </mat-card-content>
-    
+
 </div>

@@ -24,6 +24,11 @@ const routes: Routes = [
   {
     path: 'providers',
     loadChildren: () => import('./providers/providers.module').then( m => m.ProvidersModule )
+  },  
+  // dashboard/clients
+  {
+    path: 'clients',
+    loadChildren: () => import('./clients/clients.module').then( m => m.ClientsModule )
   },
   {
     path: 'sales',

@@ -71,6 +71,11 @@
           Proveedores
         </mat-list-option>
 
+        <mat-list-option (click)="goToClients(); drawer.toggle()">
+          <mat-icon mat-list-icon>person</mat-icon>
+          Clientes
+        </mat-list-option>
+
         <mat-list-option (click)="goToSettings(); drawer.toggle()">
           <mat-icon mat-list-icon>settings</mat-icon>
           Configuración
