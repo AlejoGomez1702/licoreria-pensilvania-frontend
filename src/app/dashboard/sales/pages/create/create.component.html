@@ -45,8 +45,9 @@
     </div>
 
     <div class="section">
-      <mat-tab-group [selectedIndex]="selected.value" (selectedTabChange)="verifyControlTab()"
-            (selectedIndexChange)="selected.setValue($event)">
+      <mat-tab-group  [selectedIndex]="selected.value" 
+                      (selectedTabChange)="verifyControlTab()"
+                      (selectedIndexChange)="selected.setValue($event)">
 
         <ng-container *ngFor="let tab of tabs; let index = index">
           <mat-tab>
@@ -57,9 +58,27 @@
               <div class="col-6">
                 <h1 class="fw-500 txt-end" style="color: #36993f;">Resumen de la Venta {{ (index + 1) }}</h1>
               </div>
-              <div class="col-4">
-                <button mat-raised-button color="primary" [disabled]="isEmpty(index)" (click)="finishSale(index)">Terminar Venta</button>
+
+              <!-- Boton de terminar la venta -->
+              <div class="col-4">                
+                <button mat-raised-button color="primary" 
+                                          [disabled]="isEmpty(index)"                                          
+                                          [matMenuTriggerFor]="menu" #menuTrigger>
+                  <mat-icon>menu</mat-icon>
+                  Terminar Venta
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="finishCashSale( index, 'counted' )">
+                    <mat-icon>euro_symbol</mat-icon>
+                    <span>Contado</span>                    
+                  </button>
+                  <button mat-menu-item (click)="finishCashSale( index, 'trusted' )">
+                    <mat-icon>payment</mat-icon>
+                    <span>Fiado</span>     
+                  </button>
+                </mat-menu>
               </div>
+
             </div>
             <!-- ***************************************** Contenido del tab ************************************ -->
             <app-sale-table [saleId]="countSales" 
@@ -88,13 +107,8 @@
               </ng-template>
             </mat-tab>
           </ng-container>
+
         </ng-container>
       </mat-tab-group>
     </div>
-
-    <!-- Boton flotante -->
-    <!-- <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="fab-main">
-        <mat-icon>shopping_cart</mat-icon>
-    </button> -->
-    
 </div>

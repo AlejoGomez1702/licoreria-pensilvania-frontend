@@ -1,5 +1,6 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -7,8 +8,10 @@ import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SearchService } from 'src/app/dashboard/products/services/search.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { CashSaleDialogComponent } from '../../components/cash-sale-dialog/cash-sale-dialog.component';
 import { SaleTableComponent } from '../../components/sale-table/sale-table.component';
 import { CartItem } from '../../interfaces/CartItem';
+import { ClientSaleData } from '../../interfaces/ClientSaleData';
 import { SaleItemDetail } from '../../interfaces/SaleItemDetail';
 import { CartService } from '../../services/cart.service';
 import { SaleService } from '../../services/sale.service';
@@ -43,7 +46,8 @@ export class CreateComponent implements OnInit
     private cartService: CartService,
     private filterService: FilterService,
     private _snackBar: MatSnackBar,    
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    public dialog: MatDialog
   ) 
   {}
 
@@ -335,7 +339,24 @@ export class CreateComponent implements OnInit
             };
   }
 
-  finishSale(index: number)
+  getCartTotal( index:number ): number
+  {
+    this.saleResumeTable.get(index)
+    let total = 0;
+
+    for (const product of this.products[index]) 
+    {
+      total += (product.count * product.sale_price);      
+    }
+
+    return total;
+  }
+
+  /**
+   * Finalizar una venta del listado de ventas.
+   * @param index Posición en el listado de ventas(array).
+   */
+  finishSale(index: number): void
   {
     const sale: CartItem[] = this.products[index];
     this.saleService.createSale(sale).subscribe(
@@ -344,13 +365,37 @@ export class CreateComponent implements OnInit
         this.saleResumeTable.get(index)?.refreshData( this.products[index] );
         this.cartService.refreshCart(this.products);
         this.sweetAlert.presentSuccess('Venta Creada Correctamente!');
-        console.log("venta creadaaa: ", res);
       },
       error => {
         console.log(error);
         this.sweetAlert.presentError('Creando Venta!');
       }
     );
-    console.log("Venta: ", sale);
+  }
+
+  /**
+   * Finalizar una venta al contado
+   * @param index Posición en el listado de ventas(arreglo).
+   */
+  finishCashSale( index: number, typeSale: string )
+  {
+    const clientSaleData: ClientSaleData = {
+      totalSale: this.getCartTotal( index ),
+      typeSale //Venta de contado o fiado
+    };
+
+    const dialogRef = this.dialog.open(CashSaleDialogComponent, {
+      minWidth: '300px',
+      maxWidth: '500px',
+      data: clientSaleData,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result)
+      {
+        // Finalizar la venta.
+        this.finishSale( index );
+      }
+    });
   }
 }

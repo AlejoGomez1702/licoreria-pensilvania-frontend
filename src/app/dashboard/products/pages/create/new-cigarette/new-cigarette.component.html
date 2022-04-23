@@ -124,7 +124,7 @@
                 <mat-form-field appearance="fill" class="formControl">
                     <mat-label>Precio de Compra</mat-label>
                     <input matInput currencyMask formControlName="purchase_price" 
-                    [options]="{ allowNegative: false, precision: 0, thousands: '.' }"/>
+                            [options]="{ allowNegative: false, precision: 0, thousands: '.' }"/>
                     <mat-error *ngIf="validField('purchase_price')">
                         Campo Inválido
                     </mat-error>

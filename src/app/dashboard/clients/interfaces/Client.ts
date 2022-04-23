@@ -1,7 +1,7 @@
 export interface Client
 {
     id?: string;
-    dni?: string;
+    dni: string;
     name: string;
     cellphone: string;
     address?: string;

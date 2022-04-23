@@ -23,21 +23,16 @@ export class NewClientDialogComponent implements OnInit
 
   saveClient(): void
   {
-    let client: Client = {name: '', cellphone: ''};
+    let client: Client = {dni: '', name: '', cellphone: ''};
     const { id, dni, name, cellphone, address } = this.data;
     // Comprobar los campos requeridos
     // Comprobar que el teléfono sea numerico
-    if( name && cellphone && parseInt(cellphone))
+    if( dni && name && cellphone && parseInt(cellphone))
     {
       client.id = id;
+      client.dni = dni;
       client.name = name;
       client.cellphone = `${cellphone}`;
-
-      // si vienen los campos opcionales agregarlos
-      if( dni )
-      {
-        client.dni = `${dni}`
-      }
 
       if( address )
       {

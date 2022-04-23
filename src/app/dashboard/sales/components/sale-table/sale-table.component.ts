@@ -62,15 +62,6 @@ export class SaleTableComponent implements OnInit, AfterViewInit
 
     for (const product of this.products) 
     {
-      // if(product.is_second_price)
-      // {
-      //   total += (product.count * product.product.second_sale_price);    
-      // }
-      // else
-      // {
-      //   total += (product.count * product.sale_price);    
-      // }
-
       total += (product.count * product.sale_price);      
     }
 

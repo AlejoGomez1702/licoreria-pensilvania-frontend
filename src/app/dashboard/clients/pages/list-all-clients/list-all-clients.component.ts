@@ -74,8 +74,6 @@ export class ListAllClientsComponent implements OnInit
 
   editClient( client: Client )
   {
-    console.log(client);
-
     const dialogRef = this.dialog.open(NewClientDialogComponent, {
       width: '250px',
       data: {...client},
