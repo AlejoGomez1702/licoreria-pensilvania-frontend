@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { NewClientDialogComponent } from 'src/app/dashboard/clients/components/new-client-dialog/new-client-dialog.component';
 import { Client } from 'src/app/dashboard/clients/interfaces/Client';
 import { ClientService } from 'src/app/dashboard/clients/services/client.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
@@ -33,6 +34,7 @@ export class CashSaleDialogComponent implements OnInit
     private sweetAlert: SweetAlertService,
     public dialogRef: MatDialogRef<CashSaleDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public clientSaleData: ClientSaleData, // Cantidad con la que paga el cliente.
+    public dialog: MatDialog
   ) 
   { 
     this.termDniClient.valueChanges.subscribe(
@@ -79,7 +81,6 @@ export class CashSaleDialogComponent implements OnInit
     this.clientService.getAllClients(category, limit, from)
     .subscribe(
       res => {
-        console.log(res);
         this.clients = res.clients;
       },
       error => this.sweetAlert.presentError(error.error.error)
@@ -107,6 +108,7 @@ export class CashSaleDialogComponent implements OnInit
   {
     this.dni = client.dni;
     this.clientSelected = client;
+    this.termDniClient.setValue( this.dni );
   }
 
   aceptDialog()
@@ -117,6 +119,36 @@ export class CashSaleDialogComponent implements OnInit
     {
       this.dialogRef.close( this.clientSelected );
     }
+  }
+
+  createClient()
+  {
+    const client: Client = {
+      dni: '',
+      name: '',
+      cellphone: '',
+      address: ''
+    };
+
+    const dialogRef = this.dialog.open(NewClientDialogComponent, {
+      width: '250px',
+      data: {...client},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result)
+      {
+        // Crear cliente en el sistema.
+        this.clientService.createClient( result ).subscribe(
+          client => {
+            this.onChangeClient(client);
+            // this.loadClients();
+            this.sweetAlert.presentSuccess(`Cliente ${client.name} Creado!`)
+          },
+          error => console.log(error)
+        );
+      }
+    });
   }
 
   onNoClick(): void 
