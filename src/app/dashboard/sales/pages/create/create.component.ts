@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Client } from 'src/app/dashboard/clients/interfaces/Client';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SearchService } from 'src/app/dashboard/products/services/search.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
@@ -356,10 +357,10 @@ export class CreateComponent implements OnInit
    * Finalizar una venta del listado de ventas.
    * @param index Posición en el listado de ventas(array).
    */
-  finishSale(index: number): void
+  finishSale(index: number, clientId: string): void
   {
     const sale: CartItem[] = this.products[index];
-    this.saleService.createSale(sale).subscribe(
+    this.saleService.createSale( sale, clientId ).subscribe(
       res => {
         this.products[index] = [];
         this.saleResumeTable.get(index)?.refreshData( this.products[index] );
@@ -390,11 +391,13 @@ export class CreateComponent implements OnInit
       data: clientSaleData,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: Client) => {
       if(result)
       {
+        console.log("Resultado: " ,result);
+        const { id = '' } = result; 
         // Finalizar la venta.
-        this.finishSale( index );
+        this.finishSale( index, id );
       }
     });
   }

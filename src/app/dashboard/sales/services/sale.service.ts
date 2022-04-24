@@ -23,7 +23,7 @@ export class SaleService
    * @param sale Venta a crear.
    * @returns 
    */
-  createSale(sale: CartItem[]): Observable<Sale>
+  createSale(sale: CartItem[], clientId: string): Observable<Sale>
   {
     const products = sale.map(p => {
       return {
@@ -34,7 +34,17 @@ export class SaleService
         product_name: p.product_name
       };
     });
-    const data = { products };
+
+    let data;
+
+    if( clientId )
+    {
+      data = { products, clientId };
+    }
+    else
+    {
+      data = { products };
+    }
 
     return this.http.post<Sale>(`${environment.API_URL}/sales`, data);
   }
