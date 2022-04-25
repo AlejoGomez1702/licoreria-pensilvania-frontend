@@ -43,6 +43,9 @@ export class ListAllClientsComponent implements OnInit
     this.loadClients();
   }
 
+  /**
+   * Crear un cliente en el sistema.
+   */
   createClient()
   {
     const client: Client = {
@@ -72,6 +75,10 @@ export class ListAllClientsComponent implements OnInit
     });
   }
 
+  /**
+   * Editar un cliente
+   * @param client 
+   */
   editClient( client: Client )
   {
     const dialogRef = this.dialog.open(NewClientDialogComponent, {

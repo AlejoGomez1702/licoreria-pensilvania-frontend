@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CreatePurchasesComponent } from './pages/create-purchases/create-purchases.component';
 import { PurchaseTableComponent } from './components/purchase-table/purchase-table.component';
 import { PurchaseDetailComponent } from './pages/purchase-detail/purchase-detail.component';
+import { GetProviderPurchaseComponent } from './components/get-provider-purchase/get-provider-purchase.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { PurchaseDetailComponent } from './pages/purchase-detail/purchase-detail
     ListAllPurchasesComponent,
     CreatePurchasesComponent,
     PurchaseTableComponent,
-    PurchaseDetailComponent
+    PurchaseDetailComponent,
+    GetProviderPurchaseComponent
   ],
   imports: [
     CommonModule,

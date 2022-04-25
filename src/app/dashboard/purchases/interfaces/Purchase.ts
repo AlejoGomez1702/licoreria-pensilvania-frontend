@@ -7,6 +7,7 @@ export interface Purchase {
     id: string;
     products: CartItem[];    
     user: string;
+    // provider: {};
     total: number
     total_inversion: number;
 }

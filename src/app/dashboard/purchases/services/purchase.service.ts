@@ -22,7 +22,7 @@ export class PurchaseService
    * @param purchase
    * @returns 
    */
-   createPurchase(purchase: CartItem[]): Observable<Purchase>
+   createPurchase( purchase: CartItem[], providerId: string ): Observable<Purchase>
    {
      const products = purchase.map(p => {
        return {
@@ -33,7 +33,16 @@ export class PurchaseService
          product_name: p.product_name
        };
      });
-     const data = { products };
+
+     let data;
+     if( providerId )
+     {
+       data = { products, providerId };
+     }
+     else
+     {
+       data = { products };
+     }
  
      return this.http.post<Purchase>(`${environment.API_URL}/purchases`, data);
    }

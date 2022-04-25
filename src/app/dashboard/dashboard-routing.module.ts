@@ -37,7 +37,11 @@ const routes: Routes = [
   {
     path: 'purchases',
     loadChildren: () => import('./purchases/purchases.module').then( m => m.PurchasesModule )
-  }
+  },
+  {
+    path: 'box',
+    loadChildren: () => import('./box/box.module').then( m => m.BoxModule )
+  },
 ]
 
 @NgModule({

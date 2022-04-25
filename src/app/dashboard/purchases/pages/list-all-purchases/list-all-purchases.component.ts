@@ -57,7 +57,7 @@ export class ListAllPurchasesComponent implements OnInit
         this.length = res.total;
         this.statistics = res.statistics;
         this.dataSource.data = this.purchases;
-        console.log(res);
+        console.log("Comprrassss: ",res);
       },
       error => {
         console.log(error); 

@@ -1,14 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SearchService } from 'src/app/dashboard/products/services/search.service';
+import { Provider } from 'src/app/dashboard/providers/interfaces/Provider';
 import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { GetProviderPurchaseComponent } from '../../components/get-provider-purchase/get-provider-purchase.component';
 import { PurchaseTableComponent } from '../../components/purchase-table/purchase-table.component';
+import { Purchase } from '../../interfaces/Purchase';
 import { PurchaseItemDetail } from '../../interfaces/PurchaseItemDetail';
+import { PurchaseSaleData } from '../../interfaces/PurchaseSaleData';
 import { PurchaseService } from '../../services/purchase.service';
 
 @Component({
@@ -21,7 +26,7 @@ export class CreatePurchasesComponent implements OnInit
   // Lo ingresado en la barra de busqueda (Código de barras || nombre del producto)
   public search: string = '';
 
-  // Productos agregados a la venta.
+  // Productos agregados a la compra.
   public products: CartItem[] = [];
   // Poductos resultados de una busqueda.
   public filteredProducts!: Observable<Product[]>;
@@ -35,7 +40,8 @@ export class CreatePurchasesComponent implements OnInit
     // private cartService: CartService,
     private filterService: FilterService,
     private _snackBar: MatSnackBar,    
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    public dialog: MatDialog
   ) 
   { }
 
@@ -189,9 +195,22 @@ export class CreatePurchasesComponent implements OnInit
     this.refreshPurchaseResume();
   }
 
-  finishPurchase()
+  getCartTotal(): number
   {
-    this.purchaseService.createPurchase( this.products ).subscribe(
+    let total = 0;
+
+    for (const product of this.products) 
+    {
+      const { count, purchase_price = 0 } = product;
+      total += (count * purchase_price);      
+    }
+
+    return total;
+  }
+
+  sendPurchase( providerId: string )
+  {
+    this.purchaseService.createPurchase( this.products, providerId ).subscribe(
       res => {
         this.products = [];
         this.purchaseResumeTable.refreshData( this.products );
@@ -205,6 +224,25 @@ export class CreatePurchasesComponent implements OnInit
       }
     );
     console.log("Compra: ", this.products);
+  }
+
+  finishPurchase()
+  {
+    const dialogRef = this.dialog.open(GetProviderPurchaseComponent, {
+      minWidth: '300px',
+      maxWidth: '500px',
+      data: this.getCartTotal(),
+    });
+
+    dialogRef.afterClosed().subscribe((result: Provider) => {
+      if(result)
+      {
+        console.log("Resultado: " ,result);
+        const { id = '' } = result; 
+        // Finalizar la compra.
+        this.sendPurchase( id );
+      }
+    });
   }
 
   clearSearchData()

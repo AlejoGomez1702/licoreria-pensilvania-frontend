@@ -87,22 +87,22 @@ export class CashSaleDialogComponent implements OnInit
     );
   }
 
-  searchClientMatch()
-  {
-    const term = this.termDniClient.value as string | '';
-    if( term )
-    {
-      this.filterService.searchClientsByDni( term ).subscribe(
-        clients => {
-          this.clients = clients;
-        },
-        (error) => {
-          console.log("Error buscando los clientes");
-          console.log(error);
-        }
-      );
-    }
-  }
+  // searchClientMatch()
+  // {
+  //   const term = this.termDniClient.value as string | '';
+  //   if( term )
+  //   {
+  //     this.filterService.searchClientsByDni( term ).subscribe(
+  //       clients => {
+  //         this.clients = clients;
+  //       },
+  //       (error) => {
+  //         console.log("Error buscando los clientes");
+  //         console.log(error);
+  //       }
+  //     );
+  //   }
+  // }
 
   onChangeClient( client: Client )
   {

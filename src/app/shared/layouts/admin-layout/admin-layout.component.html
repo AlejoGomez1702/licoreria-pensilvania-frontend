@@ -76,10 +76,16 @@
           Clientes
         </mat-list-option>
 
-        <mat-list-option (click)="goToSettings(); drawer.toggle()">
+        <!-- <mat-list-option (click)="goToSettings(); drawer.toggle()">
           <mat-icon mat-list-icon>settings</mat-icon>
           Configuración
+        </mat-list-option> -->
+
+        <mat-list-option (click)="goToBox(); drawer.toggle()">
+          <mat-icon mat-list-icon>move_to_inbox</mat-icon>
+          Caja
         </mat-list-option>
+
       </mat-selection-list>
 
 

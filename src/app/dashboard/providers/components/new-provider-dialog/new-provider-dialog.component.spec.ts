@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrudProvidersComponent } from './crud-providers.component';
+import { NewProviderDialogComponent } from './new-provider-dialog.component';
 
-describe('CrudProvidersComponent', () => {
-  let component: CrudProvidersComponent;
-  let fixture: ComponentFixture<CrudProvidersComponent>;
+describe('NewProviderDialogComponent', () => {
+  let component: NewProviderDialogComponent;
+  let fixture: ComponentFixture<NewProviderDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrudProvidersComponent ]
+      declarations: [ NewProviderDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CrudProvidersComponent);
+    fixture = TestBed.createComponent(NewProviderDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

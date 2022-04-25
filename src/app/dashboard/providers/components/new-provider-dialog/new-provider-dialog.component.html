@@ -1,0 +1,31 @@
+<h1 mat-dialog-title class="txt-center">Agregar Proveedor</h1>
+<div mat-dialog-content>
+  <!-- DNI -->
+  <mat-form-field appearance="fill">
+    <mat-label>Cédula o NIT</mat-label>
+    <input type="text" matInput [(ngModel)]="data.dni" required>
+  </mat-form-field>
+
+  <!-- Nombre -->
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input type="text" matInput [(ngModel)]="data.name" required>
+  </mat-form-field>
+
+  <!-- Celular -->
+  <mat-form-field appearance="fill">
+    <mat-label>Celular</mat-label>
+    <input type="number" matInput [(ngModel)]="data.cellphone" required>
+  </mat-form-field>
+
+  <!-- Email -->
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="text" matInput [(ngModel)]="data.email">
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions class="box-center">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="saveProvider()" cdkFocusInitial>Guardar</button>
+</div>

@@ -44,13 +44,13 @@ export class MainContentComponent implements OnInit
         route: appRoutes.box
       }
     ],
-    [ // De a 6 elementos pinto
-      {
-        img: 'assets/images/setting-icon.svg',
-        name: 'Ajustes',
-        route: appRoutes.settings
-      }
-    ]
+    // [ // De a 6 elementos pinto
+    //   {
+    //     img: 'assets/images/setting-icon.svg',
+    //     name: 'Ajustes',
+    //     route: appRoutes.settings
+    //   }
+    // ]
   ];
 
   constructor(

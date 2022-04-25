@@ -1,54 +1,62 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TokenService } from 'src/app/core/services/token.service';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Provider } from '../interfaces/provider.interface';
+import { Provider } from '../interfaces/Provider';
+import { ResponseGetAllProviders } from '../interfaces/ResponseGetAllProviders';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProviderService {
+export class ProviderService 
+{
 
-  apiUrl = environment.API_URL;
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  headers = new HttpHeaders({
-    'Content-Type':  'application/json',
-    'x-token': this.tokenService.getToken()
-  });
-
-  constructor(private http: HttpClient,
-    private tokenService: TokenService) { }
-
-  getAllProviders() {
-    const httpOptions = {
-      params: new HttpParams().set('limit', 10),
-      headers: this.headers
-    };
-    return this.http.get<any>(`${this.apiUrl}/providers`, httpOptions);
+  /**
+   * Registrar un nuevo proveedor en el sistema.
+   * @param provider 
+   * @returns 
+   */
+  createProvider( provider: Provider ): Observable<Provider>
+  {
+    return this.http.post<Provider>(`${environment.API_URL}/providers`, provider);
   }
 
-  createProvider( provider: Provider ): any
+  /**
+   * Obtiene todas los proveedores registrados en un negocio.
+   * @returns Todos los proveedores.
+  */
+  getAllProviders( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProviders>
   {
     const httpOptions = {
-      headers: this.headers
+      params: new HttpParams().set('category', category ? category : '')
+                              .set('limit', limit ? limit : 8)
+                              .set('from', from ? from : 0)
     };
-    return this.http.post<Provider>(`${this.apiUrl}/providers`, provider, httpOptions);
+
+    return this.http.get<ResponseGetAllProviders>(`${environment.API_URL}/providers`, httpOptions);
   }
 
-  updateProvider(provider: Provider) {
-    const httpOptions = {
-      headers: this.headers
-    };
-    return this.http.put<Provider>(
-      `${environment.API_URL}/providers/${provider.id}`,provider, httpOptions
-    );
-  }
-
-  deleteProvider( id: string )
+  /**
+   * Actualiza la información de un provider
+   * @param provider
+   * @returns 
+   */
+  updateProvider( provider: Provider ): Observable<Provider>
   {
-   const httpOptions = {
-     headers: this.headers
-   };
-   return this.http.delete<Provider>(`${this.apiUrl}/providers/${id}`, httpOptions);
+    return this.http.put<Provider>(`${environment.API_URL}/providers/${provider.id}`, provider);
+  }
+
+  /**
+   * Eliminar un proveedor en especifico.
+   * @param provider 
+   * @returns 
+   */
+  deleteProvider( provider: Provider ): Observable<Provider>
+  {
+    return this.http.delete<Provider>(`${environment.API_URL}/providers/${provider.id}`);
   }
 }

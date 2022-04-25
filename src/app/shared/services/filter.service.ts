@@ -5,6 +5,7 @@ import { TokenService } from 'src/app/core/services/token.service';
 import { Client } from 'src/app/dashboard/clients/interfaces/Client';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { ResponseGetAllProducts } from 'src/app/dashboard/products/interfaces/ResponseGetAllProducts';
+import { Provider } from 'src/app/dashboard/providers/interfaces/Provider';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -39,13 +40,23 @@ export class FilterService
 
   /**
    * Buscar Clientes por número de cédula o nit
-   * @param term cédula o NIT
+   * @param term coindicencia de cédula o NIT
    * @returns 
    */
   searchClientsByDni( term: string ): Observable<Client[]>
   {
     return this.http.get<Client[]>(`${environment.API_URL}/searchs/clients/${term}`);
   }
+
+  /**
+   * Buscar Proveedores por número de cédula o nit
+   * @param term coincidencia de cédula o NIT
+   * @returns 
+   */
+   searchProvidersByDni( term: string ): Observable<Provider[]>
+   {
+     return this.http.get<Provider[]>(`${environment.API_URL}/searchs/providers/${term}`);
+   }
 
 
 }
