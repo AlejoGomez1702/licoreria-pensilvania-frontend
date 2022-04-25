@@ -1,0 +1,20 @@
+<h1 mat-dialog-title class="txt-center">Agregar {{ type }}</h1>
+<div mat-dialog-content>
+  <!-- Monto -->
+  <mat-form-field appearance="fill">
+    <mat-label>Monto</mat-label>
+    <input type="number" matInput [(ngModel)]="movement.amount" required>
+  </mat-form-field>
+
+  <!-- Descripción -->
+  <mat-form-field appearance="fill">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput [(ngModel)]="movement.description" required></textarea>
+    <!-- <input type="text" matInput [(ngModel)]="data.name" required> -->
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions class="box-center">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="saveMovement()" cdkFocusInitial>Guardar</button>
+</div>
