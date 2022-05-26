@@ -5,16 +5,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { Product } from '../../interfaces/Product';
-import { GroceryService } from '../../services/grocery.service';
-import { SearchService } from '../../services/search.service';
+import { Product } from '../../../interfaces/Product';
+import { CigaretteService } from '../../../services/cigarette.service';
+import { SearchService } from '../../../services/search.service';
 
 @Component({
-  selector: 'app-grocery-inventory',
-  templateUrl: './grocery-inventory.component.html',
-  styleUrls: ['./grocery-inventory.component.scss']
+  selector: 'app-cigarette-inventory',
+  templateUrl: './cigarette-inventory.component.html',
+  styleUrls: ['./cigarette-inventory.component.scss']
 })
-export class GroceryInventoryComponent implements OnInit, AfterViewInit
+export class CigaretteInventoryComponent implements OnInit, AfterViewInit
 {
   public products: Product[] = [];
 
@@ -31,7 +31,7 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
   pageEvent!: PageEvent;
 
   constructor(
-    private groceryService: GroceryService,
+    private cigaretteService: CigaretteService,
     private searchService: SearchService,
     private sweetAlert: SweetAlertService,
     private router: Router
@@ -53,27 +53,30 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
   applyFilter(event: Event) 
   {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.searchService.searchProduct(filterValue, 'grocery').subscribe(
-      res => {
-        this.products = res.results;        
-        this.length = res.total;
-        this.dataSource.data = this.products;
-      },
-      error => this.sweetAlert.presentError(error)
-    );
+    if( filterValue )
+    {
+      this.searchService.searchProduct(filterValue, 'cigarette').subscribe(
+        res => {
+          this.products = res.results;        
+          this.length = res.total;
+          this.dataSource.data = this.products;
+        },
+        error => this.sweetAlert.presentError(error)
+      );
+    }    
   }
 
   createProduct()
   {
-    this.router.navigate([appRoutes.createGrocery]);
+    this.router.navigate([appRoutes.createCigarette]);
   }
 
-  editGrocery( row: Product )
+  editCigarette( row: Product )
   {
-    this.router.navigate([appRoutes.editGrocery + row.id]);
+    this.router.navigate([appRoutes.editCigarette + row.id]);
   }
 
-  async deleteGrocery( spirit: Product )
+  async deleteCigarette( spirit: Product )
   {
     const { id, category, name } = spirit;
     if( id )
@@ -81,7 +84,7 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
       const { isConfirmed } = await this.sweetAlert.presentDelete(`${category.name} ${name}`);
       if(isConfirmed)
       {
-        this.groceryService.deleteGrocery( id ).subscribe(
+        this.cigaretteService.deleteCigarette( id ).subscribe(
           product => {
             if(product)
             {
@@ -89,7 +92,7 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
               this.loadProducts();
             }
           },
-          () => this.sweetAlert.presentError('Eliminando Producto!')
+          () => this.sweetAlert.presentError('Eliminando Licor!')
         );
       }
     }
@@ -97,9 +100,9 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.groceryService.getAllProducts().subscribe(
+    this.cigaretteService.getAllProducts(category, limit, from).subscribe(
       res => {
-        this.products = res.groceries;        
+        this.products = res.cigarettes;        
         this.length = res.total;
         this.dataSource.data = this.products;
       },

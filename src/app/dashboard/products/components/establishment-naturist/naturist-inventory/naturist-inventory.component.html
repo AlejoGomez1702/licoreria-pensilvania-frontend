@@ -18,7 +18,7 @@
 
     <mat-form-field appearance="standard">
         <mat-label>Buscar...</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por cualquier campo..." #input>
+        <input matInput placeholder="Buscar por cualquier campo..." #input [formControl]="termInput">
     </mat-form-field>
 
     <mat-card-content>

@@ -45,8 +45,10 @@ export class LoginComponent implements OnInit
         res => {
           if(res.token)
           {
+            const establishment = res.user.establishment._id || '';
             // Guardar en el localstorage
             localStorage.setItem('x-token', res.token);
+            localStorage.setItem('establishment', establishment);
             this.router.navigate(['/dashboard']);
           }        
         },

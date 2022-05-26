@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NewCigaretteComponent } from './pages/create/new-cigarette/new-cigarette.component';
-import { NewDrinkComponent } from './pages/create/new-drink/new-drink.component';
-import { NewGroceryComponent } from './pages/create/new-grocery/new-grocery.component';
-import { NewSpiritComponent } from './pages/create/new-spirit/new-spirit.component';
+import { NewCigaretteComponent } from './pages/create/establishment-spirit/new-cigarette/new-cigarette.component';
+import { NewDrinkComponent } from './pages/create/establishment-spirit/new-drink/new-drink.component';
+import { NewGroceryComponent } from './pages/create/establishment-spirit/new-grocery/new-grocery.component';
+import { NewSpiritComponent } from './pages/create/establishment-spirit/new-spirit/new-spirit.component';
 import { CigaretteComponent } from './pages/edit/cigarette/cigarette.component';
 import { DrinkComponent } from './pages/edit/drink/drink.component';
 import { GroceryComponent } from './pages/edit/grocery/grocery.component';

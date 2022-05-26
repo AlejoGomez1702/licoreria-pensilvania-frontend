@@ -1,13 +1,14 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { Product } from '../../interfaces/Product';
-import { SearchService } from '../../services/search.service';
-import { SpiritService } from '../../services/spirit.service';
+import { Product } from '../../../interfaces/Product';
+import { SearchService } from '../../../services/search.service';
+import { SpiritService } from '../../../services/spirit.service';
 
 @Component({
   selector: 'app-spirit-inventory',
@@ -16,6 +17,9 @@ import { SpiritService } from '../../services/spirit.service';
 })
 export class SpiritInventoryComponent implements OnInit, AfterViewInit
 {
+  // Lo que se va ingresando en el campo de busqueda.
+  public termInput = new FormControl();
+
   public products: Product[] = [];
 
   displayedColumns = ['name', 'unit', 'sale_price', 'second_sale_price', 'stock', 'current_existence', 'actions'];
@@ -43,6 +47,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
   ngOnInit(): void 
   {
     this.loadProducts();
+    this.loadFilter();
   }
 
   ngAfterViewInit(): void 
@@ -50,11 +55,23 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(event: Event) 
+  loadFilter()
   {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.searchService.searchProduct(filterValue, 'spirit').subscribe(
+    this.termInput.valueChanges.subscribe(
+      termInput => {
+        if(termInput)
+        {
+          this.applyFilter( termInput );
+        }
+      }
+    );
+  }
+
+  applyFilter( term: string ) 
+  {
+    this.searchService.searchProduct(term, 'spirit', this.pageSize, this.from).subscribe(
       res => {
+        console.log(res);
         this.products = res.results;        
         this.length = res.total;
         this.dataSource.data = this.products;
@@ -114,7 +131,14 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
     this.pageSize = event.pageSize;
     this.from = event.pageIndex * this.pageSize;
 
-    this.loadProducts( undefined, this.pageSize, this.from );
+    if(this.termInput.value)
+    {
+      this.applyFilter( this.termInput.value );
+    }
+    else
+    {
+      this.loadProducts( undefined, this.pageSize, this.from );
+    }
 
     return event;
   }

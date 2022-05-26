@@ -1,3 +1,5 @@
+import { Establishment } from "./Establishment";
+
 export interface User
 {
     id: string;
@@ -6,5 +8,5 @@ export interface User
     email: string;
     img?: string;
     rol: string;
-    establishment: string;
+    establishment: Establishment;
 }

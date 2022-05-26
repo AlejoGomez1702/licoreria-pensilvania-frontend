@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -20,7 +20,13 @@ export class SuperCategoryService
     */
   getAllSuperCategories(): Observable<ResponseGetAllSuperCategories>
   {
-    return this.http.get<ResponseGetAllSuperCategories>(`${environment.API_URL}/supercategories`);
+    const establishment = localStorage.getItem('establishment') || '';
+
+    const httpOptions = {
+      params: new HttpParams().set('establishment', establishment)
+    };
+
+    return this.http.get<ResponseGetAllSuperCategories>(`${environment.API_URL}/supercategories`, httpOptions);
   }
 
 }

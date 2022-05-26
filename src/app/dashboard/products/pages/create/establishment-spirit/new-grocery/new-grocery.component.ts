@@ -7,7 +7,7 @@ import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interf
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { GroceryService } from '../../../services/grocery.service';
+import { GroceryService } from '../../../../services/grocery.service';
 
 @Component({
   selector: 'app-new-grocery',
