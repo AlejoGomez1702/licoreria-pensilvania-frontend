@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit
             // Guardar en el localstorage
             localStorage.setItem('x-token', res.token);
             localStorage.setItem('establishment', establishment);
+            localStorage.setItem('pruebaaaa', 'jajajajajjajaja');
             this.router.navigate(['/dashboard']);
           }        
         },
