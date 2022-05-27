@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit
           if(res.token)
           {
             const establishment = res.user.establishment._id || '';
+            console.log(establishment);
             // Guardar en el localstorage
             localStorage.setItem('x-token', res.token);
             localStorage.setItem('establishment', establishment);
