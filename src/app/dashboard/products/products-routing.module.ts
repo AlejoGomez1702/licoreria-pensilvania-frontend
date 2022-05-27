@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NewNaturistComponent } from './pages/create/establishment-naturist/new-naturist/new-naturist.component';
+import { NewSexShopComponent } from './pages/create/establishment-naturist/new-sex-shop/new-sex-shop.component';
 import { NewCigaretteComponent } from './pages/create/establishment-spirit/new-cigarette/new-cigarette.component';
 import { NewDrinkComponent } from './pages/create/establishment-spirit/new-drink/new-drink.component';
 import { NewGroceryComponent } from './pages/create/establishment-spirit/new-grocery/new-grocery.component';
@@ -53,6 +55,14 @@ const routes: Routes = [
   {
     path: 'create/groceries',
     component: NewGroceryComponent
+  },
+  {
+    path: 'create/naturist',
+    component: NewNaturistComponent
+  },
+  {
+    path: 'create/sexshop',
+    component: NewSexShopComponent
   }
 ]
 

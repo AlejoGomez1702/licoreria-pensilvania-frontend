@@ -19,6 +19,10 @@ export interface Routing
     // Comestibles
     createGrocery: string;
     editGrocery: string;
+
+    // Naturistas
+    createNaturist: string;
+    createSexshop: string;
     // *************** INVENTARIO *************** //
 
     // Ventas

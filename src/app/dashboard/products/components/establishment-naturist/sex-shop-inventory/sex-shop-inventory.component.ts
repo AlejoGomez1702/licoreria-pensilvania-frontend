@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
+import { SpiritService } from '../../../services/establishment-spirit/spirit.service';
 import { SearchService } from '../../../services/search.service';
-import { SpiritService } from '../../../services/spirit.service';
 
 @Component({
   selector: 'app-sex-shop-inventory',
@@ -82,7 +82,7 @@ export class SexShopInventoryComponent implements OnInit {
 
   createProduct()
   {
-    this.router.navigate([appRoutes.createSpirit]);
+    this.router.navigate([appRoutes.createSexshop]);
   }
 
   editSpirit( row: Product )

@@ -5,7 +5,7 @@ export const appRoutes: Routing = {
     shoppingCart: '/shopping-cart',
 
     // *************** INVENTARIO *************** //
-    // Inventario por defecto (Licores)
+    // ---- Inventario por defecto (Licores) ---- //
     inventory: '/dashboard/products',
     // Cigarrillos
     createCigarette: '/dashboard/products/create/cigarettes',
@@ -22,6 +22,14 @@ export const appRoutes: Routing = {
     // Comestibles
     createGrocery: '/dashboard/products/create/groceries',
     editGrocery: '/dashboard/products/groceries/edit/',
+
+    // ---- Inventario para tiendas naturistas ---- //
+    // Productos Naturistas
+    createNaturist: '/dashboard/products/create/naturist',
+    // editGrocery: '/dashboard/products/groceries/edit/',
+
+    // sex shop
+    createSexshop: '/dashboard/products/create/sexshop',
 
     // *************** INVENTARIO *************** //
 

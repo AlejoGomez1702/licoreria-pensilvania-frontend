@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
+import { DrinkService } from 'src/app/dashboard/products/services/establishment-spirit/drink.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { DrinkService } from '../../../../services/drink.service';
 
 @Component({
   selector: 'app-new-drink',

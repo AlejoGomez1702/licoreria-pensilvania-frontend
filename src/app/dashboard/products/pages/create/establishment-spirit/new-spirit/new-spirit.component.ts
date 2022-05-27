@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
-import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
+import { SpiritService } from 'src/app/dashboard/products/services/establishment-spirit/spirit.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';

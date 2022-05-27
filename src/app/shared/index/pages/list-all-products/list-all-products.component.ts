@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
-import { ProductService } from 'src/app/dashboard/products/services/product.service';
-import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
 import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';

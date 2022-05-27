@@ -2,23 +2,24 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Product } from '../interfaces/Product';
-import { ResponseGetAllGroceries } from '../interfaces/ResponseGetAllGroceries';
+import { Product } from '../../interfaces/Product';
+import { ResponseGetAllDrinks } from '../../interfaces/ResponseGetAllDrinks';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroceryService 
+export class DrinkService 
 {
+
   constructor(
     private http: HttpClient
   ) { }
 
   /**
-   * Obtiene todas los productos del tipo comestible.
-   * @returns Todos los productos (comestibles).
+   * Obtiene todas los productos del tipo licor.
+   * @returns Todos los productos (licores).
    */
-  getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllGroceries>
+  getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllDrinks>
   {
     const httpOptions = {
       params: new HttpParams().set('category', category ? category : '')
@@ -26,13 +27,13 @@ export class GroceryService
                               .set('from', from ? from : 0)
     };
 
-    return this.http.get<ResponseGetAllGroceries>(`${environment.API_URL}/groceries`, httpOptions);
+    return this.http.get<ResponseGetAllDrinks>(`${environment.API_URL}/drinks`, httpOptions);
   }
 
   /**
-   * Obtiene un comestible en especifico
+   * Obtiene una bebida en especifico
    */
-   getGroceryById( id: string, sercheable: boolean ): Observable<Product>
+   getDrinkById( id: string, sercheable: boolean ): Observable<Product>
    {
      let httpOptions = {};
 
@@ -43,11 +44,11 @@ export class GroceryService
        };
      }
 
-     return this.http.get<Product>(`${environment.API_URL}/groceries/${id}`, httpOptions);
+     return this.http.get<Product>(`${environment.API_URL}/drinks/${id}`, httpOptions);
    }
 
   /**
-    * Crea un producto en la base de datos del tipo coestible.
+    * Crea un producto en la base de datos del tipo bebida.
     * @param product 
   */
    createProduct( product: Product ): Observable<Product>
@@ -59,7 +60,7 @@ export class GroceryService
      // de lo contrario se crea un FormData:
      if( img === null )
      {
-       return this.http.post<Product>(`${environment.API_URL}/groceries`, productDataAny);
+       return this.http.post<Product>(`${environment.API_URL}/drinks`, productDataAny);
      }
      
      const formData: FormData = new FormData();
@@ -77,21 +78,21 @@ export class GroceryService
      // Con esta cabecera indico al interceptor que va un archivo en la petición
      const headers = new HttpHeaders().set('with-img', 'yes');
  
-     return this.http.post<Product>(`${environment.API_URL}/groceries`, formData, { headers });
+     return this.http.post<Product>(`${environment.API_URL}/drinks`, formData, { headers });
    }
 
   /**
     * Actualiza un producto en la base de datos.
     * @param id Identificador del product.
     */
-   updateGrocery( id: string, product: Product ): Observable<Product>
+   updateDrink( id: string, product: Product ): Observable<Product>
    {
      const { state, ...data } = product;
 
      const { img } = data;
      if( typeof img === 'string' || img instanceof String || img === null ) //La imagen no se desea actualizar
      {
-       return this.http.put<Product>(`${environment.API_URL}/groceries/${id}`, data);
+       return this.http.put<Product>(`${environment.API_URL}/drinks/${id}`, data);
      }
 
      const productDataAny: any = { ...data };
@@ -108,16 +109,16 @@ export class GroceryService
      // Con esta cabecera indico al interceptor que va un archivo en la petición
      const headers = new HttpHeaders().set('with-img', 'yes');
 
-     return this.http.put<Product>(`${environment.API_URL}/groceries/${id}`, formData, { headers });
+     return this.http.put<Product>(`${environment.API_URL}/drinks/${id}`, formData, { headers });
    }
 
    /**
-   * Elimina un comestible del sistema.
+   * Elimina una bebida del sistema.
    * @param id 
    */
-    deleteGrocery( id: string ): Observable<Product>
+    deleteDrink( id: string ): Observable<Product>
     {
-      return this.http.delete<Product>(`${environment.API_URL}/groceries/${id}`);
+      return this.http.delete<Product>(`${environment.API_URL}/drinks/${id}`);
     }
-  
+
 }

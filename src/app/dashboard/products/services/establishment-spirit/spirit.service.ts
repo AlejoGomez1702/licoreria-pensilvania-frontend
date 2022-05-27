@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TokenService } from 'src/app/core/services/token.service';
 import { environment } from 'src/environments/environment';
-import { Product } from '../interfaces/Product';
-import { ResponseGetAllSpirits } from '../interfaces/ResponseGetAllSpirits';
+import { Product } from '../../interfaces/Product';
+import { ResponseGetAllSpirits } from '../../interfaces/ResponseGetAllSpirits';
 
 @Injectable({
   providedIn: 'root'

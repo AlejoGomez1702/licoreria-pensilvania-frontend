@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SelectableProduct } from 'src/app/dashboard/products/interfaces/SelectableProduct';
-import { SpiritService } from 'src/app/dashboard/products/services/spirit.service';
+import { SpiritService } from 'src/app/dashboard/products/services/establishment-spirit/spirit.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 

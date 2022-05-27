@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
-import { DrinkService } from '../../../services/drink.service';
+import { DrinkService } from '../../../services/establishment-spirit/drink.service';
 import { SearchService } from '../../../services/search.service';
 
 @Component({
