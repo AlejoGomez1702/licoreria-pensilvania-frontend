@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
+import { NaturistService } from '../../../services/establishment-naturist/naturist.service';
 import { SpiritService } from '../../../services/establishment-spirit/spirit.service';
 import { SearchService } from '../../../services/search.service';
 
@@ -22,7 +23,7 @@ export class NaturistInventoryComponent implements OnInit {
 
   public products: Product[] = [];
 
-  displayedColumns = ['name', 'unit', 'sale_price', 'second_sale_price', 'stock', 'current_existence', 'actions'];
+  displayedColumns = ['name', 'unit', 'sale_price', 'stock', 'current_existence', 'actions'];
   public dataSource: MatTableDataSource<Product>;
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -35,7 +36,8 @@ export class NaturistInventoryComponent implements OnInit {
   pageEvent!: PageEvent;
 
   constructor(
-    private spiritService: SpiritService,
+    // private spiritService: SpiritService,
+    private naturistService: NaturistService,
     private searchService: SearchService,
     private sweetAlert: SweetAlertService,
     private router: Router
@@ -92,32 +94,32 @@ export class NaturistInventoryComponent implements OnInit {
 
   async deleteSpirit( spirit: Product )
   {
-    const { id, category, name } = spirit;
-    if( id )
-    {
-      const { isConfirmed } = await this.sweetAlert.presentDelete(`${category.name} ${name}`);
-      if(isConfirmed)
-      {
-        this.spiritService.deleteSpirit( id ).subscribe(
-          product => {
-            if(product)
-            {
-              this.sweetAlert.presentSuccess('Producto Eliminado Correctamente!');
-              this.loadProducts();
-            }
-          },
-          () => this.sweetAlert.presentError('Eliminando Licor!')
-        );
-      }
-    }
+    // const { id, category, name } = spirit;
+    // if( id )
+    // {
+    //   const { isConfirmed } = await this.sweetAlert.presentDelete(`${category.name} ${name}`);
+    //   if(isConfirmed)
+    //   {
+    //     this.naturistService.deleteSpirit( id ).subscribe(
+    //       product => {
+    //         if(product)
+    //         {
+    //           this.sweetAlert.presentSuccess('Producto Eliminado Correctamente!');
+    //           this.loadProducts();
+    //         }
+    //       },
+    //       () => this.sweetAlert.presentError('Eliminando Licor!')
+    //     );
+    //   }
+    // }
   }
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.spiritService.getAllProducts(category, limit, from)
+    this.naturistService.getAllProducts(category, limit, from)
     .subscribe(
       res => {
-        this.products = res.spirits;        
+        this.products = res.products;        
         this.length = res.total;
         this.dataSource.data = this.products;
       },

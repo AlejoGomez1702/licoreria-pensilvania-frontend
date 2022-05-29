@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Product } from '../../interfaces/Product';
-import { ResponseGetAllGroceries } from '../../interfaces/ResponseGetAllGroceries';
+import { ResponseGetAllProducts } from '../../interfaces/ResponseGetAllProducts';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class GroceryService
    * Obtiene todas los productos del tipo comestible.
    * @returns Todos los productos (comestibles).
    */
-  getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllGroceries>
+  getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
   {
     const httpOptions = {
       params: new HttpParams().set('category', category ? category : '')
@@ -26,7 +26,7 @@ export class GroceryService
                               .set('from', from ? from : 0)
     };
 
-    return this.http.get<ResponseGetAllGroceries>(`${environment.API_URL}/groceries`, httpOptions);
+    return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/groceries`, httpOptions);
   }
 
   /**

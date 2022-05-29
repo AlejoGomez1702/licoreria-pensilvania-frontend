@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { TokenService } from 'src/app/core/services/token.service';
 import { environment } from 'src/environments/environment';
 import { Product } from '../../interfaces/Product';
-import { ResponseGetAllSpirits } from '../../interfaces/ResponseGetAllSpirits';
+import { ResponseGetAllProducts } from '../../interfaces/ResponseGetAllProducts';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class SpiritService
    * Obtiene todas los productos del tipo licor.
    * @returns Todos los productos (licores).
    */
-   getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllSpirits>
+   getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
    {
      const httpOptions = {
        params: new HttpParams().set('category', category ? category : '')
@@ -28,14 +28,14 @@ export class SpiritService
                                .set('from', from ? from : 0)
      };
  
-     return this.http.get<ResponseGetAllSpirits>(`${environment.API_URL}/spirits`, httpOptions);
+     return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/spirits`, httpOptions);
    }
 
    /**
    * Obtiene todas los productos del tipo licor.
    * @returns Todos los productos (licores).
    */
-    getSercheablesProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllSpirits>
+    getSercheablesProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
     {
       const httpOptions = {
         params: new HttpParams().set('category', category ? category : '')
@@ -44,7 +44,7 @@ export class SpiritService
                                 .set('sercheable', true)
       };
   
-      return this.http.get<ResponseGetAllSpirits>(`${environment.API_URL}/spirits`, httpOptions);
+      return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/spirits`, httpOptions);
     }
 
    /**

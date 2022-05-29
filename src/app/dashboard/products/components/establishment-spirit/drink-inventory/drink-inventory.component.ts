@@ -99,7 +99,7 @@ export class DrinkInventoryComponent implements OnInit, AfterViewInit
   {
     this.drinkService.getAllProducts().subscribe(
       res => {
-        this.products = res.drinks;        
+        this.products = res.products;        
         this.length = res.total;
         this.dataSource.data = this.products;
       },

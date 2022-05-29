@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
+import { NaturistService } from 'src/app/dashboard/products/services/establishment-naturist/naturist.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
@@ -32,7 +33,8 @@ export class NewNaturistComponent implements OnInit {
     // public dialog: MatDialog,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
-    private cigaretteService: CigaretteService
+    // private cigaretteService: CigaretteService
+    private naturistService: NaturistService
   ) 
   { 
     this.createFormBuilder();
@@ -51,7 +53,7 @@ export class NewNaturistComponent implements OnInit {
 
   loadCategories()
   {
-    this.categoryService.getAllCategories( "cigarette" ).subscribe(
+    this.categoryService.getAllCategories( "naturist" ).subscribe(
       categories => this.categories = categories.categories,
       () => this.sweetAlert.presentError("Error obteniendo categorias")
     );
@@ -59,7 +61,7 @@ export class NewNaturistComponent implements OnInit {
 
   loadUnits()
   {
-    this.unitService.getAllUnidades( "cigarette" ).subscribe(
+    this.unitService.getAllUnidades( "naturist" ).subscribe(
       units => this.units = units.units,
       () => this.sweetAlert.presentError("Error obteniendo unidades de medida")
     );
@@ -76,7 +78,9 @@ export class NewNaturistComponent implements OnInit {
       stock:              [ 1, [Validators.required, Validators.min(1)] ],
       purchase_price:     [ 0, [Validators.min(0)] ],
       sale_price:         [ 0, [Validators.min(0)] ],
-      current_existence:  [ 0, [Validators.min(0)] ]
+      current_existence:  [ 0, [Validators.min(0)] ],
+      id:                 [ '', [Validators.required] ],
+
     });
   }
 
@@ -111,7 +115,7 @@ export class NewNaturistComponent implements OnInit {
       return;
     }
 
-    this.cigaretteService.createProduct( this.form.value ).subscribe(
+    this.naturistService.createProduct( this.form.value ).subscribe(
       (res) => {
         this.sweetAlert.presentSuccess('Producto creado correctamente!');
         this.router.navigate(['/dashboard/products']);

@@ -51,7 +51,7 @@ export class NewSexShopComponent implements OnInit {
 
   loadCategories()
   {
-    this.categoryService.getAllCategories( "cigarette" ).subscribe(
+    this.categoryService.getAllCategories( "sexshop" ).subscribe(
       categories => this.categories = categories.categories,
       () => this.sweetAlert.presentError("Error obteniendo categorias")
     );
@@ -59,7 +59,7 @@ export class NewSexShopComponent implements OnInit {
 
   loadUnits()
   {
-    this.unitService.getAllUnidades( "cigarette" ).subscribe(
+    this.unitService.getAllUnidades( "sexshop" ).subscribe(
       units => this.units = units.units,
       () => this.sweetAlert.presentError("Error obteniendo unidades de medida")
     );

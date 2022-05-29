@@ -8,8 +8,7 @@ import { ResponseGetAllProducts } from '../../interfaces/ResponseGetAllProducts'
 @Injectable({
   providedIn: 'root'
 })
-export class DrinkService 
-{
+export class SexShopService {
 
   constructor(
     private http: HttpClient
@@ -18,7 +17,7 @@ export class DrinkService
   /**
    * Obtiene todas los productos del tipo licor.
    * @returns Todos los productos (licores).
-   */
+  */
   getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
   {
     const httpOptions = {
@@ -27,13 +26,13 @@ export class DrinkService
                               .set('from', from ? from : 0)
     };
 
-    return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/drinks`, httpOptions);
+    return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/cigarettes`, httpOptions);
   }
 
   /**
-   * Obtiene una bebida en especifico
+   * Obtiene un cigarrillo en especifico
    */
-   getDrinkById( id: string, sercheable: boolean ): Observable<Product>
+   getCigaretteById( id: string, sercheable: boolean ): Observable<Product>
    {
      let httpOptions = {};
 
@@ -44,55 +43,55 @@ export class DrinkService
        };
      }
 
-     return this.http.get<Product>(`${environment.API_URL}/drinks/${id}`, httpOptions);
+     return this.http.get<Product>(`${environment.API_URL}/cigarettes/${id}`, httpOptions);
    }
 
   /**
-    * Crea un producto en la base de datos del tipo bebida.
+    * Crea un producto en la base de datos del tipo cigarrillo.
     * @param product 
   */
-   createProduct( product: Product ): Observable<Product>
-   { 
-     const { img, ...productData } = product;
-     const productDataAny: any = { ...productData };
- 
-     // Si no se envia la imagen se hace en formato JSON
-     // de lo contrario se crea un FormData:
-     if( img === null )
-     {
-       return this.http.post<Product>(`${environment.API_URL}/drinks`, productDataAny);
-     }
-     
-     const formData: FormData = new FormData();
-     formData.append('img', img);
-     let data;
-     for (const key in productDataAny) 
-     {
-       data = productDataAny[key];
-       if(data === null)
-         data = 0;
-       // const data = productData.key;
-       formData.append(key, data);       
-     }
- 
-     // Con esta cabecera indico al interceptor que va un archivo en la petición
-     const headers = new HttpHeaders().set('with-img', 'yes');
- 
-     return this.http.post<Product>(`${environment.API_URL}/drinks`, formData, { headers });
-   }
+  createProduct( product: Product ): Observable<Product>
+  { 
+    const { img, ...productData } = product;
+    const productDataAny: any = { ...productData };
+
+    // Si no se envia la imagen se hace en formato JSON
+    // de lo contrario se crea un FormData:
+    if( img === null )
+    {
+      return this.http.post<Product>(`${environment.API_URL}/cigarettes`, productDataAny);
+    }
+    
+    const formData: FormData = new FormData();
+    formData.append('img', img);
+    let data;
+    for (const key in productDataAny) 
+    {
+      data = productDataAny[key];
+      if(data === null)
+        data = 0;
+      // const data = productData.key;
+      formData.append(key, data);       
+    }
+
+    // Con esta cabecera indico al interceptor que va un archivo en la petición
+    const headers = new HttpHeaders().set('with-img', 'yes');
+
+    return this.http.post<Product>(`${environment.API_URL}/cigarettes`, formData, { headers });
+  }
 
   /**
     * Actualiza un producto en la base de datos.
     * @param id Identificador del product.
     */
-   updateDrink( id: string, product: Product ): Observable<Product>
+   updateCigarette( id: string, product: Product ): Observable<Product>
    {
      const { state, ...data } = product;
 
      const { img } = data;
      if( typeof img === 'string' || img instanceof String || img === null ) //La imagen no se desea actualizar
      {
-       return this.http.put<Product>(`${environment.API_URL}/drinks/${id}`, data);
+       return this.http.put<Product>(`${environment.API_URL}/cigarettes/${id}`, data);
      }
 
      const productDataAny: any = { ...data };
@@ -109,16 +108,15 @@ export class DrinkService
      // Con esta cabecera indico al interceptor que va un archivo en la petición
      const headers = new HttpHeaders().set('with-img', 'yes');
 
-     return this.http.put<Product>(`${environment.API_URL}/drinks/${id}`, formData, { headers });
+     return this.http.put<Product>(`${environment.API_URL}/cigarettes/${id}`, formData, { headers });
    }
 
    /**
-   * Elimina una bebida del sistema.
+   * Elimina un cigarrillo del sistema.
    * @param id 
    */
-    deleteDrink( id: string ): Observable<Product>
-    {
-      return this.http.delete<Product>(`${environment.API_URL}/drinks/${id}`);
-    }
-
+  deleteCigarette( id: string ): Observable<Product>
+  {
+    return this.http.delete<Product>(`${environment.API_URL}/cigarettes/${id}`);
+  }
 }

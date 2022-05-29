@@ -92,7 +92,7 @@ export class DialogProductComponent implements OnInit
   {
     this.spiritService.getSercheablesProducts()
     .subscribe(res => {
-      this.products = res.spirits.map(product => {
+      this.products = res.products.map(product => {
         const { id = '', category, unit, name, img } = product;
         const shortProductData = { id , category, unit, name, img };
 

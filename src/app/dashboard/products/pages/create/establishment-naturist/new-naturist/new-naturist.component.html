@@ -38,6 +38,21 @@
     
         <div class="container mt-small">
         <div class="row">
+            <!-- ID -->
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>ID </mat-label>
+                    <input
+                        matInput
+                        type="text"
+                        formControlName="id"
+                    />
+                    <mat-error *ngIf="validField('id')">
+                        Campo Inválido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+    
             <!-- Categoria -->
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
@@ -52,7 +67,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-    
+
             <!-- Nombre -->
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
@@ -65,21 +80,6 @@
                         required
                     />
                     <mat-error *ngIf="validField('name')">
-                        Campo Inválido
-                    </mat-error>
-                </mat-form-field>
-            </div>
-    
-            <!-- Unidad de medida -->
-            <div class="col-lg-4 col-md-4">
-                <mat-form-field appearance="fill" class="formControl">
-                    <mat-label>Unidad de medida</mat-label>
-                    <mat-select formControlName="unit" required>
-                        <mat-option *ngFor="let unit of units" [value]="unit.id">
-                        {{ unit.unit + ' ' + '(' + unit.units + ' uds)' }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="validField('unit')">
                         Campo Inválido
                     </mat-error>
                 </mat-form-field>
@@ -119,13 +119,16 @@
                 </mat-form-field>
             </div>
     
-            <!-- Precio de compra -->
+            <!-- Unidad de medida -->
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
-                    <mat-label>Precio de Compra</mat-label>
-                    <input matInput currencyMask formControlName="purchase_price" 
-                            [options]="{ allowNegative: false, precision: 0, thousands: '.' }"/>
-                    <mat-error *ngIf="validField('purchase_price')">
+                    <mat-label>Unidad de medida</mat-label>
+                    <mat-select formControlName="unit" required>
+                        <mat-option *ngFor="let unit of units" [value]="unit.id">
+                        {{ unit.unit + ' ' + '(' + unit.units + ' uds)' }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="validField('unit')">
                         Campo Inválido
                     </mat-error>
                 </mat-form-field>
@@ -144,6 +147,19 @@
                     </mat-error>
                 </mat-form-field>
             </div>  
+            
+            <!-- Precio de compra -->
+            <div class="col-lg-4 col-md-4">
+                <mat-form-field appearance="fill" class="formControl">
+                    <mat-label>Precio de Compra</mat-label>
+                    <input matInput currencyMask formControlName="purchase_price" 
+                            [options]="{ allowNegative: false, precision: 0, thousands: '.' }"/>
+                    <mat-error *ngIf="validField('purchase_price')">
+                        Campo Inválido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
             <!-- Cantidad actual -->
             <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="fill" class="formControl">
@@ -160,6 +176,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            
         </div>        
         </div>
     

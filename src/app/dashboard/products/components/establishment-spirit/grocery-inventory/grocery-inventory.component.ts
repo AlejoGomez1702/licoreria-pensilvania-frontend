@@ -99,7 +99,7 @@ export class GroceryInventoryComponent implements OnInit, AfterViewInit
   {
     this.groceryService.getAllProducts().subscribe(
       res => {
-        this.products = res.groceries;        
+        this.products = res.products;        
         this.length = res.total;
         this.dataSource.data = this.products;
       },

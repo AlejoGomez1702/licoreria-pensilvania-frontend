@@ -8,16 +8,15 @@ import { ResponseGetAllProducts } from '../../interfaces/ResponseGetAllProducts'
 @Injectable({
   providedIn: 'root'
 })
-export class CigaretteService 
+export class NaturistService 
 {
-
   constructor(
     private http: HttpClient
   ) { }
 
   /**
-   * Obtiene todas los productos del tipo licor.
-   * @returns Todos los productos (licores).
+   * Obtiene todas los productos del tipo naturistas.
+   * @returns Todos los productos (naturistas).
   */
   getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
   {
@@ -27,7 +26,7 @@ export class CigaretteService
                               .set('from', from ? from : 0)
     };
 
-    return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/cigarettes`, httpOptions);
+    return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/naturists`, httpOptions);
   }
 
   /**
@@ -60,7 +59,7 @@ export class CigaretteService
     // de lo contrario se crea un FormData:
     if( img === null )
     {
-      return this.http.post<Product>(`${environment.API_URL}/cigarettes`, productDataAny);
+      return this.http.post<Product>(`${environment.API_URL}/naturists`, productDataAny);
     }
     
     const formData: FormData = new FormData();
@@ -78,7 +77,7 @@ export class CigaretteService
     // Con esta cabecera indico al interceptor que va un archivo en la petición
     const headers = new HttpHeaders().set('with-img', 'yes');
 
-    return this.http.post<Product>(`${environment.API_URL}/cigarettes`, formData, { headers });
+    return this.http.post<Product>(`${environment.API_URL}/naturists`, formData, { headers });
   }
 
   /**
@@ -120,5 +119,4 @@ export class CigaretteService
   {
     return this.http.delete<Product>(`${environment.API_URL}/cigarettes/${id}`);
   }
-
 }

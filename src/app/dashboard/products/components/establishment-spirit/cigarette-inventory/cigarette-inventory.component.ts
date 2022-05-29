@@ -102,7 +102,7 @@ export class CigaretteInventoryComponent implements OnInit, AfterViewInit
   {
     this.cigaretteService.getAllProducts(category, limit, from).subscribe(
       res => {
-        this.products = res.cigarettes;        
+        this.products = res.products;        
         this.length = res.total;
         this.dataSource.data = this.products;
       },

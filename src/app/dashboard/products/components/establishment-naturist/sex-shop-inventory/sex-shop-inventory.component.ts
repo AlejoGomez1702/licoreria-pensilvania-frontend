@@ -117,7 +117,7 @@ export class SexShopInventoryComponent implements OnInit {
     this.spiritService.getAllProducts(category, limit, from)
     .subscribe(
       res => {
-        this.products = res.spirits;        
+        this.products = res.products;        
         this.length = res.total;
         this.dataSource.data = this.products;
       },
