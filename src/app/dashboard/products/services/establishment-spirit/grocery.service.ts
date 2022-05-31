@@ -32,19 +32,19 @@ export class GroceryService
   /**
    * Obtiene un comestible en especifico
    */
-   getGroceryById( id: string, sercheable: boolean ): Observable<Product>
-   {
-     let httpOptions = {};
+  getGroceryById( id: string, sercheable: boolean ): Observable<Product>
+  {
+    let httpOptions = {};
 
-     if(sercheable)
-     {
-       httpOptions = {
-         params: new HttpParams().set('sercheable', true)
-       };
-     }
+    if(sercheable)
+    {
+      httpOptions = {
+        params: new HttpParams().set('sercheable', true)
+      };
+    }
 
-     return this.http.get<Product>(`${environment.API_URL}/groceries/${id}`, httpOptions);
-   }
+    return this.http.get<Product>(`${environment.API_URL}/groceries/${id}`, httpOptions);
+  }
 
   /**
     * Crea un producto en la base de datos del tipo coestible.

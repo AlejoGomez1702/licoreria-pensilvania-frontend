@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
 import { NaturistService } from 'src/app/dashboard/products/services/establishment-naturist/naturist.service';
+import { ProductService } from 'src/app/dashboard/products/services/product.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
@@ -33,8 +34,7 @@ export class NewNaturistComponent implements OnInit {
     // public dialog: MatDialog,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
-    // private cigaretteService: CigaretteService
-    private naturistService: NaturistService
+    private productService: ProductService
   ) 
   { 
     this.createFormBuilder();
@@ -115,7 +115,7 @@ export class NewNaturistComponent implements OnInit {
       return;
     }
 
-    this.naturistService.createProduct( this.form.value ).subscribe(
+    this.productService.createProduct( this.form.value, 'naturist' ).subscribe(
       (res) => {
         this.sweetAlert.presentSuccess('Producto creado correctamente!');
         this.router.navigate(['/dashboard/products']);

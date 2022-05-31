@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { TokenService } from 'src/app/core/services/token.service';
 import { ResponseGetAllProducts } from '../interfaces/ResponseGetAllProducts';
 import { Product } from '../interfaces/Product';
+import { HttpOptions } from 'src/app/core/interfaces/HttpOptions';
 
 @Injectable({
   providedIn: 'root'
@@ -24,103 +25,130 @@ export class ProductService
     private tokenService: TokenService
   ) { }
 
-  // /**
-  //  * Obtiene todas los productos
-  //  * @returns Todos los productos.
-  //  */
-  // getAllProducts( category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
-  // {
-  //   let httpOptions = {
-  //     params: new HttpParams().set('category', category ? category : '')
-  //                             .set('limit', limit ? limit : 1000)
-  //                             .set('from', from ? from : 0),
-  //     headers: this.headers
-  //   };
+  /**
+   * Obtiene todos los productos del negocio al que pertenece el usuario logueado.
+   * @param supercategory 
+   * @param category 
+   * @param limit 
+   * @param from 
+   * @returns 
+   */
+  getAllProducts( supercategory: string, category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
+  {
+    const httpOptions = {
+      params: new HttpParams().set('supercategory', supercategory)
+                              .set('category', category ? category : '')
+                              .set('limit', limit ? limit : 8)
+                              .set('from', from ? from : 0)
+    };
 
-  //   // if( category )
-  //   // {
-  //   //   httpOptions = {
-  //   //     params: new HttpParams().set('limit', 1000)
-  //   //                             .set('from', 0)
-  //   //                             .set('category', category),
-  //   //     headers: this.headers
-  //   //   };
-  //   // }
+    return this.http.get<ResponseGetAllProducts>(`${environment.API_URL}/products`, httpOptions);
+  }
 
-  //   return this.http.get<ResponseGetAllProducts>(`${this.apiUrl}/products`, httpOptions);
-  // }
+  /**
+   * Obtiene un producto en especifíco 
+   * @param id 
+   * @param sercheable Productos que un negocio desea registrar y que ya existen en otro negocio.
+   * @returns 
+   */
+  getProductById( id: string, sercheable: boolean ): Observable<Product>
+  {
+    let httpOptions = {};
 
-  // /**
-  //  * Obtiene todas las caracteristicas registradas en los productos existentes
-  //  * @returns 
-  //  */
-  // getAllFeatures(): Observable<{ features: string[]; }>
-  // {
-  //   const httpOptions = {
-  //     headers: this.headers
-  //   };
+    if(sercheable)
+    {
+      httpOptions = {
+        params: new HttpParams().set('sercheable', true)
+      };
+    }
 
-  //   return this.http.get<{ features: string[]; }>(`${this.apiUrl}/products/all/features`, httpOptions);
-  // }
+    return this.http.get<Product>(`${environment.API_URL}/products/${id}`, httpOptions);
+  }
 
-  // /**
-  //  * Crea un producto en la base de datos.
-  //  * @param product 
-  //  */
-  // createProduct( product: Product ): Observable<Product>
-  // {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'x-token': this.tokenService.getToken()
-  //     })
-  //   };
+  /**
+   * Crea un nuevo producto con todos los detalles e imagen opcional.
+   * (La imagen se muestra en la tienda virtual)
+   * @param product 
+   * @returns 
+   */
+  createProduct( product: Product, supercategory: string ): Observable<Product>
+  { 
+    const { img, ...productData } = product;
+    const productDataAny: any = { ...productData };
 
-  //   // const productObj: any = { ...product };
-  //   const { img, ...productData } = product;
-  //   const productDataAny: any = { ...productData };
-  //   // console.log(productDataAny);
-  //   const formData: FormData = new FormData();
-  //   formData.append('img', img);
-  //   let data;
-  //   for (const key in productDataAny) 
-  //   {
-  //     data = productDataAny[key];
-  //     if(data === null)
-  //       data = 0;
-  //     // const data = productData.key;
-  //     formData.append(key, data);
-      
-  //   }
+    let httpOptions: HttpOptions = {
+        params: new HttpParams().set('supercategory', supercategory)
+    };
 
-  //   console.log(productDataAny);
+    // Si no se envia la imagen se hace en formato JSON
+    // de lo contrario se crea un FormData:
+    if( img === null )
+    {
+      return this.http.post<Product>(`${environment.API_URL}/products`, productDataAny, httpOptions);
+    }
+    
+    const formData: FormData = new FormData();
+    formData.append('img', img);
+    let data;
+    for (const key in productDataAny) 
+    {
+      data = productDataAny[key];
+      if(data === null)
+        data = 0;
+      // const data = productData.key;
+      formData.append(key, data);       
+    }
 
-  //   return this.http.post<Product>(`${this.apiUrl}/products`, formData, httpOptions);
-  // }
+    // Con esta cabecera indico al interceptor que va un archivo en la petición
+    httpOptions = {
+      params: new HttpParams().set('supercategory', supercategory),
+      headers: new HttpHeaders().set('with-img', 'yes')
+    };
 
-  // /**
-  //  * Actualiza un producto en la base de datos.
-  //  * @param uid Identificador de la categoría.
-  //  */
-  //  updateProduct( product: Product ): Observable<Product>
-  //  {
-  //    const { id, state, ...data } = product;
-  //    const httpOptions = {
-  //      headers: this.headers
-  //    };
+    return this.http.post<Product>(`${environment.API_URL}/products`, formData, httpOptions);
+  }
 
-  //    return this.http.put<Product>(`${this.apiUrl}/products/${id}`, data, httpOptions);
-  //  }
+  /**
+   * Actualiza la información de un producto en especifíco
+   * @param id 
+   * @param product 
+   * @returns 
+   */  
+  updateProduct( id: string, product: Product, supercategory: string ): Observable<Product>
+  {
+    const { state, ...data } = product;
+    let headers = new HttpHeaders().set('supercategory', supercategory);
 
-  // //  /**
-  // //   * Elimina una categoría de la base de datos.
-  // //   * @param id Identificado único de la categoria.
-  // //   */
-  // //  deleteCategory( id: string )
-  // //  {
-  // //   const httpOptions = {
-  // //     headers: this.headers
-  // //   };
+    const { img } = data;
+    if( typeof img === 'string' || img instanceof String || img === null ) //La imagen no se desea actualizar
+    {
+      return this.http.put<Product>(`${environment.API_URL}/products/${id}`, data, { headers });
+    }
 
-  // //   return this.http.delete<Category>(`${this.apiUrl}/categories/${id}`, httpOptions);
-  // //  }
+    const productDataAny: any = { ...data };
+    const formData: FormData = new FormData();
+    let dataWithFile;
+    for (const key in productDataAny) 
+    {
+      dataWithFile = productDataAny[key];
+      if(data === null)
+        dataWithFile = 0;
+      formData.append(key, dataWithFile);       
+    }
+
+    // Con esta cabecera indico al interceptor que va un archivo en la petición
+    headers = new HttpHeaders().set('with-img', 'yes');
+
+    return this.http.put<Product>(`${environment.API_URL}/products/${id}`, formData, { headers });
+  }
+
+  /**
+   * Elimina un producto especifico registrado previamente en el sistema.
+   * @param id 
+   * @returns 
+   */
+  deleteProduct( id: string ): Observable<Product>
+  {
+    return this.http.delete<Product>(`${environment.API_URL}/products/${id}`);
+  }
 }

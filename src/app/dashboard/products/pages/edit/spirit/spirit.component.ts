@@ -9,6 +9,7 @@ import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
 import { SpiritService } from '../../../services/establishment-spirit/spirit.service';
+import { ProductService } from '../../../services/product.service';
 
 @Component({
   selector: 'app-spirit',
@@ -28,7 +29,7 @@ export class SpiritComponent implements OnInit
 
   constructor(
     private fb: FormBuilder,
-    private spiritService: SpiritService,
+    private productService: ProductService,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
     private activatedRoute: ActivatedRoute,
@@ -77,7 +78,7 @@ export class SpiritComponent implements OnInit
 
   getProductSelected( id: string )
   {
-    this.spiritService.getSpiritById( id, false ).subscribe(
+    this.productService.getProductById( id, false ).subscribe(
       spirit => {
         this.product = spirit;
         this.buildForm( false );
@@ -150,7 +151,7 @@ export class SpiritComponent implements OnInit
       return;
     }
 
-    this.spiritService.updateSpirit( this.product.id!, this.form.value ).subscribe(
+    this.productService.updateProduct( this.product.id!, this.form.value, 'spirit' ).subscribe(
       () => {
         this.sweetAlert.presentSuccess('Producto actualizado correctamente!');
         this.router.navigate(['/dashboard/products']);

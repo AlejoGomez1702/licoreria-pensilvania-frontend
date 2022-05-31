@@ -8,6 +8,7 @@ import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
 import { SpiritService } from '../../../services/establishment-spirit/spirit.service';
+import { ProductService } from '../../../services/product.service';
 import { SearchService } from '../../../services/search.service';
 
 @Component({
@@ -35,7 +36,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
   pageEvent!: PageEvent;
 
   constructor(
-    private spiritService: SpiritService,
+    private productService: ProductService,
     private searchService: SearchService,
     private sweetAlert: SweetAlertService,
     private router: Router
@@ -98,7 +99,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
       const { isConfirmed } = await this.sweetAlert.presentDelete(`${category.name} ${name}`);
       if(isConfirmed)
       {
-        this.spiritService.deleteSpirit( id ).subscribe(
+        this.productService.deleteProduct( id ).subscribe(
           product => {
             if(product)
             {
@@ -114,7 +115,7 @@ export class SpiritInventoryComponent implements OnInit, AfterViewInit
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.spiritService.getAllProducts(category, limit, from)
+    this.productService.getAllProducts('spirit', category, limit, from)
     .subscribe(
       res => {
         this.products = res.products;        

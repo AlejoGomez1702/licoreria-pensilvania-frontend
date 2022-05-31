@@ -9,6 +9,7 @@ import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
 import { NaturistService } from '../../../services/establishment-naturist/naturist.service';
 import { SpiritService } from '../../../services/establishment-spirit/spirit.service';
+import { ProductService } from '../../../services/product.service';
 import { SearchService } from '../../../services/search.service';
 
 @Component({
@@ -36,8 +37,7 @@ export class NaturistInventoryComponent implements OnInit {
   pageEvent!: PageEvent;
 
   constructor(
-    // private spiritService: SpiritService,
-    private naturistService: NaturistService,
+    private productService: ProductService,
     private searchService: SearchService,
     private sweetAlert: SweetAlertService,
     private router: Router
@@ -116,7 +116,7 @@ export class NaturistInventoryComponent implements OnInit {
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.naturistService.getAllProducts(category, limit, from)
+    this.productService.getAllProducts('naturist', category, limit, from)
     .subscribe(
       res => {
         this.products = res.products;        

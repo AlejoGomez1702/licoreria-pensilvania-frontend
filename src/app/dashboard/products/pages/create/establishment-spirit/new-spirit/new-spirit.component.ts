@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
 import { SpiritService } from 'src/app/dashboard/products/services/establishment-spirit/spirit.service';
+import { ProductService } from 'src/app/dashboard/products/services/product.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
@@ -34,7 +35,8 @@ export class NewSpiritComponent implements OnInit
     public dialog: MatDialog,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
-    private spiritService: SpiritService
+    // private spiritService: SpiritService
+    private productService: ProductService
   )
   { 
     this.createFormBuilder();
@@ -115,7 +117,7 @@ export class NewSpiritComponent implements OnInit
       return;
     }
 
-    this.spiritService.createProduct( this.form.value ).subscribe(
+    this.productService.createProduct( this.form.value, 'spirits' ).subscribe(
       (res) => {
         this.sweetAlert.presentSuccess('Producto creado correctamente!');
         console.log(res);
@@ -153,7 +155,7 @@ export class NewSpiritComponent implements OnInit
 
   showProductData( id: string )
   {
-    this.spiritService.getSpiritById( id, true ).subscribe(
+    this.productService.getProductById( id, true ).subscribe(
       spirit => {
         // console.log(spirit);
         const { category, unit, ...data } = spirit;

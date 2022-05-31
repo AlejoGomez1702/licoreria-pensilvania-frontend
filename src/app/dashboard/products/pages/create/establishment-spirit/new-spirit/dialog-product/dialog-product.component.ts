@@ -90,23 +90,23 @@ export class DialogProductComponent implements OnInit
 
   loadProducts()
   {
-    this.spiritService.getSercheablesProducts()
-    .subscribe(res => {
-      this.products = res.products.map(product => {
-        const { id = '', category, unit, name, img } = product;
-        const shortProductData = { id , category, unit, name, img };
+    // this.spiritService.getSercheablesProducts()
+    // .subscribe(res => {
+    //   this.products = res.products.map(product => {
+    //     const { id = '', category, unit, name, img } = product;
+    //     const shortProductData = { id , category, unit, name, img };
 
-        return shortProductData;
-      });
+    //     return shortProductData;
+    //   });
 
-      if(this.products.length === 0)
-      {
-        this.selectedProduct.disable();
-      }
-    },
-    error => {
-      this.sweetAlert.presentError(error.error.error);
-    });
+    //   if(this.products.length === 0)
+    //   {
+    //     this.selectedProduct.disable();
+    //   }
+    // },
+    // error => {
+    //   this.sweetAlert.presentError(error.error.error);
+    // });
   }
 
   onNoClick(): void {
