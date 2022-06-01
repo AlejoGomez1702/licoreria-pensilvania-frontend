@@ -79,7 +79,7 @@ export class NewNaturistComponent implements OnInit {
       purchase_price:     [ 0, [Validators.min(0)] ],
       sale_price:         [ 0, [Validators.min(0)] ],
       current_existence:  [ 0, [Validators.min(0)] ],
-      id:                 [ '', [Validators.required] ],
+      code:               [ '', [Validators.required] ],
 
     });
   }

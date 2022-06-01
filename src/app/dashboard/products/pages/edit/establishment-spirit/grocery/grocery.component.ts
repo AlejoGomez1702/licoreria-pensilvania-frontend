@@ -7,8 +7,8 @@ import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interf
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { Product } from '../../../interfaces/Product';
-import { GroceryService } from '../../../services/establishment-spirit/grocery.service';
+import { Product } from '../../../../interfaces/Product';
+import { GroceryService } from '../../../../services/establishment-spirit/grocery.service';
 
 @Component({
   selector: 'app-grocery',

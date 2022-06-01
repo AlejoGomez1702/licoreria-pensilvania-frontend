@@ -22,7 +22,11 @@ export interface Routing
 
     // Naturistas
     createNaturist: string;
+    editNaturist: string;
+
+    // Sex-Shop
     createSexshop: string;
+    editSexshop: string;
     // *************** INVENTARIO *************** //
 
     // Ventas

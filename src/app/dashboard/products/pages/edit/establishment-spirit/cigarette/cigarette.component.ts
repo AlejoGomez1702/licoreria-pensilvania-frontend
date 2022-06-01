@@ -7,17 +7,16 @@ import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interf
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { Product } from '../../../interfaces/Product';
-import { DrinkService } from '../../../services/establishment-spirit/drink.service';
+import { Product } from '../../../../interfaces/Product';
+import { CigaretteService } from '../../../../services/establishment-spirit/cigarette.service';
 
 @Component({
-  selector: 'app-drink',
-  templateUrl: './drink.component.html',
-  styleUrls: ['./drink.component.scss']
+  selector: 'app-cigarette',
+  templateUrl: './cigarette.component.html',
+  styleUrls: ['./cigarette.component.scss']
 })
-export class DrinkComponent implements OnInit 
+export class CigaretteComponent implements OnInit 
 {
-
   public product!: Product;
   public form!: FormGroup;
 
@@ -29,7 +28,7 @@ export class DrinkComponent implements OnInit
 
   constructor(
     private fb: FormBuilder,
-    private drinkService: DrinkService,
+    private cigaretteService: CigaretteService,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
     private activatedRoute: ActivatedRoute,
@@ -63,7 +62,7 @@ export class DrinkComponent implements OnInit
 
   loadCategories()
   {
-    this.categoryService.getAllCategories('drink').subscribe(
+    this.categoryService.getAllCategories('cigarette').subscribe(
       categories => this.categories = categories.categories,
       () => this.sweetAlert.presentError("Error obteniendo categorias")
     );
@@ -71,7 +70,7 @@ export class DrinkComponent implements OnInit
 
   loadUnits()
   {
-    this.unitService.getAllUnidades('drink').subscribe(
+    this.unitService.getAllUnidades('cigarette').subscribe(
       units => this.units = units.units,
       () => this.sweetAlert.presentError("Error obteniendo unidades de medida")
     );
@@ -79,9 +78,9 @@ export class DrinkComponent implements OnInit
 
   getProductSelected( id: string )
   {
-    this.drinkService.getDrinkById( id, false ).subscribe(
-      drink => {
-        this.product = drink;
+    this.cigaretteService.getCigaretteById( id, false ).subscribe(
+      cigarette => {
+        this.product = cigarette;
         this.buildForm( false );
       },
       error => {
@@ -151,7 +150,7 @@ export class DrinkComponent implements OnInit
       return;
     }
 
-    this.drinkService.updateDrink( this.product.id!, this.form.value ).subscribe(
+    this.cigaretteService.updateCigarette( this.product.id!, this.form.value ).subscribe(
       () => {
         this.sweetAlert.presentSuccess('Producto actualizado correctamente!');
         this.router.navigate(['/dashboard/products']);
@@ -162,4 +161,5 @@ export class DrinkComponent implements OnInit
       }
     );
   }
+
 }

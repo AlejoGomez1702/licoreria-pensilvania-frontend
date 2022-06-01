@@ -7,16 +7,17 @@ import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interf
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { Product } from '../../../interfaces/Product';
-import { CigaretteService } from '../../../services/establishment-spirit/cigarette.service';
+import { Product } from '../../../../interfaces/Product';
+import { CigaretteService } from '../../../../services/establishment-spirit/cigarette.service';
 
 @Component({
-  selector: 'app-cigarette',
-  templateUrl: './cigarette.component.html',
-  styleUrls: ['./cigarette.component.scss']
+  selector: 'app-sex-shop',
+  templateUrl: './sex-shop.component.html',
+  styleUrls: ['./sex-shop.component.scss']
 })
-export class CigaretteComponent implements OnInit 
+export class SexShopComponent implements OnInit 
 {
+
   public product!: Product;
   public form!: FormGroup;
 
@@ -161,5 +162,4 @@ export class CigaretteComponent implements OnInit
       }
     );
   }
-
 }

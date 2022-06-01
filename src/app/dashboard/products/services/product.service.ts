@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { TokenService } from 'src/app/core/services/token.service';
 import { ResponseGetAllProducts } from '../interfaces/ResponseGetAllProducts';
 import { Product } from '../interfaces/Product';
 import { HttpOptions } from 'src/app/core/interfaces/HttpOptions';
@@ -13,16 +12,8 @@ import { HttpOptions } from 'src/app/core/interfaces/HttpOptions';
 })
 export class ProductService 
 {
-  apiUrl = environment.API_URL;
-
-  headers = new HttpHeaders({
-    'Content-Type':  'application/json',
-    'x-token': this.tokenService.getToken()
-  });
-  
   constructor(
-    private http: HttpClient,
-    private tokenService: TokenService
+    private http: HttpClient
   ) { }
 
   /**
@@ -117,12 +108,14 @@ export class ProductService
   updateProduct( id: string, product: Product, supercategory: string ): Observable<Product>
   {
     const { state, ...data } = product;
-    let headers = new HttpHeaders().set('supercategory', supercategory);
+    let httpOptions: HttpOptions = {
+      params: new HttpParams().set('supercategory', supercategory)
+    };
 
     const { img } = data;
     if( typeof img === 'string' || img instanceof String || img === null ) //La imagen no se desea actualizar
     {
-      return this.http.put<Product>(`${environment.API_URL}/products/${id}`, data, { headers });
+      return this.http.put<Product>(`${environment.API_URL}/products/${id}`, data, httpOptions);
     }
 
     const productDataAny: any = { ...data };
@@ -137,9 +130,12 @@ export class ProductService
     }
 
     // Con esta cabecera indico al interceptor que va un archivo en la petición
-    headers = new HttpHeaders().set('with-img', 'yes');
+    httpOptions = {
+      params: new HttpParams().set('supercategory', supercategory),
+      headers: new HttpHeaders().set('with-img', 'yes')
+    };
 
-    return this.http.put<Product>(`${environment.API_URL}/products/${id}`, formData, { headers });
+    return this.http.put<Product>(`${environment.API_URL}/products/${id}`, formData, httpOptions);
   }
 
   /**

@@ -21,15 +21,16 @@ export const appRoutes: Routing = {
 
     // Comestibles
     createGrocery: '/dashboard/products/create/groceries',
-    editGrocery: '/dashboard/products/groceries/edit/',
+    editGrocery: '/dashboard/products/groceries/edit/',    
 
     // ---- Inventario para tiendas naturistas ---- //
     // Productos Naturistas
-    createNaturist: '/dashboard/products/create/naturist',
-    // editGrocery: '/dashboard/products/groceries/edit/',
+    createNaturist: '/dashboard/products/create/naturists',
+    editNaturist: '/dashboard/products/naturists/edit/',
 
     // sex shop
-    createSexshop: '/dashboard/products/create/sexshop',
+    createSexshop: '/dashboard/products/create/sexshops',
+    editSexshop: '/dashboard/products/sexshops/edit/',
 
     // *************** INVENTARIO *************** //
 

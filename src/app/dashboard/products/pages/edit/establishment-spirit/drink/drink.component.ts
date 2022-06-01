@@ -7,17 +7,17 @@ import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interf
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { Product } from '../../../interfaces/Product';
-import { SpiritService } from '../../../services/establishment-spirit/spirit.service';
-import { ProductService } from '../../../services/product.service';
+import { Product } from '../../../../interfaces/Product';
+import { DrinkService } from '../../../../services/establishment-spirit/drink.service';
 
 @Component({
-  selector: 'app-spirit',
-  templateUrl: './spirit.component.html',
-  styleUrls: ['./spirit.component.scss']
+  selector: 'app-drink',
+  templateUrl: './drink.component.html',
+  styleUrls: ['./drink.component.scss']
 })
-export class SpiritComponent implements OnInit 
+export class DrinkComponent implements OnInit 
 {
+
   public product!: Product;
   public form!: FormGroup;
 
@@ -29,14 +29,15 @@ export class SpiritComponent implements OnInit
 
   constructor(
     private fb: FormBuilder,
-    private productService: ProductService,
+    private drinkService: DrinkService,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
     private activatedRoute: ActivatedRoute,
     private formsValidationService: FormsValidationService,
     private sweetAlert: SweetAlertService,
     private router: Router
-  ) { }
+  ) 
+  { }
 
   ngOnInit(): void 
   {
@@ -49,7 +50,7 @@ export class SpiritComponent implements OnInit
     }
     else
     {
-      this.sweetAlert.presentError('Error iniciando el licor seleccionado (NO ID)');
+      this.sweetAlert.presentError('Error iniciando el cigarrillo seleccionado (NO ID)');
       this.router.navigate(['/dashboard/products']);
     }
   }
@@ -62,7 +63,7 @@ export class SpiritComponent implements OnInit
 
   loadCategories()
   {
-    this.categoryService.getAllCategories('spirit').subscribe(
+    this.categoryService.getAllCategories('drink').subscribe(
       categories => this.categories = categories.categories,
       () => this.sweetAlert.presentError("Error obteniendo categorias")
     );
@@ -70,7 +71,7 @@ export class SpiritComponent implements OnInit
 
   loadUnits()
   {
-    this.unitService.getAllUnidades('spirit').subscribe(
+    this.unitService.getAllUnidades('drink').subscribe(
       units => this.units = units.units,
       () => this.sweetAlert.presentError("Error obteniendo unidades de medida")
     );
@@ -78,9 +79,9 @@ export class SpiritComponent implements OnInit
 
   getProductSelected( id: string )
   {
-    this.productService.getProductById( id, false ).subscribe(
-      spirit => {
-        this.product = spirit;
+    this.drinkService.getDrinkById( id, false ).subscribe(
+      drink => {
+        this.product = drink;
         this.buildForm( false );
       },
       error => {
@@ -118,7 +119,6 @@ export class SpiritComponent implements OnInit
         unit:               [ '', [Validators.required] ],
         barcode:            [ '' ],
         stock:              [ 1, [Validators.required, Validators.min(1)] ],
-        vol_alcohol:        [ 0, [Validators.required, Validators.min(0), Validators.max(100)] ],
         purchase_price:     [ 0, [Validators.min(0)] ],
         sale_price:         [ 0, [Validators.min(0)] ],
         second_sale_price:  [ 0, [Validators.min(0)] ],
@@ -151,7 +151,7 @@ export class SpiritComponent implements OnInit
       return;
     }
 
-    this.productService.updateProduct( this.product.id!, this.form.value, 'spirit' ).subscribe(
+    this.drinkService.updateDrink( this.product.id!, this.form.value ).subscribe(
       () => {
         this.sweetAlert.presentSuccess('Producto actualizado correctamente!');
         this.router.navigate(['/dashboard/products']);
@@ -162,5 +162,4 @@ export class SpiritComponent implements OnInit
       }
     );
   }
-
 }
