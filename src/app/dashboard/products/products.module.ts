@@ -26,6 +26,7 @@ import { NewSexShopComponent } from './pages/create/establishment-naturist/new-s
 import { NaturistComponent } from './pages/edit/establishment-naturist/naturist/naturist.component';
 import { SexShopComponent } from './pages/edit/establishment-naturist/sex-shop/sex-shop.component';
 import { ProductInventoryComponent } from './components/product-inventory/product-inventory.component';
+import { NewProductComponent } from './pages/create/new-product/new-product.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ProductInventoryComponent } from './components/product-inventory/produc
     NaturistComponent,
     SexShopComponent,
     ProductInventoryComponent,
+    NewProductComponent,
   ],
   imports: [
     CommonModule,
