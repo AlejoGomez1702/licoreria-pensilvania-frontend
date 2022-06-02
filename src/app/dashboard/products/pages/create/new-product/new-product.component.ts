@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
-import { NaturistService } from 'src/app/dashboard/products/services/establishment-naturist/naturist.service';
 import { ProductService } from 'src/app/dashboard/products/services/product.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { InventoryService } from '../../../services/inventory.service';
 
 @Component({
   selector: 'app-new-product',
@@ -17,8 +17,8 @@ import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 })
 export class NewProductComponent implements OnInit 
 {
-  @Input() title: string = '';
-  @Input() productType: string = '';
+  public title: string = 'INVENTARIO DE PRODUCTOS ';
+  public productType: string = '';
 
   public form!: FormGroup;
 
@@ -33,19 +33,42 @@ export class NewProductComponent implements OnInit
     private sweetAlert: SweetAlertService,
     private formsValidationService: FormsValidationService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     // public dialog: MatDialog,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
-    private productService: ProductService
+    private productService: ProductService,
+    private inventoryService: InventoryService
   ) 
   { 
+    this.verifyProductType();
     this.createFormBuilder();
   }
 
   ngOnInit(): void 
-  {
+  {    
     this.loadData();
   }
+
+  verifyProductType()
+  {
+    const productType = this.activatedRoute.snapshot.paramMap.get('type');
+    if(productType)
+    {
+      this.productType = productType;
+      let title = 'CREAR NUEVO PRODUCTO ';
+      title += this.inventoryService.verifyCreateProductTitle( productType );
+      this.title = title;
+    }
+  }
+
+  // verifyFields()
+  // {
+  //   if(this.productType === '')
+  //   {
+
+  //   }
+  // }
 
   loadData()
   {
@@ -71,18 +94,9 @@ export class NewProductComponent implements OnInit
 
   createFormBuilder(): void
   {
-    this.form = this.fb.group({
-      img:                [],
-      category:           [ '', [Validators.required] ],
-      name:               [ '', [Validators.required, Validators.minLength(3)] ],
-      unit:               [ '', [Validators.required] ],
-      barcode:            [ '' ],
-      stock:              [ 1, [Validators.required, Validators.min(1)] ],
-      purchase_price:     [ 0, [Validators.min(0)] ],
-      sale_price:         [ 0, [Validators.min(0)] ],
-      current_existence:  [ 0, [Validators.min(0)] ],
-      code:               [ '', [Validators.required] ]
-    });
+    const formData = this.inventoryService.verifyCreateProductFormBuilder( this.productType );
+    console.log("pordisds: ", this.productType);
+    this.form = this.fb.group( formData );
   }
 
   validField( field: string )

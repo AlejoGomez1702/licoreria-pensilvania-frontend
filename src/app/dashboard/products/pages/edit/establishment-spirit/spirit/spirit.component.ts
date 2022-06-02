@@ -8,7 +8,6 @@ import { CategoryService } from 'src/app/dashboard/settings/services/category.se
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../../interfaces/Product';
-import { SpiritService } from '../../../../services/establishment-spirit/spirit.service';
 import { ProductService } from '../../../../services/product.service';
 
 @Component({

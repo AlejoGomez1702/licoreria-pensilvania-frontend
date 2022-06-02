@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
+import { ProductService } from 'src/app/dashboard/products/services/product.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../../interfaces/Product';
-import { CigaretteService } from '../../../../services/establishment-spirit/cigarette.service';
 
 @Component({
   selector: 'app-cigarette',
@@ -28,7 +28,7 @@ export class CigaretteComponent implements OnInit
 
   constructor(
     private fb: FormBuilder,
-    private cigaretteService: CigaretteService,
+    private productService: ProductService,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
     private activatedRoute: ActivatedRoute,
@@ -78,7 +78,7 @@ export class CigaretteComponent implements OnInit
 
   getProductSelected( id: string )
   {
-    this.cigaretteService.getCigaretteById( id, false ).subscribe(
+    this.productService.getProductById( id, false ).subscribe(
       cigarette => {
         this.product = cigarette;
         this.buildForm( false );
@@ -150,7 +150,7 @@ export class CigaretteComponent implements OnInit
       return;
     }
 
-    this.cigaretteService.updateCigarette( this.product.id!, this.form.value ).subscribe(
+    this.productService.updateProduct( this.product.id!, this.form.value, 'cigarette' ).subscribe(
       () => {
         this.sweetAlert.presentSuccess('Producto actualizado correctamente!');
         this.router.navigate(['/dashboard/products']);

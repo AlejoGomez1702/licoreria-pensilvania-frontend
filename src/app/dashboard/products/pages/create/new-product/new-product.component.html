@@ -147,6 +147,14 @@
                         </mat-error>
                     </mat-form-field>
                 </div>  
+
+                <!-- Ejemplo precio de venta -->
+                <!-- <ng-container *ngIf="withSecondPrice">
+                    <ng-container matColumnDef="second_sale_price">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio 2</th>
+                        <td mat-cell *matCellDef="let row">$ {{row.second_sale_price | number}}</td>
+                    </ng-container>
+                </ng-container> -->
                 
                 <!-- Precio de compra -->
                 <div class="col-lg-4 col-md-4">
@@ -175,9 +183,25 @@
                             Campo Inválido
                         </mat-error>
                     </mat-form-field>
-                </div>
-                
-            </div>        
+                </div>                
+            </div>    
+            
+            <div class="row">
+                <!-- Precio de venta secundario -->
+                <ng-container *ngIf="form.get('second_sale_price')">
+                    <div class="col-lg-4 col-md-4">
+                        <mat-form-field appearance="fill" class="formControl">
+                            <mat-label>Precio de Venta Secundario</mat-label>
+                            <input matInput currencyMask formControlName="second_sale_price" 
+                            [options]="{ allowNegative: false, precision: 0, thousands: '.' }"/>
+                            <mat-error *ngIf="validField('second_sale_price')">
+                                Campo Inválido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>  
+                </ng-container>                 
+            </div>
+
         </div>
     
         <div class="txt-center">

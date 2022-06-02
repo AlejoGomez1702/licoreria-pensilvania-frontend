@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CigaretteInventoryComponent } from '../../components/establishment-spirit/cigarette-inventory/cigarette-inventory.component';
-import { DrinkInventoryComponent } from '../../components/establishment-spirit/drink-inventory/drink-inventory.component';
-import { GroceryInventoryComponent } from '../../components/establishment-spirit/grocery-inventory/grocery-inventory.component';
-import { SpiritInventoryComponent } from '../../components/establishment-spirit/spirit-inventory/spirit-inventory.component';
 import { SuperCategory } from '../../interfaces/SuperCategory';
 import { InventoryService } from '../../services/inventory.service';
 import { SuperCategoryService } from '../../services/super-category.service';

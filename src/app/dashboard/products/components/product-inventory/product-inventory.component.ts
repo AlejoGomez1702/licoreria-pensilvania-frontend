@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
+import { InventoryService } from '../../services/inventory.service';
 import { ProductService } from '../../services/product.service';
 import { SearchService } from '../../services/search.service';
 
@@ -42,6 +43,7 @@ export class ProductInventoryComponent implements OnInit
 
   constructor(
     private productService: ProductService,
+    private inventoryService: InventoryService,
     private searchService: SearchService,
     private sweetAlert: SweetAlertService,
     private router: Router
@@ -104,12 +106,15 @@ export class ProductInventoryComponent implements OnInit
 
   createProduct()
   {
-    this.router.navigate([appRoutes.createNaturist]);
+    const route = this.inventoryService.verifyCreateProductRoute( this.productType );
+    this.router.navigate([route]);
   }
 
   editProduct( row: Product )
   {
-    this.router.navigate([appRoutes.editNaturist + row.id]);
+    const route = this.inventoryService.verifyEditProductRoute( this.productType, row.id || '' );
+    this.router.navigate([route]);
+    // this.router.navigate([appRoutes.editNaturist + row.id]);
   }
 
   async deleteProduct( product: Product )

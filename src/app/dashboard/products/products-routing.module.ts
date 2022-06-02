@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NewNaturistComponent } from './pages/create/establishment-naturist/new-naturist/new-naturist.component';
-import { NewSexShopComponent } from './pages/create/establishment-naturist/new-sex-shop/new-sex-shop.component';
-import { NewCigaretteComponent } from './pages/create/establishment-spirit/new-cigarette/new-cigarette.component';
-import { NewDrinkComponent } from './pages/create/establishment-spirit/new-drink/new-drink.component';
-import { NewGroceryComponent } from './pages/create/establishment-spirit/new-grocery/new-grocery.component';
-import { NewSpiritComponent } from './pages/create/establishment-spirit/new-spirit/new-spirit.component';
+import { NewProductComponent } from './pages/create/new-product/new-product.component';
 import { NaturistComponent } from './pages/edit/establishment-naturist/naturist/naturist.component';
 import { SexShopComponent } from './pages/edit/establishment-naturist/sex-shop/sex-shop.component';
 import { CigaretteComponent } from './pages/edit/establishment-spirit/cigarette/cigarette.component';
@@ -49,31 +44,11 @@ const routes: Routes = [
     path: 'sexshops/edit/:id',
     component: SexShopComponent
   },
-  // /dashboard/products/create/spirits
+  // Crear un nuevo producto
   {
-    path: 'create/spirits',
-    component: NewSpiritComponent
+    path: 'create/:type',
+    component: NewProductComponent
   },
-  {
-    path: 'create/cigarettes',
-    component: NewCigaretteComponent
-  },
-  {
-    path: 'create/drinks',
-    component: NewDrinkComponent
-  },
-  {
-    path: 'create/groceries',
-    component: NewGroceryComponent
-  },
-  {
-    path: 'create/naturists',
-    component: NewNaturistComponent
-  },
-  {
-    path: 'create/sexshops',
-    component: NewSexShopComponent
-  }
 ]
 
 @NgModule({

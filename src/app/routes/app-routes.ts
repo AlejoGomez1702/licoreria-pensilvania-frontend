@@ -8,28 +8,28 @@ export const appRoutes: Routing = {
     // ---- Inventario por defecto (Licores) ---- //
     inventory: '/dashboard/products',
     // Cigarrillos
-    createCigarette: '/dashboard/products/create/cigarettes',
+    createCigarette: '/dashboard/products/create/cigarette',
     editCigarette: '/dashboard/products/cigarettes/edit/',
 
     // Licores
-    createSpirit: '/dashboard/products/create/spirits',
+    createSpirit: '/dashboard/products/create/spirit',
     editSpirit: '/dashboard/products/spirits/edit/',
 
     // Bebidas
-    createDrink: '/dashboard/products/create/drinks',
+    createDrink: '/dashboard/products/create/drink',
     editDrink: '/dashboard/products/drinks/edit/',
 
     // Comestibles
-    createGrocery: '/dashboard/products/create/groceries',
+    createGrocery: '/dashboard/products/create/grocery',
     editGrocery: '/dashboard/products/groceries/edit/',    
 
     // ---- Inventario para tiendas naturistas ---- //
     // Productos Naturistas
-    createNaturist: '/dashboard/products/create/naturists',
+    createNaturist: '/dashboard/products/create/naturist',
     editNaturist: '/dashboard/products/naturists/edit/',
 
     // sex shop
-    createSexshop: '/dashboard/products/create/sexshops',
+    createSexshop: '/dashboard/products/create/sexshop',
     editSexshop: '/dashboard/products/sexshops/edit/',
 
     // *************** INVENTARIO *************** //

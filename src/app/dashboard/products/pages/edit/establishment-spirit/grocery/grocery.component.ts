@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
+import { ProductService } from 'src/app/dashboard/products/services/product.service';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { Unit } from 'src/app/dashboard/settings/interfaces/unidad-medida.interface';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { UnidadMedidaService } from 'src/app/dashboard/settings/services/unidad-medida.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../../interfaces/Product';
-import { GroceryService } from '../../../../services/establishment-spirit/grocery.service';
 
 @Component({
   selector: 'app-grocery',
@@ -28,7 +28,7 @@ export class GroceryComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private groceryService: GroceryService,
+    private productService: ProductService,
     private categoryService: CategoryService,
     private unitService: UnidadMedidaService,
     private activatedRoute: ActivatedRoute,
@@ -78,7 +78,7 @@ export class GroceryComponent implements OnInit {
 
   getProductSelected( id: string )
   {
-    this.groceryService.getGroceryById( id, false ).subscribe(
+    this.productService.getProductById( id, false ).subscribe(
       grocery => {
         this.product = grocery;
         this.buildForm( false );
@@ -154,7 +154,7 @@ export class GroceryComponent implements OnInit {
       return;
     }
 
-    this.groceryService.updateGrocery( this.product.id!, this.form.value ).subscribe(
+    this.productService.updateProduct( this.product.id!, this.form.value, 'grocery' ).subscribe(
       () => {
         this.sweetAlert.presentSuccess('Producto actualizado correctamente!');
         this.router.navigate(['/dashboard/products']);
