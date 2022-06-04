@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
 import { ProductService } from 'src/app/dashboard/products/services/product.service';
@@ -61,14 +61,6 @@ export class NewProductComponent implements OnInit
       this.title = title;
     }
   }
-
-  // verifyFields()
-  // {
-  //   if(this.productType === '')
-  //   {
-
-  //   }
-  // }
 
   loadData()
   {

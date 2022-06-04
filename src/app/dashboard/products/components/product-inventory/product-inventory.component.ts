@@ -4,7 +4,6 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
 import { InventoryService } from '../../services/inventory.service';
@@ -114,7 +113,6 @@ export class ProductInventoryComponent implements OnInit
   {
     const route = this.inventoryService.verifyEditProductRoute( this.productType, row.id || '' );
     this.router.navigate([route]);
-    // this.router.navigate([appRoutes.editNaturist + row.id]);
   }
 
   async deleteProduct( product: Product )
