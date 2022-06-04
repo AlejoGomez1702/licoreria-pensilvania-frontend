@@ -4,6 +4,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
+import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
 import { InventoryService } from '../../services/inventory.service';
@@ -17,13 +19,17 @@ import { SearchService } from '../../services/search.service';
 })
 export class ProductInventoryComponent implements OnInit 
 {
+  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   @Input() title: string = '';
   @Input() productType: string = '';
 
   // Lo que se va ingresando en el campo de busqueda.
   public termInput = new FormControl();
+  public idCategorySelected: string = '';
+  public isActiveFilters: boolean = false;
 
   public products: Product[] = [];
+  public categories: Category[] = [];
   
   // public displayedColumns = ['name', 'unit', 'sale_price', 'stock', 'current_existence', 'actions'];
   public displayedColumns: string[] = ['name', 'unit', 'sale_price', 'stock', 'current_existence', 'actions'];
@@ -42,6 +48,7 @@ export class ProductInventoryComponent implements OnInit
 
   constructor(
     private productService: ProductService,
+    private categoryService: CategoryService,
     private inventoryService: InventoryService,
     private searchService: SearchService,
     private sweetAlert: SweetAlertService,
@@ -56,6 +63,7 @@ export class ProductInventoryComponent implements OnInit
   {
     this.verifyFields();
     this.loadProducts();
+    this.loadCategories();
     this.loadFilter();
   }
 
@@ -150,6 +158,17 @@ export class ProductInventoryComponent implements OnInit
     );
   }
 
+  loadCategories()
+  {
+    this.categoryService.getAllCategories( this.productType ).subscribe(
+      res => {        
+        this.categories = res.categories;
+        // console.log(this.categories);
+      },
+      error => console.log(error)
+    );
+  }
+
   paginateChange( event:PageEvent ): PageEvent
   {
     this.length = event.length;
@@ -159,12 +178,45 @@ export class ProductInventoryComponent implements OnInit
     if(this.termInput.value)
     {
       this.applyFilter( this.termInput.value );
+      console.log(1111);
+    }
+    else if( this.idCategorySelected )
+    {
+      this.filterData( undefined, this.pageSize, this.from );
+      console.log(22222);
     }
     else
     {
       this.loadProducts( undefined, this.pageSize, this.from );
+      console.log(33333);
     }
 
     return event;
   }
+
+  filterData(category?: Category, limit?: number, from?: number)
+  {
+    this.isActiveFilters = false;
+
+    let categoryId = undefined;
+    if( category )
+    {      
+      categoryId = category.id;
+      this.idCategorySelected = categoryId || '';
+    }
+    else if( this.idCategorySelected )
+    {
+      categoryId = this.idCategorySelected;
+    }
+    
+    this.productService.getAllProducts( this.productType, categoryId, limit, from ).subscribe(
+      res => {
+        this.products = res.products,
+        this.length = res.total;
+        this.dataSource.data = this.products;
+      },
+      error => console.log(error)
+    );
+  }
+
 }

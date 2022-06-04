@@ -199,7 +199,27 @@
                             </mat-error>
                         </mat-form-field>
                     </div>  
-                </ng-container>                 
+                </ng-container>          
+                
+                <!-- Volumen alcoholico -->
+                <ng-container *ngIf="form.get('vol_alcohol')">
+                    <div class="col-lg-4 col-md-4">
+                        <mat-form-field appearance="fill" class="formControl">
+                            <mat-label>% Alcohol</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                [min]="0"
+                                [max]="100"
+                                formControlName="vol_alcohol"
+                                required
+                            />
+                            <mat-error *ngIf="validField('vol_alcohol')">
+                                Campo Inválido
+                            </mat-error>
+                        </mat-form-field>
+                    </div> 
+                </ng-container>    
             </div>
 
         </div>

@@ -87,7 +87,6 @@ export class NewProductComponent implements OnInit
   createFormBuilder(): void
   {
     const formData = this.inventoryService.verifyCreateProductFormBuilder( this.productType );
-    console.log("pordisds: ", this.productType);
     this.form = this.fb.group( formData );
   }
 

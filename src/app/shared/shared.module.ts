@@ -28,6 +28,7 @@ import { ShoppingCartComponent } from './index/pages/shopping-cart/shopping-cart
 import { ShoppingCartHeaderComponent } from './index/components/main-header/shopping-cart-header/shopping-cart-header.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MainToolbarComponent } from '../dashboard/components/main-toolbar/main-toolbar.component';
+import { PrimeNgModule } from './prime-ng/prime-ng.module';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { MainToolbarComponent } from '../dashboard/components/main-toolbar/main-
     CommonModule,
     RouterModule,
     MaterialModule,
+    PrimeNgModule,
     FormsModule,
     ReactiveFormsModule,
     SpinnerModule,
@@ -70,6 +72,7 @@ import { MainToolbarComponent } from '../dashboard/components/main-toolbar/main-
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    PrimeNgModule,
     // Components
     IndexComponent,
     SmallHeaderComponent,

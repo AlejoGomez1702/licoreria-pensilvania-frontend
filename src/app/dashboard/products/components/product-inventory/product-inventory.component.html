@@ -6,23 +6,61 @@
     </app-main-toolbar>
 
     <mat-divider></mat-divider>
-
+    
+    <!-- Opciones, Buscador y filtros -->
     <div class="row mt-3">
-        <div class="col-3">
+        <!-- Opciones -->
+        <div class="col">
             <button mat-raised-button color="primary" (click)="createProduct()">
                 Agregar
                 <mat-icon>add</mat-icon>
             </button>
         </div>
+        <!-- filtros y Buscador -->
+        <div class="col">
+            <div class="row">
+                <div class="col-3">
+                    <button mat-icon-button aria-label="Filtros" (click)="isActiveFilters = !isActiveFilters">
+                        <mat-icon>filter_list</mat-icon>
+                        Filtros
+                    </button>
+                </div>
+                <div class="col-9">
+                    <span class="p-input-icon-left w-100">
+                        <i class="pi pi-search"></i>
+                        <input #input type="text" class="w-100" pInputText placeholder="Buscar" [formControl]="termInput" />
+                    </span>
+                </div>
+            </div>
+
+            <!-- Contenido de los filtros -->
+            <ng-container *ngIf="isActiveFilters">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="bold-text">Categoría</h3>
+                        <mat-divider></mat-divider>
+                        <mat-selection-list [multiple]="false">
+                            <!-- Quitar la categoria -->
+                            <mat-list-option (click)="idCategorySelected = ''">   
+                                Ningúna                             
+                            </mat-list-option>
+                            <!-- Todas las categorias de la supercategoria -->
+                            <mat-list-option *ngFor="let category of categories"
+                                                [value]="category.id"
+                                                (click)="filterData( category )">
+                            {{category.name}}
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </div>
+                </div>
+            </ng-container>
+            
+
+        </div>
     </div>
 
-    <mat-form-field appearance="standard">
-        <mat-label>Buscar...</mat-label>
-        <input matInput placeholder="Buscar por cualquier campo..." #input [formControl]="termInput">
-    </mat-form-field>
-
-    <mat-card-content>
-        <div class="mat-elevation-z8">
+    <mat-card-content class="mt-3">
+        <div class="mat-elevation-z8 mt-3">
             <table class="full-width-table" mat-table [dataSource]="dataSource" matSort>        
                 <!-- Nombre -->
                 <ng-container matColumnDef="name">
