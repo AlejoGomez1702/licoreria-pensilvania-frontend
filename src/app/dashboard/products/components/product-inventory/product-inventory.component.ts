@@ -100,7 +100,7 @@ export class ProductInventoryComponent implements OnInit
 
   applyFilter( term: string ) 
   {
-    this.searchService.searchProduct(term, this.productType, this.pageSize, this.from).subscribe(
+    this.searchService.searchProduct(term, this.productType, this.pageSize, this.from, this.idCategorySelected).subscribe(
       res => {
         console.log(res);
         this.products = res.results;        
