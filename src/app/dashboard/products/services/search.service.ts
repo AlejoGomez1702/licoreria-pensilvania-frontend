@@ -14,10 +14,10 @@ export class SearchService
   ) 
   { }
 
-  searchProduct( term: string, supercategory: string, limit?: number, from?: number, category?: string ): Observable<ResponseSearch>
+  searchProduct( term: string, supercategory?: string, limit?: number, from?: number, category?: string ): Observable<ResponseSearch>
   {
     const httpOptions = {
-      params: new HttpParams().set('supercategory', supercategory)
+      params: new HttpParams().set('supercategory', supercategory ? supercategory : '')
                               .set('category', category ? category : '')
                               .set('limit', limit ? limit : 8)
                               .set('from', from ? from : 0)

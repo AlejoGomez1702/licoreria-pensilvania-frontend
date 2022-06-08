@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Client } from 'src/app/dashboard/clients/interfaces/Client';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { Statistic } from '../../interfaces/ResponseGetAllSales';
 import { Sale } from '../../interfaces/Sale';
@@ -122,13 +123,25 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     }
   }
 
-  getTotalValue( sale: Sale )
+  getTotalValue( sale: Sale ): number
   {
     const { products } = sale;
     const individualTotals = products.map(p => (p.count * p.sale_price));
     const total = individualTotals.reduce(( a, b ) => a + b, 0);
     
     return total;
+  }
+
+  getClientName( sale: Sale ): string
+  {
+    const { client } = sale;
+
+    if( client )
+    {
+      return client.name;
+    }
+
+    return '-------';
   }
 
   getUtility( sale: Sale ): number

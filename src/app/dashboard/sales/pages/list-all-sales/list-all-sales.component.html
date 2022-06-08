@@ -45,7 +45,7 @@
                 <!-- Fecha de creación-->
                 <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-                <td mat-cell *matCellDef="let row"> {{row.created_at | date:"dd/MM/yyyy"}} </td>
+                <td mat-cell *matCellDef="let row"> {{row.created_at | date:"dd/MM/yyyy, mm:ss a"}} </td>
                 </ng-container>
 
                 <!-- Valor total -->
@@ -63,7 +63,7 @@
                 <!-- Cliente  -->
                 <ng-container matColumnDef="client">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
-                <td mat-cell *matCellDef="let row"> {{ row.client.name }} </td>
+                <td mat-cell *matCellDef="let row"> {{ getClientName( row ) }} </td>
                 </ng-container>
 
                 <!-- Usuario que generó la venta -->

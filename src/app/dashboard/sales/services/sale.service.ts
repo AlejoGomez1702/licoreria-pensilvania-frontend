@@ -23,7 +23,7 @@ export class SaleService
    * @param sale Venta a crear.
    * @returns 
    */
-  createSale(sale: CartItem[], clientId: string): Observable<Sale>
+  createSale(sale: CartItem[], clientId?: string): Observable<Sale>
   {
     const products = sale.map(p => {
       return {

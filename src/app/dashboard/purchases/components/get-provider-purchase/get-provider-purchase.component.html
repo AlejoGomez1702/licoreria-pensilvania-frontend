@@ -3,9 +3,9 @@
   <!-- Dinero recibido -->
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Cantidad Recibida</mat-label>
-    <input type="number" matInput [(ngModel)]="purchaseTotal"/>
+    <input type="number" matInput [(ngModel)]="total"/>
     <mat-hint align="start"><strong>¿Con Cuánto Paga?</strong> </mat-hint>
-    <button matSuffix mat-icon-button aria-label="Clear" (click)="purchaseTotal = 0">
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="total = 0">
         <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -43,9 +43,9 @@
   </div>
 
   <div class="mt-2 txt-end">
-      <p>Total: $ {{ total | number }}</p>
-      <p>Pago: $ {{ purchaseTotal | number }}</p>
-      <p style="color: #007bff">Devuelta: $ {{ (purchaseTotal - total)  | number }}</p>
+      <p>Total: $ {{ purchaseTotal | number }}</p>
+      <p>Pago: $ {{ total | number }}</p>
+      <p style="color: #007bff">Devuelta: $ {{ ( total - purchaseTotal )  | number }}</p>
   </div>
 
 </div>

@@ -1,3 +1,4 @@
+import { Client } from "../../clients/interfaces/Client";
 import { CartItem } from "./CartItem";
 
 export interface Sale {
@@ -7,6 +8,7 @@ export interface Sale {
     id: string;
     products: CartItem[];    
     user: string;
+    client?: Client;
     total: number
     total_inversion: number;
 }

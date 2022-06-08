@@ -16,7 +16,7 @@ import { ClientSaleData } from '../../interfaces/ClientSaleData';
 })
 export class CashSaleDialogComponent implements OnInit 
 {  
-  public clientSelected: Client | undefined = undefined;
+  public clientSelected: Client | null = null;
 
   public total: number = 0;
   public noClient: boolean = false;
@@ -119,6 +119,8 @@ export class CashSaleDialogComponent implements OnInit
     {
       this.dialogRef.close( this.clientSelected );
     }
+
+    console.log("Venta al contado");
   }
 
   createClient()
@@ -159,7 +161,7 @@ export class CashSaleDialogComponent implements OnInit
   clearData()
   {
     this.dni = '';
-    this.clientSelected = undefined;   
+    this.clientSelected = null;   
     this.termDniClient.setValue('');
   }
 }

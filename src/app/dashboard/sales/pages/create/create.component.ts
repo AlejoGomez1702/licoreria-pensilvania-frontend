@@ -214,7 +214,7 @@ export class CreateComponent implements OnInit
     } 
     else
     {
-      this.filteredProducts = this.searchService.searchProduct( this.search, '' ).pipe(
+      this.filteredProducts = this.searchService.searchProduct( this.search ).pipe(
         map(products => (products ? products.results : [])),
       );
     }
@@ -357,7 +357,7 @@ export class CreateComponent implements OnInit
    * Finalizar una venta del listado de ventas.
    * @param index Posición en el listado de ventas(array).
    */
-  finishSale(index: number, clientId: string): void
+  finishSale(index: number, clientId?: string): void
   {
     const sale: CartItem[] = this.products[index];
     this.saleService.createSale( sale, clientId ).subscribe(
@@ -392,12 +392,19 @@ export class CreateComponent implements OnInit
     });
 
     dialogRef.afterClosed().subscribe((result: Client) => {
+      
+      console.log("Siii close", result);
+      // Si seleccioné un cliente, crear la venta con este registro
       if(result)
       {
         console.log("Resultado: " ,result);
         const { id = '' } = result; 
         // Finalizar la venta.
-        this.finishSale( index, id );
+        this.finishSale( index, id );        
+      }
+      else if(result !== undefined) // Crear venta sin cliente
+      {
+        this.finishSale( index );
       }
     });
   }

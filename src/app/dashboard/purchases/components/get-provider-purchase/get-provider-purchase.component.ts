@@ -43,11 +43,17 @@ export class GetProviderPurchaseComponent implements OnInit
     );
   }
 
+  ngOnInit(): void 
+  {
+    this.total = this.purchaseTotal;
+    console.log("Tooootall compra: ", this.purchaseTotal);
+  }
+
   get disabledPurchase(): boolean
   {
     let flag: boolean = false;
     // Si la cantidad ingresada por el cliente es menor que el total 
-    if( this.purchaseTotal < this.total )
+    if( this.purchaseTotal > this.total )
     {
       flag = true; // Deshabilitar el boton
     }
@@ -58,9 +64,6 @@ export class GetProviderPurchaseComponent implements OnInit
     }
 
     return flag;
-  }
-
-  ngOnInit(): void {
   }
 
   onChangeProvider( provider: Provider )
