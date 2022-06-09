@@ -6,23 +6,79 @@
 
     <mat-divider></mat-divider>
 
-    <ng-container *ngFor="let item of menu; let i = index">
-      <div class="container mt-3">
-        <div class="row">
-          <ng-container *ngFor="let subItem of item; let j = index">
-            <div class="col-12 col-lg-2 col-md-4 option">
-              <mat-card class="example-card" (click)="goToRoute( i,j )">
-                <img mat-card-image width="200" height="150" [src]="subItem.img" [alt]="subItem.name">
-                <mat-card-content class="txt-center">
-                  <div>
-                    <h3>{{ subItem.name }}</h3>
-                  </div>                    
-                </mat-card-content>
-              </mat-card>
-            </div>
-          </ng-container>
+    <!-- ************************************************************************************************ -->
+
+    <div class="container mt-3">
+      <div class="row">
+
+        <ng-container *ngxPermissionsOnly="'ADMIN_ROLE'">
+          <div class="col-12 col-lg-2 col-md-4 option">
+            <mat-card class="example-card" (click)="goToRoute( '/dashboard/sales' )">
+              <img mat-card-image width="200" height="150" src="assets/images/sale-icon.svg" alt="Icoonoo">
+              <mat-card-content class="txt-center">
+                <div>
+                  <h3>Ventas</h3>
+                </div>                    
+              </mat-card-content>
+            </mat-card>
+          </div>
+  
+          <div class="col-12 col-lg-2 col-md-4 option">
+            <mat-card class="example-card" (click)="goToRoute( '/dashboard/purchases' )">
+              <img mat-card-image width="200" height="150" src="assets/images/purchase-icon.svg" alt="Icoonoo">
+              <mat-card-content class="txt-center">
+                <div>
+                  <h3>Compras</h3>
+                </div>                    
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </ng-container>
+
+        <div class="col-12 col-lg-2 col-md-4 option">
+          <mat-card class="example-card" (click)="goToRoute( '/dashboard/products' )">
+            <img mat-card-image width="200" height="150" src="assets/images/liquor-icon.svg" alt="Icoonoo">
+            <mat-card-content class="txt-center">
+              <div>
+                <h3>Inventario</h3>
+              </div>                    
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div class="col-12 col-lg-2 col-md-4 option">
+          <mat-card class="example-card" (click)="goToRoute( '/dashboard/providers' )">
+            <img mat-card-image width="200" height="150" src="assets/images/provider-icon.svg" alt="Icoonoo">
+            <mat-card-content class="txt-center">
+              <div>
+                <h3>Proveedores</h3>
+              </div>                    
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div class="col-12 col-lg-2 col-md-4 option">
+          <mat-card class="example-card" (click)="goToRoute( '/dashboard/clients' )">
+            <img mat-card-image width="200" height="150" src="assets/images/client-icon.svg" alt="Icoonoo">
+            <mat-card-content class="txt-center">
+              <div>
+                <h3>Clientes</h3>
+              </div>                    
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div class="col-12 col-lg-2 col-md-4 option">
+          <mat-card class="example-card" (click)="goToRoute( '/dashboard/box' )">
+            <img mat-card-image width="200" height="150" src="assets/images/box-icon.svg" alt="Icoonoo">
+            <mat-card-content class="txt-center">
+              <div>
+                <h3>Caja</h3>
+              </div>                    
+            </mat-card-content>
+          </mat-card>
         </div>
       </div>
-    </ng-container>
+    </div>
     
 </div>

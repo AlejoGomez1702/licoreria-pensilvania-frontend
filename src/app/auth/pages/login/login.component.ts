@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxPermissionsService } from 'ngx-permissions';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { LoginData } from '../../interfaces/LoginData';
+import { LoginResponse } from '../../interfaces/LoginResponse';
 import { AuthService } from '../../services/auth.service';
 declare const loginScript: any;
 
@@ -20,6 +22,7 @@ export class LoginComponent implements OnInit
 
   constructor(
     private authService: AuthService,
+    private ngxPermissionsService: NgxPermissionsService,
     private router: Router,
     private sweetAlert: SweetAlertService
   ) {}
@@ -43,8 +46,9 @@ export class LoginComponent implements OnInit
     {
       this.authService.login(this.loginData).subscribe(
         res => {
+          this.loadRolesAndPermissions( res.user.rol );
           if(res.token)
-          {
+          {            
             const establishment = res.user.establishment._id || '';
             console.log(establishment);
             // Guardar en el localstorage
@@ -63,6 +67,14 @@ export class LoginComponent implements OnInit
     {
       this.sweetAlert.presentError( 'Verifique los datos de ingreso!' )
     }
+  }
+
+  loadRolesAndPermissions( rol: string )
+  {
+    const permissions = [ rol ];
+    // console.log("Estos son los Roles222:  ", permissions);
+    // this.ngxPermissionsService.addPermission()
+    this.ngxPermissionsService.loadPermissions( permissions );
   }
 
   /**

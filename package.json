@@ -34,6 +34,7 @@
     "ng2-charts": "^3.0.8",
     "ngx-currency": "^2.5.2",
     "ngx-material-file-input": "^2.1.1",
+    "ngx-permissions": "^13.0.1",
     "path": "^0.12.7",
     "primeicons": "^5.0.0",
     "primeng": "^13.4.1",

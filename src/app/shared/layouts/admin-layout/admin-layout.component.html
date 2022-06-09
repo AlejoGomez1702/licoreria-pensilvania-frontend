@@ -51,15 +51,18 @@
       <div mat-subheader>Opciones</div>
 
       <mat-selection-list [multiple]="false">
-        <mat-list-option (click)="goToSales(); drawer.toggle()">
-          <mat-icon mat-list-icon>shop_two</mat-icon>
-          Ventas
-        </mat-list-option>
 
-        <mat-list-option (click)="goToPurchases(); drawer.toggle()">
-          <mat-icon mat-list-icon>library_books</mat-icon>
-          Compras
-        </mat-list-option>
+        <ng-container *ngxPermissionsOnly="'ADMIN_ROLE'">
+          <mat-list-option (click)="goToSales(); drawer.toggle()">
+            <mat-icon mat-list-icon>shop_two</mat-icon>
+            Ventas
+          </mat-list-option>
+
+          <mat-list-option (click)="goToPurchases(); drawer.toggle()">
+            <mat-icon mat-list-icon>library_books</mat-icon>
+            Compras
+          </mat-list-option>
+        </ng-container>
 
         <mat-list-option (click)="goToProducts(); drawer.toggle()">
           <mat-icon mat-list-icon>local_bar</mat-icon>

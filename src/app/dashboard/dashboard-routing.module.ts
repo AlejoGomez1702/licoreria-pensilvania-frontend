@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPanelComponent } from './pages/main-panel/main-panel.component';
+import { MainContentComponent } from './components/main-content/main-content.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainPanelComponent
+    component: MainContentComponent
   },
   {
     // dashboard/products

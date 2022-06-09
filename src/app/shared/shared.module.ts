@@ -29,6 +29,8 @@ import { ShoppingCartHeaderComponent } from './index/components/main-header/shop
 import { NgChartsModule } from 'ng2-charts';
 import { MainToolbarComponent } from '../dashboard/components/main-toolbar/main-toolbar.component';
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
+
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
     FormsModule,
     ReactiveFormsModule,
     SpinnerModule,
-    NgChartsModule
+    NgChartsModule,
+    NgxPermissionsModule.forChild()
   ],
   exports: [
     FormsModule,
@@ -87,7 +90,8 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
     MainToolbarComponent,
     AdDirective,
     SpinnerModule,
-    NgChartsModule
+    NgChartsModule,
+    NgxPermissionsModule
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
