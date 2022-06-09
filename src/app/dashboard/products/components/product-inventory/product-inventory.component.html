@@ -70,7 +70,7 @@
                 <!-- Unidad de media -->
                 <ng-container matColumnDef="unit">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Unidad Medida</th>
-                    <td mat-cell *matCellDef="let row">{{ row | unitDetail:'spirits' }}</td>
+                    <td mat-cell *matCellDef="let row">{{ row | unitDetail: productType }}</td>
                 </ng-container>
                 <!-- Precio de venta -->
                 <ng-container matColumnDef="sale_price">

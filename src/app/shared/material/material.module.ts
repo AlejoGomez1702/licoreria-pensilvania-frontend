@@ -28,6 +28,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -39,14 +40,14 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatSortModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule,
     MatCardModule, MatSelectModule, MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, 
     MatProgressBarModule, NgxCurrencyModule, MatButtonToggleModule, MatBadgeModule, MatDatepickerModule,
-    MatNativeDateModule, MatMenuModule, MatSlideToggleModule
+    MatNativeDateModule, MatMenuModule, MatSlideToggleModule, MatGridListModule
   ],
   exports: [
     MatButtonModule, MatRadioModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatDividerModule,
     MatListModule, MatExpansionModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule,
     MatFormFieldModule, MatDialogModule, MatTabsModule, MatCardModule, MatSelectModule, MatChipsModule, 
     MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule, NgxCurrencyModule, MatButtonToggleModule, 
-    MatBadgeModule, MatDatepickerModule, MatNativeDateModule, MatMenuModule, MatSlideToggleModule
+    MatBadgeModule, MatDatepickerModule, MatNativeDateModule, MatMenuModule, MatSlideToggleModule, MatGridListModule
   ]
 })
 export class MaterialModule { }

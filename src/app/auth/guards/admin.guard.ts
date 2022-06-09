@@ -7,9 +7,8 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanLoad 
+export class AdminGuard implements CanActivate, CanLoad 
 {
-
   constructor(
     private authService: AuthService,
     private router: Router
@@ -21,11 +20,11 @@ export class AuthGuard implements CanActivate, CanLoad
   ): Observable<boolean> | Promise<boolean> | boolean
   {
     // ***************
-    return this.authService.verifyAuth().pipe(
-      tap( isAuth => {
-        if(!isAuth)
+    return this.authService.verifyRol('ADMIN_ROLE').pipe(
+      tap( isAdmin => {
+        if(!isAdmin)
         {
-          this.router.navigate(['/']);
+          this.router.navigate(['/dashboard']);
         }
       })
     );
@@ -37,11 +36,11 @@ export class AuthGuard implements CanActivate, CanLoad
   ): Observable<boolean> | Promise<boolean> | boolean
   {
     // ***************
-    return this.authService.verifyAuth().pipe(
-      tap( isAuth => {
-        if(!isAuth)
+    return this.authService.verifyRol('ADMIN_ROLE').pipe(
+      tap( isAdmin => {
+        if(!isAdmin)
         {
-          this.router.navigate(['/']);
+          this.router.navigate(['/dashboard']);
         }
       })
     );

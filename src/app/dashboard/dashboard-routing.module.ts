@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from '../auth/guards/admin.guard';
 import { MainContentComponent } from './components/main-content/main-content.component';
 
 const routes: Routes = [
@@ -32,11 +33,15 @@ const routes: Routes = [
   },
   {
     path: 'sales',
-    loadChildren: () => import('./sales/sales.module').then( m => m.SalesModule )
+    loadChildren: () => import('./sales/sales.module').then( m => m.SalesModule ),
+    canLoad: [ AdminGuard ],
+    canActivate: [ AdminGuard ]
   },
   {
     path: 'purchases',
-    loadChildren: () => import('./purchases/purchases.module').then( m => m.PurchasesModule )
+    loadChildren: () => import('./purchases/purchases.module').then( m => m.PurchasesModule ),
+    canLoad: [ AdminGuard ],
+    canActivate: [ AdminGuard ]
   },
   {
     path: 'box',

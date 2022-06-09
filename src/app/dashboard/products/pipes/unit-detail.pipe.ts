@@ -10,9 +10,11 @@ export class UnitDetailPipe implements PipeTransform {
   {
     const [ productType = '' ] = args;
 
+    console.log(productType);
+
     switch ( productType ) 
     {
-      case 'cigarettes':
+      case 'cigarette':
         const unitsCount = product.unit.units || 0;
         if(unitsCount > 1)
         {
@@ -20,12 +22,16 @@ export class UnitDetailPipe implements PipeTransform {
         }
         return `${product.unit.unit}`;
 
-      case 'spirits':
+      case 'spirit':
         return product.unit.unit;
 
-      case 'drinks':
-        // console.log(product);
+      case 'drink':
+        console.log(product);
         return `${product.unit.unit} ${product.unit.ml} ml`;
+
+      case 'grocery':
+        // console.log(product);
+        return `${product.unit.unit} X ${product.unit.units}`;
     
       default:
         return 'Verificar Pipe UnitDetail';
