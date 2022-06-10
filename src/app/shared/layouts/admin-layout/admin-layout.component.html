@@ -10,7 +10,7 @@
           <img md-fab-image class="user-fab" [src]="userImg">
           <div class="name-function">
             <h3>{{ userName | uppercase }}</h3>
-            <h4>Manager</h4>
+            <h4>{{ userRol | rol }}</h4>
           </div>
       </div>
     </a>
@@ -125,7 +125,7 @@
         </div>
         <div class="name-function-white">
           <h3>{{ shortName | uppercase }}</h3>
-          <h4 class="user-rol">Manager</h4>
+          <h4 class="user-rol">{{ userRol | rol }}</h4>
         </div>
       </div>
     </mat-toolbar>

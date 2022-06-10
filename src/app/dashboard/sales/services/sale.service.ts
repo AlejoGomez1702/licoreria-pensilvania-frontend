@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Product } from '../../products/interfaces/Product';
 import { CartItem } from '../interfaces/CartItem';
+import { RangeDateTime } from '../interfaces/RangeDateTime';
 import { ResponseGetAllSales } from '../interfaces/ResponseGetAllSales';
 import { Sale } from '../interfaces/Sale';
 
@@ -53,12 +54,14 @@ export class SaleService
    * Obtiene todas las ventas del negocio del usuario logueado.
    * @returns Todas las ventas.
    */
-  getAllSales( limit?: number, from?: number ): Observable<ResponseGetAllSales>
+  getAllSales( limit?: number, from?: number, range?: RangeDateTime ): Observable<ResponseGetAllSales>
   {
-    const httpOptions = {
-      params: new HttpParams().set('limit', limit ? limit : 8)
-                              .set('from', from ? from : 0)
-    };
+    let params = new HttpParams().set('limit', limit ? limit : 8)
+                                 .set('from', from ? from : 0)
+                                 .set('start', range ? range.start.toISOString() : '')
+                                 .set('end', range ? range.end.toISOString() : '');                     
+
+    const httpOptions = { params };
 
     return this.http.get<ResponseGetAllSales>(`${environment.API_URL}/sales`, httpOptions);
   }

@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { RangeDateTime } from '../../sales/interfaces/RangeDateTime';
 import { ResponseSearch } from '../interfaces/ResponseSearch';
 
 @Injectable({
@@ -25,4 +26,10 @@ export class SearchService
     //   /api/searchs/products/--------
     return this.http.get<ResponseSearch>(`${environment.API_URL}/searchs/products/${term}`, httpOptions);
   }
+
+  // searchSales( range: RangeDateTime )
+  // {
+
+  // }
+
 }

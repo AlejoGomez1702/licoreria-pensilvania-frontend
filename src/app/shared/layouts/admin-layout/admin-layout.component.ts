@@ -6,6 +6,7 @@ import { UserService } from 'src/app/dashboard/users/services/user/user.service'
 import { Router } from '@angular/router';
 import { SidenavService } from '../../services/sidenav.service';
 import { TokenService } from 'src/app/core/services/token.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -17,6 +18,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
   panelOpenState = false;
   userImg = '';
   public userName: string = '';
+  public userRol: string = '';
   public establishment: string = '';
 
   screenWidth: number = 1000;
@@ -34,6 +36,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
     );
 
   constructor(
+    private authService: AuthService,
     private userService: UserService,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
@@ -45,11 +48,12 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
     this.screenWidth = window.innerWidth || 1000;
     // console.log(this.screenWidth);
 
-    this.userService.getLoggedUser().subscribe(
+    this.authService.getUserLogued().subscribe(
       (res) => {
         console.log("Initttttt: ", res);
         this.userImg = res?.user.img || 'assets/images/user-default.svg';
         this.userName= res?.user.name;
+        this.userRol = res?.user.rol;
         this.establishment = res.user.establishment.name;
       }
     );

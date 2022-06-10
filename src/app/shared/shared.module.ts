@@ -30,6 +30,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { MainToolbarComponent } from '../dashboard/components/main-toolbar/main-toolbar.component';
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { RolPipe } from '../auth/pipes/rol.pipe';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     FabCartComponent,
     ShoppingCartComponent,
     ShoppingCartHeaderComponent,
-    MainToolbarComponent
+    MainToolbarComponent,
+    RolPipe
 
     // Modules
     // MaterialModule

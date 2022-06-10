@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Client } from 'src/app/dashboard/clients/interfaces/Client';
 import { appRoutes } from 'src/app/routes/app-routes';
+import { RangeDateTime } from '../../interfaces/RangeDateTime';
 import { Statistic } from '../../interfaces/ResponseGetAllSales';
 import { Sale } from '../../interfaces/Sale';
 import { SaleService } from '../../services/sale.service';
@@ -57,9 +58,9 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     this.dataSource.sort = this.sort;
   }   
 
-  loadSales(limit?: number, from?: number): void
+  loadSales(limit?: number, from?: number, range?: RangeDateTime): void
   {
-    this.saleService.getAllSales(limit, from).subscribe(
+    this.saleService.getAllSales(limit, from, range).subscribe(
       res => {        
         this.sales = res.sales;
         this.length = res.total;
@@ -104,8 +105,13 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     return salesTotal - salesInversionTotal;
   }
 
+  /**
+   * Filtrar las vetas en un rango de fechas
+   */
   filterSales()
   {
+    console.log("filter sales: ", this.range.value);
+    this.loadSales(undefined, undefined, this.range.value);
 
   }
 
