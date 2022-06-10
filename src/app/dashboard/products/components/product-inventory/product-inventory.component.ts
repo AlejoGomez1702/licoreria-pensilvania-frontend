@@ -80,6 +80,11 @@ export class ProductInventoryComponent implements OnInit
         this.displayedColumns.splice(3, 0, 'second_sale_price');
         this.withSecondPrice = true;
       break;
+
+      case 'drink':
+        this.displayedColumns.splice(3, 0, 'second_sale_price');
+        this.withSecondPrice = true;
+      break;
     
       default:
       break;
