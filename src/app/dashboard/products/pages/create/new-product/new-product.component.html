@@ -125,7 +125,8 @@
                         <mat-label>Unidad de medida</mat-label>
                         <mat-select formControlName="unit" required>
                             <mat-option *ngFor="let unit of units" [value]="unit.id">
-                            {{ unit.unit + ' ' + '(' + unit.units + ' uds)' }}
+                            <!-- {{ unit.unit + ' ' + '(' + unit.grams + ' g)' }} -->
+                            {{ unit | unitDetail }}
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="validField('unit')">

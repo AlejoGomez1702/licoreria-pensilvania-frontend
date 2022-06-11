@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Unit } from '../../settings/interfaces/unidad-medida.interface';
 import { Product } from '../interfaces/Product';
 
 @Pipe({
@@ -6,36 +7,16 @@ import { Product } from '../interfaces/Product';
 })
 export class UnitDetailPipe implements PipeTransform {
 
-  transform(product: Product, ...args: string[]): string 
+  transform(unit: Unit, ...args: string[]): string 
   {
-    const [ productType = '' ] = args;
+    const {
+      unit: name,
+      grams = '',
+      ml = '',
+      units = ''
+    } = unit;
 
-    console.log(productType);
-
-    switch ( productType ) 
-    {
-      case 'cigarette':
-        const unitsCount = product.unit.units || 0;
-        if(unitsCount > 1)
-        {
-          return `${product.unit.unit} X ${product.unit.units}`;
-        }
-        return `${product.unit.unit}`;
-
-      case 'spirit':
-        return product.unit.unit;
-
-      case 'drink':
-        console.log(product);
-        return `${product.unit.unit} ${product.unit.ml} ml`;
-
-      case 'grocery':
-        // console.log(product);
-        return `${product.unit.unit} X ${product.unit.units}`;
-    
-      default:
-        return 'Verificar Pipe UnitDetail';
-    }
+    return `${name} X ${grams ? (grams + 'g') : ml ? (ml + 'ml') : units}`;
   }
 
 }

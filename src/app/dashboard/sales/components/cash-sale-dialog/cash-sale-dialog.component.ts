@@ -8,6 +8,7 @@ import { ClientService } from 'src/app/dashboard/clients/services/client.service
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { ClientSaleData } from '../../interfaces/ClientSaleData';
+import { moneyBack, MoneyBack } from '../../interfaces/MoneyBack';
 
 @Component({
   selector: 'app-cash-sale-dialog',
@@ -17,6 +18,7 @@ import { ClientSaleData } from '../../interfaces/ClientSaleData';
 export class CashSaleDialogComponent implements OnInit 
 {  
   public clientSelected: Client | null = null;
+  public dialogTitle: string = '';
 
   public total: number = 0;
   public noClient: boolean = false;
@@ -27,6 +29,9 @@ export class CashSaleDialogComponent implements OnInit
   // Lo que se va ingresando en el campo de busqueda.
   public termDniClient = new FormControl();
   public filteredClients!: Observable<Client[]>;
+
+  // cantidades de dinero seleccionables
+  public moneyBack: MoneyBack[] = moneyBack;
 
   constructor(
     private clientService: ClientService,
@@ -70,10 +75,19 @@ export class CashSaleDialogComponent implements OnInit
     this.total = this.clientSaleData.totalSale;
     if(this.clientSaleData.typeSale === 'trusted')
     {
+      this.dialogTitle = 'a Crédito';
       this.withClient = true;
       this.trustedSale = true;
     }
+    else
+    {
+      this.dialogTitle = 'al Contado';
+    }
+
     this.loadClients();
+    this.moneyBack.forEach(m => {
+      m.isActive = false;
+    });
   }
 
   loadClients(category?: string, limit?: number, from?: number): void
@@ -151,6 +165,16 @@ export class CashSaleDialogComponent implements OnInit
         );
       }
     });
+  }
+
+  selectCash(i: number)
+  {
+    this.moneyBack.forEach(m => {
+      m.isActive = false;
+    });
+
+    this.moneyBack[i].isActive = true;
+    this.clientSaleData.totalSale = this.moneyBack[i].amount;
   }
 
   onNoClick(): void 

@@ -45,19 +45,13 @@
                 <!-- Fecha de creación-->
                 <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-                <td mat-cell *matCellDef="let row"> {{row.created_at | date:"dd/MM/yyyy, mm:ss a"}} </td>
-                </ng-container>
-
-                <!-- Valor total -->
-                <ng-container matColumnDef="total">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
-                <td mat-cell *matCellDef="let row">$ {{ getTotalValue( row ) | number }} </td>
+                <td mat-cell *matCellDef="let row"> {{row.created_at | date:'medium'}} </td>
                 </ng-container>
 
                 <!-- Utilidad -->
                 <ng-container matColumnDef="utility">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Utilidad </th>
-                <td mat-cell *matCellDef="let row">$ {{ getUtility( row ) | number }} </td>
+                <td mat-cell *matCellDef="let row" style="color: #007c1b;">$ {{ getUtility( row ) | number }} </td>
                 </ng-container>
 
                 <!-- Cliente  -->
@@ -70,6 +64,12 @@
                 <ng-container matColumnDef="user">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Creada Por </th>
                 <td mat-cell *matCellDef="let row"> {{row.user.name}} </td>
+                </ng-container>
+
+                <!-- Valor total -->
+                <ng-container matColumnDef="total">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+                    <td mat-cell *matCellDef="let row" style="font-weight: bold;">$ {{ getTotalValue( row ) | number }} </td>
                 </ng-container>
 
                 <!-- Acciones -->
@@ -112,7 +112,6 @@
     <mat-divider class="mt-4"></mat-divider>
 
     <div class="row mt-4">
-        <!-- <h1 class="fw-200 txt-center">Ventas vs Compras</h1> -->
         <div class="col-md-8 col-xs-8 col-8 col-lg-8">            
             <app-bar-graph
                         [statistics]="statistics"

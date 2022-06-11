@@ -22,7 +22,7 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
   public statistics: Statistic[] = [];
   public statisticsInversion: Statistic[] = [];
 
-  displayedColumns: string[] = ['date', 'total', 'utility', 'client', 'user', 'actions'];
+  displayedColumns: string[] = ['date', 'utility', 'client', 'user', 'total', 'actions'];
   dataSource: MatTableDataSource<Sale>;
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -152,22 +152,8 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
 
   getUtility( sale: Sale ): number
   {
-    const { products } = sale;
-    const individualTotals = products.map(p => {
-      const purchasePrice = p.purchase_price || 0;
-      return ( p.count * purchasePrice );
-    });
-    const totalWithUtility = individualTotals.reduce(( a, b ) => a + b, 0);
-    const totalInversion = this.getTotalValue( sale );
-
-    // Si el precio total con utilidad es menor que la inversión es porque...
-    // los productos no tienen registrado el precio de compra.
-    if( totalWithUtility < totalInversion )
-    {
-      return 0;
-    }
-
-    return (totalWithUtility - totalInversion);
+    const { total, total_inversion } = sale;
+    return ( total - total_inversion );
   }
 
   showSaleDetail( sale: Sale )

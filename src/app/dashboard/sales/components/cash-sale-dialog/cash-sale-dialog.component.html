@@ -1,14 +1,57 @@
-<h1 mat-dialog-title class="txt-center">Terminar Venta al Contado</h1>
+<h1 mat-dialog-title class="txt-center" style="font-weight: bold;">Terminar Venta {{ dialogTitle }}</h1>
 <div mat-dialog-content>
+  <mat-divider></mat-divider>
   <!-- Dinero recibido -->
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Cantidad Recibida</mat-label>
-    <input type="number" matInput [(ngModel)]="clientSaleData.totalSale"/>
-    <mat-hint align="start"><strong>¿Con Cuánto Paga el Cliente?</strong> </mat-hint>
-    <button matSuffix mat-icon-button aria-label="Clear" (click)="clientSaleData.totalSale = 0">
-        <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
+  <div class="container mt-2">
+    <h3>Dinero Con El Que Paga El Cliente:</h3>
+
+    <div class="row">
+      <mat-chip-list aria-label="cash selection">
+        <mat-chip *ngFor="let cash of moneyBack; index as i"
+                  color="primary"
+                  [selected]="cash.isActive" 
+                  (click)="selectCash(i)">
+          {{ cash.amount | number }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-3">
+        Cantidad Recibida
+      </div>
+      <div class="col-9">
+        <mat-chip-list aria-label="cash selection">
+          <mat-chip *ngFor="let cash of moneyBack; index as i"
+                    color="primary"
+                    [selected]="cash.isActive" 
+                    (click)="selectCash(i)">
+            {{ cash.amount | number }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div> -->
+    <div class="row mt-2">
+      <div class="field">
+        <label for="currency-cop">Otra Cantidad: </label>
+        <div class="p-inputgroup">
+          <p-inputNumber [(ngModel)]="clientSaleData.totalSale" 
+                         (onInput)="clientSaleData.totalSale = $event.value"
+                         inputId="currency-cop" 
+                         currency="COP" 
+                         locale="es">
+          </p-inputNumber>
+          <button type="button" 
+                  pButton 
+                  pRipple 
+                  icon="pi pi-times" 
+                  styleClass="p-button-danger"
+                  (click)="clientSaleData.totalSale = 0">            
+          </button>
+        </div>        
+      </div>
+    </div>
+  </div>
 
   <div class="txt-center mt-2">
     <mat-slide-toggle [(ngModel)]="withClient" [disabled]="trustedSale">Agregar Cliente</mat-slide-toggle>
@@ -48,7 +91,7 @@
   <div class="mt-2 txt-end">
       <p>Total: $ {{ total | number }}</p>
       <p>Pago: $ {{ clientSaleData.totalSale | number }}</p>
-      <p style="color: #007bff">Devuelta: $ {{ (clientSaleData.totalSale - total)  | number }}</p>
+      <p class="cash-back">Devuelta: $ {{ (clientSaleData.totalSale - total)  | number }}</p>
   </div>
 
 </div>
