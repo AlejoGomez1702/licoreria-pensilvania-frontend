@@ -13,6 +13,7 @@ import { CashSaleDialogComponent } from '../../components/cash-sale-dialog/cash-
 import { SaleTableComponent } from '../../components/sale-table/sale-table.component';
 import { CartItem } from '../../interfaces/CartItem';
 import { ClientSaleData } from '../../interfaces/ClientSaleData';
+import { DialogCreateBack } from '../../interfaces/DialogCreateBack';
 import { SaleItemDetail } from '../../interfaces/SaleItemDetail';
 import { CartService } from '../../services/cart.service';
 import { SaleService } from '../../services/sale.service';
@@ -237,41 +238,6 @@ export class CreateComponent implements OnInit
     );
   }
 
-  // searchByName()
-  // {
-  //   const term = this.search;
-  //   if( term )
-  //   {
-  //     this.filterService.searchSpirits( term, false ).subscribe(
-  //       spirits => {
-  //         this.filteredProducts = spirits;
-  //         console.log(spirits);
-  //       },
-  //       (error) => {
-  //         console.log("Error buscando los productos");
-  //         console.log(error);
-  //       }
-  //     );
-  //   }
-  // }
-
-  // searchById( id: string )
-  // {
-  //   this.spiritService.getSpiritById( id, false ).subscribe(
-  //     spirit => {
-  //       this.verifyAddCartProduct( spirit );
-  //       this.filteredProducts = [];
-  //     },
-  //     error => this.sweetAlert.presentError( 'Buscando Licor Por ID' )
-  //   );
-  // }
-
-  // clearSearchData(): void
-  // {
-  //   this.search = '';
-  //   this.filteredProducts = [];
-  // }
-
   verifySnack()
   {
     if(this.products.length >= 1) // Hay productos
@@ -357,10 +323,10 @@ export class CreateComponent implements OnInit
    * Finalizar una venta del listado de ventas.
    * @param index Posición en el listado de ventas(array).
    */
-  finishSale(index: number, clientId?: string): void
+  finishSale(index: number, clientId?: string, deposit?: number): void
   {
     const sale: CartItem[] = this.products[index];
-    this.saleService.createSale( sale, clientId ).subscribe(
+    this.saleService.createSale( sale, clientId, deposit ).subscribe(
       res => {
         this.products[index] = [];
         this.saleResumeTable.get(index)?.refreshData( this.products[index] );
@@ -391,21 +357,21 @@ export class CreateComponent implements OnInit
       data: clientSaleData,
     });
 
-    dialogRef.afterClosed().subscribe((result: Client) => {
+    dialogRef.afterClosed().subscribe((result: DialogCreateBack) => {
       
       console.log("Siii close", result);
       // Si seleccioné un cliente, crear la venta con este registro
       if(result)
       {
-        console.log("Resultado: " ,result);
-        const { id = '' } = result; 
+        const id = result.client?.id || undefined;
+        const deposit = result.deposit || undefined;
         // Finalizar la venta.
-        this.finishSale( index, id );        
+        this.finishSale( index, id, deposit );        
       }
-      else if(result !== undefined) // Crear venta sin cliente
-      {
-        this.finishSale( index );
-      }
+      // else if(result !== undefined) // Crear venta sin cliente
+      // {
+      //   this.finishSale( index );
+      // }
     });
   }
 }

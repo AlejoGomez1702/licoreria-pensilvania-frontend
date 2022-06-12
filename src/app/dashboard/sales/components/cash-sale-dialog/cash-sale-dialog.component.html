@@ -3,24 +3,11 @@
   <mat-divider></mat-divider>
   <!-- Dinero recibido -->
   <div class="container mt-2">
-    <h3>Dinero Con El Que Paga El Cliente:</h3>
 
-    <div class="row">
-      <mat-chip-list aria-label="cash selection">
-        <mat-chip *ngFor="let cash of moneyBack; index as i"
-                  color="primary"
-                  [selected]="cash.isActive" 
-                  (click)="selectCash(i)">
-          {{ cash.amount | number }}
-        </mat-chip>
-      </mat-chip-list>
-    </div>
+    <ng-container *ngIf="clientSaleData.typeSale === 'counted'">
+      <h3>Dinero Con El Que Paga El Cliente:</h3>
 
-    <!-- <div class="row">
-      <div class="col-3">
-        Cantidad Recibida
-      </div>
-      <div class="col-9">
+      <div class="row">
         <mat-chip-list aria-label="cash selection">
           <mat-chip *ngFor="let cash of moneyBack; index as i"
                     color="primary"
@@ -30,10 +17,12 @@
           </mat-chip>
         </mat-chip-list>
       </div>
-    </div> -->
+    </ng-container>
     <div class="row mt-2">
       <div class="field">
-        <label for="currency-cop">Otra Cantidad: </label>
+        <label for="currency-cop">
+          {{ (clientSaleData.typeSale === 'counted') ? 'Otra Cantidad:' : 'Valor Abonado'  }}
+        </label>
         <div class="p-inputgroup">
           <p-inputNumber [(ngModel)]="clientSaleData.totalSale" 
                          (onInput)="clientSaleData.totalSale = $event.value"
@@ -88,10 +77,21 @@
       </div>
   </ng-container>  
 
+  <!-- Sección de información de pagos -->
   <div class="mt-2 txt-end">
       <p>Total: $ {{ total | number }}</p>
-      <p>Pago: $ {{ clientSaleData.totalSale | number }}</p>
-      <p class="cash-back">Devuelta: $ {{ (clientSaleData.totalSale - total)  | number }}</p>
+      <p>
+        {{ clientSaleData.typeSale === 'counted' ? 'Pago:' : 'Abono:' }}
+        $ {{ clientSaleData.totalSale | number }}
+      </p>
+      <p class="cash-back">
+        <ng-container *ngIf="clientSaleData.typeSale === 'counted'">
+          Devuelta: $ {{ (clientSaleData.totalSale - total)  | number }}
+        </ng-container>
+        <ng-container *ngIf="clientSaleData.typeSale === 'trusted'">
+          Valor Acreditado: $ {{ ( total - clientSaleData.totalSale)  | number }}
+        </ng-container>
+      </p>
   </div>
 
 </div>

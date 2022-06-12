@@ -56,9 +56,19 @@ export class CashSaleDialogComponent implements OnInit
   {
     let flag: boolean = false;
     // Si la cantidad ingresada por el cliente es menor que el total 
-    if( this.clientSaleData.totalSale < this.total )
+    if( this.clientSaleData.typeSale === 'counted' )
     {
-      flag = true; // Deshabilitar el boton
+      if( this.clientSaleData.totalSale < this.total )
+      {
+        flag = true; // Deshabilitar el boton
+      }
+    }
+    else
+    {
+      if( this.total < this.clientSaleData.totalSale )
+      {
+        flag = true; // Deshabilitar el boton
+      }
     }
 
     // Si se tiene seleccionado el boton de cliente y no se a agregado aún ningúno.
@@ -75,6 +85,7 @@ export class CashSaleDialogComponent implements OnInit
     this.total = this.clientSaleData.totalSale;
     if(this.clientSaleData.typeSale === 'trusted')
     {
+      this.clientSaleData.totalSale = 0;
       this.dialogTitle = 'a Crédito';
       this.withClient = true;
       this.trustedSale = true;
@@ -127,14 +138,19 @@ export class CashSaleDialogComponent implements OnInit
 
   aceptDialog()
   {
-    // Comprobar que el valor recibido por el cliente es mayor o igual al valor total
-    // de no ser asi no se puede activar el boton de crear venta
-    if( this.clientSaleData.totalSale >= this.total )
+    if( this.clientSaleData.typeSale === 'trusted' ) // Fiada
     {
-      this.dialogRef.close( this.clientSelected );
+      this.dialogRef.close({
+        client: this.clientSelected, 
+        deposit: this.clientSaleData.totalSale
+      });
     }
-
-    console.log("Venta al contado");
+    else
+    {
+      this.dialogRef.close({
+        client: this.clientSelected
+      });
+    }
   }
 
   createClient()
