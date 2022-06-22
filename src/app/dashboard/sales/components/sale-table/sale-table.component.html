@@ -37,7 +37,7 @@
         <ng-container matColumnDef="total">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
             <td mat-cell *matCellDef="let row">$ {{ getProductTotal(row) | number }}</td>
-            <td mat-footer-cell *matFooterCellDef> Total </td>
+            <td mat-footer-cell *matFooterCellDef class="txt-large"> Total </td>
         </ng-container>                 
     
         <!-- Acciones -->
@@ -65,7 +65,7 @@
                     </span>                    
                 </button>
             </td>
-            <td mat-footer-cell *matFooterCellDef>$ {{ getCartTotal() | number }} </td>
+            <td mat-footer-cell *matFooterCellDef class="txt-large">$ {{ getCartTotal() | number }} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

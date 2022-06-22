@@ -6,7 +6,6 @@ import { ListAllComponent } from './pages/list-all/list-all.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SpiritComponent } from './pages/edit/establishment-spirit/spirit/spirit.component';
 import { ProductNamePipe } from './pipes/product-name.pipe';
-import { UnitDetailPipe } from './pipes/unit-detail.pipe';
 import { CigaretteComponent } from './pages/edit/establishment-spirit/cigarette/cigarette.component';
 import { DrinkComponent } from './pages/edit/establishment-spirit/drink/drink.component';
 import { GroceryComponent } from './pages/edit/establishment-spirit/grocery/grocery.component';
@@ -29,7 +28,6 @@ import { ProductTypePipe } from './pipes/product-type.pipe';
     SpiritComponent,
     CigaretteInventoryComponent,
     ProductNamePipe,
-    UnitDetailPipe,
     DrinkInventoryComponent,
     GroceryInventoryComponent,
     CigaretteComponent,

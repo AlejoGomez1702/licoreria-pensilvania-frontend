@@ -19,7 +19,6 @@ import { SearchService } from '../../services/search.service';
 })
 export class ProductInventoryComponent implements OnInit 
 {
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   @Input() title: string = '';
   @Input() productType: string = '';
 
@@ -29,7 +28,10 @@ export class ProductInventoryComponent implements OnInit
   public isActiveFilters: boolean = false;
 
   public products: Product[] = [];
+
   public categories: Category[] = [];
+  public searchCategory: string = '';
+  public filteredCategories: Category[] = [];
   
   // public displayedColumns = ['name', 'unit', 'sale_price', 'stock', 'current_existence', 'actions'];
   public displayedColumns: string[] = ['name', 'unit', 'sale_price', 'stock', 'current_existence', 'actions'];
@@ -222,6 +224,11 @@ export class ProductInventoryComponent implements OnInit
       },
       error => console.log(error)
     );
+  }
+
+  filterCategories(event: any)
+  {
+    this.filteredCategories = this.categories.filter( category => category.name.toLowerCase().includes( event.query ) );
   }
 
 }

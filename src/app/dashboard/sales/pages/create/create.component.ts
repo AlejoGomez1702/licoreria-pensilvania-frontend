@@ -2,9 +2,8 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Client } from 'src/app/dashboard/clients/interfaces/Client';
+import { interval, Observable } from 'rxjs';
+import { debounce, map } from 'rxjs/operators';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SearchService } from 'src/app/dashboard/products/services/search.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
@@ -35,7 +34,7 @@ export class CreateComponent implements OnInit
   // public filteredProducts: Product[] = [];
   public filteredProducts!: Observable<Product[]>;
   // Lo ingresado en la barra de busqueda (Código de barras || nombre del producto)
-  public search: string = '';
+  public search: FormControl = new FormControl('');
   // Si el carrito de compras esta vacio o no.
   // public isEmpty: boolean = false;
 
@@ -55,6 +54,15 @@ export class CreateComponent implements OnInit
 
   ngOnInit(): void 
   {    
+    this.search.valueChanges.pipe(
+      debounce( () => interval(600) )
+    ).subscribe(
+      () => this.searchProduct()
+    );
+    // this.obs=this.mform.valueChanges
+    //   .pipe(debounce(() => interval(500)))
+    //   .subscribe(data => console.log(data));
+
     this.verifySnack();
     setTimeout(() => {
       this.loadPersistence();
@@ -63,7 +71,16 @@ export class CreateComponent implements OnInit
 
   getFullProductName( product: Product )
   {
-    return `${product.category.name} ${product.name} X ${product.unit.unit}`;
+    const {
+      unit: name,
+      grams = '',
+      ml = '',
+      units = ''
+    } = product.unit;
+
+    const unit = `${name} X ${grams ? (grams + 'g') : ml ? (ml + 'ml') : units}`;
+
+    return `${product.category.name} ${product.name} ${unit}`;
   }
 
   isEmpty(index: number): boolean
@@ -111,6 +128,7 @@ export class CreateComponent implements OnInit
     }
     
     this.refreshSaleResume(tabIndex);
+    this.search.setValue('');
   }
 
   markSecondPriceProduct( saleItemDetail: SaleItemDetail )
@@ -207,15 +225,16 @@ export class CreateComponent implements OnInit
 
   searchProduct()
   {
+    if( !this.search.value ) return;      
     // Si se esta buscando por código de barras.
-    const isBarCode = Number( this.search );
+    const isBarCode = Number( this.search.value );
     if(isBarCode)
     {
       this.searchByBarcode();
     } 
     else
     {
-      this.filteredProducts = this.searchService.searchProduct( this.search ).pipe(
+      this.filteredProducts = this.searchService.searchProduct( this.search.value ).pipe(
         map(products => (products ? products.results : [])),
       );
     }
@@ -223,7 +242,7 @@ export class CreateComponent implements OnInit
 
   searchByBarcode()
   {
-    this.filterService.searchProductByBarcode( this.search ).subscribe(
+    this.filterService.searchProductByBarcode( this.search.value ).subscribe(
       product => {
         if(!product) // No se encontro producto
         {

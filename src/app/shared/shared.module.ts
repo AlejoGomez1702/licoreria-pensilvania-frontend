@@ -31,6 +31,7 @@ import { MainToolbarComponent } from '../dashboard/components/main-toolbar/main-
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { RolPipe } from '../auth/pipes/rol.pipe';
+import { UnitDetailPipe } from '../dashboard/products/pipes/unit-detail.pipe';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { RolPipe } from '../auth/pipes/rol.pipe';
     ShoppingCartComponent,
     ShoppingCartHeaderComponent,
     MainToolbarComponent,
-    RolPipe
+    RolPipe,
+    UnitDetailPipe
 
     // Modules
     // MaterialModule
@@ -93,7 +95,8 @@ import { RolPipe } from '../auth/pipes/rol.pipe';
     AdDirective,
     SpinnerModule,
     NgChartsModule,
-    NgxPermissionsModule
+    NgxPermissionsModule,
+    UnitDetailPipe
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

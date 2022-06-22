@@ -20,11 +20,15 @@
         <div class="col">
             <div class="row">
                 <div class="col-3">
-                    <button mat-icon-button aria-label="Filtros" (click)="isActiveFilters = !isActiveFilters">
+                    <button mat-icon-button 
+                            aria-label="Filtros" 
+                            [class.bold-text]="isActiveFilters"
+                            (click)="isActiveFilters = !isActiveFilters">
                         <mat-icon>filter_list</mat-icon>
                         Filtros
                     </button>
                 </div>
+                <!-- Buscador -->
                 <div class="col-9">
                     <span class="p-input-icon-left w-100">
                         <i class="pi pi-search"></i>
@@ -38,19 +42,20 @@
                 <div class="row">
                     <div class="col">
                         <h3 class="bold-text">Categoría</h3>
-                        <mat-divider></mat-divider>
-                        <mat-selection-list [multiple]="false">
-                            <!-- Quitar la categoria -->
-                            <mat-list-option (click)="idCategorySelected = ''">   
-                                Ningúna                             
-                            </mat-list-option>
-                            <!-- Todas las categorias de la supercategoria -->
-                            <mat-list-option *ngFor="let category of categories"
-                                                [value]="category.id"
-                                                (click)="filterData( category )">
-                            {{category.name}}
-                            </mat-list-option>
-                        </mat-selection-list>
+                        <!-- <mat-divider></mat-divider> -->
+
+                        <p-autoComplete [(ngModel)]="searchCategory" 
+                                        [suggestions]="filteredCategories" 
+                                        (completeMethod)="filterCategories($event)"
+                                        [dropdown]="true">
+                            <ng-template let-category pTemplate="item">
+                                <div class="country-item">
+                                    <div (click)="filterData( category )">
+                                        {{category.name}}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-autoComplete>
                     </div>
                 </div>
             </ng-container>

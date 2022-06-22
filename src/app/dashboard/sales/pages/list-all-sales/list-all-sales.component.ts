@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { Client } from 'src/app/dashboard/clients/interfaces/Client';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { RangeDateTime } from '../../interfaces/RangeDateTime';
@@ -49,7 +50,7 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
   }
 
   ngOnInit(): void 
-  {
+  {    
     this.loadSales();
   }
 
@@ -110,7 +111,15 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
    */
   filterSales()
   {
-    console.log("filter sales: ", this.range.value);
+    const { start, end } = this.range.value;
+    if( !end ) return;
+
+    const endDate = moment( end ).add( 23, 'h' )
+                                 .add( 59, 'm' )
+                                 .add( 59, 's' )
+                                 .add( 999, 'ms' )
+                                 .toDate();
+    this.range.reset({ start, end: endDate });
     this.loadSales(undefined, undefined, this.range.value);
 
   }

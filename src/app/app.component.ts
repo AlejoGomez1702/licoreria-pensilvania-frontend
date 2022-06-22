@@ -46,11 +46,9 @@ export class AppComponent implements OnInit
   {
     this.authService.getUserLogued().subscribe(
       (res) => {        
-        console.log("resssss",res);
         const loginResponse = res as LoginResponse;
         const { rol } = loginResponse.user;
         const permissions = [ rol ];
-        console.log("Estos son los Roles:  ", permissions);
         this.ngxPermissionsService.loadPermissions( permissions );
       },
       error => console.log(error)

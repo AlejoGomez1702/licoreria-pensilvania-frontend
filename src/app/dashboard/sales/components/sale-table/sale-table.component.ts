@@ -51,9 +51,19 @@ export class SaleTableComponent implements OnInit, AfterViewInit
     this.dataSource.data = this.products;
   }
 
-  getfullProductName(spirit: CartItem): string
+  getfullProductName(cartItem: CartItem): string
   {
-    return `${spirit.product.category.name} ${spirit.product.name}`;
+    const { product } = cartItem; 
+    const {
+      unit: name,
+      grams = '',
+      ml = '',
+      units = ''
+    } = cartItem.product.unit;
+
+    const unit = `${name} X ${grams ? (grams + 'g') : ml ? (ml + 'ml') : units}`;
+
+    return `${product.category.name} ${product.name} ${unit}`;
   }
 
   getCartTotal(): string
