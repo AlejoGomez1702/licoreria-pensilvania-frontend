@@ -22,9 +22,8 @@
                 <mat-label>Escánear Código de Barras o Buscar Producto...</mat-label>
                 <input matInput type="text" autofocus
                       aria-label="Producto"
-                      [(ngModel)]="search"
-                      [matAutocomplete]="auto"
-                      (keydown.enter)="searchProduct()">
+                      [formControl]="search"
+                      [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
                   <mat-option
                             *ngFor="let product of filteredProducts | async" 
@@ -34,7 +33,7 @@
                     <small>{{ getFullProductName( product ) }}</small>
                   </mat-option>
                 </mat-autocomplete>
-                <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search = ''">
+                <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>

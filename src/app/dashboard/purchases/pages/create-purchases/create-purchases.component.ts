@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { interval, Observable } from 'rxjs';
+import { debounce, map } from 'rxjs/operators';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SearchService } from 'src/app/dashboard/products/services/search.service';
 import { Provider } from 'src/app/dashboard/providers/interfaces/Provider';
@@ -24,7 +25,7 @@ import { PurchaseService } from '../../services/purchase.service';
 export class CreatePurchasesComponent implements OnInit 
 {
   // Lo ingresado en la barra de busqueda (Código de barras || nombre del producto)
-  public search: string = '';
+  public search: FormControl = new FormControl('');
 
   // Productos agregados a la compra.
   public products: CartItem[] = [];
@@ -45,12 +46,27 @@ export class CreatePurchasesComponent implements OnInit
   ) 
   { }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
+    this.search.valueChanges.pipe(
+      debounce( () => interval(600) )
+    ).subscribe(
+      () => this.searchProduct()
+    );
   }
 
   getFullProductName( product: Product )
   {
-    return `${product.category.name} ${product.name} X ${product.unit.unit}`;
+    const {
+      unit: name,
+      grams = '',
+      ml = '',
+      units = ''
+    } = product.unit;
+
+    const unit = `${name} X ${grams ? (grams + 'g') : ml ? (ml + 'ml') : units}`;
+
+    return `${product.category.name} ${product.name} ${unit}`;
   }
 
   get isEmpty(): boolean
@@ -65,15 +81,16 @@ export class CreatePurchasesComponent implements OnInit
 
   searchProduct()
   {
+    if( !this.search.value ) return;      
     // Si se esta buscando por código de barras.
-    const isBarCode = Number( this.search );
+    const isBarCode = Number( this.search.value );
     if(isBarCode)
     {
       this.searchByBarcode();
     } 
     else
     {
-      this.filteredProducts = this.searchService.searchProduct( this.search, '' ).pipe(
+      this.filteredProducts = this.searchService.searchProduct( this.search.value ).pipe(
         map(products => (products ? products.results : [])),
       );
     }
@@ -81,7 +98,7 @@ export class CreatePurchasesComponent implements OnInit
 
   searchByBarcode()
   {
-    this.filterService.searchProductByBarcode( this.search ).subscribe(
+    this.filterService.searchProductByBarcode( this.search.value ).subscribe(
       product => {
         if(!product) // No se encontro producto
         {
