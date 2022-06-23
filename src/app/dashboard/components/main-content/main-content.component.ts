@@ -11,6 +11,19 @@ import { MenuItem } from '../../interfaces/MenuItem';
 })
 export class MainContentComponent implements OnInit 
 {
+  public menuCreate: MenuItem[] = [
+    {
+      img: 'pi pi-sort-amount-up-alt',
+      name: 'Crear Venta',
+      route: appRoutes.createSale
+    },
+    {
+      img: 'pi pi-sort-amount-down-alt',
+      name: 'Crear Compra',
+      route: appRoutes.createPurchase
+    },
+  ];
+
   public menu: MenuItem[] = [
     {
       img: 'assets/images/sale-icon.svg',

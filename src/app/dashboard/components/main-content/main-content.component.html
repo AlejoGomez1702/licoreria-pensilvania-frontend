@@ -8,9 +8,35 @@
 
   <!-- ************************************************************************************************ -->
   <div class="mt-2">
+
+    <!-- Crear nueva compra o venta -->
+    <mat-grid-list cols="6" class="justify-center">
+      <ng-container *ngFor="let item of menuCreate">
+        <mat-grid-tile >
+          <mat-card class="example-card mt-2" (click)="goToRoute( item.route )">
+            <mat-card-subtitle class="txt-center">{{item.name}}</mat-card-subtitle>
+            <div class="txt-center">
+              <i [class]="item.img" style="font-size: 2rem"></i>
+            </div>
+            
+            <!-- <img mat-card-sm-image
+                  class="menu-img"
+                  [src]="item.img" 
+                  [alt]="item.name"> -->
+
+            <!-- <mat-card-content class="txt-center title">
+              <div>
+                <h5 class="title-content">{{ item.name }}</h5>
+              </div>                    
+            </mat-card-content> -->
+          </mat-card>
+        </mat-grid-tile>
+      </ng-container>
+    </mat-grid-list>
+
+    <!-- Opciones principales del sistema -->
     <mat-grid-list cols="6">
       <ng-container *ngFor="let item of menu">
-        <!-- Solo se le muestra al administrador -->
         <mat-grid-tile >
           <mat-card class="example-card mt-2" (click)="goToRoute( item.route )">
             <img mat-card-image
@@ -27,9 +53,5 @@
           </mat-card>
         </mat-grid-tile>
       </ng-container>
-
-    </mat-grid-list>
-  <!-- </div> -->
-  
-    
+    </mat-grid-list>    
 </div>

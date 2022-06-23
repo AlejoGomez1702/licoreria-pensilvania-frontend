@@ -64,6 +64,13 @@ mat-card
     
 }
 
-// mat-grid-tile {
-//     background: lightblue;
-// }
+.mat-grid-tile .mat-figure
+{
+    justify-content: flex-start !important ;
+   align-items: flex-start !important;
+}
+
+.justify-center
+{
+    margin-left: 40%;
+}
