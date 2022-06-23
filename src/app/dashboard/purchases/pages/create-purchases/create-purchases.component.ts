@@ -167,7 +167,7 @@ export class CreatePurchasesComponent implements OnInit
     const indexProduct = this.products.findIndex( p => p.id === id );
     if(indexProduct !== -1)
     {
-      this.products.splice(indexProduct);
+      this.products.splice(indexProduct, 1);
     }
 
     this.refreshPurchaseResume();

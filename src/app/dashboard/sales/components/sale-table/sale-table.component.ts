@@ -121,10 +121,9 @@ export class SaleTableComponent implements OnInit, AfterViewInit
 
   removeItem( item: SaleItem )
   {
-    const { id } = item;
     const saleItemDetail: SaleItemDetail = {
       index: this.index,
-      id
+      id: item.id
     };
 
     this.onDeleteItem.emit( saleItemDetail );

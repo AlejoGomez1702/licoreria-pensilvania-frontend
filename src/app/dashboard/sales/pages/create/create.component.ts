@@ -128,20 +128,6 @@ export class CreateComponent implements OnInit
     this.search.setValue('');
   }
 
-  
-  removeSaleItem(saleItemDetail: SaleItemDetail)
-  {
-    const { index, id } = saleItemDetail;
-
-    const indexProduct = this.products[index].findIndex( p => p.id === id );
-    if(indexProduct !== -1)
-    {
-      this.products[index].splice(indexProduct);
-    }
-
-    this.refreshSaleResume(index);
-  }
-
   plusSaleItem(saleItemDetail: SaleItemDetail)
   {
     const { index, id } = saleItemDetail;
@@ -353,6 +339,23 @@ export class CreateComponent implements OnInit
         this.finishSale( index, id, deposit );        
       }
     });
+  }
+
+  /**
+   * Remover un Item de la lista de venta.
+   * @param saleItemDetail 
+   * @returns 
+   */
+  removeSaleItem(saleItemDetail: SaleItemDetail)
+  {
+    const { index, id } = saleItemDetail;
+
+    const indexProduct = this.products[index].findIndex( p => p.id === id );
+    if(indexProduct === -1) return;
+
+    this.products[index].splice(indexProduct, 1);
+
+    this.refreshSaleResume(index);
   }
 
   /**
