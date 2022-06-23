@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CartItem } from '../../sales/interfaces/CartItem';
+import { SaleItem } from '../../sales/interfaces/SaleItem';
 import { Purchase } from '../interfaces/Purchase';
 import { ResponseGetAllPurchases } from '../interfaces/ResponseGetAllPurchases';
 
@@ -22,7 +22,7 @@ export class PurchaseService
    * @param purchase
    * @returns 
    */
-   createPurchase( purchase: CartItem[], providerId: string ): Observable<Purchase>
+   createPurchase( purchase: SaleItem[], providerId: string ): Observable<Purchase>
    {
      const products = purchase.map(p => {
        return {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CartItem } from '../interfaces/CartItem';
+import { SaleItem } from '../interfaces/SaleItem';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,12 @@ export class CartService
 
   constructor() { }
 
-  refreshCart( cart: CartItem[][] ) 
+  refreshCart( cart: SaleItem[][] ) 
   {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-  getCart(): CartItem[][]
+  getCart(): SaleItem[][]
   {
     const cart = localStorage.getItem('cart') || '';
     if(cart)

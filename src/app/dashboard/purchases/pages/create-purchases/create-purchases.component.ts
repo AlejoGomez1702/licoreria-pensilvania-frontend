@@ -7,7 +7,7 @@ import { debounce, map } from 'rxjs/operators';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SearchService } from 'src/app/dashboard/products/services/search.service';
 import { Provider } from 'src/app/dashboard/providers/interfaces/Provider';
-import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
+import { SaleItem } from 'src/app/dashboard/sales/interfaces/SaleItem';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { GetProviderPurchaseComponent } from '../../components/get-provider-purchase/get-provider-purchase.component';
@@ -28,7 +28,7 @@ export class CreatePurchasesComponent implements OnInit
   public search: FormControl = new FormControl('');
 
   // Productos agregados a la compra.
-  public products: CartItem[] = [];
+  public products: SaleItem[] = [];
   // Poductos resultados de una busqueda.
   public filteredProducts!: Observable<Product[]>;
 
@@ -119,8 +119,8 @@ export class CreatePurchasesComponent implements OnInit
    */
    verifyAddCartProduct( product: Product )
    { 
-     const cartItem = this.addProductToCart( product );
-     const indexProduct = this.products.findIndex( p => p.id === cartItem.id );
+     const SaleItem = this.addProductToCart( product );
+     const indexProduct = this.products.findIndex( p => p.id === SaleItem.id );
      // console.log('index product: ', indexProduct);
      if(indexProduct !== -1)
      {
@@ -128,13 +128,13 @@ export class CreatePurchasesComponent implements OnInit
      }
      else // findIndex retorno -1, quiere decir que no lo encontró.
      {
-       this.products.push( cartItem );
+       this.products.push( SaleItem );
      }  
      
      this.refreshPurchaseResume();
    }
 
-   private addProductToCart(product: Product): CartItem
+   private addProductToCart(product: Product): SaleItem
    {
      const { id = '' } = product;
      return {
@@ -143,6 +143,7 @@ export class CreatePurchasesComponent implements OnInit
                product_name: this.getFullProductName( product ),
                count: 1, 
                sale_price: product.sale_price,
+               second_sale_price: product.second_sale_price,
                is_second_price: false,
                purchase_price: product.purchase_price
              };
@@ -159,7 +160,7 @@ export class CreatePurchasesComponent implements OnInit
     // this.verifySnack();
   }
 
-  removeCartItem(id: string)
+  removeSaleItem(id: string)
   {
     console.log("El id que llega es:");
     const indexProduct = this.products.findIndex( p => p.id === id );
@@ -171,7 +172,7 @@ export class CreatePurchasesComponent implements OnInit
     this.refreshPurchaseResume();
   }
 
-  plusCartItem(id: string)
+  plusSaleItem(id: string)
   {
     const indexProduct = this.products.findIndex( p => p.id === id );
     if(indexProduct !== -1)
@@ -182,7 +183,7 @@ export class CreatePurchasesComponent implements OnInit
     this.refreshPurchaseResume();
   }
 
-  minusCartItem(id: string)
+  minusSaleItem(id: string)
   {
     const indexProduct = this.products.findIndex( p => p.id === id );
     if(indexProduct !== -1)
@@ -197,7 +198,7 @@ export class CreatePurchasesComponent implements OnInit
     this.refreshPurchaseResume();
   }
 
-  changePriceCartItem(purchaseItemDetail: PurchaseItemDetail)
+  changePriceSaleItem(purchaseItemDetail: PurchaseItemDetail)
   {
     const { id, otherPrice = 0 } = purchaseItemDetail;
 
@@ -246,8 +247,8 @@ export class CreatePurchasesComponent implements OnInit
   finishPurchase()
   {
     const dialogRef = this.dialog.open(GetProviderPurchaseComponent, {
-      minWidth: '300px',
-      maxWidth: '500px',
+      minWidth: '350px',
+      maxWidth: '650px',
       data: this.getCartTotal(),
     });
 

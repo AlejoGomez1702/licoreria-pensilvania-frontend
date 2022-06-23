@@ -138,15 +138,6 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     }
   }
 
-  getTotalValue( sale: Sale ): number
-  {
-    const { products } = sale;
-    const individualTotals = products.map(p => (p.count * p.sale_price));
-    const total = individualTotals.reduce(( a, b ) => a + b, 0);
-    
-    return total;
-  }
-
   getClientName( sale: Sale ): string
   {
     const { client } = sale;

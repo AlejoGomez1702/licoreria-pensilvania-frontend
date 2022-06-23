@@ -10,7 +10,7 @@ import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { CashSaleDialogComponent } from '../../components/cash-sale-dialog/cash-sale-dialog.component';
 import { SaleTableComponent } from '../../components/sale-table/sale-table.component';
-import { CartItem } from '../../interfaces/CartItem';
+import { SaleItem } from '../../interfaces/SaleItem';
 import { ClientSaleData } from '../../interfaces/ClientSaleData';
 import { DialogCreateBack } from '../../interfaces/DialogCreateBack';
 import { SaleItemDetail } from '../../interfaces/SaleItemDetail';
@@ -29,7 +29,7 @@ export class CreateComponent implements OnInit
   public selected: FormControl = new FormControl(0);
 
   // Productos agregados a la venta.
-  public products: CartItem[][] = [[]];
+  public products: SaleItem[][] = [[]];
   // Poductos resultados de una busqueda.
   // public filteredProducts: Product[] = [];
   public filteredProducts!: Observable<Product[]>;
@@ -59,14 +59,11 @@ export class CreateComponent implements OnInit
     ).subscribe(
       () => this.searchProduct()
     );
-    // this.obs=this.mform.valueChanges
-    //   .pipe(debounce(() => interval(500)))
-    //   .subscribe(data => console.log(data));
 
     this.verifySnack();
-    setTimeout(() => {
-      this.loadPersistence();
-    }, 400);
+    // setTimeout(() => {
+    //   this.loadPersistence();
+    // }, 400);
   }
 
   getFullProductName( product: Product )
@@ -115,8 +112,8 @@ export class CreateComponent implements OnInit
   {
     const tabIndex = this.selected.value;
 
-    const cartItem = this.addProductToCart( product );
-    const indexProduct = this.products[tabIndex].findIndex( p => p.id === cartItem.id );
+    const SaleItem = this.addProductToCart( product );
+    const indexProduct = this.products[tabIndex].findIndex( p => p.id === SaleItem.id );
     // console.log('index product: ', indexProduct);
     if(indexProduct !== -1)
     {
@@ -124,35 +121,15 @@ export class CreateComponent implements OnInit
     }
     else // findIndex retorno -1, quiere decir que no lo encontró.
     {
-      this.products[tabIndex].push( cartItem );
+      this.products[tabIndex].push( SaleItem );
     }
     
     this.refreshSaleResume(tabIndex);
     this.search.setValue('');
   }
 
-  markSecondPriceProduct( saleItemDetail: SaleItemDetail )
-  {
-    const { index, id } = saleItemDetail;
-
-    const indexProduct = this.products[index].findIndex( p => p.id === id );
-    if(indexProduct !== -1)
-    {
-      if(this.products[index][indexProduct].is_second_price)
-      {
-        this.products[index][indexProduct].sale_price = this.products[index][indexProduct].product.second_sale_price;
-      }
-      else
-      {
-        this.products[index][indexProduct].sale_price = this.products[index][indexProduct].product.sale_price;
-      }
-    }
-
-    // Guardar la persistencia en el localStorage
-    this.refreshSaleResume(this.selected.value);
-  }
-
-  removeCartItem(saleItemDetail: SaleItemDetail)
+  
+  removeSaleItem(saleItemDetail: SaleItemDetail)
   {
     const { index, id } = saleItemDetail;
 
@@ -165,7 +142,7 @@ export class CreateComponent implements OnInit
     this.refreshSaleResume(index);
   }
 
-  plusCartItem(saleItemDetail: SaleItemDetail)
+  plusSaleItem(saleItemDetail: SaleItemDetail)
   {
     const { index, id } = saleItemDetail;
 
@@ -178,7 +155,7 @@ export class CreateComponent implements OnInit
     this.refreshSaleResume(index);
   }
 
-  minusCartItem(saleItemDetail: SaleItemDetail)
+  minusSaleItem(saleItemDetail: SaleItemDetail)
   {
     const { index, id } = saleItemDetail;
 
@@ -192,21 +169,6 @@ export class CreateComponent implements OnInit
       {
         this.products[index][indexProduct].count --;
       }
-    }
-
-    this.refreshSaleResume(index);
-  }
-
-  changePriceCartItem(saleItemDetail: SaleItemDetail)
-  {
-    const { index, id, otherPrice = 0 } = saleItemDetail;
-
-    console.log(saleItemDetail);
-
-    const indexProduct = this.products[index].findIndex( p => p.id === id );
-    if(indexProduct !== -1)
-    {
-      this.products[index][indexProduct].sale_price = otherPrice;
     }
 
     this.refreshSaleResume(index);
@@ -311,7 +273,7 @@ export class CreateComponent implements OnInit
     this.selected.setValue(this.tabs.length - 1);
   }
 
-  private addProductToCart(product: Product): CartItem
+  private addProductToCart(product: Product): SaleItem
   {
     const { id = '' } = product;
     return {
@@ -320,7 +282,9 @@ export class CreateComponent implements OnInit
               product_name: this.getFullProductName( product ),
               count: 1, 
               sale_price: product.sale_price,
+              second_sale_price: product.second_sale_price,
               is_second_price: false,
+              count_second_price: 0,
               purchase_price: product.purchase_price
             };
   }
@@ -344,7 +308,8 @@ export class CreateComponent implements OnInit
    */
   finishSale(index: number, clientId?: string, deposit?: number): void
   {
-    const sale: CartItem[] = this.products[index];
+    const sale: SaleItem[] = this.products[index];
+    console.log("La venta es: ", sale);
     this.saleService.createSale( sale, clientId, deposit ).subscribe(
       res => {
         this.products[index] = [];
@@ -387,10 +352,44 @@ export class CreateComponent implements OnInit
         // Finalizar la venta.
         this.finishSale( index, id, deposit );        
       }
-      // else if(result !== undefined) // Crear venta sin cliente
-      // {
-      //   this.finishSale( index );
-      // }
     });
+  }
+
+  /**
+   * Cambiar el precio unitario con el que se venden los productos para llevar
+   * @param saleItemDetail 
+   * @returns 
+   */
+  changePriceSaleItem(saleItemDetail: SaleItemDetail)
+  {
+    const { index, id, product } = saleItemDetail;
+    const indexProduct = this.products[index].findIndex( p => p.id === id );
+    if(indexProduct === -1) return;
+    if( !product || !product.other_price ) return;
+    
+    this.products[index][indexProduct].other_price = product.other_price;
+    
+    this.refreshSaleResume(index);
+  }
+
+  /**
+   * Marcar el precio secundario de un producto
+   * precio por fuera? cuantos por fuera?
+   * @param saleItemDetail 
+   * @returns 
+   */
+  markSecondPriceProduct( saleItemDetail: SaleItemDetail )
+  {
+    // index = Número de venta, 
+    // id = Identificador del producto que se le marco el precio secundario.
+    const { index, id } = saleItemDetail;
+
+    const indexSelectedProduct = this.products[index].findIndex( p => p.id === id );
+    if(indexSelectedProduct === -1) return;
+
+    this.products[index][indexSelectedProduct] = saleItemDetail.product!;
+
+    // Guardar la persistencia en el localStorage
+    this.refreshSaleResume(this.selected.value);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
+import { SaleItem } from 'src/app/dashboard/sales/interfaces/SaleItem';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { CartLicoreriaService } from '../../services/cart-licoreria.service';
@@ -14,7 +14,7 @@ export class FabCartComponent implements OnInit
 {
   @Output() resetCart: EventEmitter<any> = new EventEmitter();
   @Input() totalItems = 0;
-  public products: CartItem[] = [];
+  public products: SaleItem[] = [];
 
   constructor(
     private cartLicoreriaService: CartLicoreriaService,
@@ -32,7 +32,7 @@ export class FabCartComponent implements OnInit
     this.products = this.cartLicoreriaService.getCart();
   }
 
-  getfullProductName(product: CartItem): string
+  getfullProductName(product: SaleItem): string
   {
     return `${product.product.category.name} ${product.product.name}`;
   }

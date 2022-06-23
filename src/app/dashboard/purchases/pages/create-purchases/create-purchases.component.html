@@ -62,10 +62,10 @@
         <!-- ***************************************** Contenido del tab ************************************ -->
         <app-purchase-table 
                   [products]="products"
-                  (onDeleteItem)="removeCartItem( $event )"
-                  (onPlusItem)="plusCartItem( $event )"
-                  (onMinusItem)="minusCartItem( $event )"
-                  (onChangePriceItem)="changePriceCartItem( $event )">
+                  (onDeleteItem)="removeSaleItem( $event )"
+                  (onPlusItem)="plusSaleItem( $event )"
+                  (onMinusItem)="minusSaleItem( $event )"
+                  (onChangePriceItem)="changePriceSaleItem( $event )">
 
         </app-purchase-table>
         <!-- ***************************************** Contenido del tab ************************************ -->

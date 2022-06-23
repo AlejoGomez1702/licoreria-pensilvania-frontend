@@ -1,0 +1,39 @@
+<h1 mat-dialog-title class="txt-center bold-text">Precio Para Llevar</h1>
+<div mat-dialog-content>
+  <mat-divider></mat-divider>
+  <!-- Dinero recibido -->
+  <div class="container mt-2">
+    <p class="txt-center">Selecciona la cantidad de productos para aplicarles el precio secundario:</p>
+    <div class="row mt-2">
+
+        <h3 class="txt-center bold-text">Total Agregados: {{ countTotal}} </h3>
+
+      <div class="txt-center field">
+        <label for="horizontal">Con precio para llevar:</label>
+        <p-inputNumber [(ngModel)]="countSecondPrice" 
+                        [showButtons]="true" 
+                        buttonLayout="horizontal" 
+                        inputId="horizontal" 
+                        spinnerMode="horizontal" 
+                        [step]="1"
+                        decrementButtonClass="p-button-danger" 
+                        incrementButtonClass="p-button-success" 
+                        incrementButtonIcon="pi pi-plus" 
+                        decrementButtonIcon="pi pi-minus"
+                        [min]="0" [max]="countTotal">
+        </p-inputNumber>    
+      </div>
+    </div>
+  </div>
+
+</div>
+<div mat-dialog-actions class="box-center">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button 
+            color="primary" 
+            cdkFocusInitial 
+            (click)="aceptDialog()"
+            [disabled]="false">
+    Aceptar
+  </button>
+</div>

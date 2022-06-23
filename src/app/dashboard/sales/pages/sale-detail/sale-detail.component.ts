@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
-import { CartItem } from '../../interfaces/CartItem';
+import { SaleItem } from '../../interfaces/SaleItem';
 import { SaleService } from '../../services/sale.service';
 
 @Component({
@@ -15,9 +15,9 @@ export class SaleDetailComponent implements OnInit
   public total: number = 0;
   public createDate: Date = new Date();
   public saleId: string = '';
-  public products: CartItem[] = [];
+  public products: SaleItem[] = [];
 
-  public dataSource: MatTableDataSource<CartItem>;
+  public dataSource: MatTableDataSource<SaleItem>;
   displayedColumns = ['product', 'count', 'unit_price', 'total'];
 
   constructor(
@@ -27,7 +27,7 @@ export class SaleDetailComponent implements OnInit
     private router: Router
   ) 
   { 
-    this.dataSource = new MatTableDataSource<CartItem>();
+    this.dataSource = new MatTableDataSource<SaleItem>();
     this.dataSource.data = this.products;    
   }
 
@@ -60,12 +60,12 @@ export class SaleDetailComponent implements OnInit
     );
   }
 
-  getUnitPrice(product: CartItem): number
+  getUnitPrice(product: SaleItem): number
   {
     return product.sale_price;
   }
 
-  getProductTotal(product: CartItem)
+  getProductTotal(product: SaleItem)
   {
     return `${(product.count * product.sale_price)}`;
   }

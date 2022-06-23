@@ -53,7 +53,7 @@ export class FilterService
    * @param term coincidencia de cédula o NIT
    * @returns 
    */
-   searchProvidersByDni( term: string ): Observable<Provider[]>
+   searchProvidersByName( term: string ): Observable<Provider[]>
    {
      return this.http.get<Provider[]>(`${environment.API_URL}/searchs/providers/${term}`);
    }

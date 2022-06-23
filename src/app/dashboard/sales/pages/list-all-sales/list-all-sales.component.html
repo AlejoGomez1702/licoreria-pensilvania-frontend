@@ -69,7 +69,7 @@
                 <!-- Valor total -->
                 <ng-container matColumnDef="total">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
-                    <td mat-cell *matCellDef="let row" style="font-weight: bold;">$ {{ getTotalValue( row ) | number }} </td>
+                    <td mat-cell *matCellDef="let row" style="font-weight: bold;">$ {{ row.total | number }} </td>
                 </ng-container>
 
                 <!-- Acciones -->

@@ -16,17 +16,17 @@
 
   <div class="mt-2">
     <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Buscar por Cédula o NIT...</mat-label>
+        <mat-label>Buscar Proveedor...</mat-label>
         <input matInput
                aria-label="Cédula o NIT"
                [matAutocomplete]="auto"
-               [formControl]="termDniProvider">
+               [formControl]="termNameProvider">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option
                     *ngFor="let provider of filteredProviders | async" 
                     [value]="provider.dni"
                     (onSelectionChange)="onChangeProvider( provider )">
-            <small>{{ provider.dni + ' - ' + provider.name }}</small>
+            <small>{{ provider.name }}</small>
           </mat-option>
         </mat-autocomplete>
 

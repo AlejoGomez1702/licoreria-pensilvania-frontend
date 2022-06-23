@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChangePriceDialogComponent } from 'src/app/dashboard/sales/components/sale-table/change-price-dialog/change-price-dialog.component';
-import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
+import { SaleItem } from 'src/app/dashboard/sales/interfaces/SaleItem';
 import { ChangePrice } from 'src/app/dashboard/sales/interfaces/ChangePrice';
 import { PurchaseItemDetail } from '../../interfaces/PurchaseItemDetail';
 
@@ -14,9 +14,9 @@ import { PurchaseItemDetail } from '../../interfaces/PurchaseItemDetail';
 })
 export class PurchaseTableComponent implements OnInit, AfterViewInit
 {
-  @Input() products: CartItem[] = [];
+  @Input() products: SaleItem[] = [];
 
-  public dataSource: MatTableDataSource<CartItem>;
+  public dataSource: MatTableDataSource<SaleItem>;
   displayedColumns = ['product', 'count', 'unit_price', 'total', 'actions'];
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -29,7 +29,7 @@ export class PurchaseTableComponent implements OnInit, AfterViewInit
     public dialog: MatDialog
   )
   { 
-    this.dataSource = new MatTableDataSource<CartItem>();
+    this.dataSource = new MatTableDataSource<SaleItem>();
   }
 
   ngAfterViewInit(): void 
@@ -40,13 +40,13 @@ export class PurchaseTableComponent implements OnInit, AfterViewInit
   ngOnInit(): void {
   }
 
-  refreshData(products: CartItem[])
+  refreshData(products: SaleItem[])
   {
     this.products = products;
     this.dataSource.data = this.products;
   }
   
-  getfullProductName(spirit: CartItem): string
+  getfullProductName(spirit: SaleItem): string
   {
     return  `${spirit.product.category.name} ${spirit.product.name}`;
   }
@@ -63,7 +63,7 @@ export class PurchaseTableComponent implements OnInit, AfterViewInit
     return `${total}`;
   }
 
-  getProductTotal(product: CartItem)
+  getProductTotal(product: SaleItem)
   {
     return `${(product.count * (product.purchase_price || 0))}`;
   }
@@ -83,7 +83,7 @@ export class PurchaseTableComponent implements OnInit, AfterViewInit
     this.onDeleteItem.emit( id );
   }
 
-  openChangePriceDialog( item: CartItem )
+  openChangePriceDialog( item: SaleItem )
   {
     const { purchase_price = 0 } = item;
     const data: ChangePrice = {price: purchase_price, otherPrice: 0};

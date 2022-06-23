@@ -2,10 +2,12 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChil
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CartItem } from '../../interfaces/CartItem';
+import { SaleItem } from '../../interfaces/SaleItem';
 import { ChangePrice } from '../../interfaces/ChangePrice';
 import { SaleItemDetail } from '../../interfaces/SaleItemDetail';
+import { SaleTableService } from '../../services/sale-table.service';
 import { ChangePriceDialogComponent } from './change-price-dialog/change-price-dialog.component';
+import { SecondPriceDialogComponent } from './second-price-dialog/second-price-dialog.component';
 
 @Component({
   selector: 'app-sale-table',
@@ -15,7 +17,8 @@ import { ChangePriceDialogComponent } from './change-price-dialog/change-price-d
 export class SaleTableComponent implements OnInit, AfterViewInit
 {
   @Input() saleId: number = -1;
-  @Input() products: CartItem[] = [];
+  // Productos registrados en la venta.
+  @Input() products: SaleItem[] = [];
   @Input() index: number = -1;
 
   @Output() onDeleteItem: EventEmitter<SaleItemDetail> = new EventEmitter();
@@ -24,15 +27,16 @@ export class SaleTableComponent implements OnInit, AfterViewInit
   @Output() onChangePriceItem: EventEmitter<SaleItemDetail> = new EventEmitter();
   @Output() onMarkSecondPrice: EventEmitter<SaleItemDetail> = new EventEmitter();
   
-  public dataSource: MatTableDataSource<CartItem>;
+  public dataSource: MatTableDataSource<SaleItem>;
   displayedColumns = ['product', 'count', 'unit_price', 'second_price', 'total', 'actions'];
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
+    private saleTableService: SaleTableService,
     public dialog: MatDialog
   ) 
   { 
-    this.dataSource = new MatTableDataSource<CartItem>();
+    this.dataSource = new MatTableDataSource<SaleItem>();
     this.dataSource.data = this.products;    
   }
 
@@ -45,21 +49,21 @@ export class SaleTableComponent implements OnInit, AfterViewInit
   {
   }
 
-  refreshData(products: CartItem[])
+  refreshData(products: SaleItem[])
   {
     this.products = products;
     this.dataSource.data = this.products;
   }
 
-  getfullProductName(cartItem: CartItem): string
+  getfullProductName(SaleItem: SaleItem): string
   {
-    const { product } = cartItem; 
+    const { product } = SaleItem; 
     const {
       unit: name,
       grams = '',
       ml = '',
       units = ''
-    } = cartItem.product.unit;
+    } = SaleItem.product.unit;
 
     const unit = `${name} X ${grams ? (grams + 'g') : ml ? (ml + 'ml') : units}`;
 
@@ -72,33 +76,50 @@ export class SaleTableComponent implements OnInit, AfterViewInit
 
     for (const product of this.products) 
     {
-      total += (product.count * product.sale_price);      
+      total += this.getProductTotal(product);    
     }
 
     return `${total}`;
   }
 
-  getUnitPrice(product: CartItem): number
+  getUnitPrice(product: SaleItem): number
   {
-    // if(product.is_second_price)
-    // {
-    //   return product.product.second_sale_price;
-    // }
-
-    return product.sale_price;
+    const total = this.getProductTotal( product );
+    const unitPrice = total / product.count;
+    
+    return unitPrice;
   }
 
-  getProductTotal(product: CartItem)
+  getProductTotal(product: SaleItem)
   {
-    // if(product.is_second_price)
-    // {
-    //   return `${(product.count * product.product.second_sale_price)}`;
-    // }
+    let total = 0;
+    
+    if( product.is_second_price ) // Si vienen productos con precio secundario
+    {
+        // Cantidad de productos con precio secundario
+        const countSecondPrice = product.count_second_price || 0;
+        const secondPrices = countSecondPrice * product.second_sale_price;
+        const otherPrice = (product.other_price) ? product.other_price : product.sale_price;
+        const normalPrices = (product.count - countSecondPrice) * otherPrice;
 
-    return `${(product.count * product.sale_price)}`;
+        total += secondPrices + normalPrices;
+    }
+    else
+    {
+        if( product.other_price )
+        {
+            total += product.count * product.other_price;     
+        }
+        else
+        {
+            total += product.count * product.sale_price;     
+        }                   
+    }
+
+    return total;
   }
 
-  removeItem( item: CartItem )
+  removeItem( item: SaleItem )
   {
     const { id } = item;
     const saleItemDetail: SaleItemDetail = {
@@ -109,7 +130,7 @@ export class SaleTableComponent implements OnInit, AfterViewInit
     this.onDeleteItem.emit( saleItemDetail );
   }
 
-  plusItem( item: CartItem )
+  plusItem( item: SaleItem )
   {
     const { id } = item;
     const saleItemDetail: SaleItemDetail = {
@@ -120,7 +141,7 @@ export class SaleTableComponent implements OnInit, AfterViewInit
     this.onPlusItem.emit( saleItemDetail );
   }
 
-  disminItem( item: CartItem )
+  disminItem( item: SaleItem )
   {
     const { id } = item;
     const saleItemDetail: SaleItemDetail = {
@@ -131,35 +152,7 @@ export class SaleTableComponent implements OnInit, AfterViewInit
     this.onMinusItem.emit( saleItemDetail );
   }
 
-  markSecondPrice( item: CartItem )
-  {
-    const { id } = item;
-    const saleItemDetail: SaleItemDetail = {
-      index: this.index,
-      id
-    };
-
-    const indexProduct = this.products.findIndex( p => p.id === item.id );
-    console.log("Second price: ", this.products[indexProduct].is_second_price);
-    if(indexProduct !== -1)
-    {
-      if(this.products[indexProduct].is_second_price)
-      {
-        this.products[indexProduct].is_second_price = false;
-      }
-      else
-      {
-        this.products[indexProduct].is_second_price = true;
-      }
-      this.dataSource.data = this.products;
-      // this.products[indexProduct].is_second_price = !this.products[indexProduct].is_second_price;
-    }
-    console.log("Second price2222: ", this.products[indexProduct].is_second_price);
-
-    this.onMarkSecondPrice.emit( saleItemDetail );
-  }
-
-  getCheck( item: CartItem )
+  getCheck( item: SaleItem )
   {
     const indexProduct = this.products.findIndex( p => p.id === item.id );
     if(indexProduct !== -1)
@@ -170,42 +163,70 @@ export class SaleTableComponent implements OnInit, AfterViewInit
     return false;
   }
 
-  openChangePriceDialog( item: CartItem )
+  /**
+   * Cambia el precio unitario de los productos (Precio principal)
+   * @param item Producto seleccionado
+   */
+  openChangePriceDialog( item: SaleItem )
   {
     const { sale_price } = item;
     const data: ChangePrice = {price: sale_price, otherPrice: 0};
 
-    const dialogRef = this.dialog.open(ChangePriceDialogComponent, {
-      width: '250px',
-      data
-    });
-
-    dialogRef.afterClosed().subscribe((result: number) => {
-      console.log('The dialog was closed');     
-
-      if( result === 0)
+    const dialog = this.saleTableService.verifyChangePriceData( data );
+    dialog.afterClosed().subscribe((result: number) => {    
+      if( result )
       {
+        item.other_price = result;
+
         const saleItemDetail: SaleItemDetail = {
           index: this.index,
           id: item.id,
-          otherPrice: result
+          product: item
         };
-        this.onChangePriceItem.emit( saleItemDetail );
-        return;
-      }
-      
-      if(result )
-      {
-        const saleItemDetail: SaleItemDetail = {
-          index: this.index,
-          id: item.id,
-          otherPrice: result
-        };
-        this.onChangePriceItem.emit( saleItemDetail );
-        return;
-      }
 
+        this.onChangePriceItem.emit( saleItemDetail );
+      }
     });
   }
 
+  /**
+   * Cuando se quiere vender un producto en especifico a un precio secundario.
+   * @param item Producto seleccionado
+   */
+  markSecondPrice( item: SaleItem )
+  {
+    // Del listado de productos de la venta, busqueme el indice del producto que se está seleccionando.
+    const indexSelectedProduct = this.products.findIndex( p => p.id === item.id );
+    let selectedProduct = this.products[indexSelectedProduct];
+    const { is_second_price: isSecondPriceSelected = false } = selectedProduct;
+    if(isSecondPriceSelected) // Estaba seleccionado y hay que deseleccionar
+    {
+      const { is_second_price, count_second_price, ...data } = selectedProduct;
+      selectedProduct = data;
+    }
+    else // Se selecciona el valor secundario
+    {
+      const dialog = this.saleTableService.verifySecondPriceData( selectedProduct );  
+      dialog.afterClosed().subscribe((result: number) => {
+        if(result !== undefined  && result > 0)
+        {
+          // Si se selecciona alguna cantidad de productos agregarle la información de cuantos a la venta
+          selectedProduct.is_second_price = true;
+          selectedProduct.count_second_price = result;
+        }   
+        else
+        {
+          selectedProduct.is_second_price = false;
+        }
+      }); 
+    }
+
+    const saleItemDetail: SaleItemDetail = {
+      index: this.index,
+      id: item.id,
+      product: selectedProduct
+    };
+
+    this.onMarkSecondPrice.emit( saleItemDetail );
+  }
 }

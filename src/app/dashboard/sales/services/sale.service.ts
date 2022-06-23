@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Product } from '../../products/interfaces/Product';
-import { CartItem } from '../interfaces/CartItem';
+import { SaleItem } from '../interfaces/SaleItem';
 import { RangeDateTime } from '../interfaces/RangeDateTime';
 import { ResponseGetAllSales } from '../interfaces/ResponseGetAllSales';
 import { Sale } from '../interfaces/Sale';
@@ -24,25 +24,22 @@ export class SaleService
    * @param sale Venta a crear.
    * @returns 
    */
-  createSale(sale: CartItem[], clientId?: string, deposit?: number): Observable<Sale>
+  createSale(sale: SaleItem[], clientId?: string, deposit?: number): Observable<Sale>
   {
     const products = sale.map(p => {
       return {
         count: p.count,
         purchase_price: p.purchase_price,
+        is_second_price: p.is_second_price,
+        count_second_price: p.count_second_price,        
         sale_price: p.sale_price,
+        second_sale_price: p.second_sale_price,
         product: p.product.id,
         product_name: p.product_name
       };
     });
 
-    // let data;
-
     const data = { products, clientId, deposit };
-    // if( clientId )
-    // {
-    //   data = { products, clientId };
-    // }
 
     return this.http.post<Sale>(`${environment.API_URL}/sales`, data);
   }

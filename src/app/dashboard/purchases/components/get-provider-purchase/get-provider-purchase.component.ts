@@ -21,7 +21,7 @@ export class GetProviderPurchaseComponent implements OnInit
   public provider: Provider[] = [];
   public dni: string = '';
   // Lo que se va ingresando en el campo de busqueda.
-  public termDniProvider = new FormControl();
+  public termNameProvider = new FormControl();
   public filteredProviders!: Observable<Provider[]>;
 
   constructor(
@@ -33,11 +33,11 @@ export class GetProviderPurchaseComponent implements OnInit
     public dialog: MatDialog
   ) 
   { 
-    this.termDniProvider.valueChanges.subscribe(
-      termDni => {
-        if(termDni)
+    this.termNameProvider.valueChanges.subscribe(
+      termName => {
+        if(termName)
         {
-          this.filteredProviders = this.filterService.searchProvidersByDni( termDni );
+          this.filteredProviders = this.filterService.searchProvidersByName( termName );
         }
       }
     );
@@ -70,7 +70,7 @@ export class GetProviderPurchaseComponent implements OnInit
   {
     this.dni = provider.dni;
     this.providerSelected = provider;
-    this.termDniProvider.setValue( this.dni );
+    this.termNameProvider.setValue( this.dni );
   }
 
   createProvider()
@@ -122,6 +122,6 @@ export class GetProviderPurchaseComponent implements OnInit
   {
     this.dni = '';
     this.providerSelected = undefined;   
-    this.termDniProvider.setValue('');
+    this.termNameProvider.setValue('');
   }
 }

@@ -1,6 +1,8 @@
+import { SaleItem } from "./SaleItem";
+
 export interface SaleItemDetail
 {
-    index: number;
-    id: string;
-    otherPrice?: number;
+    index: number; // # de venta 
+    id: string; // Id del producto
+    product?: SaleItem;
 }

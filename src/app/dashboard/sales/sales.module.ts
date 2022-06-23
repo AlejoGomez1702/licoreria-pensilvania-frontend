@@ -10,6 +10,7 @@ import { BarGraphComponent } from './components/graphs/bar-graph/bar-graph.compo
 import { ChangePriceDialogComponent } from './components/sale-table/change-price-dialog/change-price-dialog.component';
 import { SaleDetailComponent } from './pages/sale-detail/sale-detail.component';
 import { CashSaleDialogComponent } from './components/cash-sale-dialog/cash-sale-dialog.component';
+import { SecondPriceDialogComponent } from './components/sale-table/second-price-dialog/second-price-dialog.component';
 // import {MatSnackBar} from '@angular/material/snack-bar';
 
 
@@ -21,7 +22,8 @@ import { CashSaleDialogComponent } from './components/cash-sale-dialog/cash-sale
     BarGraphComponent,
     ChangePriceDialogComponent,
     SaleDetailComponent,
-    CashSaleDialogComponent
+    CashSaleDialogComponent,
+    SecondPriceDialogComponent
   ],
   imports: [
     CommonModule,

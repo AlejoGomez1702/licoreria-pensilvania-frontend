@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Product } from 'src/app/dashboard/products/interfaces/Product';
-import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
+import { SaleItem } from 'src/app/dashboard/sales/interfaces/SaleItem';
 import { Category } from 'src/app/dashboard/settings/interfaces/category.interfaces';
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { FilterService } from 'src/app/shared/services/filter.service';
@@ -33,7 +33,7 @@ export class ListAllProductsComponent implements OnInit
   public categories: Category[] = [];
 
   // Shopping Cart
-  public cartProducts: CartItem[] = [];
+  public cartProducts: SaleItem[] = [];
   @ViewChild(FabCartComponent) fabCart!: FabCartComponent;
 
   constructor(
@@ -140,8 +140,8 @@ export class ListAllProductsComponent implements OnInit
 
   addItemToShoppingCart( product: Product )
   {
-    const cartItem = this.productToItemCart( product );
-    const indexProduct = this.cartProducts.findIndex( p => p.id === cartItem.id );
+    const SaleItem = this.productToItemCart( product );
+    const indexProduct = this.cartProducts.findIndex( p => p.id === SaleItem.id );
     if(indexProduct !== -1)
     {
       this.cartProducts[indexProduct].count ++;
@@ -149,13 +149,13 @@ export class ListAllProductsComponent implements OnInit
     }
     else
     {
-      this.cartProducts = this.cartLicoreriaService.addItem(cartItem);
+      this.cartProducts = this.cartLicoreriaService.addItem(SaleItem);
     }
 
     this.fabCart.loadData();
   }
 
-  private productToItemCart(product: Product): CartItem
+  private productToItemCart(product: Product): SaleItem
   {
     const { id = '' } = product;
     return {
@@ -163,6 +163,7 @@ export class ListAllProductsComponent implements OnInit
               product, 
               count: 1, 
               sale_price: product.sale_price,
+              second_sale_price: product.second_sale_price,
               purchase_price: product.purchase_price
             };
   }

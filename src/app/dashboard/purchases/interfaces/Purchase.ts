@@ -1,11 +1,11 @@
-import { CartItem } from "../../sales/interfaces/CartItem";
+import { SaleItem } from "../../sales/interfaces/SaleItem";
 
 export interface Purchase {
     created_at: Date;
     updated_at: Date;
     establishment: string;
     id: string;
-    products: CartItem[];    
+    products: SaleItem[];    
     user: string;
     // provider: {};
     total: number

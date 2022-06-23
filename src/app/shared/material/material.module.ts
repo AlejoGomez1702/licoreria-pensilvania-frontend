@@ -29,6 +29,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 @NgModule({
@@ -40,14 +42,15 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatSortModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule,
     MatCardModule, MatSelectModule, MatChipsModule, MatAutocompleteModule, MaterialFileInputModule, 
     MatProgressBarModule, NgxCurrencyModule, MatButtonToggleModule, MatBadgeModule, MatDatepickerModule,
-    MatNativeDateModule, MatMenuModule, MatSlideToggleModule, MatGridListModule
+    MatNativeDateModule, MatMenuModule, MatSlideToggleModule, MatGridListModule, MatCheckboxModule
   ],
   exports: [
     MatButtonModule, MatRadioModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatDividerModule,
     MatListModule, MatExpansionModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule,
     MatFormFieldModule, MatDialogModule, MatTabsModule, MatCardModule, MatSelectModule, MatChipsModule, 
     MatAutocompleteModule, MaterialFileInputModule, MatProgressBarModule, NgxCurrencyModule, MatButtonToggleModule, 
-    MatBadgeModule, MatDatepickerModule, MatNativeDateModule, MatMenuModule, MatSlideToggleModule, MatGridListModule
+    MatBadgeModule, MatDatepickerModule, MatNativeDateModule, MatMenuModule, MatSlideToggleModule, MatGridListModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CartItem } from 'src/app/dashboard/sales/interfaces/CartItem';
+import { SaleItem } from 'src/app/dashboard/sales/interfaces/SaleItem';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,12 @@ export class CartLicoreriaService
 
   constructor() { }
 
-  refreshCart( cart: CartItem[] ) 
+  refreshCart( cart: SaleItem[] ) 
   {
     localStorage.setItem('licoreria-cart', JSON.stringify(cart));
   }
 
-  getCart(): CartItem[]
+  getCart(): SaleItem[]
   {
     const cart = localStorage.getItem('licoreria-cart') || '';
     if(cart)
@@ -25,9 +25,9 @@ export class CartLicoreriaService
     return [];
   }
 
-  addItem( product: CartItem ): CartItem[]
+  addItem( product: SaleItem ): SaleItem[]
   {
-    let cartList: CartItem[] = [];
+    let cartList: SaleItem[] = [];
     const cartString = localStorage.getItem('licoreria-cart') || '';
     if(cartString)
     {
