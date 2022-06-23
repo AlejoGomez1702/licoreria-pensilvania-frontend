@@ -132,6 +132,7 @@ export class CreatePurchasesComponent implements OnInit
      }  
      
      this.refreshPurchaseResume();
+     this.search.setValue('');
    }
 
    private addProductToCart(product: Product): SaleItem

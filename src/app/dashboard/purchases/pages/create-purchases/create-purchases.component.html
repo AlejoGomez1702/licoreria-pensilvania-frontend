@@ -33,7 +33,11 @@
                     <small>{{ getFullProductName( product ) }}</small>
                   </mat-option>
                 </mat-autocomplete>
-                <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear">
+                <button *ngIf="search" 
+                        matSuffix 
+                        mat-icon-button 
+                        aria-label="Clear"
+                        (click)="search.setValue('')">
                     <mat-icon>close</mat-icon>
                 </button>
             </mat-form-field>
