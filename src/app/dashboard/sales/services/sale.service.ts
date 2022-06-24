@@ -50,6 +50,8 @@ export class SaleService
    */
   getAllSales( limit?: number, from?: number, range?: RangeDateTime ): Observable<ResponseGetAllSales>
   {
+    console.log("Range: ", range);
+
     let params = new HttpParams().set('limit', limit ? limit : 8)
                                  .set('from', from ? from : 0)
                                  .set('start', range ? range.start.toISOString() : '')

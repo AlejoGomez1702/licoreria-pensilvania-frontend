@@ -114,12 +114,12 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     const { start, end } = this.range.value;
     if( !end ) return;
 
-    const endDate = moment( end ).add( 23, 'h' )
-                                 .add( 59, 'm' )
-                                 .add( 59, 's' )
-                                 .add( 999, 'ms' )
-                                 .toDate();
-    this.range.reset({ start, end: endDate });
+    // const endDate = moment( end ).add( 23, 'h' )
+    //                              .add( 59, 'm' )
+    //                              .add( 59, 's' )
+    //                              .add( 999, 'ms' )
+    //                              .toDate();
+    this.range.reset({ start, end });
     this.loadSales(undefined, undefined, this.range.value);
 
   }
