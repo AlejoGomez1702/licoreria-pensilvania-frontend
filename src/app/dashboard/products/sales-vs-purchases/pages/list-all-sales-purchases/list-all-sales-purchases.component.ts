@@ -99,4 +99,23 @@ export class ListAllSalesPurchasesComponent implements OnInit {
     return this.produtcUnitsService.getfullProductName( product );
   } 
 
+  // 1. PrecioCompra > PrecioVenta: Se esta llendo a perdidas el producto
+  // 2. precioCompra > PrecioVentaSecundario: Se esta llendo a perdidas el producto
+  // 3. compra || venta no estan establecidas
+  getProductMessage( product: Product ): string
+  {
+    const { purchase_price, sale_price, second_sale_price } = product;
+    if(
+      (purchase_price > sale_price) || 
+      // (purchase_price > second_sale_price)  ||
+      (purchase_price <= 1) ||
+      (sale_price <= 1)
+    )
+    {
+      return 'Revisar Precios';
+    }
+
+    return '';
+  }
+
 }
