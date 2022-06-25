@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NewProductComponent } from './pages/create/new-product/new-product.component';
 import { NaturistComponent } from './pages/edit/establishment-naturist/naturist/naturist.component';
@@ -8,6 +8,7 @@ import { DrinkComponent } from './pages/edit/establishment-spirit/drink/drink.co
 import { GroceryComponent } from './pages/edit/establishment-spirit/grocery/grocery.component';
 import { SpiritComponent } from './pages/edit/establishment-spirit/spirit/spirit.component';
 import { ListAllComponent } from './pages/list-all/list-all.component';
+import { ListAllSalesPurchasesComponent } from './sales-vs-purchases/pages/list-all-sales-purchases/list-all-sales-purchases.component';
 
 const routes: Routes = [
   // /dashboard/products
@@ -48,6 +49,11 @@ const routes: Routes = [
   {
     path: 'create/:type',
     component: NewProductComponent
+  },
+  // Ventas vs Compras  
+  {
+    path: 'purchasesvssales',
+    loadChildren: () => import('./sales-vs-purchases/sales-vs-purchases.module').then( m => m.SalesVsPurchasesModule )
   },
 ]
 
