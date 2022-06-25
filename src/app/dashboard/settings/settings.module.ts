@@ -18,27 +18,25 @@ import { CoreModule } from 'src/app/core/core.module';
 
 
 @NgModule({
-  declarations: [
-    ListAllComponent,
-    CreateCategoryDialogComponent,
-    CrudCategoryComponent,
-    CrudUnidadesMedidaComponent,
-    CrudAlcoholComponent,
-    FormUnidadComponent,
-    FormAlcoholComponent
-  ],
-  imports: [
-    CommonModule,
-    SettingsRoutingModule,
-    // CoreModule
-    // MaterialModule,
-    // FormsModule,
-    SharedModule,
-  ],
-  entryComponents: [FormUnidadComponent],
-  providers: [
-    CrudService
- ],
-
+    declarations: [
+        ListAllComponent,
+        CreateCategoryDialogComponent,
+        CrudCategoryComponent,
+        CrudUnidadesMedidaComponent,
+        CrudAlcoholComponent,
+        FormUnidadComponent,
+        FormAlcoholComponent
+    ],
+    imports: [
+        CommonModule,
+        SettingsRoutingModule,
+        // CoreModule
+        // MaterialModule,
+        // FormsModule,
+        SharedModule,
+    ],
+    providers: [
+        CrudService
+    ]
 })
 export class SettingsModule { }

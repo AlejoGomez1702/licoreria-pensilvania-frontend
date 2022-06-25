@@ -35,74 +35,71 @@ import { UnitDetailPipe } from '../dashboard/products/pipes/unit-detail.pipe';
 
 
 @NgModule({
-  declarations: [
-    // Components
-    IndexComponent,
-    SmallHeaderComponent,
-    MainHeaderComponent,
-    MainBannerComponent,
-    RootContentComponent,
-    CategoriesSectionComponent,
-    ProductsSectionComponent,
-    AlcoholBannerComponent,
-    FooterComponent,
-    LoaderComponent,
-    ErrorPageComponent,
-    AdminLayoutComponent,
-    CrudDialogComponent,
-    AdDirective,
-    ConfirmComponent,
-    ListAllProductsComponent,
-    ContactComponent,
-    FabCartComponent,
-    ShoppingCartComponent,
-    ShoppingCartHeaderComponent,
-    MainToolbarComponent,
-    RolPipe,
-    UnitDetailPipe
-
-    // Modules
-    // MaterialModule
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MaterialModule,
-    PrimeNgModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SpinnerModule,
-    NgChartsModule,
-    NgxPermissionsModule.forChild()
-  ],
-  exports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule,
-    PrimeNgModule,
-    // Components
-    IndexComponent,
-    SmallHeaderComponent,
-    MainHeaderComponent,
-    RootContentComponent,
-    CategoriesSectionComponent,
-    ProductsSectionComponent,
-    AlcoholBannerComponent,
-    FooterComponent,
-    LoaderComponent,
-    AdminLayoutComponent,
-    MainToolbarComponent,
-    AdDirective,
-    SpinnerModule,
-    NgChartsModule,
-    NgxPermissionsModule,
-    UnitDetailPipe
-  ],
-  providers: [
-    { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} },
-  ],
-  entryComponents: [FormUnidadComponent],
-
+    declarations: [
+        // Components
+        IndexComponent,
+        SmallHeaderComponent,
+        MainHeaderComponent,
+        MainBannerComponent,
+        RootContentComponent,
+        CategoriesSectionComponent,
+        ProductsSectionComponent,
+        AlcoholBannerComponent,
+        FooterComponent,
+        LoaderComponent,
+        ErrorPageComponent,
+        AdminLayoutComponent,
+        CrudDialogComponent,
+        AdDirective,
+        ConfirmComponent,
+        ListAllProductsComponent,
+        ContactComponent,
+        FabCartComponent,
+        ShoppingCartComponent,
+        ShoppingCartHeaderComponent,
+        MainToolbarComponent,
+        RolPipe,
+        UnitDetailPipe
+        // Modules
+        // MaterialModule
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MaterialModule,
+        PrimeNgModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SpinnerModule,
+        NgChartsModule,
+        NgxPermissionsModule.forChild()
+    ],
+    exports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        PrimeNgModule,
+        // Components
+        IndexComponent,
+        SmallHeaderComponent,
+        MainHeaderComponent,
+        RootContentComponent,
+        CategoriesSectionComponent,
+        ProductsSectionComponent,
+        AlcoholBannerComponent,
+        FooterComponent,
+        LoaderComponent,
+        AdminLayoutComponent,
+        MainToolbarComponent,
+        AdDirective,
+        SpinnerModule,
+        NgChartsModule,
+        NgxPermissionsModule,
+        UnitDetailPipe
+    ],
+    providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} },
+    ]
 })
 export class SharedModule { }

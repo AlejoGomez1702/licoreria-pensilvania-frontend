@@ -8,5 +8,69 @@
 
     <mat-divider></mat-divider>
 
+    <p-orderList [value]="products"     
+                 [listStyle]="{'max-height':'30rem'}" 
+                 header="Comparativa de precio de venta vs precio de compra de los producto" 
+                 filterBy="name" 
+                 filterPlaceholder="Buscar Producto..." 
+                 [dragdrop]="true">
+        <ng-template let-product pTemplate="item">
+            <div class="product-item">
+                <div class="image-container">
+                        <img src="{{ product.img ? product.img : 'assets/images/default_product.png' }}" [alt]="product.name" class="product-image" />
+                </div>
+                <div class="product-list-detail">
+                    <h2 class="mb-2">{{product.name}}</h2>
+                    <i class="pi pi-tag product-category-icon"></i>
+                    <span class="product-category">{{product.category.name}}</span>
+                </div>
+                <div class="product-list-action">
+                    <div class="row">
+                        <div class="col">
+                            <div class="container">
+                                <div class="row mt-2">
+                                    <label for="sale_price">Precio de venta: </label>
+                                    <p-inputNumber 
+                                                    [(ngModel)]="product.sale_price"
+                                                    inputId="sale_price" 
+                                                    currency="COP" 
+                                                    locale="es">
+                                    </p-inputNumber>
+                                </div>
+        
+                                <div class="row mt-2">
+                                    <label for="second_sale_price">Precio de venta secundario: </label>
+                                    <p-inputNumber 
+                                                    [(ngModel)]="product.second_sale_price"
+                                                    inputId="second_sale_price" 
+                                                    currency="COP" 
+                                                    locale="es">
+                                    </p-inputNumber>
+                                </div>
+        
+                                <div class="row mt-2">
+                                    <label for="purchase_price">Precio de compra: </label>
+                                    <p-inputNumber 
+                                                    [(ngModel)]="product.purchase_price"
+                                                    inputId="purchase_price" 
+                                                    currency="COP" 
+                                                    locale="es">
+                                    </p-inputNumber>
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="col mt-2">
+                            <div class="row mt col-6 mt-25">
+                                <button pButton pRipple type="button" label="Modificar" class="p-button-outlined p-button-help"></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- <h6 class="mb-2">${{product.sale_price}}</h6>
+                    <span [class]="'product-badge status-PRECIO DE COMPRA MAYOR'">PRECIO DE COMPRA MAYOR{{product.inventoryStatus}}</span> -->
+                </div>
+            </div>
+        </ng-template>
+    </p-orderList>
 
 </div>
