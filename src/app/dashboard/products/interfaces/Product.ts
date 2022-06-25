@@ -15,10 +15,12 @@ export interface Product
     current_existence?:     number;
     providers?:             any[];
     name:                   string;
-    category:               Category;
+    category:               any;
     vol_alcohol:            number;
-    unit:                   Unit;
+    unit:                   any;
     user?:                  string;
     created_at?:            Date;
     updated_at?:            Date;  
+    supercategory:          string;
+    establishment: any;
 }

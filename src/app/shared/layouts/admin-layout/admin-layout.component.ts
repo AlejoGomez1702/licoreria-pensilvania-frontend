@@ -134,4 +134,9 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
     this.router.navigate(['/dashboard/box']);
   }
 
+  goToPruchasesVsSales(): void
+  {
+    this.router.navigate(['/dashboard/products/purchasesvssales']);
+  }
+
 }

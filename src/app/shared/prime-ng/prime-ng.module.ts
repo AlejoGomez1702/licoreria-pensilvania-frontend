@@ -6,17 +6,19 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {OrderListModule} from 'primeng/orderlist';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     ButtonModule, InputTextModule, ToggleButtonModule, InputNumberModule,
-    AutoCompleteModule, OrderListModule
+    AutoCompleteModule, OrderListModule, MessagesModule, MessageModule
   ],
   exports: [
     ButtonModule, InputTextModule, ToggleButtonModule, InputNumberModule,
-    AutoCompleteModule, OrderListModule
+    AutoCompleteModule, OrderListModule, MessagesModule, MessageModule
   ]
 })
 export class PrimeNgModule { }

@@ -37,15 +37,35 @@ export class ListAllSalesPurchasesComponent implements OnInit {
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.productService.getAllProducts( 'spirit' )
+    this.productService.getAllProducts( 'spirit', undefined, 1000, 0 )
     .subscribe(
       res => {
         this.products = res.products;        
-        console.log("productos: ", this.products)
+        // console.log("productos: ", this.products)
         this.length = res.total;
         this.dataSource.data = this.products;
       },
       error => this.sweetAlert.presentError(error.error.error)
+    );
+  }
+
+  updateProductData( product: Product )
+  {
+    console.log(product);
+    const {id = '', providers, ...productData}= product;    
+    productData.category = product.category._id;
+    productData.unit = product.unit._id;
+    productData.establishment = product.establishment._id;
+
+    console.log("productData: ", productData);
+
+    this.productService.updateProduct( id, productData, productData.supercategory ).subscribe(
+      res => {
+        this.sweetAlert.presentSuccess( 'Producto Actualizado Correctamente' );
+      },
+      error => {
+        this.sweetAlert.presentError(error.error.error)
+      }
     );
   }
 

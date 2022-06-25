@@ -88,17 +88,21 @@
           <mat-icon mat-list-icon>move_to_inbox</mat-icon>
           Caja
         </mat-list-option>
-
       </mat-selection-list>
-
-
-
-
       <mat-divider></mat-divider>
       <div mat-subheader>General</div>
 
+      <mat-selection-list [multiple]="false">
+        <mat-list-option (click)="goToPruchasesVsSales(); drawer.toggle()">
+          <mat-icon mat-list-icon>account_balance</mat-icon>
+          P.Compra vs P.Venta
+        </mat-list-option>
+      </mat-selection-list>
+
     </mat-nav-list>
   </mat-sidenav>
+
+
   <mat-sidenav-content>
     <mat-toolbar color="primary" class="large-toolbar">
       <button

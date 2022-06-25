@@ -3,6 +3,7 @@
     align-items: center;
     padding: .5rem;
     width: 100%;
+    border-bottom: 2px solid gray;
 
     img {
         width: 75px;
@@ -11,7 +12,8 @@
     }
 
     .product-list-detail {
-        flex: 1 1 0;
+        flex: auto;
+        width: 50%;
     }
 
     .product-list-action {
@@ -49,5 +51,10 @@
 
 .mt-25
 {
-    margin-top: 25%;
+    margin-top: 50%;
+}
+
+.mt-full
+{
+    margin-top: 30%;
 }
