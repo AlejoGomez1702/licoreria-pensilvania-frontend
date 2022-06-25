@@ -3,7 +3,10 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
+import { SuperCategory } from '../../../interfaces/SuperCategory';
+import { ProductUnitsService } from '../../../services/product-units.service';
 import { ProductService } from '../../../services/product.service';
+import { SuperCategoryService } from '../../../services/super-category.service';
 
 @Component({
   selector: 'app-list-all-sales-purchases',
@@ -13,6 +16,7 @@ import { ProductService } from '../../../services/product.service';
 export class ListAllSalesPurchasesComponent implements OnInit {
 
   public products: Product[] = [];
+  public superCategories: SuperCategory[] = [];
   public dataSource: MatTableDataSource<Product>;
 
   // MatPaginator configuration  
@@ -24,6 +28,8 @@ export class ListAllSalesPurchasesComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private produtcUnitsService: ProductUnitsService,
+    private superCategoryService: SuperCategoryService,
     private sweetAlert: SweetAlertService
   ) 
   { 
@@ -32,7 +38,13 @@ export class ListAllSalesPurchasesComponent implements OnInit {
 
   ngOnInit(): void 
   {
+    this.loadData();
+  }
+
+  loadData()
+  {
     this.loadProducts();
+    this.loadSupercategories();
   }
 
   loadProducts(category?: string, limit?: number, from?: number): void
@@ -46,6 +58,19 @@ export class ListAllSalesPurchasesComponent implements OnInit {
         this.dataSource.data = this.products;
       },
       error => this.sweetAlert.presentError(error.error.error)
+    );
+  }
+
+  loadSupercategories()
+  {
+    this.superCategoryService.getAllSuperCategories().subscribe(
+      res => {
+        this.superCategories = res.superCategories;
+        console.log("Supercategorias: ", this.superCategories);
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 
@@ -68,5 +93,10 @@ export class ListAllSalesPurchasesComponent implements OnInit {
       }
     );
   }
+
+  getfullProductName(product: Product): string
+  {
+    return this.produtcUnitsService.getfullProductName( product );
+  } 
 
 }

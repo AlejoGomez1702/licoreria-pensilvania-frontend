@@ -8,6 +8,7 @@ import { SaleItemDetail } from '../../interfaces/SaleItemDetail';
 import { SaleTableService } from '../../services/sale-table.service';
 import { ChangePriceDialogComponent } from './change-price-dialog/change-price-dialog.component';
 import { SecondPriceDialogComponent } from './second-price-dialog/second-price-dialog.component';
+import { ProductUnitsService } from 'src/app/dashboard/products/services/product-units.service';
 
 @Component({
   selector: 'app-sale-table',
@@ -33,6 +34,7 @@ export class SaleTableComponent implements OnInit, AfterViewInit
 
   constructor(
     private saleTableService: SaleTableService,
+    private productUnits: ProductUnitsService,
     public dialog: MatDialog
   ) 
   { 
@@ -58,16 +60,7 @@ export class SaleTableComponent implements OnInit, AfterViewInit
   getfullProductName(SaleItem: SaleItem): string
   {
     const { product } = SaleItem; 
-    const {
-      unit: name,
-      grams = '',
-      ml = '',
-      units = ''
-    } = SaleItem.product.unit;
-
-    const unit = `${name} X ${grams ? (grams + 'g') : ml ? (ml + 'ml') : units}`;
-
-    return `${product.category.name} ${product.name} ${unit}`;
+    return this.productUnits.getfullProductName( product );
   }
 
   getCartTotal(): string

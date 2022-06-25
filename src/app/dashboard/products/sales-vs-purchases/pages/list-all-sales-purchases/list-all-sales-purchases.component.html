@@ -9,12 +9,25 @@
     <mat-divider></mat-divider>
 
     <div class="mt-2">
+
+        <div class="mt-2 txt-center">
+            <mat-button-toggle-group>
+                <ng-container *ngFor="let supercategory of superCategories">
+                    <mat-button-toggle [value]="supercategory.id" aria-label="Text align left">
+                        <mat-icon>{{ supercategory.icon }}</mat-icon>
+                        {{ supercategory.name }}
+                    </mat-button-toggle>
+                </ng-container>
+            </mat-button-toggle-group>
+        </div>
+
+
         <p-orderList [value]="products"
                     [listStyle]="{'max-height':'30rem'}" 
-                    header="Comparativa de precio de venta vs precio de compra de los producto" 
                     filterBy="name" 
                     filterPlaceholder="Buscar Producto..." 
-                    [dragdrop]="false">
+                    [dragdrop]="false"
+                    class="mt-2">
                     
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
@@ -22,7 +35,7 @@
                             <img src="{{ product.img ? product.img : 'assets/images/default_product.png' }}" [alt]="product.name" class="product-image" />
                     </div>
                     <div class="product-list-detail">
-                        <h2 class="mb-2">{{product.name}}</h2>
+                        <h2 class="mb-2">{{ getfullProductName(product) }}</h2>
                         <i class="pi pi-tag product-category-icon"></i>
                         <span class="product-category">{{product.category.name}}</span>
                     </div>
