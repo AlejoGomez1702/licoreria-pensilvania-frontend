@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
@@ -15,6 +16,7 @@ import { SuperCategoryService } from '../../../services/super-category.service';
 })
 export class ListAllSalesPurchasesComponent implements OnInit {
 
+  public superCategorySelected = new FormControl('');
   public products: Product[] = [];
   public superCategories: SuperCategory[] = [];
   public dataSource: MatTableDataSource<Product>;
@@ -43,13 +45,19 @@ export class ListAllSalesPurchasesComponent implements OnInit {
 
   loadData()
   {
-    this.loadProducts();
+    this.loadProducts('spirit');
     this.loadSupercategories();
+    this.superCategorySelected.valueChanges.subscribe(
+      selected => {
+        const mathcType = this.superCategoryService.matchIdWithName( selected );  
+        this.loadProducts(mathcType);
+      }
+    );
   }
 
-  loadProducts(category?: string, limit?: number, from?: number): void
+  loadProducts(supercategory: string, category?: string, limit?: number, from?: number): void
   {
-    this.productService.getAllProducts( 'spirit', undefined, 1000, 0 )
+    this.productService.getAllProducts( supercategory, undefined, 1000, 0 )
     .subscribe(
       res => {
         this.products = res.products;        

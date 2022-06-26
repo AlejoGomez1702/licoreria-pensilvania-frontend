@@ -11,9 +11,10 @@
     <div class="mt-2">
 
         <div class="mt-2 txt-center">
-            <mat-button-toggle-group>
+            <mat-button-toggle-group [formControl]="superCategorySelected">
                 <ng-container *ngFor="let supercategory of superCategories">
-                    <mat-button-toggle [value]="supercategory.id" aria-label="Text align left">
+                    <mat-button-toggle [value]="supercategory.id" 
+                                        aria-label="supercategoria">
                         <mat-icon>{{ supercategory.icon }}</mat-icon>
                         {{ supercategory.name }}
                     </mat-button-toggle>
