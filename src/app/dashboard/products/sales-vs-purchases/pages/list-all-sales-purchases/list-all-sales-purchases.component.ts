@@ -6,7 +6,6 @@ import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
 import { QueryGetAllProducts } from '../../../interfaces/QueryGetAllProducts';
 import { SuperCategory } from '../../../interfaces/SuperCategory';
-import { ProductFrontendService } from '../../../services/product-frontend.service';
 import { ProductUnitsService } from '../../../services/product-units.service';
 import { ProductService } from '../../../services/product.service';
 import { SuperCategoryService } from '../../../services/super-category.service';
@@ -18,11 +17,9 @@ import { SuperCategoryService } from '../../../services/super-category.service';
 })
 export class ListAllSalesPurchasesComponent implements OnInit 
 {
-  public onlyWithPriceProblems = false;
   public superCategorySelected = new FormControl('spirit');
   public products: Product[] = [];
   public superCategories: SuperCategory[] = [];
-  public dataSource: MatTableDataSource<Product>;
 
   // MatPaginator configuration  
   public from: number = 0;
@@ -31,16 +28,22 @@ export class ListAllSalesPurchasesComponent implements OnInit
   public pageSizeOptions: number[] = [4, 8, 16, 32];
   pageEvent!: PageEvent;
 
+  // Query enviada al backend
+  public query: QueryGetAllProducts = {
+    supercategory: 'spirit',
+    category: '',
+    onlyWithPriceProblems: false,
+    limit: 1000,
+    from: 0
+  };
+
   constructor(
     private productService: ProductService,
-    private productFrontendService: ProductFrontendService,
     private produtcUnitsService: ProductUnitsService,
     private superCategoryService: SuperCategoryService,
     private sweetAlert: SweetAlertService
   ) 
-  { 
-    this.dataSource = new MatTableDataSource();
-  }
+  {  }
 
   ngOnInit(): void 
   {
@@ -49,33 +52,29 @@ export class ListAllSalesPurchasesComponent implements OnInit
 
   loadData()
   {
-    this.loadProducts('spirit');
+    this.loadProducts();
     this.loadSupercategories();
+
+    // Escuchando cambios en la supercategoria
     this.superCategorySelected.valueChanges.subscribe(
       selected => {
         const mathcType = this.superCategoryService.matchIdWithName( selected );  
-        this.loadProducts(mathcType);
+        this.query.supercategory = mathcType;        
+        this.loadProducts();
       }
     );
   }
 
-  loadProducts(supercategory: string, category?: string, limit?: number, from?: number): void
+  loadProducts(): void
   {
-    const query: QueryGetAllProducts = {
-      supercategory,
-      category,
-      onlyWithPriceProblems: this.onlyWithPriceProblems,
-      limit,
-      from
-    };
+    const query = this.query;
 
     this.productService.getAllProducts( query )
     .subscribe(
       res => {
         this.products = res.products;        
-        // console.log("productos: ", this.products)
         this.length = res.total;
-        this.dataSource.data = this.products;
+        console.log("products: ", this.products);
       },
       error => this.sweetAlert.presentError(error.error.error)
     );
@@ -86,7 +85,6 @@ export class ListAllSalesPurchasesComponent implements OnInit
     this.superCategoryService.getAllSuperCategories().subscribe(
       res => {
         this.superCategories = res.superCategories;
-        console.log("Supercategorias: ", this.superCategories);
       },
       error => {
         console.log(error);
@@ -138,13 +136,11 @@ export class ListAllSalesPurchasesComponent implements OnInit
     return '';
   }
 
+
   selectProductsWithProblems()
   {
-    this.onlyWithPriceProblems = !this.onlyWithPriceProblems;
-    if( this.onlyWithPriceProblems ) 
-    {
-      
-    } 
+    this.query.onlyWithPriceProblems = !this.query.onlyWithPriceProblems;
+    this.loadProducts();
   }
 
 }
