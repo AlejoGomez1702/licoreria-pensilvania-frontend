@@ -80,3 +80,17 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
 
 // Include the mixin
 @include mix-app-theme($app-theme);
+
+mat-chip {
+    max-width: 340px;
+}
+
+.mat-chip-list-wrapper
+{
+    margin-top: 4px;
+}
+
+.ml-4
+{
+    margin-left: 5%;
+}

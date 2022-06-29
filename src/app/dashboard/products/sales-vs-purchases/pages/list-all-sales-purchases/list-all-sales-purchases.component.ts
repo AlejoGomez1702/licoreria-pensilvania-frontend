@@ -14,9 +14,10 @@ import { SuperCategoryService } from '../../../services/super-category.service';
   templateUrl: './list-all-sales-purchases.component.html',
   styleUrls: ['./list-all-sales-purchases.component.scss']
 })
-export class ListAllSalesPurchasesComponent implements OnInit {
-
-  public superCategorySelected = new FormControl('');
+export class ListAllSalesPurchasesComponent implements OnInit 
+{
+  public onlyWithPriceProblems = false;
+  public superCategorySelected = new FormControl('spirit');
   public products: Product[] = [];
   public superCategories: SuperCategory[] = [];
   public dataSource: MatTableDataSource<Product>;
@@ -124,6 +125,15 @@ export class ListAllSalesPurchasesComponent implements OnInit {
     }
 
     return '';
+  }
+
+  selectProductsWithProblems()
+  {
+    this.onlyWithPriceProblems = !this.onlyWithPriceProblems;
+    if( this.onlyWithPriceProblems ) 
+    {
+      
+    } 
   }
 
 }

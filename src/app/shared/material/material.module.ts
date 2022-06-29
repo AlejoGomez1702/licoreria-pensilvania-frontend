@@ -29,6 +29,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 
 
@@ -39,7 +40,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonModule, MatRadioModule, MatSidenavModule, MatIconModule, MatToolbarModule,
     MatDividerModule, MatListModule, MatExpansionModule, MatTableModule, MatPaginatorModule,
     MatSortModule, MatInputModule, MatFormFieldModule, MatDialogModule, MatTabsModule,
-    MatCardModule, MatSelectModule, MatChipsModule, MatAutocompleteModule, 
+    MatCardModule, MatSelectModule, MatChipsModule, MatAutocompleteModule, MaterialFileInputModule,
     MatProgressBarModule, NgxCurrencyModule, MatButtonToggleModule, MatBadgeModule, MatDatepickerModule,
     MatNativeDateModule, MatMenuModule, MatSlideToggleModule, MatGridListModule, MatCheckboxModule
   ],
@@ -47,7 +48,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonModule, MatRadioModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatDividerModule,
     MatListModule, MatExpansionModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule,
     MatFormFieldModule, MatDialogModule, MatTabsModule, MatCardModule, MatSelectModule, MatChipsModule, 
-    MatAutocompleteModule, MatProgressBarModule, NgxCurrencyModule, MatButtonToggleModule, 
+    MatAutocompleteModule, MatProgressBarModule, NgxCurrencyModule, MatButtonToggleModule, MaterialFileInputModule,
     MatBadgeModule, MatDatepickerModule, MatNativeDateModule, MatMenuModule, MatSlideToggleModule, MatGridListModule,
     MatCheckboxModule
   ]

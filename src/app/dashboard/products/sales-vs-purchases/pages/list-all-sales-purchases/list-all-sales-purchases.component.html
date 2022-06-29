@@ -10,92 +10,108 @@
 
     <div class="mt-2">
 
-        <div class="mt-2 txt-center">
-            <mat-button-toggle-group [formControl]="superCategorySelected">
-                <ng-container *ngFor="let supercategory of superCategories">
-                    <mat-button-toggle [value]="supercategory.id" 
-                                        aria-label="supercategoria">
-                        <mat-icon>{{ supercategory.icon }}</mat-icon>
-                        {{ supercategory.name }}
-                    </mat-button-toggle>
-                </ng-container>
-            </mat-button-toggle-group>
+        <div class="row ml-4">
+            <div class="mt-2 txt-center col">
+                <mat-button-toggle-group [formControl]="superCategorySelected">
+                    <ng-container *ngFor="let supercategory of superCategories">
+                        <mat-button-toggle [value]="supercategory.id" 
+                                            aria-label="supercategoria">
+                            <mat-icon>{{ supercategory.icon }}</mat-icon>
+                            {{ supercategory.name }}
+                        </mat-button-toggle>
+                    </ng-container>
+                </mat-button-toggle-group>            
+            </div>
+    
+            <div class="mt-2 col">
+                <mat-chip-list class="mat-chip-list-stacked txt-center" aria-label="seleccionar con problemas">
+                    <mat-chip [selected]="onlyWithPriceProblems" 
+                                color="warn" 
+                                class="cursor-pointer"
+                                (click)="selectProductsWithProblems()">
+                      Buscar SOLO productos con problemas de precios
+                    </mat-chip>
+                  </mat-chip-list>
+            </div>
         </div>
 
-
-        <p-orderList [value]="products"
-                    [listStyle]="{'max-height':'30rem'}" 
-                    filterBy="name" 
-                    filterPlaceholder="Buscar Producto..." 
-                    [dragdrop]="false"
-                    class="mt-2">
-                    
-            <ng-template let-product pTemplate="item">
-                <div class="product-item">
-                    <div class="image-container">
-                            <img src="{{ product.img ? product.img : 'assets/images/default_product.png' }}" [alt]="product.name" class="product-image" />
-                    </div>
-                    <div class="product-list-detail">
-                        <h2 class="mb-2">{{ getfullProductName(product) }}</h2>
-                        <i class="pi pi-tag product-category-icon"></i>
-                        <span class="product-category">{{product.category.name}}</span>
-                    </div>
-                    <div class="product-list-action">
-                        <div class="row">
-                            <div class="col-6 col-md-6 col-lg-6">
-                                <div class="container">
-                                    <div class="row mt-2">
-                                        <label for="sale_price">Precio de venta: </label>
-                                        <p-inputNumber 
-                                                        [(ngModel)]="product.sale_price"
-                                                        inputId="sale_price" 
-                                                        currency="COP" 
-                                                        locale="es">
-                                        </p-inputNumber>
+        <div class="mt-2">
+            <p-orderList [value]="products"
+                        [listStyle]="{'max-height':'30rem'}" 
+                        filterBy="name" 
+                        filterPlaceholder="Buscar Producto..." 
+                        [dragdrop]="false"
+                        class="mt-2">
+                        
+                <ng-template let-product pTemplate="item">
+                    <div class="product-item">
+                        <div class="image-container">
+                                <img src="{{ product.img ? product.img : 'assets/images/default_product.png' }}" [alt]="product.name" class="product-image" />
+                        </div>
+                        <div class="product-list-detail">
+                            <h2 class="mb-2">{{ getfullProductName(product) }}</h2>
+                            <i class="pi pi-tag product-category-icon"></i>
+                            <span class="product-category">{{product.category.name}}</span>
+                        </div>
+                        <div class="product-list-action">
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-6">
+                                    <div class="container">
+                                        <div class="row mt-2">
+                                            <label for="sale_price">Precio de venta: </label>
+                                            <p-inputNumber 
+                                                            [(ngModel)]="product.sale_price"
+                                                            inputId="sale_price" 
+                                                            currency="COP" 
+                                                            locale="es">
+                                            </p-inputNumber>
+                                        </div>
+                
+                                        <div class="row mt-2">
+                                            <label for="second_sale_price">Precio de venta secundario: </label>
+                                            <p-inputNumber 
+                                                            [(ngModel)]="product.second_sale_price"
+                                                            inputId="second_sale_price" 
+                                                            currency="COP" 
+                                                            locale="es">
+                                            </p-inputNumber>
+                                        </div>
+                
+                                        <div class="row mt-2">
+                                            <label for="purchase_price">Precio de compra: </label>
+                                            <p-inputNumber 
+                                                            [(ngModel)]="product.purchase_price"
+                                                            inputId="purchase_price" 
+                                                            currency="COP" 
+                                                            locale="es">
+                                            </p-inputNumber>
+                                        </div>                            
                                     </div>
-            
-                                    <div class="row mt-2">
-                                        <label for="second_sale_price">Precio de venta secundario: </label>
-                                        <p-inputNumber 
-                                                        [(ngModel)]="product.second_sale_price"
-                                                        inputId="second_sale_price" 
-                                                        currency="COP" 
-                                                        locale="es">
-                                        </p-inputNumber>
+                                </div>
+                                <div class="mt-2 col-3 col-md-3 col-lg-3">
+                                    <div class="mt-25">
+                                        <button pButton
+                                                pRipple 
+                                                type="button" 
+                                                label="Modificar" 
+                                                class="p-button-outlined p-button-help"
+                                                (click)="updateProductData( product )">                                        
+                                        </button>
                                     </div>
-            
-                                    <div class="row mt-2">
-                                        <label for="purchase_price">Precio de compra: </label>
-                                        <p-inputNumber 
-                                                        [(ngModel)]="product.purchase_price"
-                                                        inputId="purchase_price" 
-                                                        currency="COP" 
-                                                        locale="es">
-                                        </p-inputNumber>
-                                    </div>                            
                                 </div>
-                            </div>
-                            <div class="mt-2 col-3 col-md-3 col-lg-3">
-                                <div class="mt-25">
-                                    <button pButton
-                                            pRipple 
-                                            type="button" 
-                                            label="Modificar" 
-                                            class="p-button-outlined p-button-help"
-                                            (click)="updateProductData( product )">                                        
-                                    </button>
+
+                                <div class="mt-full col-3 col-md-3 col-lg-3" *ngIf="getProductMessage( product )">
+                                    <p-message severity="error" text="{{ getProductMessage( product ) }}"></p-message>
                                 </div>
-                            </div>
 
-                            <div class="mt-full col-3 col-md-3 col-lg-3" *ngIf="getProductMessage( product )">
-                                <p-message severity="error" text="{{ getProductMessage( product ) }}"></p-message>
                             </div>
-
                         </div>
                     </div>
-                </div>
-            </ng-template>
-        </p-orderList>
+                </ng-template>
+            </p-orderList>
+        </div>
+
+        
     </div>
 
 </div>
