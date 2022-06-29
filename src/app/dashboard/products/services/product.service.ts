@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { ResponseGetAllProducts } from '../interfaces/ResponseGetAllProducts';
 import { Product } from '../interfaces/Product';
 import { HttpOptions } from 'src/app/core/interfaces/HttpOptions';
+import { QueryGetAllProducts } from '../interfaces/QueryGetAllProducts';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,14 @@ export class ProductService
    * @param from 
    * @returns 
    */
-  getAllProducts( supercategory: string, category?: string, limit?: number, from?: number ): Observable<ResponseGetAllProducts>
+  getAllProducts( queryGetAllProducts: QueryGetAllProducts ): Observable<ResponseGetAllProducts>
   {
+    const { supercategory, category, onlyWithPriceProblems, limit, from } = queryGetAllProducts;
+
     const httpOptions = {
       params: new HttpParams().set('supercategory', supercategory)
                               .set('category', category ? category : '')
+                              .set('onlyWithPriceProblems', onlyWithPriceProblems ? true : false)
                               .set('limit', limit ? limit : 8)
                               .set('from', from ? from : 0)
     };

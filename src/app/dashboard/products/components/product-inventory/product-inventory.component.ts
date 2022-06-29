@@ -8,6 +8,7 @@ import { Category } from 'src/app/dashboard/settings/interfaces/category.interfa
 import { CategoryService } from 'src/app/dashboard/settings/services/category.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../interfaces/Product';
+import { QueryGetAllProducts } from '../../interfaces/QueryGetAllProducts';
 import { InventoryService } from '../../services/inventory.service';
 import { ProductService } from '../../services/product.service';
 import { SearchService } from '../../services/search.service';
@@ -154,7 +155,14 @@ export class ProductInventoryComponent implements OnInit
 
   loadProducts(category?: string, limit?: number, from?: number): void
   {
-    this.productService.getAllProducts(this.productType, category, limit, from)
+    const query: QueryGetAllProducts = {
+      supercategory: this.productType,
+      category,
+      limit,
+      from
+    };
+
+    this.productService.getAllProducts(query)
     .subscribe(
       res => {
         this.products = res.products;        
@@ -215,8 +223,15 @@ export class ProductInventoryComponent implements OnInit
     {
       categoryId = this.idCategorySelected;
     }
+
+    const query: QueryGetAllProducts = {
+      supercategory: this.productType,
+      category: categoryId,
+      limit,
+      from
+    };
     
-    this.productService.getAllProducts( this.productType, categoryId, limit, from ).subscribe(
+    this.productService.getAllProducts( query ).subscribe(
       res => {
         this.products = res.products,
         this.length = res.total;

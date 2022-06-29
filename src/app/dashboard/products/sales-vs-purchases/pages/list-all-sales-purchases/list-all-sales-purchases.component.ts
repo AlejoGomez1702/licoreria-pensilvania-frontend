@@ -4,7 +4,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { Product } from '../../../interfaces/Product';
+import { QueryGetAllProducts } from '../../../interfaces/QueryGetAllProducts';
 import { SuperCategory } from '../../../interfaces/SuperCategory';
+import { ProductFrontendService } from '../../../services/product-frontend.service';
 import { ProductUnitsService } from '../../../services/product-units.service';
 import { ProductService } from '../../../services/product.service';
 import { SuperCategoryService } from '../../../services/super-category.service';
@@ -31,6 +33,7 @@ export class ListAllSalesPurchasesComponent implements OnInit
 
   constructor(
     private productService: ProductService,
+    private productFrontendService: ProductFrontendService,
     private produtcUnitsService: ProductUnitsService,
     private superCategoryService: SuperCategoryService,
     private sweetAlert: SweetAlertService
@@ -58,7 +61,15 @@ export class ListAllSalesPurchasesComponent implements OnInit
 
   loadProducts(supercategory: string, category?: string, limit?: number, from?: number): void
   {
-    this.productService.getAllProducts( supercategory, undefined, 1000, 0 )
+    const query: QueryGetAllProducts = {
+      supercategory,
+      category,
+      onlyWithPriceProblems: this.onlyWithPriceProblems,
+      limit,
+      from
+    };
+
+    this.productService.getAllProducts( query )
     .subscribe(
       res => {
         this.products = res.products;        
