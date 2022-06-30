@@ -59,32 +59,55 @@
                                     <div class="container">
                                         <div class="row mt-2">
                                             <label for="sale_price">Precio de venta: </label>
-                                            <p-inputNumber 
+                                            <p-inputNumber
                                                             [(ngModel)]="product.sale_price"
+                                                            aria-describedby="sale_price_error"
                                                             inputId="sale_price" 
                                                             currency="COP" 
                                                             locale="es">
                                             </p-inputNumber>
+                                            <small id="sale_price_error" 
+                                                    class="p-error block"
+                                                    *ngIf="product.sale_price <= 1">
+                                                Registre el precio de venta
+                                            </small>
                                         </div>
                 
                                         <div class="row mt-2">
                                             <label for="second_sale_price">Precio de venta secundario: </label>
-                                            <p-inputNumber 
+                                            <p-inputNumber
                                                             [(ngModel)]="product.second_sale_price"
+                                                            aria-describedby="second_sale_price_error"
                                                             inputId="second_sale_price" 
                                                             currency="COP" 
                                                             locale="es">
                                             </p-inputNumber>
+                                            <small id="second_sale_price_error" 
+                                                    class="p-error block"
+                                                    *ngIf="product.second_sale_price <= 1">
+                                                Registre el precio de venta secundario
+                                            </small>
                                         </div>
                 
                                         <div class="row mt-2">
                                             <label for="purchase_price">Precio de compra: </label>
                                             <p-inputNumber 
                                                             [(ngModel)]="product.purchase_price"
+                                                            aria-describedby="purchase_price_error"
                                                             inputId="purchase_price" 
                                                             currency="COP" 
                                                             locale="es">
                                             </p-inputNumber>
+                                            <small id="purchase_price_error" 
+                                                    class="p-error block"
+                                                    *ngIf="product.purchase_price <= 1">
+                                                Registre el precio de venta secundario
+                                            </small>
+                                            <small id="purchase_price_error" 
+                                                    class="p-error block"
+                                                    *ngIf="product.purchase_price > product.sale_price">
+                                                El precio de compra no debe ser mayor al de venta
+                                            </small>
                                         </div>                            
                                     </div>
                                 </div>

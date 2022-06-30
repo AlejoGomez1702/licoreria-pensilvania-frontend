@@ -136,6 +136,16 @@ export class ListAllSalesPurchasesComponent implements OnInit
     return '';
   }
 
+  printErrorField( product: Product): string
+  {
+    if( product.sale_price <= 1 )
+    {
+      return 'ng-invalid ng-dirty';
+    }
+
+    return '';
+  }
+
 
   selectProductsWithProblems()
   {
