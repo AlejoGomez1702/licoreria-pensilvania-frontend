@@ -68,7 +68,9 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
         this.statistics = res.statistics;
         this.statisticsInversion = res.statisticsInversion;
         this.dataSource.data = this.sales;
-        console.log("Ventas: ", res);
+        console.log("statistics: ", this.statistics);
+        console.log("statisticsInversion: ", this.statisticsInversion);
+
       },
       error => {
         console.log(error);
