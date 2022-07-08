@@ -48,14 +48,17 @@ export class SaleService
    * Obtiene todas las ventas del negocio del usuario logueado.
    * @returns Todas las ventas.
    */
-  getAllSales( limit?: number, from?: number, range?: RangeDateTime ): Observable<ResponseGetAllSales>
+  getAllSales( limit?: number, from?: number, range?: RangeDateTime, rangeTime?: RangeDateTime ): Observable<ResponseGetAllSales>
   {
     console.log("Range: ", range);
+    console.log("Range Time: ", rangeTime);
 
     let params = new HttpParams().set('limit', limit ? limit : 8)
                                  .set('from', from ? from : 0)
                                  .set('start', range ? range.start.toISOString() : '')
-                                 .set('end', range ? range.end.toISOString() : '');                     
+                                 .set('end', range ? range.end.toISOString() : '') 
+                                 .set('startTime', rangeTime?.start ? rangeTime.start.toISOString() : '')
+                                 .set('endTime', rangeTime?.end ? rangeTime.end.toISOString() : '');                    
 
     const httpOptions = { params };
 

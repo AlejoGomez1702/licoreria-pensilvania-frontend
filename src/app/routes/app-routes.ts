@@ -23,6 +23,10 @@ export const appRoutes: Routing = {
     createGrocery: '/dashboard/products/create/grocery',
     editGrocery: '/dashboard/products/groceries/edit/',    
 
+    // Cócteles y micheladas
+    createCocktail: '/dashboard/products/create/cocktail',
+    editCocktail: '/dashboard/products/cocktails/edit/',
+
     // ---- Inventario para tiendas naturistas ---- //
     // Productos Naturistas
     createNaturist: '/dashboard/products/create/naturist',

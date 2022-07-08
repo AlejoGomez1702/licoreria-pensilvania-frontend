@@ -8,10 +8,20 @@
 
     <mat-divider></mat-divider>
 
-    <div class="row mt-2">
+    <!-- <div class="row mt-2">
         <div class="col-md-6 col-xs-6 col-6 col-lg-6">
+            <button mat-raised-button color="primary" class="boton mt-1 w-100" (click)="goToCreateSale()">
+              Crear Nueva Venta
+              <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div> -->
+
+    <div class="row mt-2">
+        <!-- Seleccionar el rango de fechas -->
+        <div class="col-md-6 col-xs-6 col-6 col-lg-6 mt-2">
             <mat-form-field appearance="fill" class="filtro w-100">
-                <mat-label>Filtar Por Rango</mat-label>
+                <mat-label>Filtar Por Rango de Fechas</mat-label>
                 <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
                 <input matStartDate formControlName="start" placeholder="Start date">
                 <input matEndDate formControlName="end" placeholder="End date" (dateChange)="filterSales()">
@@ -23,22 +33,43 @@
                 <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
             </mat-form-field>
         </div>
-    
-        <div class="col-md-6 col-xs-6 col-6 col-lg-6">
-          <button mat-raised-button color="primary" class="boton mt-1 w-100" (click)="goToCreateSale()">
-            Crear Nueva Venta
-            <mat-icon>add</mat-icon>
-          </button>
-        </div>
-    
+
+        <ng-container *ngIf="range.valid && ((range.get('start')?.value + '') === (range.get('end')?.value) + '')">
+            <!-- Seleccionar el rango de tiempo -->
+            <div class="col-md-6 col-xs-6 col-6 col-lg-6">
+                <div class="row" [formGroup]="rangeTime">
+                    <div class="field col-6 col-md-6">
+                        <label for="timeStart">Hora Inicial</label>
+                        <p-calendar formControlName="start" 
+                                    [timeOnly]="true" 
+                                    [hourFormat]="'12'" 
+                                    inputId="timeStart" 
+                                    [showIcon]="true">
+                        </p-calendar>
+                    </div>
+                    <ng-container *ngIf="rangeTime.get('start')?.value">
+                        <div class="field col-6 col-md-6">
+                            <label for="timeEnd">Hora Final</label>
+                            <p-calendar formControlName="end" 
+                                        [timeOnly]="true" 
+                                        [hourFormat]="'12'" 
+                                        inputId="timeEnd" 
+                                        [showIcon]="true"
+                                        (onSelect)="filterSales()">                        
+                            </p-calendar>
+                        </div>
+                    </ng-container>                
+                </div>
+            </div>
+        </ng-container>
     </div>
 
     <!-- Table Data -->
     <div class="row">
-        <mat-form-field appearance="standard" class="w-100">
+        <!-- <mat-form-field appearance="standard" class="w-100">
         <mat-label>Buscar...</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Buscar un registro en la tabla" #input>
-        </mat-form-field>
+        </mat-form-field> -->
 
         <div class="mat-elevation-z8" style="width: 100%;">
             <table mat-table [dataSource]="dataSource" matSort>
@@ -94,7 +125,7 @@
 
                 <!-- Row shown when there is no matching data. -->
                 <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4">No se encontró información: "{{input.value}}"</td>
+                    <td class="mat-cell" colspan="4">No se encontró información: </td>
                 </tr>
             </table>
             

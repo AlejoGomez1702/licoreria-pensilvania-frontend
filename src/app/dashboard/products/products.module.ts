@@ -20,6 +20,7 @@ import { SexShopComponent } from './pages/edit/establishment-naturist/sex-shop/s
 import { ProductInventoryComponent } from './components/product-inventory/product-inventory.component';
 import { NewProductComponent } from './pages/create/new-product/new-product.component';
 import { ProductTypePipe } from './pipes/product-type.pipe';
+import { CocktailInventoryComponent } from './components/establishment-spirit/cocktail-inventory/cocktail-inventory.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ProductTypePipe } from './pipes/product-type.pipe';
     ProductInventoryComponent,
     NewProductComponent,
     ProductTypePipe,
+    CocktailInventoryComponent,
   ],
   imports: [
     CommonModule,

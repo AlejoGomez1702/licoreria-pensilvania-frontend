@@ -20,6 +20,10 @@ export interface Routing
     createGrocery: string;
     editGrocery: string;
 
+    // Cócteles
+    createCocktail: string;
+    editCocktail: string;
+
     // Naturistas
     createNaturist: string;
     editNaturist: string;

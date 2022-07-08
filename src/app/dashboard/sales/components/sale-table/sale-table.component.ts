@@ -155,6 +155,11 @@ export class SaleTableComponent implements OnInit, AfterViewInit
     return false;
   }
 
+  openChangeCountDialog( item: SaleItem )
+  {
+    
+  }
+
   /**
    * Cambia el precio unitario de los productos (Precio principal)
    * @param item Producto seleccionado

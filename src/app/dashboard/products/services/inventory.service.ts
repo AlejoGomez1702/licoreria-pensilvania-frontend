@@ -4,6 +4,7 @@ import { appRoutes } from 'src/app/routes/app-routes';
 import { NaturistInventoryComponent } from '../components/establishment-naturist/naturist-inventory/naturist-inventory.component';
 import { SexShopInventoryComponent } from '../components/establishment-naturist/sex-shop-inventory/sex-shop-inventory.component';
 import { CigaretteInventoryComponent } from '../components/establishment-spirit/cigarette-inventory/cigarette-inventory.component';
+import { CocktailInventoryComponent } from '../components/establishment-spirit/cocktail-inventory/cocktail-inventory.component';
 import { DrinkInventoryComponent } from '../components/establishment-spirit/drink-inventory/drink-inventory.component';
 import { GroceryInventoryComponent } from '../components/establishment-spirit/grocery-inventory/grocery-inventory.component';
 import { SpiritInventoryComponent } from '../components/establishment-spirit/spirit-inventory/spirit-inventory.component';
@@ -32,6 +33,9 @@ export class InventoryService
       case 'groceries-inventory':
         return GroceryInventoryComponent;
 
+      case 'cocktails-inventory':
+        return CocktailInventoryComponent;
+
       case 'naturist-inventory':
         return NaturistInventoryComponent;
 
@@ -51,27 +55,24 @@ export class InventoryService
       {
         case 'spirit':
           return '(LICORES)'
-        break;
 
         case 'cigarette':
           return '(CIGARRILLOS)'
-        break;
 
         case 'drink':
           return '(BEBIDAS)'
-        break;
 
         case 'grocery':
           return '(COMESTIBLES)'
-        break;
+
+        case 'cocktail':
+          return '(CÓCTELES Y MICHELADAS)'
     
         case 'naturist':
           return '(NATURISTAS)'
-        break;
 
         case 'sexshop':
           return '(SEX-SHOP)'
-        break;
     
         default: 
           return '';
@@ -85,31 +86,27 @@ export class InventoryService
     {
       case 'spirit':
         return appRoutes.createSpirit;
-      break;
 
       case 'cigarette':
         return appRoutes.createCigarette;
-      break;
 
       case 'drink':
         return appRoutes.createDrink;
-      break;
 
       case 'grocery':
         return appRoutes.createGrocery;
-      break;
+
+      case 'cocktail':
+        return appRoutes.createCocktail;
   
       case 'naturist':
         return appRoutes.createNaturist;
-      break;
 
       case 'sexshop':
         return appRoutes.createSexshop;
-      break;
   
       default: 
         return '';
-      break;  
     }
   }
 
@@ -119,27 +116,24 @@ export class InventoryService
     {
       case 'spirit':
         return appRoutes.editSpirit + id;
-      break;
 
       case 'cigarette':
         return appRoutes.editCigarette + id;
-      break;
 
       case 'drink':
         return appRoutes.editDrink + id;
-      break;
 
       case 'grocery':
         return appRoutes.editGrocery + id;
-      break;
+
+      case 'cocktail':
+        return appRoutes.editCocktail + id;
   
       case 'naturist':
         return appRoutes.editNaturist + id;
-      break;
 
       case 'sexshop':
         return appRoutes.editSexshop + id;
-      break;
   
       default: 
         return '';
@@ -196,6 +190,20 @@ export class InventoryService
         };
 
       case 'grocery':
+        return {
+          img:                [],
+          category:           [ '', [Validators.required] ],
+          name:               [ '', [Validators.required, Validators.minLength(3)] ],
+          unit:               [ '', [Validators.required] ],
+          barcode:            [ '' ],
+          stock:              [ 1, [Validators.required, Validators.min(1)] ],
+          purchase_price:     [ 0, [Validators.min(0)] ],
+          sale_price:         [ 0, [Validators.min(0)] ],
+          current_existence:  [ 0, [Validators.min(0)] ],
+          code:               [ '' ]
+        };
+
+      case 'cocktail':
         return {
           img:                [],
           category:           [ '', [Validators.required] ],

@@ -4,8 +4,6 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
-import { Client } from 'src/app/dashboard/clients/interfaces/Client';
 import { appRoutes } from 'src/app/routes/app-routes';
 import { RangeDateTime } from '../../interfaces/RangeDateTime';
 import { Statistic } from '../../interfaces/ResponseGetAllSales';
@@ -41,6 +39,18 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     end: new FormControl('', Validators.required),
   });
 
+  // Selección de rango de tiempo
+  public rangeTime = new FormGroup({
+    start: new FormControl('', Validators.required),
+    end: new FormControl('', Validators.required),
+  });
+
+
+  // public rangeTime: RangeDateTime = {
+  //   start: undefined,
+  //   end: undefined
+  // };
+
   constructor(
     private saleService: SaleService,
     private router: Router
@@ -52,6 +62,12 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
   ngOnInit(): void 
   {    
     this.loadSales();
+    // this.rangeTime.get('end')?.valueChanges.subscribe(
+    //   res => {
+    //     this.loadSales( undefined, undefined, this.range.value, this.rangeTime.value );
+    //     console.log(this.rangeTime.value);
+    //   }
+    // );
   }
 
   ngAfterViewInit(): void 
@@ -59,9 +75,9 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     this.dataSource.sort = this.sort;
   }   
 
-  loadSales(limit?: number, from?: number, range?: RangeDateTime): void
+  loadSales(limit?: number, from?: number, range?: RangeDateTime, rangeTime?: RangeDateTime): void
   {
-    this.saleService.getAllSales(limit, from, range).subscribe(
+    this.saleService.getAllSales(limit, from, range, rangeTime).subscribe(
       res => {        
         this.sales = res.sales;
         this.length = res.total;
@@ -113,8 +129,18 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
    */
   filterSales()
   {
+
+    console.log("range: ", this.range.value);
+    console.log("range time: ", this.rangeTime.value)
+
     const { start, end } = this.range.value;
+    const { start: startTime, end: endTime } = this.rangeTime.value;
     if( !end ) return;
+
+    const startTimeDate: Date = startTime;
+    const endTimeDate: Date = endTime;
+
+    // if( startTimeDate?.getTime() > endTimeDate?.getTime() ) return;  
 
     // const endDate = moment( end ).add( 23, 'h' )
     //                              .add( 59, 'm' )
@@ -122,7 +148,8 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     //                              .add( 999, 'ms' )
     //                              .toDate();
     this.range.reset({ start, end });
-    this.loadSales(undefined, undefined, this.range.value);
+    this.rangeTime.reset({ start: startTime, end: endTime });
+    this.loadSales(undefined, undefined, this.range.value, this.rangeTime.value);
 
   }
 
@@ -174,4 +201,13 @@ export class ListAllSalesComponent implements OnInit, AfterViewInit
     return event;
   }
 
+  // prueba()
+  // {
+  //   const a = this.range.get('start')?.value + '';
+  //   const aa = this.range.get('end')?.value + '';
+
+  //   console.log("a: ", a);
+  //   console.log("aa: ", aa);
+  //   console.log("condicion: ", aa === a);
+  // }
 }
