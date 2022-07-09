@@ -11,6 +11,7 @@ import { ChangePriceDialogComponent } from './components/sale-table/change-price
 import { SaleDetailComponent } from './pages/sale-detail/sale-detail.component';
 import { CashSaleDialogComponent } from './components/cash-sale-dialog/cash-sale-dialog.component';
 import { SecondPriceDialogComponent } from './components/sale-table/second-price-dialog/second-price-dialog.component';
+import { ChangeCountDialogComponent } from './components/sale-table/change-count-dialog/change-count-dialog.component';
 // import {MatSnackBar} from '@angular/material/snack-bar';
 
 
@@ -23,7 +24,8 @@ import { SecondPriceDialogComponent } from './components/sale-table/second-price
     ChangePriceDialogComponent,
     SaleDetailComponent,
     CashSaleDialogComponent,
-    SecondPriceDialogComponent
+    SecondPriceDialogComponent,
+    ChangeCountDialogComponent
   ],
   imports: [
     CommonModule,

@@ -27,9 +27,4 @@ export class SearchService
     return this.http.get<ResponseSearch>(`${environment.API_URL}/searchs/products/${term}`, httpOptions);
   }
 
-  // searchSales( range: RangeDateTime )
-  // {
-
-  // }
-
 }

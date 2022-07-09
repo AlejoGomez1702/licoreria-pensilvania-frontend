@@ -8,6 +8,7 @@ import { Product } from 'src/app/dashboard/products/interfaces/Product';
 import { SearchService } from 'src/app/dashboard/products/services/search.service';
 import { Provider } from 'src/app/dashboard/providers/interfaces/Provider';
 import { SaleItem } from 'src/app/dashboard/sales/interfaces/SaleItem';
+import { SaleItemDetail } from 'src/app/dashboard/sales/interfaces/SaleItemDetail';
 import { FilterService } from 'src/app/shared/services/filter.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { GetProviderPurchaseComponent } from '../../components/get-provider-purchase/get-provider-purchase.component';
@@ -199,12 +200,21 @@ export class CreatePurchasesComponent implements OnInit
     this.refreshPurchaseResume();
   }
 
+  changeCountItem( itemDetail: SaleItemDetail )
+  {
+    const { id, product } = itemDetail;
+    const indexProduct = this.products.findIndex( p => p.id === id );
+    if(indexProduct !== -1)
+    {
+      this.products[indexProduct].count = product?.count || 1;
+    }
+
+    this.refreshPurchaseResume();
+  }
+
   changePriceSaleItem(purchaseItemDetail: PurchaseItemDetail)
   {
     const { id, otherPrice = 0 } = purchaseItemDetail;
-
-    console.log(purchaseItemDetail);
-
     const indexProduct = this.products.findIndex( p => p.id === id );
     if(indexProduct !== -1)
     {

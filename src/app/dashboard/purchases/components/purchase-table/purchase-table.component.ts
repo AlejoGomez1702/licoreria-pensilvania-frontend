@@ -6,6 +6,8 @@ import { ChangePriceDialogComponent } from 'src/app/dashboard/sales/components/s
 import { SaleItem } from 'src/app/dashboard/sales/interfaces/SaleItem';
 import { ChangePrice } from 'src/app/dashboard/sales/interfaces/ChangePrice';
 import { PurchaseItemDetail } from '../../interfaces/PurchaseItemDetail';
+import { SaleTableService } from 'src/app/dashboard/sales/services/sale-table.service';
+import { SaleItemDetail } from 'src/app/dashboard/sales/interfaces/SaleItemDetail';
 
 @Component({
   selector: 'app-purchase-table',
@@ -24,8 +26,11 @@ export class PurchaseTableComponent implements OnInit, AfterViewInit
   @Output() onPlusItem: EventEmitter<string> = new EventEmitter();
   @Output() onMinusItem: EventEmitter<string> = new EventEmitter();
   @Output() onChangePriceItem: EventEmitter<PurchaseItemDetail> = new EventEmitter();
+  @Output() onChangeCountItem: EventEmitter<SaleItemDetail> = new EventEmitter();
+
 
   constructor(
+    private saleTableService: SaleTableService,
     public dialog: MatDialog
   )
   { 
@@ -118,5 +123,28 @@ export class PurchaseTableComponent implements OnInit, AfterViewInit
 
     });
   }
+
+  /**
+   * Cambiar la cantidad de un item enlistado
+   * @param item Producto a cambiar la cantidad 
+   */
+   openChangeCountDialog( item: SaleItem )
+   {
+     const dialog = this.saleTableService.verifyChangeCountData( item );
+     dialog.afterClosed().subscribe((result: number) => {    
+       if( result )
+       {
+         item.count = result;
+ 
+         const saleItemDetail: SaleItemDetail = {
+           index: -1,
+           id: item.id,
+           product: item
+         };
+ 
+         this.onChangeCountItem.emit( saleItemDetail );
+       }
+     });
+   }
 
 }

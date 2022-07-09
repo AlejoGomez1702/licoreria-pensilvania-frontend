@@ -359,6 +359,23 @@ export class CreateComponent implements OnInit
   }
 
   /**
+   * Cambiar la cantidad de un producto
+   * @param saleItemDetail 
+   * @returns 
+   */
+  changeCountItem(saleItemDetail: SaleItemDetail)
+  {
+    const { index, id, product } = saleItemDetail;
+    const indexProduct = this.products[index].findIndex( p => p.id === id );
+    if(indexProduct === -1) return;
+    if( !product || !product.count ) return;
+    
+    this.products[index][indexProduct].count = product.count;
+    
+    this.refreshSaleResume(index);
+  }
+
+  /**
    * Cambiar el precio unitario con el que se venden los productos para llevar
    * @param saleItemDetail 
    * @returns 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ChangeCountDialogComponent } from '../components/sale-table/change-count-dialog/change-count-dialog.component';
 import { ChangePriceDialogComponent } from '../components/sale-table/change-price-dialog/change-price-dialog.component';
 import { SecondPriceDialogComponent } from '../components/sale-table/second-price-dialog/second-price-dialog.component';
 import { ChangePrice } from '../interfaces/ChangePrice';
@@ -15,6 +16,22 @@ export class SaleTableService
     public dialog: MatDialog
   ) 
   { }
+
+  /**
+   * Dialogo para cambiar la cantidad del producto actual
+   * @param SaleItem 
+   * @returns 
+   */
+  verifyChangeCountData( SaleItem: SaleItem )
+  {
+    const dialogRef = this.dialog.open(ChangeCountDialogComponent, {
+      minWidth: '300px',
+      maxWidth: '500px',
+      data: SaleItem.count // Le paso la cantidad total registrada en la venta(Maximo)
+    });
+
+    return dialogRef;      
+  }
 
   /**
    * Hace las validaciones y lógica para saber cuantos productos se cobran con el 

@@ -26,6 +26,7 @@ export class SaleTableComponent implements OnInit, AfterViewInit
   @Output() onPlusItem: EventEmitter<SaleItemDetail> = new EventEmitter();
   @Output() onMinusItem: EventEmitter<SaleItemDetail> = new EventEmitter();
   @Output() onChangePriceItem: EventEmitter<SaleItemDetail> = new EventEmitter();
+  @Output() onChangeCountItem: EventEmitter<SaleItemDetail> = new EventEmitter();
   @Output() onMarkSecondPrice: EventEmitter<SaleItemDetail> = new EventEmitter();
   
   public dataSource: MatTableDataSource<SaleItem>;
@@ -155,9 +156,27 @@ export class SaleTableComponent implements OnInit, AfterViewInit
     return false;
   }
 
+  /**
+   * Cambiar la cantidad de un item enlistado
+   * @param item Producto a cambiar la cantidad 
+   */
   openChangeCountDialog( item: SaleItem )
   {
-    
+    const dialog = this.saleTableService.verifyChangeCountData( item );
+    dialog.afterClosed().subscribe((result: number) => {    
+      if( result )
+      {
+        item.count = result;
+
+        const saleItemDetail: SaleItemDetail = {
+          index: this.index,
+          id: item.id,
+          product: item
+        };
+
+        this.onChangeCountItem.emit( saleItemDetail );
+      }
+    });
   }
 
   /**
