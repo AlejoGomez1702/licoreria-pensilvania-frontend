@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsValidationService } from 'src/app/core/services/forms-validation.service';
@@ -86,7 +86,7 @@ export class NewProductComponent implements OnInit
 
   createFormBuilder(): void
   {
-    const formData = this.inventoryService.verifyCreateProductFormBuilder( this.productType );
+    const formData = this.inventoryService.verifyProductFormBuilder( this.productType );
     this.form = this.fb.group( formData );
   }
 

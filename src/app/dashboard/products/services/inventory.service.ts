@@ -140,7 +140,7 @@ export class InventoryService
     }
   }
 
-  verifyCreateProductFormBuilder(productType: string)
+  verifyProductFormBuilder(productType: string)
   {
     switch (productType) 
     {
