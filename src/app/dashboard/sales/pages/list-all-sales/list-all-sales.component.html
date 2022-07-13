@@ -34,8 +34,8 @@
             </mat-form-field>
         </div>
 
+        <!-- Seleccionar el rango de tiempo -->
         <ng-container *ngIf="range.valid && ((range.get('start')?.value + '') === (range.get('end')?.value) + '')">
-            <!-- Seleccionar el rango de tiempo -->
             <div class="col-md-6 col-xs-6 col-6 col-lg-6">
                 <div class="row" [formGroup]="rangeTime">
                     <div class="field col-6 col-md-6">
